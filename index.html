@@ -1,25 +1,65 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ETHICOIN | Verini Geri Al</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETHICOIN | Future of Data Economy</title>
     <style>
-        body { background-color: #0b0e11; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        .container { width: 80%; margin: auto; text-align: center; padding-top: 100px; }
-        h1 { font-size: 4rem; background: linear-gradient(to right, #2ecc71, #ff69b4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { font-size: 1.5rem; color: #a0a0a0; }
-        .btn { padding: 15px 30px; border-radius: 30px; border: none; font-weight: bold; cursor: pointer; margin: 10px; transition: 0.3s; }
-        .btn-green { background-color: #2ecc71; color: black; }
-        .btn-outline { background: transparent; border: 2px solid #ff69b4; color: #ff69b4; }
-        .btn:hover { transform: scale(1.1); box-shadow: 0 0 20px rgba(46, 204, 113, 0.4); }
+        :root { --main-green: #00ff88; --bg-black: #050505; }
+        body { background-color: var(--bg-black); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; top: 0 !important; }
+        
+        /* Çeviri çubuğunu şıklaştırıyoruz */
+        #google_translate_element { padding: 10px; }
+        .goog-te-banner-frame.skiptranslate { display: none !important; }
+        
+        nav { padding: 15px 50px; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; background: #000; position: sticky; top: 0; z-index: 1000; }
+        .logo { font-weight: bold; color: var(--main-green); font-size: 1.5rem; letter-spacing: 2px; }
+        .hero { padding: 100px 20px; background: radial-gradient(circle at center, #00ff881a 0%, transparent 70%); }
+        h1 { font-size: 3.5rem; margin-bottom: 10px; text-transform: uppercase; }
+        .btn { background: var(--main-green); color: black; border: none; padding: 12px 30px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); box-shadow: 0 0 20px var(--main-green); }
+        .roadmap { padding: 50px; background: #080808; border-radius: 20px; margin: 20px; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ETHICOIN</h1>
-        <p>Yapay Zeka Devriminde Verinin Gerçek Sahibi Siz Olun.</p>
-        <button class="btn btn-green">Cüzdan Bağla</button>
-        <button class="btn btn-outline">Whitepaper</button>
-    </div>
+
+<nav>
+    <div class="logo">ETHICOIN</div>
+    
+    <div id="google_translate_element"></div>
+
+    <button class="btn" id="connectButton" onclick="connectWallet()">CONNECT WALLET</button>
+</nav>
+
+<section class="hero">
+    <h1>Building the Data Future</h1>
+    <p>Ethicoin is a decentralized blockchain ecosystem designed for secure data mining and ethical AI integration.</p>
+</section>
+
+<section class="roadmap">
+    <h2>PROJECT ROADMAP</h2>
+    <p>🚀 Q1 2026: Global Launch</p>
+    <p>🛠️ Q2 2026: AI Integration</p>
+    <p>💎 Q3 2026: Major Exchange Listings</p>
+</section>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    async function connectWallet() {
+        if (window.ethereum) {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            document.getElementById('connectButton').innerText = accounts[0].substring(0, 6) + "...";
+        } else {
+            alert("Please install MetaMask!");
+        }
+    }
+</script>
+
 </body>
 </html>
