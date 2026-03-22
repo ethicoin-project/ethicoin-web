@@ -7,14 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; --white: #ffffff; }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         
         body, html { 
             width: 100%; height: 100%; overflow: hidden; 
             font-family: 'Inter', sans-serif; background: var(--bg); 
         }
 
-        /* 1. KATMAN: VİDEO GELMEZSE ÇALIŞACAK NEON ATMOSFER */
+        /* 1. KATMAN: NEON ATMOSFER (VİDEO GELMEZSE VEYA YÜKLENİRKEN) */
         .atmosphere {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
@@ -30,22 +30,56 @@
         #bg-video {
             position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;
             z-index: -1; object-fit: cover; filter: brightness(0.28) contrast(1.15);
-            opacity: 0; transition: opacity 2.5s ease; /* Video hazır olunca yumuşakça belirir */
+            opacity: 0; transition: opacity 2.5s ease;
         }
 
-        /* 3. KATMAN: İÇERİK */
+        /* 3. KATMAN: ANA İÇERİK */
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; background: rgba(0,0,0,0.15);
         }
 
+        /* 🤩 GÖRÜNMEZ IŞIK DALGALI ETHIC YAZISI EFECTİ 🤩 */
         h1 { 
             font-size: clamp(3.5rem, 15vw, 7.5rem); 
+            font-weight: 900; letter-spacing: -6px; line-height: 0.9;
+            margin: 0; text-transform: uppercase;
+
+            /* Temel Yeşil-Pembe Gradyanı */
             background: linear-gradient(135deg, var(--green), var(--pink)); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            font-weight: 900; letter-spacing: -6px; line-height: 0.9;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+            background-clip: text; color: transparent;
+
+            position: relative;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
+        }
+
+        /* Işık Dalgasını Oluşturan Pseudo-Element */
+        h1::after {
+            content: "ETHIC"; /* Ana yazının üzerine aynısını kopyalar */
+            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+            
+            /* Görünmez Işık Dalgasının Ta Kendisi: Sadece ortadaki yeşil kısım parlar */
+            background: linear-gradient(to right, transparent 0%, transparent 40%, #00ff88 50%, transparent 60%, transparent 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; color: transparent;
+            
+            /* Dalganın boyutu ve konumu */
+            background-size: 200% 100%;
+            background-position: -200% 0%;
+            
+            /* Animasyon Kilidi: Sol'dan Sağ'a, 4 Saniyede Bir, Sonsuza Kadar */
+            animation: waveGlow 4s infinite linear;
+            
+            /* Dalganın parıltı şiddetini ayarlar */
+            filter: drop-shadow(0 0 10px rgba(0,255,136,0.8)) blur(1px);
+        }
+
+        /* Dalganın Kayma Animasyonu */
+        @keyframes waveGlow {
+            0% { background-position: -200% 0%; } /* Sol'dan başlar */
+            100% { background-position: 200% 0%; } /* Sağ'dan çıkar */
         }
 
         .tagline { 
@@ -92,57 +126,4 @@
 
     <div class="atmosphere"></div>
 
-    <video autoplay muted loop playsinline id="bg-video" oncanplay="this.style.opacity=1">
-        <source src="background.mp4" type="video/mp4">
-    </video>
-
-    <div class="overlay">
-        <h1>ETHIC</h1>
-        <div class="tagline">Ethical Human Intelligence</div>
-
-        <div class="btn-container">
-            <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
-            <button class="btn btn-secondary" onclick="openModal()">The Manifesto</button>
-        </div>
-
-        <div class="status-bar">
-            <span class="dot"></span> SECURED PROTOCOL: ACTIVE
-        </div>
-    </div>
-
-    <div id="wpModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>📜 THE MANIFESTO</h2>
-            <div class="manifesto-quote">
-                "Data is the new oil, but while we produce it, tech giants reap the profits. <span style="color:var(--green)">ETHIC</span> returns value to its rightful owners."
-            </div>
-            <p>Today, your data builds trillion-dollar empires, yet you remain the 'product'. ETHIC is a decentralized protocol designed to return value to you.</p>
-            <hr style="border:0; border-top:1px solid #333; margin:30px 0;">
-            <h2>📄 TOKENOMICS</h2>
-            <p>• Total Supply: 1,000,000,000 ETHIC<br>
-               • Liquidity: Locked for 24 Months<br>
-               • Distribution: 50% Public, 30% Ecosystem, 20% Team/Marketing</p>
-            <button class="btn btn-primary" style="width:100%; margin-top:30px;" onclick="closeModal()">BACK TO PROTOCOL</button>
-        </div>
-    </div>
-
-    <script>
-        async function connect() {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const btn = document.getElementById('walletBtn');
-                    btn.innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
-                    btn.style.background = "#ffffff"; btn.style.color = "#000000";
-                    console.log("Connected Successfully");
-                } catch (e) { console.error("User rejected"); }
-            } else { alert("MetaMask required!"); }
-        }
-
-        function openModal() { document.getElementById("wpModal").style.display = "block"; }
-        function closeModal() { document.getElementById("wpModal").style.display = "none"; }
-        window.onclick = function(e) { if(e.target == document.getElementById("wpModal")) closeModal(); }
-    </script>
-</body>
-</html>
+    <video
