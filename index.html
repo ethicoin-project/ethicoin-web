@@ -40,7 +40,7 @@
             text-align: center; background: rgba(0,0,0,0.15);
         }
 
-        /* ✨ SOLDAN SAĞA PARLAYAN ETHIC YAZISI ✨ */
+        /* ✨ SAĞDAN SOLA PARLAYAN ETHIC YAZISI ✨ */
         h1 { 
             font-size: clamp(3.5rem, 15vw, 7.5rem); 
             font-weight: 900; letter-spacing: -6px; line-height: 0.9;
@@ -61,23 +61,23 @@
                 90deg, 
                 transparent 0%, 
                 transparent 30%, 
-                rgba(255, 255, 255, 0.8) 50%, 
+                rgba(255, 255, 255, 0.7) 50%, 
                 transparent 70%, 
                 transparent 100%
             );
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 100%;
-            /* Başlangıç noktası: Sol dış taraf */
-            background-position: 150% 0%; 
-            animation: leftToRight 3.5s infinite linear;
-            filter: blur(3px); /* Işığı biraz dağıtıp daha gerçekçi yapar */
+            /* Başlangıç noktası: Sağ dış taraf */
+            background-position: -150% 0%; 
+            animation: rightToLeft 4s infinite linear;
+            filter: blur(2px);
         }
 
-        /* SOLDAN SAĞA AKIŞ ANİMASYONU */
-        @keyframes leftToRight {
-            0% { background-position: 150% 0%; }   /* Sol tarafın gerisi */
-            100% { background-position: -150% 0%; } /* Sağ tarafın ilerisi */
+        /* SAĞDAN SOLA AKIŞ ANİMASYONU */
+        @keyframes rightToLeft {
+            0% { background-position: -150% 0%; }   /* Sağ taraftan başlar */
+            100% { background-position: 150% 0%; }  /* Sol taraftan çıkar */
         }
 
         .tagline { color: #777; font-size: 0.85rem; margin-top: 20px; letter-spacing: 7px; text-transform: uppercase; }
