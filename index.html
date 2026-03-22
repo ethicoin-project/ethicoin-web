@@ -8,18 +8,35 @@
     <style>
         :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body, html { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', sans-serif; background: #000; }
+        
+        body, html { 
+            width: 100%; height: 100%; overflow: hidden; 
+            font-family: 'Inter', sans-serif; background: var(--bg); 
+        }
 
-        /* FULL SCREEN VIDEO */
+        /* VİDEO GELMEZSE ÇALIŞACAK IŞIK SİSTEMİ */
+        .glow-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(46, 204, 113, 0.15), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 105, 180, 0.15), transparent 40%);
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* VİDEO AYARI */
         #bg-video {
             position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;
             z-index: -1; object-fit: cover; filter: brightness(0.3) contrast(1.1);
+            transition: opacity 2s ease;
         }
 
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; background: rgba(0,0,0,0.3);
+            text-align: center; background: rgba(0,0,0,0.2);
         }
 
         h1 { 
@@ -31,7 +48,7 @@
 
         .tagline { color: #888; font-size: 0.9rem; margin-top: 15px; letter-spacing: 5px; text-transform: uppercase; }
 
-        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 320px; z-index: 10; }
+        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 320px; }
         .btn {
             padding: 18px; border-radius: 14px; border: none; font-weight: 700; 
             font-size: 1rem; cursor: pointer; text-transform: uppercase; 
@@ -48,14 +65,16 @@
         }
         .modal-content {
             background: #161b22; margin: 5% auto; padding: 40px;
-            border: 1px solid var(--green); width: 95%; max-width: 700px;
+            border: 1px solid var(--green); width: 95%; max-width: 650px;
             border-radius: 25px; text-align: left; line-height: 1.8; color: #ccc;
         }
     </style>
 </head>
 <body>
 
-    <video autoplay muted loop playsinline id="bg-video">
+    <div class="glow-bg"></div>
+
+    <video autoplay muted loop playsinline id="bg-video" preload="auto">
         <source src="background.mp4" type="video/mp4">
     </video>
 
@@ -71,12 +90,12 @@
 
     <div id="wpModal" class="modal">
         <div class="modal-content">
-            <span style="color:var(--pink); float:right; cursor:pointer; font-size:30px;" onclick="closeModal()">&times;</span>
+            <span style="color:var(--pink); float:right; cursor:pointer; font-size:35px;" onclick="closeModal()">&times;</span>
             <h2 style="color:var(--green);">📜 THE MANIFESTO</h2>
             <p style="font-style:italic; color:#eee; border-left:4px solid var(--pink); padding-left:15px; margin:20px 0;">
-                "Data is the new oil, but tech giants reap the profits. ETHIC returns value to its rightful owners."
+                "Data is the new oil, but tech giants reap the profits. <span style="color:var(--green)">ETHIC</span> returns value to its owners."
             </p>
-            <p><strong>Supply:</strong> 1,000,000,000 ETHIC<br><strong>Status:</strong> Global Launch Active</p>
+            <p><strong>Total Supply:</strong> 1,000,000,000 ETHIC<br><strong>Status:</strong> Global Launch Active</p>
             <button class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="closeModal()">CLOSE</button>
         </div>
     </div>
@@ -89,7 +108,7 @@
                     document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
                     document.getElementById('walletBtn').style.background = "white";
                 } catch (e) { console.log("Rejected"); }
-            } else { alert("Use MetaMask!"); }
+            } else { alert("MetaMask Browser Required!"); }
         }
         function openModal() { document.getElementById("wpModal").style.display = "block"; }
         function closeModal() { document.getElementById("wpModal").style.display = "none"; }
