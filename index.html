@@ -14,33 +14,40 @@
             font-family: 'Inter', sans-serif; background: var(--bg); 
         }
 
-        /* 1. KATMAN: NEON ATMOSFER */
-        .atmosphere {
+        /* ✨ CANLI VE HAREKETLİ NEON ARKA PLAN (VİDEO YERİNE) ✨ */
+        .animated-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            background: 
-                radial-gradient(circle at 10% 20%, rgba(46, 204, 113, 0.18), transparent 45%),
-                radial-gradient(circle at 90% 80%, rgba(255, 105, 180, 0.18), transparent 45%);
-            animation: pulseBg 10s infinite alternate ease-in-out;
+            z-index: -1;
+            background: var(--bg);
+            overflow: hidden;
         }
 
-        @keyframes pulseBg { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.1); } }
-
-        /* 2. KATMAN: ARKA PLAN VİDEOSU */
-        #bg-video {
-            position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;
-            z-index: -1; object-fit: cover; filter: brightness(0.28) contrast(1.15);
-            opacity: 0; transition: opacity 2.5s ease;
+        /* Hareket eden ışık küreleri */
+        .blob {
+            position: absolute; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(46, 204, 113, 0.15) 0%, transparent 70%);
+            border-radius: 50%; filter: blur(60px);
+            animation: move 20s infinite alternate;
+        }
+        .blob-2 {
+            right: -100px; bottom: -100px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.15) 0%, transparent 70%);
+            animation: move 15s infinite alternate-reverse;
         }
 
-        /* 3. KATMAN: ANA İÇERİK */
+        @keyframes move {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.2); }
+        }
+
+        /* 2. KATMAN: ANA İÇERİK */
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; background: rgba(0,0,0,0.15);
+            text-align: center; background: rgba(0,0,0,0.2);
         }
 
-        /* ✨ ANA BAŞLIK (SAĞDAN SOLA PARLAYAN) ✨ */
+        /* ✨ SAĞDAN SOLA PARLAYAN ANA BAŞLIK ✨ */
         h1 { 
             font-size: clamp(3.5rem, 15vw, 7.5rem); 
             font-weight: 900; letter-spacing: -6px; line-height: 0.9;
@@ -49,7 +56,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
             background-clip: text; color: transparent;
             position: relative;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.6));
         }
 
         h1::after {
@@ -64,7 +71,7 @@
             filter: blur(2px);
         }
 
-        /* ✨ ALT BAŞLIK (AYNI ŞEKİLDE PARLAYAN) ✨ */
+        /* ✨ SAĞDAN SOLA PARLAYAN SLOGAN ✨ */
         .tagline { 
             color: #777; font-size: 0.85rem; margin-top: 20px; 
             letter-spacing: 7px; text-transform: uppercase;
@@ -86,7 +93,6 @@
             filter: blur(1px);
         }
 
-        /* ORTAK SAĞDAN SOLA AKIŞ ANİMASYONU */
         @keyframes rightToLeft {
             0% { background-position: -150% 0%; }
             100% { background-position: 150% 0%; }
@@ -98,7 +104,7 @@
             padding: 20px; border-radius: 16px; border: none; font-weight: 700; 
             font-size: 0.95rem; cursor: pointer; text-transform: uppercase; 
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
         }
         .btn-primary { background: var(--green); color: #000; box-shadow: 0 15px 30px rgba(46, 204, 113, 0.25); }
         .btn-secondary { background: rgba(255, 255, 255, 0.03); border: 2px solid var(--pink); color: var(--pink); }
@@ -120,11 +126,10 @@
 </head>
 <body>
 
-    <div class="atmosphere"></div>
-
-    <video autoplay muted loop playsinline id="bg-video" oncanplay="this.style.opacity=1">
-        <source src="background.mp4" type="video/mp4">
-    </video>
+    <div class="animated-bg">
+        <div class="blob"></div>
+        <div class="blob blob-2"></div>
+    </div>
 
     <div class="overlay">
         <h1>ETHIC</h1>
@@ -146,4 +151,20 @@
         </div>
     </div>
 
-    <script
+    <script>
+        async function connect() {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const btn = document.getElementById('walletBtn');
+                    btn.innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
+                    btn.style.background = "#ffffff"; btn.style.color = "#000000";
+                } catch (e) { console.error("User rejected"); }
+            } else { alert("MetaMask required!"); }
+        }
+        function openModal() { document.getElementById("wpModal").style.display = "block"; }
+        function closeModal() { document.getElementById("wpModal").style.display = "none"; }
+        window.onclick = function(e) { if(e.target == document.getElementById("wpModal")) closeModal(); }
+    </script>
+</body>
+</html>
