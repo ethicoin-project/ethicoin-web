@@ -30,19 +30,14 @@
         h1 { font-size: clamp(3.5rem, 15vw, 8.5rem); font-weight: 900; letter-spacing: -7px; line-height: 0.85; background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; position: relative; margin-bottom: 15px; }
         .tagline { color: #555; font-size: 0.9rem; letter-spacing: 6px; text-transform: uppercase; font-weight: 700; }
 
-        /* 📟 CANLI İŞLEM TERMİNALİ */
-        .terminal { position: fixed; bottom: 100px; left: 20px; width: 220px; height: 140px; background: rgba(0,0,0,0.6); border-radius: 12px; border: 1px solid #1a1a1a; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--green); overflow: hidden; display: flex; flex-direction: column-reverse; pointer-events: none; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        /* 📟 CANLI İŞLEM TERMİNALİ (SOL ALT) */
+        .terminal { position: fixed; bottom: 30px; left: 20px; width: 220px; height: 140px; background: rgba(0,0,0,0.6); border-radius: 12px; border: 1px solid #1a1a1a; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--green); overflow: hidden; display: flex; flex-direction: column-reverse; pointer-events: none; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
         .terminal span { margin-bottom: 4px; opacity: 0.9; }
 
-        /* 🛡️ GÜVENLİK ROZETLERİ (YENİ) */
+        /* 🛡️ GÜVENLİK ROZETLERİ */
         .trust-badges { margin-top: 30px; display: flex; gap: 20px; align-items: center; opacity: 0.4; filter: grayscale(1); transition: 0.5s; }
         .trust-badges:hover { opacity: 0.8; filter: grayscale(0); }
         .badge { font-size: 0.65rem; font-weight: 900; color: #fff; letter-spacing: 2px; border: 1px solid #333; padding: 5px 12px; border-radius: 5px; text-transform: uppercase; }
-
-        /* 🟢 CANLI SAYAÇ */
-        .live-counter { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); padding: 12px 35px; border-radius: 50px; border: 1px solid rgba(46, 204, 113, 0.25); font-size: 0.75rem; color: var(--green); backdrop-filter: blur(20px); z-index: 100; white-space: nowrap; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
-        .dot { height: 8px; width: 8px; background-color: var(--green); border-radius: 50%; display: inline-block; margin-right: 12px; animation: blink 1.2s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.1; transform: scale(0.7); } }
 
         /* SOSYAL & BUTONLAR */
         .social-dock { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
@@ -55,7 +50,11 @@
         .btn-airdrop { background: linear-gradient(90deg, var(--pink), #8e44ad); color: white; box-shadow: 0 10px 30px rgba(255,105,180,0.3); }
         .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
-        @media (max-width: 600px) { .terminal, .trust-badges { display: none; } h1 { font-size: 4rem; letter-spacing: -3px; } .live-counter { width: 92%; text-align: center; } }
+        @media (max-width: 600px) { 
+            .terminal, .trust-badges { display: none; } 
+            h1 { font-size: 4rem; letter-spacing: -3px; } 
+            .social-dock { bottom: 20px; right: 20px; }
+        }
     </style>
 </head>
 <body>
@@ -89,10 +88,6 @@
 
     <div class="terminal" id="terminal"></div>
 
-    <div class="live-counter">
-        <span class="dot"></span> Network Capacity: <span id="dataCount">1,241,120</span> GB
-    </div>
-
     <div class="social-dock">
         <a href="https://t.me/ethicprotocol" target="_blank" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
         <a href="https://x.com/ethicprotocol" target="_blank" class="social-icon"><i class="fab fa-x-twitter"></i></a>
@@ -107,63 +102,5 @@
             const msgs = ["ENCRYPTING_DATA...", "NODE_04_ACTIVE", "VALIDATING_BLOCK", "REWARD_MINTED", "ZK_PROOF: 100%", "SHARDING_COMPLETE"];
             setInterval(() => {
                 const line = document.createElement('span');
-                line.textContent = ">> " + msgs[Math.floor(Math.random() * msgs.length)];
-                term.prepend(line);
-                if(term.children.length > 8) term.lastChild.remove();
-            }, 1000);
-        }
-        startTerminal();
-
-        // 🌌 PARÇACIK EFEKTİ
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let particles = [];
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if(this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if(this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
-                ctx.beginPath(); ctx.arc(this.x, this.y, 1.2, 0, Math.PI * 2); ctx.fill();
-            }
-        }
-        function init() { for(let i=0; i<70; i++) particles.push(new Particle()); }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        init(); animate();
-
-        async function connectWallet() {
-            if (window.ethereum) {
-                const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                document.getElementById('walletBtn').innerText = acc[0].substring(0,6)+"..."+acc[0].slice(-4);
-                localStorage.setItem('wallet', acc[0]);
-            }
-        }
-
-        function joinWaitlist() {
-            const w = localStorage.getItem('wallet');
-            if(!w) alert("Please Connect Wallet First!");
-            else alert("Genesis Registration Successful!");
-        }
-
-        let count = 1241120;
-        setInterval(() => {
-            count += Math.floor(Math.random() * 8);
-            document.getElementById('dataCount').innerText = count.toLocaleString();
-        }, 1500);
-    </script>
-</body>
-</html>
+                line.textContent = ">> " + msgs[Math
+            
