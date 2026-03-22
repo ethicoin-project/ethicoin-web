@@ -3,99 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Ethical Human Intelligence Protocol</title>
+    <title>ETHIC | Ethical Human Intelligence</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; --white: #ffffff; }
-        * { box-sizing: border-box; }
-        body { 
-            background-color: var(--bg); color: var(--white); 
-            font-family: 'Inter', sans-serif; margin: 0; 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; min-height: 100vh; text-align: center;
-        }
+        :root { --green: #2ecc71; --pink: #ff69b4; --bg-dark: rgba(11, 14, 17, 0.85); }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* Neon Işıltı Başlık */
+        body, html { height: 100%; width: 100%; font-family: 'Inter', sans-serif; overflow: hidden; background: #000; }
+
+        /* ARKA PLAN VİDEOSU AYARLARI */
+        #bg-video {
+            position: fixed; right: 0; bottom: 0;
+            min-width: 100%; min-height: 100%;
+            z-index: -2; object-fit: cover;
+            filter: brightness(0.4) saturate(1.2); /* Videoyu biraz karartıyoruz ki yazılar okunsun */
+        }
+
+        /* VİDEO ÜZERİNE KARARTMA KATMANI */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, var(--bg-dark) 90%);
+            z-index: -1;
+        }
+
+        .container { 
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; height: 100vh; text-align: center; color: white;
+            padding: 20px;
+        }
+
         h1 { 
-            font-size: clamp(3.5rem, 15vw, 6.5rem); 
+            font-size: clamp(4rem, 18vw, 8rem); 
             background: linear-gradient(135deg, var(--green), var(--pink)); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            margin: 0; font-weight: 900; letter-spacing: -4px;
+            font-weight: 900; letter-spacing: -5px; line-height: 0.9;
+            filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.3));
         }
-        .tagline { color: #888; font-size: 0.9rem; margin-top: 10px; letter-spacing: 5px; text-transform: uppercase; }
 
-        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 320px; z-index: 10; }
+        .tagline { color: #ccc; font-size: 1rem; margin-top: 20px; letter-spacing: 6px; text-transform: uppercase; }
+
+        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 300px; }
+
         .btn {
-            padding: 18px; border-radius: 14px; border: none; 
-            font-weight: 700; font-size: 1rem; cursor: pointer; 
-            transition: 0.3s; text-transform: uppercase;
+            padding: 20px; border-radius: 15px; border: none; font-weight: 700; 
+            font-size: 1rem; cursor: pointer; transition: 0.3s; text-transform: uppercase;
+            backdrop-filter: blur(5px);
         }
-        .btn-primary { background: var(--green); color: #000; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2); }
-        .btn-secondary { background: transparent; border: 2px solid var(--pink); color: var(--pink); }
-        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn-primary { background: var(--green); color: #000; }
+        .btn-secondary { background: rgba(255, 255, 255, 0.1); border: 2px solid var(--pink); color: var(--pink); }
+        .btn:hover { transform: scale(1.05); filter: brightness(1.2); }
 
-        /* Modern Açılır Pencere */
+        /* MODAL / MANİFESTO TASARIMI */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(0,0,0,0.96);
-            overflow-y: auto; padding: 20px; backdrop-filter: blur(15px);
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            padding: 20px; backdrop-filter: blur(15px);
         }
         .modal-content {
-            background: #161b22; margin: 2% auto; padding: 45px;
-            border: 1px solid rgba(46, 204, 113, 0.2); width: 95%; max-width: 750px;
-            border-radius: 30px; text-align: left; line-height: 1.7;
+            background: rgba(22, 27, 34, 0.95); margin: 5% auto; padding: 40px;
+            border: 1px solid var(--green); width: 95%; max-width: 700px;
+            border-radius: 30px; text-align: left;
         }
-        .close { color: var(--pink); float: right; font-size: 30px; font-weight: bold; cursor: pointer; }
-        
-        h2 { color: var(--green); font-size: 1.8rem; margin-bottom: 20px; font-weight: 900; }
-        .manifesto-quote { 
-            font-size: 1.2rem; color: #eee; font-style: italic; 
-            border-left: 4px solid var(--pink); padding-left: 20px; margin: 25px 0;
-        }
-        .highlight { color: var(--green); font-weight: bold; }
-        
-        .status-bar { margin-top: 40px; font-size: 0.7rem; color: #444; letter-spacing: 1px; }
-        .dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 2s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+        .close { color: var(--pink); float: right; font-size: 35px; font-weight: bold; cursor: pointer; }
+        h2 { color: var(--green); font-size: 2rem; margin-bottom: 20px; }
+        .manifesto-text { font-style: italic; font-size: 1.2rem; color: #eee; border-left: 4px solid var(--pink); padding-left: 20px; margin: 30px 0; }
+
+        .status-bar { position: absolute; bottom: 30px; font-size: 0.7rem; color: #666; letter-spacing: 2px; }
+        .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <h1>ETHIC</h1>
-    <div class="tagline">Ethical Human Intelligence</div>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-network-of-data-nodes-34412-large.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
 
-    <div class="btn-container">
-        <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
-        <button class="btn btn-secondary" onclick="openModal()">The Manifesto</button>
+    <div class="container">
+        <h1>ETHIC</h1>
+        <div class="tagline">Ethical Human Intelligence</div>
+
+        <div class="btn-container">
+            <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
+            <button class="btn btn-secondary" onclick="openModal()">The Manifesto</button>
+        </div>
+
+        <div class="status-bar">
+            <span class="dot"></span> MAINNET NODE: ACTIVE
+        </div>
     </div>
 
     <div id="wpModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            
             <h2>📜 THE MANIFESTO</h2>
-            <div class="manifesto-quote">
-                "Veri, modern dünyanın yeni petrolüdür; ancak bu petrolü çıkaranlar biziz, kârını toplayanlar ise teknoloji devleri. <span class="highlight">ETHIC</span>, bu sömürü düzenine son vermek için doğdu."
+            <div class="manifesto-text">
+                "Veri modern dünyanın petrolüdür, ancak biz bu petrolü çıkaran işçileriz. ETHIC, verinin asıl sahibine, yani insana hak ettiği değeri geri kazandırmak için kurulmuş bir başkaldırıdır."
             </div>
-            
-            <p>Bugün verilerinizle trilyon dolarlık imparatorluklar kurulurken, siz bu denklemin sadece birer 'ürünü' haline getirildiniz. <strong>ETHIC (Ethical Human Intelligence Coin)</strong>, verinin asıl sahibine değerini geri kazandıran, merkeziyetsiz ve adil bir zeka protokolüdür.</p>
-
-            <hr style="border: 0; border-top: 1px solid #333; margin: 30px 0;">
-
-            <h2>📄 PROJECT DETAILS</h2>
-            <p><strong>Utility:</strong> Veri sağlayıcılarını ödüllendirme ve AI eğitiminde etik veri kullanımı.</p>
-            <p><strong>Supply:</strong> 1,000,000,000 ETHIC<br>
-               <strong>Network:</strong> Web3 Secured Infrastructure (BSC/ETH)</p>
-            
+            <p><strong>ETHIC (Ethical Human Intelligence Coin)</strong>, yapay zeka eğitiminde etik veri kullanımını teşvik eden ve veri sağlayıcılarını doğrudan ödüllendiren merkeziyetsiz bir protokoldür.</p>
             <button class="btn btn-primary" style="width:100%; margin-top:30px;" onclick="closeModal()">SİSTEME GİRİŞ YAP</button>
         </div>
     </div>
-
-    <div class="status-bar">
-        <span class="dot"></span> PROTOCOL STATUS: ACTIVE & OPERATIONAL
-    </div>
-
-    <footer>ETHICOIN.BIZ — 2026</footer>
 
     <script>
         async function connect() {
@@ -104,14 +114,13 @@
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const btn = document.getElementById('walletBtn');
                     btn.innerText = accounts[0].substring(0, 6) + "..." + accounts[0].substring(accounts[0].length - 4);
-                    btn.style.background = "white"; btn.style.color = "black";
+                    btn.style.background = "white";
                 } catch (e) { console.log("Rejected"); }
             } else { alert("Please use MetaMask Browser!"); }
         }
 
         function openModal() { document.getElementById("wpModal").style.display = "block"; }
         function closeModal() { document.getElementById("wpModal").style.display = "none"; }
-        window.onclick = function(e) { if(e.target == document.getElementById("wpModal")) closeModal(); }
     </script>
 </body>
 </html>
