@@ -2,48 +2,151 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ETHICOIN | Take Your Data Back</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETHICOIN | The Future of Data Economy</title>
     <style>
-        body { background-color: #0b0e11; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        .container { width: 80%; margin: auto; text-align: center; padding-top: 100px; }
-        h1 { font-size: 4rem; background: linear-gradient(to right, #2ecc71, #ff69b4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px; }
-        p { font-size: 1.5rem; color: #a0a0a0; margin-bottom: 40px; }
-        .btn { padding: 15px 30px; border-radius: 30px; border: none; font-weight: bold; cursor: pointer; margin: 10px; transition: 0.3s; font-size: 1rem; min-width: 180px; }
-        .btn-green { background-color: #2ecc71; color: black; }
-        .btn-outline { background: transparent; border: 2px solid #ff69b4; color: #ff69b4; }
-        .btn:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(46, 204, 113, 0.5); }
+        :root {
+            --bg-color: #0b0e11;
+            --green: #2ecc71;
+            --pink: #ff69b4;
+            --text-gray: #a0a0a0;
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            color: white; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .container { 
+            width: 85%; 
+            max-width: 1000px;
+            margin: auto; 
+            text-align: center; 
+            padding: 80px 0; 
+        }
+
+        h1 { 
+            font-size: clamp(3rem, 10vw, 5rem); 
+            background: linear-gradient(to right, var(--green), var(--pink)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 10px;
+            letter-spacing: -2px;
+        }
+
+        .tagline { font-size: 1.4rem; color: var(--text-gray); margin-bottom: 40px; }
+
+        /* Buttons */
+        .btn-group { margin-bottom: 60px; }
+        .btn { 
+            padding: 16px 35px; 
+            border-radius: 50px; 
+            border: none; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin: 10px; 
+            transition: all 0.3s ease; 
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+        .btn-green { background-color: var(--green); color: black; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--pink); color: var(--pink); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(46, 204, 113, 0.5); }
         .connected { background-color: white !important; color: black !important; }
+
+        /* Info Cards */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 25px; 
+            margin-top: 50px; 
+        }
+        .card { 
+            background: rgba(255, 255, 255, 0.03); 
+            padding: 30px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--green); background: rgba(46, 204, 113, 0.02); }
+        .card h3 { color: var(--green); margin-top: 0; }
+
+        /* Roadmap Section */
+        .roadmap-title { margin-top: 80px; font-size: 2rem; color: white; }
+        
+        footer { padding: 50px 0; color: #444; font-size: 0.9rem; border-top: 1px solid #1a1e23; margin-top: 50px; }
     </style>
 </head>
 <body>
+
     <div class="container">
-        <h1>ETHICOIN</h1>
-        <p>Be the True Owner of Your Data in the AI Revolution.</p>
-        
-        <button id="walletBtn" class="btn btn-green" onclick="connect()">Connect Wallet</button>
-        
-        <button class="btn btn-outline" onclick="alert('Whitepaper coming soon!')">Whitepaper</button>
+        <header>
+            <h1>ETHICOIN</h1>
+            <p class="tagline">Decentralizing the World's Data Intelligence.</p>
+            
+            <div class="btn-group">
+                <button id="walletBtn" class="btn btn-green" onclick="connect()">Connect Wallet</button>
+                <button class="btn btn-outline" onclick="alert('Whitepaper v1.0 is being finalized.')">Whitepaper</button>
+            </div>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Total Supply</h3>
+                <p>1,000,000,000 ETHI</p>
+            </div>
+            <div class="card">
+                <h3>Network</h3>
+                <p>Ethereum Mainnet</p>
+            </div>
+            <div class="card">
+                <h3>Liquidity</h3>
+                <p>Locked for 2 Years</p>
+            </div>
+        </div>
+
+        <h2 class="roadmap-title">Roadmap 2026</h2>
+        <div class="grid">
+            <div class="card">
+                <h4 style="color:var(--pink)">Q2: Launch</h4>
+                <p>Website Release, Community Building, Smart Contract Audit.</p>
+            </div>
+            <div class="card">
+                <h4 style="color:var(--pink)">Q3: Expansion</h4>
+                <p>DEX Listing, Global Marketing, Partnership Announcements.</p>
+            </div>
+            <div class="card">
+                <h4 style="color:var(--pink)">Q4: Ecosystem</h4>
+                <p>Beta Mining Platform, Staking Dashboard, Tier-1 Exchange Listing.</p>
+            </div>
+        </div>
+
+        <footer>
+            © 2026 ETHICOIN Project | domain: ethicoin.biz
+        </footer>
     </div>
 
     <script>
         async function connect() {
             if (window.ethereum) {
                 try {
-                    // Bu satır MetaMask'ı tetikler
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const account = accounts[0];
-                    
-                    // Bağlanınca butonun metni cüzdan adresin olur
                     const btn = document.getElementById('walletBtn');
                     btn.innerText = account.substring(0, 6) + "..." + account.substring(account.length - 4);
                     btn.classList.add('connected');
                 } catch (error) {
-                    console.log("User rejected");
+                    console.error("Connection rejected");
                 }
             } else {
-                alert("Please install MetaMask extension!");
+                alert("MetaMask not detected! Please install the extension.");
             }
         }
     </script>
+
 </body>
 </html>
