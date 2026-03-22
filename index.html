@@ -40,7 +40,7 @@
             text-align: center; background: rgba(0,0,0,0.15);
         }
 
-        /* ✨ SAĞDAN SOLA PARLAYAN ETHIC YAZISI ✨ */
+        /* ✨ ANA BAŞLIK (SAĞDAN SOLA PARLAYAN) ✨ */
         h1 { 
             font-size: clamp(3.5rem, 15vw, 7.5rem); 
             font-weight: 900; letter-spacing: -6px; line-height: 0.9;
@@ -52,38 +52,48 @@
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
         }
 
-        /* Işık Dalgası Katmanı */
         h1::after {
             content: "ETHIC";
             position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-            /* Beyaz/Neon Işık Dalgası */
-            background: linear-gradient(
-                90deg, 
-                transparent 0%, 
-                transparent 30%, 
-                rgba(255, 255, 255, 0.7) 50%, 
-                transparent 70%, 
-                transparent 100%
-            );
+            background: linear-gradient(90deg, transparent 0%, transparent 30%, rgba(255, 255, 255, 0.7) 50%, transparent 70%, transparent 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 100%;
-            /* Başlangıç noktası: Sağ dış taraf */
             background-position: -150% 0%; 
             animation: rightToLeft 4s infinite linear;
             filter: blur(2px);
         }
 
-        /* SAĞDAN SOLA AKIŞ ANİMASYONU */
-        @keyframes rightToLeft {
-            0% { background-position: -150% 0%; }   /* Sağ taraftan başlar */
-            100% { background-position: 150% 0%; }  /* Sol taraftan çıkar */
+        /* ✨ ALT BAŞLIK (AYNI ŞEKİLDE PARLAYAN) ✨ */
+        .tagline { 
+            color: #777; font-size: 0.85rem; margin-top: 20px; 
+            letter-spacing: 7px; text-transform: uppercase;
+            position: relative;
+            background: linear-gradient(90deg, #777, #777);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .tagline { color: #777; font-size: 0.85rem; margin-top: 20px; letter-spacing: 7px; text-transform: uppercase; }
+        .tagline::after {
+            content: "Ethical Human Intelligence";
+            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent 0%, transparent 30%, rgba(255, 255, 255, 0.6) 50%, transparent 70%, transparent 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 100%;
+            background-position: -150% 0%; 
+            animation: rightToLeft 4s infinite linear;
+            filter: blur(1px);
+        }
 
+        /* ORTAK SAĞDAN SOLA AKIŞ ANİMASYONU */
+        @keyframes rightToLeft {
+            0% { background-position: -150% 0%; }
+            100% { background-position: 150% 0%; }
+        }
+
+        /* BUTONLAR */
         .btn-container { margin-top: 60px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 320px; z-index: 10; }
-        
         .btn {
             padding: 20px; border-radius: 16px; border: none; font-weight: 700; 
             font-size: 0.95rem; cursor: pointer; text-transform: uppercase; 
@@ -94,7 +104,7 @@
         .btn-secondary { background: rgba(255, 255, 255, 0.03); border: 2px solid var(--pink); color: var(--pink); }
         .btn:hover { transform: translateY(-7px); filter: brightness(1.2); }
 
-        /* MANIFESTO MODAL */
+        /* MODAL */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.96);
@@ -136,20 +146,4 @@
         </div>
     </div>
 
-    <script>
-        async function connect() {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const btn = document.getElementById('walletBtn');
-                    btn.innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
-                    btn.style.background = "#ffffff"; btn.style.color = "#000000";
-                } catch (e) { console.error("User rejected"); }
-            } else { alert("MetaMask required!"); }
-        }
-        function openModal() { document.getElementById("wpModal").style.display = "block"; }
-        function closeModal() { document.getElementById("wpModal").style.display = "none"; }
-        window.onclick = function(e) { if(e.target == document.getElementById("wpModal")) closeModal(); }
-    </script>
-</body>
-</html>
+    <script
