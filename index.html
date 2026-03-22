@@ -7,118 +7,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; }
-        * { box-sizing: border-box; }
-        
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            overflow: hidden; font-family: 'Inter', sans-serif; 
-            background: var(--bg); /* Video gelmezse bu renk görünecek */
-        }
-
-        /* 1. KATMAN: ARKA PLAN VİDEOSU VE GRADIENT YEDEĞİ */
-        .video-wrapper {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            /* Video yüklenmezse arkada senin renklerin dönecek */
-            background: radial-gradient(circle at top left, rgba(46, 204, 113, 0.15), transparent),
-                        radial-gradient(circle at bottom right, rgba(255, 105, 180, 0.15), transparent);
-        }
-
-        #bg-video {
-            width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.35) contrast(1.1);
-            opacity: 0; transition: opacity 1s ease-in; /* Video hazır olunca yumuşakça gelecek */
-        }
-
-        /* 2. KATMAN: İÇERİK */
-        .content-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; z-index: 10;
-        }
-
-        h1 { 
-            font-size: clamp(3.5rem, 15vw, 7rem); 
-            background: linear-gradient(135deg, var(--green), var(--pink)); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            margin: 0; font-weight: 900; letter-spacing: -4px;
-        }
-
-        .tagline { color: #888; font-size: 0.9rem; margin-top: 10px; letter-spacing: 5px; text-transform: uppercase; }
-
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', sans-serif; background: var(--bg); }
+        #bg-video { position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%; z-index: -1; object-fit: cover; filter: brightness(0.35) contrast(1.1); }
+        .content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        h1 { font-size: clamp(3.5rem, 15vw, 7rem); background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; font-weight: 900; letter-spacing: -4px; }
         .btn-container { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 300px; }
-        
-        .btn {
-            padding: 18px; border-radius: 14px; border: none; 
-            font-weight: 700; font-size: 1rem; cursor: pointer; 
-            text-transform: uppercase; backdrop-filter: blur(10px);
-            transition: 0.3s;
-        }
+        .btn { padding: 18px; border-radius: 14px; border: none; font-weight: 700; font-size: 1rem; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
         .btn-primary { background: var(--green); color: #000; }
-        .btn-secondary { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--pink); color: var(--pink); }
-
-        /* MODAL */
-        .modal {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-            padding: 20px; backdrop-filter: blur(15px);
-        }
-        .modal-content {
-            background: #161b22; margin: 5% auto; padding: 35px;
-            border: 1px solid var(--green); width: 95%; max-width: 650px;
-            border-radius: 25px; text-align: left;
-        }
-        .close { color: var(--pink); float: right; font-size: 30px; cursor: pointer; }
+        .btn-secondary { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--pink); color: var(--pink); backdrop-filter: blur(10px); }
     </style>
 </head>
 <body>
 
-    <div class="video-wrapper">
-        <video autoplay muted loop playsinline id="bg-video" oncanplay="this.style.opacity=1">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-network-of-nodes-and-lines-4414-large.mp4" type="video/mp4">
-        </video>
-    </div>
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="background.mp4" type="video/mp4">
+    </video>
 
-    <div class="content-overlay">
+    <div class="content">
         <h1>ETHIC</h1>
-        <div class="tagline">Ethical Human Intelligence</div>
-
+        <div style="color: #888; letter-spacing: 5px; text-transform: uppercase; margin-top: 10px;">Ethical Human Intelligence</div>
         <div class="btn-container">
-            <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
-            <button class="btn btn-secondary" onclick="openModal()">The Manifesto</button>
-        </div>
-    </div>
-
-    <div id="wpModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 style="color: var(--green);">📜 THE MANIFESTO</h2>
-            <p style="font-style: italic; color: var(--pink); border-left: 3px solid var(--pink); padding-left: 15px;">
-                "Veri, modern dünyanın yeni petrolüdür; ancak bu petrolü çıkaranlar biziz, kârını toplayanlar ise teknoloji devleri. ETHIC, bu sömürü düzenine son vermek için doğdu."
-            </p>
-            <p><strong>Supply:</strong> 1,000,000,000 ETHIC<br><strong>Status:</strong> Live</p>
-            <button class="btn btn-primary" style="width: 100%;" onclick="closeModal()">Close</button>
+            <button class="btn btn-primary" onclick="connect()">Connect Wallet</button>
+            <button class="btn btn-secondary" onclick="alert('Manifesto is loading...')">The Manifesto</button>
         </div>
     </div>
 
     <script>
-        // Sayfa yüklendiğinde videoyu zorla oynat (Bazı tarayıcılar için)
-        window.onload = function() {
-            var v = document.getElementById('bg-video');
-            v.play().catch(function(e) { console.log("Otomatik oynatma engellendi, tıkla ve oynat."); });
-        };
-
         async function connect() {
             if (window.ethereum) {
-                try {
-                    const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    document.getElementById('walletBtn').innerText = accs[0].substring(0,6)+"..."+accs[0].slice(-4);
-                    document.getElementById('walletBtn').style.background = "white";
-                } catch (e) { console.log(e); }
-            } else { alert("MetaMask Browser Required!"); }
+                const accs = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                alert("Connected: " + accs[0]);
+            } else { alert("Please use MetaMask Browser!"); }
         }
-        function openModal() { document.getElementById("wpModal").style.display = "block"; }
-        function closeModal() { document.getElementById("wpModal").style.display = "none"; }
     </script>
 </body>
 </html>
