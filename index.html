@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Ethical Human Intelligence</title>
+    <title>ETHIC | Ethical Human Intelligence Protocol</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; }
+        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; --white: #ffffff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body, html { 
@@ -14,67 +14,85 @@
             font-family: 'Inter', sans-serif; background: var(--bg); 
         }
 
-        /* VİDEO GELMEZSE ÇALIŞACAK IŞIK SİSTEMİ */
-        .glow-bg {
+        /* 1. KATMAN: VİDEO GELMEZSE ÇALIŞACAK NEON ATMOSFER */
+        .atmosphere {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
             background: 
-                radial-gradient(circle at 20% 30%, rgba(46, 204, 113, 0.15), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 105, 180, 0.15), transparent 40%);
-            animation: pulse 8s infinite alternate;
+                radial-gradient(circle at 10% 20%, rgba(46, 204, 113, 0.18), transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(255, 105, 180, 0.18), transparent 45%);
+            animation: pulseBg 10s infinite alternate ease-in-out;
         }
 
-        @keyframes pulse { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+        @keyframes pulseBg { 0% { opacity: 0.6; transform: scale(1); } 100% { opacity: 1; transform: scale(1.1); } }
 
-        /* VİDEO AYARI */
+        /* 2. KATMAN: ARKA PLAN VİDEOSU */
         #bg-video {
             position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;
-            z-index: -1; object-fit: cover; filter: brightness(0.3) contrast(1.1);
-            transition: opacity 2s ease;
+            z-index: -1; object-fit: cover; filter: brightness(0.28) contrast(1.15);
+            opacity: 0; transition: opacity 2.5s ease; /* Video hazır olunca yumuşakça belirir */
         }
 
+        /* 3. KATMAN: İÇERİK */
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; background: rgba(0,0,0,0.2);
+            text-align: center; background: rgba(0,0,0,0.15);
         }
 
         h1 { 
             font-size: clamp(3.5rem, 15vw, 7.5rem); 
             background: linear-gradient(135deg, var(--green), var(--pink)); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            font-weight: 900; letter-spacing: -5px; line-height: 1;
+            font-weight: 900; letter-spacing: -6px; line-height: 0.9;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
         }
 
-        .tagline { color: #888; font-size: 0.9rem; margin-top: 15px; letter-spacing: 5px; text-transform: uppercase; }
+        .tagline { 
+            color: #777; font-size: 0.85rem; margin-top: 20px; 
+            letter-spacing: 7px; text-transform: uppercase; font-weight: 400; 
+        }
 
-        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 320px; }
+        /* BUTONLAR */
+        .btn-container { margin-top: 60px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 320px; z-index: 10; }
+        
         .btn {
-            padding: 18px; border-radius: 14px; border: none; font-weight: 700; 
-            font-size: 1rem; cursor: pointer; text-transform: uppercase; 
-            transition: 0.3s; backdrop-filter: blur(10px);
+            padding: 20px; border-radius: 16px; border: none; font-weight: 700; 
+            font-size: 0.95rem; cursor: pointer; text-transform: uppercase; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            backdrop-filter: blur(8px);
         }
-        .btn-primary { background: var(--green); color: #000; }
-        .btn-secondary { background: rgba(255, 255, 255, 0.05); border: 2px solid var(--pink); color: var(--pink); }
+        .btn-primary { background: var(--green); color: #000; box-shadow: 0 15px 30px rgba(46, 204, 113, 0.25); }
+        .btn-secondary { background: rgba(255, 255, 255, 0.03); border: 2px solid var(--pink); color: var(--pink); }
+        .btn:hover { transform: translateY(-7px); filter: brightness(1.2); }
 
-        /* MODAL */
+        /* MANIFESTO PENCERESİ */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.95);
-            padding: 20px; backdrop-filter: blur(15px);
+            width: 100%; height: 100%; background: rgba(0,0,0,0.96);
+            padding: 20px; backdrop-filter: blur(20px); overflow-y: auto;
         }
         .modal-content {
-            background: #161b22; margin: 5% auto; padding: 40px;
-            border: 1px solid var(--green); width: 95%; max-width: 650px;
-            border-radius: 25px; text-align: left; line-height: 1.8; color: #ccc;
+            background: #11151c; margin: 4% auto; padding: 45px;
+            border: 1px solid rgba(46, 204, 113, 0.25); width: 95%; max-width: 720px;
+            border-radius: 35px; text-align: left; line-height: 1.8; color: #bbb;
         }
+        .close { color: var(--pink); float: right; font-size: 38px; font-weight: bold; cursor: pointer; }
+        
+        h2 { color: var(--green); font-size: 1.8rem; margin-bottom: 20px; font-weight: 900; border-bottom: 1px solid #333; padding-bottom: 15px; }
+        .manifesto-quote { font-style: italic; color: #eee; font-size: 1.25rem; border-left: 5px solid var(--pink); padding-left: 20px; margin: 30px 0; }
+        
+        .status-bar { position: absolute; bottom: 35px; font-size: 0.7rem; color: #444; letter-spacing: 2px; }
+        .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 8px; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
     </style>
 </head>
 <body>
 
-    <div class="glow-bg"></div>
+    <div class="atmosphere"></div>
 
-    <video autoplay muted loop playsinline id="bg-video" preload="auto">
+    <video autoplay muted loop playsinline id="bg-video" oncanplay="this.style.opacity=1">
         <source src="background.mp4" type="video/mp4">
     </video>
 
@@ -86,17 +104,26 @@
             <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
             <button class="btn btn-secondary" onclick="openModal()">The Manifesto</button>
         </div>
+
+        <div class="status-bar">
+            <span class="dot"></span> SECURED PROTOCOL: ACTIVE
+        </div>
     </div>
 
     <div id="wpModal" class="modal">
         <div class="modal-content">
-            <span style="color:var(--pink); float:right; cursor:pointer; font-size:35px;" onclick="closeModal()">&times;</span>
-            <h2 style="color:var(--green);">📜 THE MANIFESTO</h2>
-            <p style="font-style:italic; color:#eee; border-left:4px solid var(--pink); padding-left:15px; margin:20px 0;">
-                "Data is the new oil, but tech giants reap the profits. <span style="color:var(--green)">ETHIC</span> returns value to its owners."
-            </p>
-            <p><strong>Total Supply:</strong> 1,000,000,000 ETHIC<br><strong>Status:</strong> Global Launch Active</p>
-            <button class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="closeModal()">CLOSE</button>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>📜 THE MANIFESTO</h2>
+            <div class="manifesto-quote">
+                "Data is the new oil, but while we produce it, tech giants reap the profits. <span style="color:var(--green)">ETHIC</span> returns value to its rightful owners."
+            </div>
+            <p>Today, your data builds trillion-dollar empires, yet you remain the 'product'. ETHIC is a decentralized protocol designed to return value to you.</p>
+            <hr style="border:0; border-top:1px solid #333; margin:30px 0;">
+            <h2>📄 TOKENOMICS</h2>
+            <p>• Total Supply: 1,000,000,000 ETHIC<br>
+               • Liquidity: Locked for 24 Months<br>
+               • Distribution: 50% Public, 30% Ecosystem, 20% Team/Marketing</p>
+            <button class="btn btn-primary" style="width:100%; margin-top:30px;" onclick="closeModal()">BACK TO PROTOCOL</button>
         </div>
     </div>
 
@@ -105,13 +132,17 @@
             if (window.ethereum) {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
-                    document.getElementById('walletBtn').style.background = "white";
-                } catch (e) { console.log("Rejected"); }
-            } else { alert("MetaMask Browser Required!"); }
+                    const btn = document.getElementById('walletBtn');
+                    btn.innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
+                    btn.style.background = "#ffffff"; btn.style.color = "#000000";
+                    console.log("Connected Successfully");
+                } catch (e) { console.error("User rejected"); }
+            } else { alert("MetaMask required!"); }
         }
+
         function openModal() { document.getElementById("wpModal").style.display = "block"; }
         function closeModal() { document.getElementById("wpModal").style.display = "none"; }
+        window.onclick = function(e) { if(e.target == document.getElementById("wpModal")) closeModal(); }
     </script>
 </body>
 </html>
