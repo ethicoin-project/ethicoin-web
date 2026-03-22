@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHICOIN | The Future of Data Economy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ETHICOIN | Professional Data Economy</title>
     <style>
         :root {
             --bg-color: #0b0e11;
@@ -12,73 +12,110 @@
             --text-gray: #a0a0a0;
         }
 
+        /* Temel Ayarlar - Tüm Cihazlar */
         body { 
             background-color: var(--bg-color); 
             color: white; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
             margin: 0; 
+            padding: 0;
             line-height: 1.6;
+            overflow-x: hidden; /* Sağa kaymayı engeller */
         }
 
-        /* Hero Section */
         .container { 
-            width: 85%; 
-            max-width: 1000px;
+            width: 90%; 
+            max-width: 1100px;
             margin: auto; 
             text-align: center; 
-            padding: 80px 0; 
+            padding: 40px 0; 
         }
 
+        /* Dinamik Başlık - Saatlerde bile sığar */
         h1 { 
-            font-size: clamp(3rem, 10vw, 5rem); 
+            font-size: clamp(2.2rem, 12vw, 5rem); 
             background: linear-gradient(to right, var(--green), var(--pink)); 
             -webkit-background-clip: text; 
             -webkit-text-fill-color: transparent; 
-            margin-bottom: 10px;
-            letter-spacing: -2px;
+            margin: 20px 0 10px 0;
+            letter-spacing: -1px;
+            font-weight: 800;
         }
 
-        .tagline { font-size: 1.4rem; color: var(--text-gray); margin-bottom: 40px; }
+        .tagline { 
+            font-size: clamp(1rem, 4vw, 1.4rem); 
+            color: var(--text-gray); 
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
 
-        /* Buttons */
-        .btn-group { margin-bottom: 60px; }
+        /* Buton Grubu - Mobilde alt alta, PC'de yan yana */
+        .btn-group { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        @media (min-width: 600px) {
+            .btn-group { flex-direction: row; justify-content: center; }
+        }
+
         .btn { 
-            padding: 16px 35px; 
+            width: 100%;
+            max-width: 280px;
+            padding: 18px 0; 
             border-radius: 50px; 
             border: none; 
             font-weight: bold; 
             cursor: pointer; 
-            margin: 10px; 
-            transition: all 0.3s ease; 
+            transition: 0.3s; 
             font-size: 1rem;
             text-transform: uppercase;
         }
-        .btn-green { background-color: var(--green); color: black; box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3); }
-        .btn-outline { background: transparent; border: 2px solid var(--pink); color: var(--pink); }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(46, 204, 113, 0.5); }
-        .connected { background-color: white !important; color: black !important; }
 
-        /* Info Cards */
+        .btn-green { background-color: var(--green); color: black; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); }
+        .btn-outline { background: transparent; border: 2px solid var(--pink); color: var(--pink); }
+        .btn:active { transform: scale(0.95); } /* Mobilde basma hissi */
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4); }
+
+        /* Kart Yapısı - Responsive Grid */
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
-            margin-top: 50px; 
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+            gap: 20px; 
+            margin-top: 40px; 
         }
+
         .card { 
-            background: rgba(255, 255, 255, 0.03); 
-            padding: 30px; 
-            border-radius: 20px; 
+            background: rgba(255, 255, 255, 0.02); 
+            padding: 25px; 
+            border-radius: 15px; 
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: 0.3s;
         }
-        .card:hover { border-color: var(--green); background: rgba(46, 204, 113, 0.02); }
-        .card h3 { color: var(--green); margin-top: 0; }
 
-        /* Roadmap Section */
-        .roadmap-title { margin-top: 80px; font-size: 2rem; color: white; }
-        
-        footer { padding: 50px 0; color: #444; font-size: 0.9rem; border-top: 1px solid #1a1e23; margin-top: 50px; }
+        .card:hover { border-color: var(--green); transform: translateY(-5px); }
+        .card h3 { color: var(--green); margin: 0 0 10px 0; font-size: 1.2rem; }
+        .card p { margin: 0; color: #ddd; font-size: 0.95rem; }
+
+        .roadmap-title { margin-top: 60px; font-size: 1.8rem; letter-spacing: 2px; }
+
+        footer { 
+            padding: 40px 0; 
+            color: #555; 
+            font-size: 0.8rem; 
+            border-top: 1px solid #1a1e23; 
+            margin-top: 60px; 
+        }
+
+        /* Saatler ve Çok Küçük Ekranlar İçin Ekstra Ayar */
+        @media (max-width: 300px) {
+            .container { padding: 10px 0; }
+            h1 { font-size: 1.5rem; }
+            .btn { padding: 12px 0; font-size: 0.8rem; }
+        }
     </style>
 </head>
 <body>
@@ -86,47 +123,48 @@
     <div class="container">
         <header>
             <h1>ETHICOIN</h1>
-            <p class="tagline">Decentralizing the World's Data Intelligence.</p>
+            <p class="tagline">The Decentralized Intelligence Protocol.</p>
             
             <div class="btn-group">
                 <button id="walletBtn" class="btn btn-green" onclick="connect()">Connect Wallet</button>
-                <button class="btn btn-outline" onclick="alert('Whitepaper v1.0 is being finalized.')">Whitepaper</button>
+                <button class="btn btn-outline" onclick="alert('Whitepaper is being localized.')">Whitepaper</button>
             </div>
         </header>
 
         <div class="grid">
             <div class="card">
-                <h3>Total Supply</h3>
+                <h3>Supply</h3>
                 <p>1,000,000,000 ETHI</p>
             </div>
             <div class="card">
-                <h3>Network</h3>
+                <h3>Ecosystem</h3>
                 <p>Ethereum Mainnet</p>
             </div>
             <div class="card">
-                <h3>Liquidity</h3>
-                <p>Locked for 2 Years</p>
+                <h3>Transparency</h3>
+                <p>Community Driven</p>
             </div>
         </div>
 
-        <h2 class="roadmap-title">Roadmap 2026</h2>
+        <h2 class="roadmap-title">ROADMAP</h2>
         <div class="grid">
             <div class="card">
-                <h4 style="color:var(--pink)">Q2: Launch</h4>
-                <p>Website Release, Community Building, Smart Contract Audit.</p>
+                <h4 style="color:var(--pink); margin:0;">PHASE 1</h4>
+                <p>Global Launch & Web3 Integration</p>
             </div>
             <div class="card">
-                <h4 style="color:var(--pink)">Q3: Expansion</h4>
-                <p>DEX Listing, Global Marketing, Partnership Announcements.</p>
+                <h4 style="color:var(--pink); margin:0;">PHASE 2</h4>
+                <p>DEX Listing & Strategic Partnerships</p>
             </div>
             <div class="card">
-                <h4 style="color:var(--pink)">Q4: Ecosystem</h4>
-                <p>Beta Mining Platform, Staking Dashboard, Tier-1 Exchange Listing.</p>
+                <h4 style="color:var(--pink); margin:0;">PHASE 3</h4>
+                <p>Ecosystem Expansion & Staking</p>
             </div>
         </div>
 
         <footer>
-            © 2026 ETHICOIN Project | domain: ethicoin.biz
+            © 2026 ETHICOIN | ethicoin.biz<br>
+            Secure Node: Established
         </footer>
     </div>
 
@@ -138,12 +176,13 @@
                     const account = accounts[0];
                     const btn = document.getElementById('walletBtn');
                     btn.innerText = account.substring(0, 6) + "..." + account.substring(account.length - 4);
-                    btn.classList.add('connected');
+                    btn.style.backgroundColor = "white";
+                    btn.style.color = "black";
                 } catch (error) {
-                    console.error("Connection rejected");
+                    console.log("Rejected");
                 }
             } else {
-                alert("MetaMask not detected! Please install the extension.");
+                alert("Please open this site in a Web3 Browser (MetaMask App, Brave, etc.)");
             }
         }
     </script>
