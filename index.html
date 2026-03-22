@@ -3,30 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Ethical Human Intelligence Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>ETHIC | Fair Data Ownership Protocol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; }
+        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; --text: #a0a0a0; }
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         
-        /* Arka plan tamamen sabit ve derin siyah/gri */
         body, html { 
             width: 100%; height: 100%; overflow: hidden; 
-            font-family: 'Inter', sans-serif; background: var(--bg); 
+            font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
         }
 
+        /* Sabit, ciddi ve profesyonel arka plan */
         .container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             text-align: center;
-            /* Hafif bir derinlik hissi için sabit gradyan */
             background: radial-gradient(circle at center, #161b22 0%, #0b0e11 100%);
         }
 
-        /* ✨ SAĞDAN SOLA PARLAYAN ANA BAŞLIK ✨ */
+        /* Işık taraması devam ediyor ama daha vakur bir hızda */
         h1 { 
-            font-size: clamp(3.5rem, 15vw, 7.5rem); 
-            font-weight: 900; letter-spacing: -6px; line-height: 0.9;
+            font-size: clamp(3rem, 12vw, 6.5rem); 
+            font-weight: 900; letter-spacing: -4px; line-height: 1;
             margin: 0; text-transform: uppercase;
             background: linear-gradient(135deg, var(--green), var(--pink)); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
@@ -37,96 +36,98 @@
         h1::after {
             content: "ETHIC";
             position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent 0%, transparent 35%, rgba(255, 255, 255, 0.7) 50%, transparent 65%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%, transparent 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text; background-size: 200% 100%;
             background-position: -150% 0%; 
-            animation: lightScan 4s infinite linear;
-            filter: blur(2px);
+            animation: lightScan 5s infinite linear;
         }
 
-        /* ✨ SAĞDAN SOLA PARLAYAN SLOGAN ✨ */
         .tagline { 
-            color: #555; font-size: 0.85rem; margin-top: 25px; 
-            letter-spacing: 8px; text-transform: uppercase;
-            position: relative;
-            background: #555;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #777; font-size: 0.9rem; margin-top: 15px; 
+            letter-spacing: 5px; text-transform: uppercase; font-weight: 600;
         }
 
-        .tagline::after {
-            content: "Ethical Human Intelligence";
-            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent 0%, transparent 35%, rgba(255, 255, 255, 0.5) 50%, transparent 65%, transparent 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text; background-size: 200% 100%;
-            background-position: -150% 0%; 
-            animation: lightScan 4s infinite linear;
+        /* İş ahlakı vurgulayan kısa açıklama */
+        .mission-text {
+            max-width: 500px; margin-top: 30px; font-size: 1rem;
+            line-height: 1.6; color: #666; font-weight: 400; padding: 0 20px;
         }
 
-        @keyframes lightScan {
-            0% { background-position: -150% 0%; }
-            100% { background-position: 150% 0%; }
-        }
-
-        .btn-container { margin-top: 60px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 320px; }
+        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 300px; }
         
         .btn {
-            padding: 20px; border-radius: 14px; border: none; font-weight: 700; 
-            font-size: 0.95rem; cursor: pointer; text-transform: uppercase; 
+            padding: 18px; border-radius: 12px; border: none; font-weight: 600; 
+            font-size: 0.9rem; cursor: pointer; text-transform: uppercase; 
             transition: 0.3s ease;
         }
-        .btn-primary { background: var(--green); color: #000; box-shadow: 0 10px 25px rgba(46, 204, 113, 0.2); }
+        .btn-primary { background: var(--green); color: #000; }
         .btn-secondary { background: transparent; border: 1px solid #333; color: #888; }
         
-        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        .btn:hover { transform: translateY(-3px); }
         .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
 
-        /* MODAL */
+        /* MODAL - İçerik tamamen değişti */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.98);
             padding: 20px; backdrop-filter: blur(10px);
         }
         .modal-content {
-            background: #0b0e11; margin: 5% auto; padding: 40px;
-            border: 1px solid #333; width: 95%; max-width: 650px;
+            background: #0b0e11; margin: 3% auto; padding: 40px;
+            border: 1px solid #222; width: 95%; max-width: 650px;
             border-radius: 20px; text-align: left; color: #999; line-height: 1.8;
         }
         .close { color: var(--pink); float: right; font-size: 30px; cursor: pointer; }
+        h2 { color: var(--green); margin-bottom: 20px; font-weight: 900; letter-spacing: -1px; }
+        .highlight { color: #ddd; font-weight: 600; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>ETHIC</h1>
-        <div class="tagline">Ethical Human Intelligence</div>
+        <div class="tagline">Fair Data Ownership</div>
+
+        <p class="mission-text">
+            Converting your digital footprint into fair value. No exploitation, just transparent and ethical data sovereignty.
+        </p>
 
         <div class="btn-container">
             <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
-            <button class="btn btn-secondary" onclick="openModal()">The Manifesto</button>
+            <button class="btn btn-secondary" onclick="openModal()">Protocol Ethics</button>
         </div>
     </div>
 
     <div id="wpModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2 style="color:var(--green); margin-bottom:15px;">📜 THE MANIFESTO</h2>
-            <p style="border-left:3px solid var(--pink); padding-left:15px; margin-bottom:20px; font-style:italic;">
-                "Data is the new oil... ETHIC returns value to its owners."
-            </p>
-            <p><strong>Total Supply:</strong> 1,000,000,000 ETHIC</p>
-            <button class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="closeModal()">CLOSE</button>
+            <h2>⚖️ THE ETHICAL FRAMEWORK</h2>
+            <p>ETHIC is built on the principle that <span class="highlight">your digital identity is your private property</span>. In the current AI era, your data is used to train trillion-dollar models without your consent or compensation.</p>
+            
+            <p style="margin-top:15px;">Our protocol ensures:</p>
+            <ul style="margin-left:20px; margin-top:10px;">
+                <li><span class="highlight">Consent-First:</span> Your data is never accessed without explicit on-chain permission.</li>
+                <li><span class="highlight">Direct Rewards:</span> Value flows directly to the data provider, not intermediaries.</li>
+                <li><span class="highlight">Agnostic Privacy:</span> Zero-knowledge proofs protect your identity while verifying your data value.</li>
+            </ul>
+
+            <div style="background:#161b22; padding:15px; border-radius:10px; margin-top:25px; font-size:0.9rem; border-left:3px solid var(--green);">
+                "We don't promise hype. We promise a fair digital economy where your footprint is your asset."
+            </div>
+
+            <button class="btn btn-primary" style="width:100%; margin-top:25px;" onclick="closeModal()">UNDERSTOOD</button>
         </div>
     </div>
 
     <script>
         async function connect() {
             if (window.ethereum) {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
-                document.getElementById('walletBtn').style.background = "#fff";
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
+                    document.getElementById('walletBtn').style.background = "#fff";
+                } catch (e) { console.log("Rejected"); }
             } else { alert("MetaMask required!"); }
         }
         function openModal() { document.getElementById("wpModal").style.display = "block"; }
