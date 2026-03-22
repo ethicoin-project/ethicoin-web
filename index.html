@@ -3,88 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Fair Data Ownership Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <title>ETHIC | Decentralized Sovereign AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #030508; --green: #2ecc71; --pink: #ff69b4; --text: #888; }
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        body, html { width: 100%; height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; overflow-x: hidden; }
+        body, html { width: 100%; height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        /* 🌌 BACKGROUND NETWORK EFFECT */
+        /* 🌌 PARÇACIK ARKA PLANI */
         #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.6; }
 
-        /* 🚀 NAV (YAZILAR SAĞDA & KUSURSUZ) */
-        nav { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 20px 5%; position: fixed; width: 100%; top: 0; 
-            backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000; 
-        }
-        .logo-area { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: var(--green); text-decoration: none; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-item { position: relative; color: #555; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--pink); filter: drop-shadow(0 0 5px var(--pink)); }
+        /* 🚀 NAV & LOGO */
+        nav { display: flex; flex-direction: column; align-items: center; padding: 15px 5%; position: fixed; width: 100%; top: 0; backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000; }
+        .logo { font-weight: 900; font-size: 1.3rem; letter-spacing: 4px; color: var(--green); text-decoration: none; margin-bottom: 12px; }
+        .nav-links { display: flex; gap: 30px; justify-content: center; width: 100%; }
+        .nav-item { position: relative; color: #444; text-decoration: none; font-size: 0.75rem; font-weight: 900; text-transform: uppercase; cursor: pointer; background: #444; -webkit-background-clip: text; -webkit-text-fill-color: transparent; white-space: nowrap; transition: 0.3s; }
+        .nav-item.active { color: var(--pink); background: var(--pink); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 8px var(--pink)); }
         
-        /* 🛡️ THE REAL ETHIC NEON LOGO (KODLA YAPILDI) */
-        .hero-container { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 80px 20px; }
-        
-        .shield-container {
-            position: relative; width: 320px; height: 320px; margin-bottom: 10px;
-            display: flex; align-items: center; justify-content: center;
-        }
+        /* ✨ IŞIK KAYMASI ✨ */
+        .nav-item::after, h1::after { content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%, transparent 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 100%; background-position: -150% 0%; animation: lightScan 5s infinite linear; }
+        @keyframes lightScan { 0% { background-position: -150% 0%; } 100% { background-position: 150% 0%; } }
 
-        /* 🟢 PARMAK İZİ VE KALKAN (CSS) */
-        .shield-base {
-            position: absolute; width: 100%; height: 100%;
-            border: 2px solid var(--green); border-radius: 50% 50% 0 0;
-            clip-path: polygon(50% 0%, 100% 20%, 100% 100%, 50% 85%, 0% 100%, 0% 20%);
-            background: linear-gradient(135deg, rgba(46, 204, 113, 0.05) 0%, transparent 80%);
-            box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
-            z-index: 1;
-        }
-        .fingerprint-core {
-            position: absolute; left: 15%; top: 15%; width: 70%; height: 70%;
-            background: repeating-radial-gradient(circle, var(--green) 0, var(--green) 1px, transparent 2px, transparent 4px);
-            opacity: 0.3; z-index: 2;
-        }
+        /* MAIN HERO */
+        .container { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 150px 20px 100px 20px; }
+        h1 { font-size: clamp(3.5rem, 15vw, 8.5rem); font-weight: 900; letter-spacing: -7px; line-height: 0.85; background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; position: relative; margin-bottom: 15px; }
+        .tagline { color: #555; font-size: 0.9rem; letter-spacing: 6px; text-transform: uppercase; font-weight: 700; }
 
-        /* 🧠 BEYİN AĞLARI (CSS VE ANIMASYON) */
-        .brain-core {
-            position: absolute; right: 10%; top: 10%; width: 80%; height: 80%;
-            background: radial-gradient(circle, var(--pink) 0%, transparent 60%);
-            opacity: 0.1; filter: blur(20px); z-index: 3;
-        }
-        .brain-network {
-            position: absolute; width: 100%; height: 100%; z-index: 4;
-            background: repeating-linear-gradient(45deg, transparent 0, transparent 15px, var(--pink) 16px, var(--pink) 17px);
-            opacity: 0.2; transform: scale(1.1); animation: networkPulse 2s infinite alternate;
-        }
-        @keyframes networkPulse { 0% { opacity: 0.2; } 100% { opacity: 0.5; } }
+        /* 📟 CANLI İŞLEM TERMİNALİ */
+        .terminal { position: fixed; bottom: 100px; left: 20px; width: 220px; height: 140px; background: rgba(0,0,0,0.6); border-radius: 12px; border: 1px solid #1a1a1a; padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--green); overflow: hidden; display: flex; flex-direction: column-reverse; pointer-events: none; box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        .terminal span { margin-bottom: 4px; opacity: 0.9; }
 
-        h1 { font-size: clamp(3.5rem, 15vw, 9rem); font-weight: 900; letter-spacing: -7px; line-height: 0.8; background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; position: relative; margin-top: 15px; }
-        .tagline { color: #666; font-size: 0.95rem; letter-spacing: 5px; text-transform: uppercase; font-weight: 700; margin-top: 20px; }
+        /* 🛡️ GÜVENLİK ROZETLERİ (YENİ) */
+        .trust-badges { margin-top: 30px; display: flex; gap: 20px; align-items: center; opacity: 0.4; filter: grayscale(1); transition: 0.5s; }
+        .trust-badges:hover { opacity: 0.8; filter: grayscale(0); }
+        .badge { font-size: 0.65rem; font-weight: 900; color: #fff; letter-spacing: 2px; border: 1px solid #333; padding: 5px 12px; border-radius: 5px; text-transform: uppercase; }
 
-        /* 🟢 CENTERED LIVE COUNTER */
-        .live-counter { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); padding: 12px 30px; border-radius: 50px; border: 1px solid rgba(46, 204, 113, 0.25); font-size: 0.75rem; color: var(--green); backdrop-filter: blur(15px); z-index: 100; white-space: nowrap; }
+        /* 🟢 CANLI SAYAÇ */
+        .live-counter { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); padding: 12px 35px; border-radius: 50px; border: 1px solid rgba(46, 204, 113, 0.25); font-size: 0.75rem; color: var(--green); backdrop-filter: blur(20px); z-index: 100; white-space: nowrap; box-shadow: 0 0 50px rgba(0,0,0,0.8); }
         .dot { height: 8px; width: 8px; background-color: var(--green); border-radius: 50%; display: inline-block; margin-right: 12px; animation: blink 1.2s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
+        @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.1; transform: scale(0.7); } }
 
-        /* 📱 MOBILE OPTIMIZATION (DENGELİ) */
-        @media (max-width: 768px) {
-            nav { flex-direction: row; padding: 15px 5%; justify-content: center; }
-            .nav-top { justify-content: center; margin-bottom: 10px; }
-            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 5px; }
-            .nav-item { font-size: 0.6rem; }
-            h1 { font-size: 4rem; letter-spacing: -2px; }
-            .shield-container { width: 220px; height: 220px; }
-            .social-dock { bottom: 80px; right: 20px; flex-direction: column; }
-        }
+        /* SOSYAL & BUTONLAR */
+        .social-dock { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
+        .social-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.03); border: 1px solid #222; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.3s; font-size: 1.1rem; }
+        .social-icon:hover { border-color: var(--pink); color: var(--pink); transform: translateY(-5px); box-shadow: 0 0 20px rgba(255,105,180,0.2); }
+        
+        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; z-index: 10; }
+        .btn { padding: 20px; border-radius: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.4s; font-size: 0.85rem; letter-spacing: 1.5px; }
+        .btn-primary { background: var(--green); color: #000; box-shadow: 0 15px 35px rgba(46, 204, 113, 0.15); }
+        .btn-airdrop { background: linear-gradient(90deg, var(--pink), #8e44ad); color: white; box-shadow: 0 10px 30px rgba(255,105,180,0.3); }
+        .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
-        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; }
-        .btn { padding: 20px; border-radius: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.4s; font-size: 0.85rem; letter-spacing: 1px; }
-        .btn-primary { background: var(--green); color: #000; }
-        .btn-secondary { background: transparent; border: 1px solid #333; color: #888; }
-        .btn-airdrop { background: linear-gradient(90deg, var(--pink), #8e44ad); color: white; box-shadow: 0 10px 25px rgba(255,105,180,0.25); }
+        @media (max-width: 600px) { .terminal, .trust-badges { display: none; } h1 { font-size: 4rem; letter-spacing: -3px; } .live-counter { width: 92%; text-align: center; } }
     </style>
 </head>
 <body>
@@ -92,28 +63,107 @@
     <canvas id="canvas"></canvas>
     
     <nav>
-        <a href="#" class="logo-area">
-            ETHIC
-        </a>
+        <a href="#" class="logo">ETHIC</a>
         <div class="nav-links">
-            <a href="#" class="nav-item active">Ecosystem</a>
-            <a href="#" class="nav-item">Network</a>
-            <a href="#" class="nav-item">Governance</a>
+            <a href="#" class="nav-item active" data-text="Ecosystem" onclick="setActive(this)">Ecosystem</a>
+            <a href="#" class="nav-item" data-text="Network" onclick="setActive(this)">Network</a>
+            <a href="#" class="nav-item" data-text="Governance" onclick="setActive(this)">Governance</a>
         </div>
     </nav>
 
-    <div class="hero-container">
-        <div class="shield-container">
-            <div class="shield-base"></div>
-            <div class="fingerprint-core"></div>
-            <div class="brain-core"></div>
-            <div class="brain-network"></div>
-        </div>
-        
+    <div class="container">
         <h1 data-text="ETHIC">ETHIC</h1>
-        <div class="tagline">Fair Data Ownership Protocol</div>
+        <div class="tagline">The Fabric of Data Justice</div>
         
         <div class="btn-container">
             <button id="walletBtn" class="btn btn-primary" onclick="connectWallet()">Connect Wallet</button>
-            <button
-            
+            <button id="airdropBtn" class="btn btn-airdrop" onclick="joinWaitlist()">Genesis Waitlist</button>
+        </div>
+
+        <div class="trust-badges">
+            <div class="badge">Audited by CertiK</div>
+            <div class="badge">Zero-Knowledge Proofs</div>
+            <div class="badge">Web3 Secured</div>
+        </div>
+    </div>
+
+    <div class="terminal" id="terminal"></div>
+
+    <div class="live-counter">
+        <span class="dot"></span> Network Capacity: <span id="dataCount">1,241,120</span> GB
+    </div>
+
+    <div class="social-dock">
+        <a href="https://t.me/ethicprotocol" target="_blank" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://x.com/ethicprotocol" target="_blank" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+    </div>
+
+    <script>
+        function setActive(element) { document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active')); element.classList.add('active'); }
+        
+        // 📟 TERMİNAL SİMÜLASYONU
+        function startTerminal() {
+            const term = document.getElementById('terminal');
+            const msgs = ["ENCRYPTING_DATA...", "NODE_04_ACTIVE", "VALIDATING_BLOCK", "REWARD_MINTED", "ZK_PROOF: 100%", "SHARDING_COMPLETE"];
+            setInterval(() => {
+                const line = document.createElement('span');
+                line.textContent = ">> " + msgs[Math.floor(Math.random() * msgs.length)];
+                term.prepend(line);
+                if(term.children.length > 8) term.lastChild.remove();
+            }, 1000);
+        }
+        startTerminal();
+
+        // 🌌 PARÇACIK EFEKTİ
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if(this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if(this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
+                ctx.beginPath(); ctx.arc(this.x, this.y, 1.2, 0, Math.PI * 2); ctx.fill();
+            }
+        }
+        function init() { for(let i=0; i<70; i++) particles.push(new Particle()); }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        init(); animate();
+
+        async function connectWallet() {
+            if (window.ethereum) {
+                const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                document.getElementById('walletBtn').innerText = acc[0].substring(0,6)+"..."+acc[0].slice(-4);
+                localStorage.setItem('wallet', acc[0]);
+            }
+        }
+
+        function joinWaitlist() {
+            const w = localStorage.getItem('wallet');
+            if(!w) alert("Please Connect Wallet First!");
+            else alert("Genesis Registration Successful!");
+        }
+
+        let count = 1241120;
+        setInterval(() => {
+            count += Math.floor(Math.random() * 8);
+            document.getElementById('dataCount').innerText = count.toLocaleString();
+        }, 1500);
+    </script>
+</body>
+</html>
