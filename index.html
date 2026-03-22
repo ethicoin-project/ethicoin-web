@@ -3,164 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Decentralized Data Sovereignty</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <title>ETHIC | Fair Data Ownership Protocol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { 
-            --bg: #000000; 
-            --accent-green: #2ecc71; 
-            --accent-pink: #ff69b4; 
-            --text-main: #ffffff;
-            --text-dim: #848895;
-            --glass: rgba(255, 255, 255, 0.05);
+        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; --text: #a0a0a0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        
+        body, html { 
+            width: 100%; height: 100%; overflow-x: hidden; 
+            font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            font-family: 'Inter', sans-serif; 
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Solana-Style Gradient Background */
-        .bg-glow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.08), transparent 40%),
-                radial-gradient(circle at 20% 80%, rgba(46, 204, 113, 0.08), transparent 40%);
-            z-index: -1;
-        }
-
-        /* NAVIGATION */
+        /* Solana Style Navigation - Sabit ve Profesyonel */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 5%; position: fixed; width: 100%; top: 0;
+            padding: 20px 5%; position: fixed; width: 100%; top: 0;
             backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05);
             z-index: 1000;
         }
-        .logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -1px; background: linear-gradient(to right, var(--accent-green), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-links a { color: var(--text-dim); text-decoration: none; margin-left: 30px; font-size: 0.9rem; transition: 0.3s; font-weight: 600; }
-        .nav-links a:hover { color: var(--text-main); }
+        .logo { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: var(--green); }
+        .nav-links a { color: #666; text-decoration: none; margin-left: 25px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--pink); }
 
-        /* HERO SECTION */
-        .hero {
-            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 0 5%;
+        .container {
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding-top: 100px;
+            background: radial-gradient(circle at center, #161b22 0%, #0b0e11 100%);
         }
-        .hero h1 { 
-            font-size: clamp(3rem, 10vw, 6rem); font-weight: 900; letter-spacing: -3px; line-height: 1; margin-bottom: 20px;
-        }
-        .hero span { background: linear-gradient(90deg, var(--accent-green), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        .hero p { color: var(--text-dim); max-width: 650px; font-size: 1.2rem; margin-bottom: 40px; }
 
-        /* BUTTONS */
-        .cta-group { display: flex; gap: 20px; }
-        .btn { 
-            padding: 15px 35px; border-radius: 50px; font-weight: 700; text-transform: uppercase; 
-            font-size: 0.85rem; cursor: pointer; transition: 0.4s; border: none; text-decoration: none;
+        /* ✨ SAĞDAN SOLA PARLAYAN BAŞLIK ✨ */
+        h1 { 
+            font-size: clamp(3rem, 12vw, 6.5rem); 
+            font-weight: 900; letter-spacing: -4px; line-height: 1;
+            margin: 0; text-transform: uppercase;
+            background: linear-gradient(135deg, var(--green), var(--pink)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            background-clip: text; color: transparent;
+            position: relative;
         }
-        .btn-gradient { background: linear-gradient(90deg, var(--accent-green), var(--accent-pink)); color: #000; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2); }
-        .btn-outline { background: transparent; border: 1px solid #333; color: #fff; }
-        .btn:hover { transform: translateY(-5px); filter: brightness(1.2); }
 
-        /* STATS SECTION (Solana Style) */
+        h1::after {
+            content: "ETHIC";
+            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%, transparent 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; background-size: 200% 100%;
+            background-position: -150% 0%; 
+            animation: lightScan 5s infinite linear;
+        }
+
+        .tagline { 
+            color: #777; font-size: 0.9rem; margin-top: 15px; 
+            letter-spacing: 5px; text-transform: uppercase; font-weight: 600;
+            position: relative;
+        }
+
+        /* Solana Style Stats Grid - Alt Kısıma Eklendi */
         .stats-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; width: 100%; max-width: 1100px; margin-top: 80px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px; width: 85%; max-width: 900px; margin-top: 50px; margin-bottom: 50px;
         }
         .stat-card {
-            background: var(--glass); padding: 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);
-            text-align: left; transition: 0.3s;
+            background: rgba(255,255,255,0.03); padding: 20px; border-radius: 15px; 
+            border: 1px solid rgba(255,255,255,0.05); text-align: center;
         }
-        .stat-card:hover { border-color: var(--accent-green); }
-        .stat-card h3 { font-size: 2rem; color: var(--accent-green); margin-bottom: 5px; }
-        .stat-card p { color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .stat-card h3 { font-size: 1.5rem; color: var(--green); margin-bottom: 5px; }
+        .stat-card p { color: #555; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* SOSYAL MEDYA (SAĞ ALT) */
-        .social-dock { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; }
-        .social-icon { 
-            width: 45px; height: 45px; background: var(--glass); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; color: #fff; 
-            text-decoration: none; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+        .mission-text {
+            max-width: 500px; margin-top: 20px; font-size: 1rem;
+            line-height: 1.6; color: #666; padding: 0 20px;
         }
-        .social-icon:hover { border-color: var(--accent-pink); color: var(--accent-pink); transform: translateY(-3px); }
 
-        /* IŞIK TARAMASI (SENİN İSTEDİĞİN ÖZEL EFECT) */
-        .scan-text { position: relative; display: inline-block; }
-        .scan-text::after {
-            content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-size: 200% 100%; background-position: -150% 0%; animation: scan 4s infinite linear;
-        }
-        @keyframes scan { 0% { background-position: -150% 0%; } 100% { background-position: 150% 0%; } }
+        .btn-container { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 300px; z-index: 10; }
+        .btn { padding: 18px; border-radius: 12px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; transition: 0.3s ease; }
+        .btn-primary { background: var(--green); color: #000; }
+        .btn-secondary { background: transparent; border: 1px solid #333; color: #888; }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 3.5rem; }
-            .cta-group { flex-direction: column; width: 100%; }
-        }
+        /* SOSYAL MEDYA DOCK */
+        .social-dock { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
+        .social-icon { width: 45px; height: 45px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); }
+        .social-icon:hover { transform: translateY(-5px); border-color: var(--green); color: var(--green); }
+
+        @keyframes lightScan { 0% { background-position: -150% 0%; } 100% { background-position: 150% 0%; } }
+
+        /* MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98); padding: 20px; backdrop-filter: blur(10px); }
+        .modal-content { background: #0b0e11; margin: 5% auto; padding: 40px; border: 1px solid #222; width: 95%; max-width: 650px; border-radius: 20px; text-align: left; color: #999; line-height: 1.8; }
+        .close { color: var(--pink); float: right; font-size: 30px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-
     <nav>
         <div class="logo">ETHIC</div>
         <div class="nav-links">
-            <a href="#">Network</a>
-            <a href="#">Validators</a>
-            <a href="#">Community</a>
             <a href="#">Ecosystem</a>
-            <a href="#" style="color: var(--accent-green);">Build Now</a>
+            <a href="#">Network</a>
+            <a href="#">Governance</a>
+            <a href="#" style="color: var(--green);">Build</a>
         </div>
     </nav>
 
-    <section class="hero">
-        <h1 class="scan-text" data-text="ETHIC PROTOCOL"><span>ETHIC</span> PROTOCOL</h1>
-        <p>Decentralizing the value of digital footprints. A high-performance layer for ethical AI and fair data ownership.</p>
+    <div class="container">
+        <h1>ETHIC</h1>
+        <div class="tagline">Fair Data Ownership</div>
         
-        <div class="cta-group">
-            <button id="walletBtn" class="btn btn-gradient" onclick="connect()">Connect Wallet</button>
-            <a href="#" class="btn btn-outline">Read Manifesto</a>
-        </div>
+        <p class="mission-text">
+            Converting your digital footprint into fair value. No exploitation, just transparent and ethical data sovereignty.
+        </p>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>1.2B+</h3>
-                <p>Data Points Secured</p>
+                <h3>SECURE</h3>
+                <p>Data Privacy</p>
             </div>
             <div class="stat-card">
-                <h3>$0.0001</h3>
-                <p>Avg. Cost per Mint</p>
+                <h3>ETHICAL</h3>
+                <p>AI Training</p>
             </div>
             <div class="stat-card">
-                <h3>2.4k</h3>
-                <p>Nodes Active</p>
+                <h3>FAIR</h3>
+                <p>Revenue Share</p>
             </div>
         </div>
-    </section>
+
+        <div class="btn-container">
+            <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
+            <button class="btn btn-secondary" onclick="openModal()">Protocol Ethics</button>
+        </div>
+    </div>
 
     <div class="social-dock">
-        <a href="#" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-        <a href="#" class="social-icon"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" class="social-icon" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" class="social-icon" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+    </div>
+
+    <div id="wpModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="color:var(--green); margin-bottom:20px;">⚖️ THE ETHICAL FRAMEWORK</h2>
+            <p>ETHIC ensures your digital identity remains <span style="color:#ddd; font-weight:600;">your private property</span>.</p>
+            <ul style="margin-left:20px; margin-top:15px;">
+                <li><span style="color:#ddd; font-weight:600;">Consent-First:</span> Explicit on-chain permission.</li>
+                <li><span style="color:#ddd; font-weight:600;">Direct Rewards:</span> No intermediaries.</li>
+            </ul>
+            <button class="btn btn-primary" style="width:100%; margin-top:25px;" onclick="closeModal()">UNDERSTOOD</button>
+        </div>
     </div>
 
     <script>
         async function connect() {
             if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
-                    document.getElementById('walletBtn').style.background = "#fff";
-                } catch (e) { console.log("Rejected"); }
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
+                document.getElementById('walletBtn').style.background = "#fff";
             } else { alert("MetaMask required!"); }
         }
+        function openModal() { document.getElementById("wpModal").style.display = "block"; }
+        function closeModal() { document.getElementById("wpModal").style.display = "none"; }
     </script>
 </body>
 </html>
