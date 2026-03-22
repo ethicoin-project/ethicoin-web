@@ -11,15 +11,21 @@
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         body, html { width: 100%; height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
-        /* 🚀 NAV & SEARCH */
-        nav { display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; padding: 15px 5%; position: fixed; width: 100%; top: 0; backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000; }
-        .logo { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: var(--green); text-decoration: none; }
+        /* 🚀 NAV & SEARCH (MOBİL UYUMLU GÜNCELLEME) */
+        nav { 
+            display: grid; grid-template-columns: 1fr 2fr 1fr; align-items: center; 
+            padding: 15px 5%; position: fixed; width: 100%; top: 0; 
+            backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000; 
+        }
+
+        /* 🔍 ARAMA ÇUBUĞU */
         .search-container { width: 100%; max-width: 450px; position: relative; justify-self: center; }
         .search-input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid #333; border-radius: 12px; padding: 10px 45px; color: white; font-size: 0.85rem; }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #555; }
         
-        .nav-links { display: flex; gap: 20px; justify-self: end; }
-        .nav-item { position: relative; color: #666; text-decoration: none; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; cursor: pointer; background: #666; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; color: var(--green); text-decoration: none; justify-self: start; }
+        .nav-links { display: flex; gap: 15px; justify-self: end; }
+        .nav-item { position: relative; color: #666; text-decoration: none; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; cursor: pointer; background: #666; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-item.active { color: var(--pink); background: var(--pink); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 5px var(--pink)); }
         
         /* ✨ IŞIK KAYMASI ✨ */
@@ -27,35 +33,44 @@
         @keyframes lightScan { 0% { background-position: -150% 0%; } 100% { background-position: 150% 0%; } }
 
         /* HERO SECTION */
-        .container { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at center, #161b22 0%, #0b0e11 100%); }
-        h1 { font-size: clamp(3rem, 12vw, 6.5rem); font-weight: 900; letter-spacing: -4px; line-height: 1; background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; position: relative; }
-        .tagline { color: #777; font-size: 0.9rem; margin-top: 15px; letter-spacing: 5px; text-transform: uppercase; font-weight: 600; }
+        .container { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 100px 20px 60px 20px; background: radial-gradient(circle at center, #161b22 0%, #0b0e11 100%); }
+        h1 { font-size: clamp(2.5rem, 10vw, 6.5rem); font-weight: 900; letter-spacing: -3px; line-height: 1; background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; position: relative; }
+        .tagline { color: #777; font-size: 0.8rem; margin-top: 15px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; max-width: 80%; }
 
         /* 🟢 CANLI SAYAÇ */
-        .live-counter { position: fixed; bottom: 30px; left: 30px; background: rgba(0,0,0,0.6); padding: 10px 20px; border-radius: 50px; border: 1px solid rgba(46, 204, 113, 0.3); font-size: 0.75rem; color: var(--green); backdrop-filter: blur(10px); z-index: 100; }
-        .dot { height: 8px; width: 8px; background-color: var(--green); border-radius: 50%; display: inline-block; margin-right: 8px; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .live-counter { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.7); padding: 8px 15px; border-radius: 50px; border: 1px solid rgba(46, 204, 113, 0.3); font-size: 0.7rem; color: var(--green); backdrop-filter: blur(10px); z-index: 100; white-space: nowrap; }
+        .dot { height: 6px; width: 6px; background-color: var(--green); border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-        /* 📊 WHITEPAPER MODAL */
-        .modal, .ai-modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); backdrop-filter: blur(25px); overflow-y: auto; }
-        .modal-content { background: #0b0e11; margin: 5% auto; padding: 40px; border: 1px solid #222; width: 90%; max-width: 700px; border-radius: 30px; border-top: 4px solid var(--green); position: relative; }
-        .modal h2 { color: var(--green); font-weight: 900; margin-bottom: 30px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; color: #eee; }
-        th, td { text-align: left; padding: 15px; border-bottom: 1px solid #1a1a1a; font-size: 0.9rem; }
-        th { color: var(--pink); font-weight: 900; }
-        .vesting-tag { font-size: 0.7rem; background: rgba(255, 105, 180, 0.1); color: var(--pink); padding: 3px 8px; border-radius: 4px; margin-left: 10px; border: 1px solid rgba(255, 105, 180, 0.2); }
+        /* 📱 MOBİL ÖZEL AYARLAR (MEDIA QUERIES) */
+        @media (max-width: 768px) {
+            nav { grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 5%; }
+            .search-container { grid-row: 2; grid-column: 1 / span 2; max-width: 100%; margin-top: 5px; }
+            .logo { font-size: 1rem; }
+            .nav-links { gap: 10px; }
+            .nav-item { font-size: 0.6rem; }
+            .live-counter { bottom: 85px; font-size: 0.6rem; }
+            .social-dock { bottom: 20px; right: 20px; gap: 10px; }
+            .social-icon { width: 40px; height: 40px; font-size: 1rem; }
+            .modal-content { padding: 25px; margin: 15% auto; }
+            .btn-container { width: 100%; }
+        }
 
-        /* SOSYAL İKONLAR */
+        /* MODALLAR */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); backdrop-filter: blur(25px); overflow-y: auto; }
+        .modal-content { background: #0b0e11; margin: 5% auto; padding: 40px; border: 1px solid #222; width: 90%; max-width: 700px; border-radius: 25px; border-top: 4px solid var(--green); }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; color: #eee; font-size: 0.8rem; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #1a1a1a; }
+        th { color: var(--pink); }
+
         .social-dock { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
         .social-icon { width: 45px; height: 45px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; }
         .social-icon:hover { transform: translateY(-5px); border-color: var(--green); color: var(--green); }
         
-        .btn-container { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 300px; }
-        .btn { padding: 18px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; transition: 0.3s; z-index: 10; }
+        .btn-container { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; width: 85%; max-width: 300px; }
+        .btn { padding: 16px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 0.85rem; }
         .btn-primary { background: var(--green); color: #000; }
         .btn-secondary { background: transparent; border: 1px solid #333; color: #888; }
-        .btn:hover { transform: translateY(-3px); }
     </style>
 </head>
 <body>
@@ -64,26 +79,26 @@
         <a href="#" class="logo">ETHIC</a>
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="aiSearch" class="search-input" placeholder="Ask ETHIC AI Protocol..." onkeydown="if(event.key==='Enter') askAI()">
+            <input type="text" id="aiSearch" class="search-input" placeholder="Ask AI..." onkeydown="if(event.key==='Enter') askAI()">
         </div>
         <div class="nav-links">
-            <a href="#" class="nav-item active" data-text="Ecosystem" onclick="setActive(this)">Ecosystem</a>
-            <a href="#" class="nav-item" data-text="Network" onclick="setActive(this)">Network</a>
-            <a href="#" class="nav-item" data-text="Governance" onclick="setActive(this)">Governance</a>
+            <a href="#" class="nav-item active" data-text="Eco" onclick="setActive(this)">Eco</a>
+            <a href="#" class="nav-item" data-text="Net" onclick="setActive(this)">Net</a>
+            <a href="#" class="nav-item" data-text="Gov" onclick="setActive(this)">Gov</a>
         </div>
     </nav>
 
     <div class="container">
         <h1 data-text="ETHIC">ETHIC</h1>
-        <div class="tagline">Fair Data Ownership</div>
+        <div class="tagline">Fair Data Ownership Protocol</div>
         <div class="btn-container">
             <button id="walletBtn" class="btn btn-primary" onclick="connectWallet()">Connect Wallet</button>
-            <button id="specsBtn" class="btn btn-secondary" onclick="openWP()">Protocol Specs</button>
+            <button class="btn btn-secondary" onclick="openWP()">Protocol Specs</button>
         </div>
     </div>
 
     <div class="live-counter">
-        <span class="dot"></span> Ethical Data Processed: <span id="dataCount">1,240,582</span> GB
+        <span class="dot"></span> Data Processed: <span id="dataCount">1,240,582</span> GB
     </div>
 
     <div class="social-dock">
@@ -93,35 +108,27 @@
 
     <div id="wpModal" class="modal">
         <div class="modal-content">
-            <h2>⚖️ WHITE PAPER V1.0</h2>
+            <h2 style="color:var(--green)">⚖️ WHITE PAPER</h2>
             <table>
-                <thead>
-                    <tr><th>Allocation</th><th>Share</th><th>Status</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>Community Rewards</td><td>50%</td><td>Live</td></tr>
-                    <tr><td>Ecosystem Fund</td><td>20%</td><td>Reserved</td></tr>
-                    <tr><td>Team Pay</td><td>10%</td><td><span class="vesting-tag">2 Year Vesting</span></td></tr>
-                    <tr><td>Liquidity Pool</td><td>15%</td><td>Locked</td></tr>
-                    <tr><td>Marketing</td><td>5%</td><td>Active</td></tr>
-                </tbody>
+                <tr><th>Allocation</th><th>Share</th></tr>
+                <tr><td>Community</td><td>50%</td></tr>
+                <tr><td>Team</td><td>10% (Locked)</td></tr>
+                <tr><td>Liquidity</td><td>15%</td></tr>
             </table>
-            <button class="btn btn-primary" style="width:100%;" onclick="closeWP()">CLOSE PROTOCOL SPECS</button>
+            <button class="btn btn-primary" style="width:100%;" onclick="closeWP()">CLOSE</button>
         </div>
     </div>
 
-    <div id="aiModal" class="ai-modal">
+    <div id="aiModal" class="modal">
         <div class="modal-content">
-            <h2 id="aiTitle" style="color:var(--pink)">AI RESPONSE</h2>
-            <p id="aiResponseText" style="line-height:1.6; color:#ccc; margin-top:20px;"></p>
-            <button class="btn btn-primary" style="width:100%; margin-top:30px;" onclick="closeAI()">CLOSE</button>
+            <h2 style="color:var(--pink)">AI RESPONSE</h2>
+            <p id="aiResponseText" style="margin-top:20px; line-height:1.6;"></p>
+            <button class="btn btn-primary" style="width:100%; margin-top:20px;" onclick="closeAI()">CLOSE</button>
         </div>
     </div>
 
     <script>
         function setActive(element) { document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active')); element.classList.add('active'); }
-        
-        // MODAL FONKSİYONLARI (TIKLANMA SORUNLARI ÇÖZÜLDÜ)
         function openWP() { document.getElementById("wpModal").style.display = "block"; }
         function closeWP() { document.getElementById("wpModal").style.display = "none"; }
         function closeAI() { document.getElementById("aiModal").style.display = "none"; }
@@ -130,18 +137,14 @@
             const modal = document.getElementById('aiModal');
             const text = document.getElementById('aiResponseText');
             modal.style.display = 'block';
-            text.innerHTML = "Processing through ETHIC nodes... Every query within our protocol follows the highest ethical standards of data privacy.";
+            text.innerHTML = "ETHIC AI: Analyzing your query under ethical data standards... No privacy leaks detected.";
         }
 
-        // CÜZDAN BAĞLANTISI (KESİN ÇÖZÜM)
         async function connectWallet() {
             if (window.ethereum) {
-                try {
-                    const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    document.getElementById('walletBtn').innerText = acc[0].substring(0,6)+"..."+acc[0].slice(-4);
-                    document.getElementById('walletBtn').style.background = "#fff";
-                } catch (e) { console.log("User rejected"); }
-            } else { alert("MetaMask not found. Please install MetaMask!"); }
+                const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                document.getElementById('walletBtn').innerText = acc[0].substring(0,6)+"..."+acc[0].slice(-4);
+            } else { alert("Please install MetaMask!"); }
         }
 
         let count = 1240582;
