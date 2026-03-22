@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHIC | Fair Data Ownership Protocol</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; --text: #a0a0a0; }
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
@@ -14,7 +15,6 @@
             font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text);
         }
 
-        /* Sabit, ciddi ve profesyonel arka plan */
         .container {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -22,7 +22,6 @@
             background: radial-gradient(circle at center, #161b22 0%, #0b0e11 100%);
         }
 
-        /* Işık taraması devam ediyor ama daha vakur bir hızda */
         h1 { 
             font-size: clamp(3rem, 12vw, 6.5rem); 
             font-weight: 900; letter-spacing: -4px; line-height: 1;
@@ -48,13 +47,12 @@
             letter-spacing: 5px; text-transform: uppercase; font-weight: 600;
         }
 
-        /* İş ahlakı vurgulayan kısa açıklama */
         .mission-text {
             max-width: 500px; margin-top: 30px; font-size: 1rem;
             line-height: 1.6; color: #666; font-weight: 400; padding: 0 20px;
         }
 
-        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 300px; }
+        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 85%; max-width: 300px; z-index: 10; }
         
         .btn {
             padding: 18px; border-radius: 12px; border: none; font-weight: 600; 
@@ -63,11 +61,33 @@
         }
         .btn-primary { background: var(--green); color: #000; }
         .btn-secondary { background: transparent; border: 1px solid #333; color: #888; }
-        
         .btn:hover { transform: translateY(-3px); }
-        .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
 
-        /* MODAL - İçerik tamamen değişti */
+        /* 📱 SOSYAL MEDYA İKONLARI (SAĞ ALT) */
+        .social-dock {
+            position: fixed; bottom: 30px; right: 30px;
+            display: flex; gap: 15px; z-index: 100;
+        }
+        .social-icon {
+            width: 50px; height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.2rem;
+            text-decoration: none; transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: rgba(46, 204, 113, 0.2);
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        @keyframes lightScan { 0% { background-position: -150% 0%; } 100% { background-position: 150% 0%; } }
+
+        /* MODAL */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.98);
@@ -79,8 +99,6 @@
             border-radius: 20px; text-align: left; color: #999; line-height: 1.8;
         }
         .close { color: var(--pink); float: right; font-size: 30px; cursor: pointer; }
-        h2 { color: var(--green); margin-bottom: 20px; font-weight: 900; letter-spacing: -1px; }
-        .highlight { color: #ddd; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -88,34 +106,29 @@
     <div class="container">
         <h1>ETHIC</h1>
         <div class="tagline">Fair Data Ownership</div>
-
         <p class="mission-text">
             Converting your digital footprint into fair value. No exploitation, just transparent and ethical data sovereignty.
         </p>
-
         <div class="btn-container">
             <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
             <button class="btn btn-secondary" onclick="openModal()">Protocol Ethics</button>
         </div>
     </div>
 
+    <div class="social-dock">
+        <a href="#" class="social-icon" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" class="social-icon" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+    </div>
+
     <div id="wpModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>⚖️ THE ETHICAL FRAMEWORK</h2>
-            <p>ETHIC is built on the principle that <span class="highlight">your digital identity is your private property</span>. In the current AI era, your data is used to train trillion-dollar models without your consent or compensation.</p>
-            
-            <p style="margin-top:15px;">Our protocol ensures:</p>
-            <ul style="margin-left:20px; margin-top:10px;">
-                <li><span class="highlight">Consent-First:</span> Your data is never accessed without explicit on-chain permission.</li>
-                <li><span class="highlight">Direct Rewards:</span> Value flows directly to the data provider, not intermediaries.</li>
-                <li><span class="highlight">Agnostic Privacy:</span> Zero-knowledge proofs protect your identity while verifying your data value.</li>
+            <h2 style="color:var(--green); margin-bottom:20px;">⚖️ THE ETHICAL FRAMEWORK</h2>
+            <p>ETHIC ensures your digital identity remains <span style="color:#ddd; font-weight:600;">your private property</span>.</p>
+            <ul style="margin-left:20px; margin-top:15px;">
+                <li><span style="color:#ddd; font-weight:600;">Consent-First:</span> Explicit on-chain permission.</li>
+                <li><span style="color:#ddd; font-weight:600;">Direct Rewards:</span> No intermediaries.</li>
             </ul>
-
-            <div style="background:#161b22; padding:15px; border-radius:10px; margin-top:25px; font-size:0.9rem; border-left:3px solid var(--green);">
-                "We don't promise hype. We promise a fair digital economy where your footprint is your asset."
-            </div>
-
             <button class="btn btn-primary" style="width:100%; margin-top:25px;" onclick="closeModal()">UNDERSTOOD</button>
         </div>
     </div>
@@ -123,11 +136,9 @@
     <script>
         async function connect() {
             if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
-                    document.getElementById('walletBtn').style.background = "#fff";
-                } catch (e) { console.log("Rejected"); }
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
+                document.getElementById('walletBtn').style.background = "#fff";
             } else { alert("MetaMask required!"); }
         }
         function openModal() { document.getElementById("wpModal").style.display = "block"; }
