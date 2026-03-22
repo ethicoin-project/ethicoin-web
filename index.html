@@ -40,7 +40,7 @@
             text-align: center; background: rgba(0,0,0,0.15);
         }
 
-        /* ✨ PARLAYAN ETHIC YAZISI ✨ */
+        /* ✨ SOLDAN SAĞA PARLAYAN ETHIC YAZISI ✨ */
         h1 { 
             font-size: clamp(3.5rem, 15vw, 7.5rem); 
             font-weight: 900; letter-spacing: -6px; line-height: 0.9;
@@ -52,22 +52,32 @@
             filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
         }
 
-        /* Soldan sağa kayan ışık efekti */
+        /* Işık Dalgası Katmanı */
         h1::after {
             content: "ETHIC";
             position: absolute; left: 0; top: 0; width: 100%; height: 100%;
-            background: linear-gradient(to right, transparent 0%, transparent 40%, #ffffff 50%, transparent 60%, transparent 100%);
+            /* Beyaz/Neon Işık Dalgası */
+            background: linear-gradient(
+                90deg, 
+                transparent 0%, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                transparent 70%, 
+                transparent 100%
+            );
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
             background-size: 200% 100%;
-            background-position: -200% 0%;
-            animation: waveGlow 4s infinite linear;
-            filter: blur(2px);
+            /* Başlangıç noktası: Sol dış taraf */
+            background-position: 150% 0%; 
+            animation: leftToRight 3.5s infinite linear;
+            filter: blur(3px); /* Işığı biraz dağıtıp daha gerçekçi yapar */
         }
 
-        @keyframes waveGlow {
-            0% { background-position: -200% 0%; }
-            100% { background-position: 200% 0%; }
+        /* SOLDAN SAĞA AKIŞ ANİMASYONU */
+        @keyframes leftToRight {
+            0% { background-position: 150% 0%; }   /* Sol tarafın gerisi */
+            100% { background-position: -150% 0%; } /* Sağ tarafın ilerisi */
         }
 
         .tagline { color: #777; font-size: 0.85rem; margin-top: 20px; letter-spacing: 7px; text-transform: uppercase; }
@@ -84,7 +94,7 @@
         .btn-secondary { background: rgba(255, 255, 255, 0.03); border: 2px solid var(--pink); color: var(--pink); }
         .btn:hover { transform: translateY(-7px); filter: brightness(1.2); }
 
-        /* MODAL */
+        /* MANIFESTO MODAL */
         .modal {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.96);
@@ -93,7 +103,7 @@
         .modal-content {
             background: #11151c; margin: 4% auto; padding: 45px;
             border: 1px solid rgba(46, 204, 113, 0.25); width: 95%; max-width: 720px;
-            border-radius: 35px; text-align: left; color: #bbb;
+            border-radius: 35px; text-align: left; color: #bbb; line-height: 1.8;
         }
         .close { color: var(--pink); float: right; font-size: 38px; cursor: pointer; }
     </style>
@@ -118,23 +128,28 @@
     <div id="wpModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2 style="color:var(--green); margin-bottom:20px;">📜 THE MANIFESTO</h2>
-            <p style="font-style:italic; border-left:4px solid var(--pink); padding-left:15px; margin-bottom:20px;">"Data is the new oil... ETHIC returns value to its owners."</p>
-            <p><strong>Supply:</strong> 1,000,000,000 ETHIC</p>
-            <button class="btn btn-primary" style="width:100%; margin-top:30px;" onclick="closeModal()">BACK</button>
+            <h2 style="color:var(--green); margin-bottom:20px; border-bottom: 1px solid #333; padding-bottom: 15px;">📜 THE MANIFESTO</h2>
+            <p style="font-style:italic; border-left:4px solid var(--pink); padding-left:15px; margin-bottom:20px; color: #eee;">"Data is the new oil... ETHIC returns value to its owners."</p>
+            <p>ETHIC is a decentralized protocol designed to protect human data ethics in the age of AI.</p>
+            <p><strong>Total Supply:</strong> 1,000,000,000 ETHIC</p>
+            <button class="btn btn-primary" style="width:100%; margin-top:30px;" onclick="closeModal()">ENTER PROTOCOL</button>
         </div>
     </div>
 
     <script>
         async function connect() {
             if (window.ethereum) {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                document.getElementById('walletBtn').innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
-                document.getElementById('walletBtn').style.background = "white";
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const btn = document.getElementById('walletBtn');
+                    btn.innerText = accounts[0].substring(0, 6) + "..." + accounts[0].slice(-4);
+                    btn.style.background = "#ffffff"; btn.style.color = "#000000";
+                } catch (e) { console.error("User rejected"); }
             } else { alert("MetaMask required!"); }
         }
         function openModal() { document.getElementById("wpModal").style.display = "block"; }
         function closeModal() { document.getElementById("wpModal").style.display = "none"; }
+        window.onclick = function(e) { if(e.target == document.getElementById("wpModal")) closeModal(); }
     </script>
 </body>
 </html>
