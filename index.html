@@ -3,54 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHICOIN | Professional Web3</title>
+    <title>ETHICOIN</title>
     <style>
+        /* Senin Sevdiğin Renk Paleti */
         :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; }
-        body { background-color: var(--bg); color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 50px 20px; }
-        h1 { font-size: 3.5rem; background: linear-gradient(to right, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .btn { padding: 15px 30px; border-radius: 50px; border: none; font-weight: bold; cursor: pointer; font-size: 1.1rem; transition: 0.3s; width: 100%; max-width: 300px; margin: 10px auto; display: block; }
-        .btn-green { background-color: var(--green); color: black; }
-        .btn-outline { background: transparent; border: 2px solid var(--pink); color: var(--pink); }
-        .card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; margin-top: 30px; border: 1px solid rgba(255,255,255,0.1); }
+
+        body { 
+            background-color: var(--bg); 
+            color: white; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        /* O Meşhur Gradyan Başlık */
+        h1 { 
+            font-size: clamp(3rem, 15vw, 6rem); 
+            background: linear-gradient(to right, var(--green), var(--pink)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        p { color: #888; font-size: 1.1rem; margin-top: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Şık Buton Tasarımları */
+        .btn-container { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; width: 80%; max-width: 300px; }
+
+        .btn {
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase;
+        }
+
+        .btn-primary { background: var(--green); color: black; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2); }
+        .btn-secondary { background: transparent; border: 2px solid var(--pink); color: var(--pink); }
+
+        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
+        .btn:active { transform: scale(0.95); }
+
+        /* Mobil Alt Bilgi */
+        footer { position: fixed; bottom: 30px; color: #444; font-size: 0.7rem; letter-spacing: 1px; }
     </style>
 </head>
 <body>
+
     <h1>ETHICOIN</h1>
-    <p style="color: #a0a0a0;">Decentralized Intelligence Protocol</p>
+    <p>Intelligence Protocol</p>
 
-    <button id="walletBtn" class="btn btn-green" onclick="connect()">Connect Wallet</button>
-    <button class="btn btn-outline" onclick="alert('Whitepaper is loading...')">Whitepaper</button>
-
-    <div class="card">
-        <h3 style="color: var(--green); margin:0;">Project Status</h3>
-        <p id="statusText">Network: BSC/ETH | Status: Waiting Connection</p>
+    <div class="btn-container">
+        <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
+        <button class="btn btn-secondary" onclick="alert('Whitepaper Coming Soon')">Whitepaper</button>
     </div>
+
+    <footer>ETHICOIN.BIZ — 2026</footer>
 
     <script>
         async function connect() {
-            if (window.ethereum) {
+            if (typeof window.ethereum !== 'undefined') {
                 try {
-                    // Bağlantı isteği gönder
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const account = accounts[0];
-                    
-                    // Butonu ve durumu güncelle
                     const btn = document.getElementById('walletBtn');
-                    const status = document.getElementById('statusText');
                     
-                    btn.innerText = "Connected: " + account.substring(0, 6) + "..." + account.substring(account.length - 4);
-                    btn.style.backgroundColor = "white";
+                    // Bağlanınca buton beyaza döner ve adresin görünür
+                    btn.innerText = account.substring(0, 6) + "..." + account.substring(account.length - 4);
+                    btn.style.background = "white";
                     btn.style.color = "black";
-                    status.innerText = "Wallet: " + account + " | Status: Active";
-                    
-                    console.log("Bağlantı Başarılı!");
-                } catch (error) {
-                    alert("Connection rejected by user.");
+                    console.log("Connected!");
+                } catch (e) {
+                    console.log("User rejected");
                 }
             } else {
-                alert("Please open this site inside MetaMask Browser!");
+                alert("Please open this site in MetaMask Browser!");
             }
         }
     </script>
+
 </body>
 </html>
