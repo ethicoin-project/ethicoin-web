@@ -26,7 +26,7 @@
             z-index: 1000;
         }
 
-        .logo { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: var(--green); justify-self: start; }
+        .logo { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: var(--green); justify-self: start; text-decoration: none; }
 
         /* 🔍 TAM ORTALANMIŞ ARAMA ÇUBUĞU */
         .search-container {
@@ -80,8 +80,14 @@
         .ai-header { color: var(--pink); font-weight: 900; margin-bottom: 20px; font-size: 1.2rem; }
         .ai-answer { line-height: 1.6; color: #ccc; font-size: 1.1rem; }
 
+        /* 📱 SOSYAL MEDYA DOCK (BAĞLANTILI) */
         .social-dock { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
-        .social-icon { width: 45px; height: 45px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); }
+        .social-icon { 
+            width: 45px; height: 45px; background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            color: white; text-decoration: none; transition: 0.3s; backdrop-filter: blur(10px); 
+        }
         .social-icon:hover { transform: translateY(-5px); border-color: var(--green); color: var(--green); }
 
         @keyframes lightScan { 0% { background-position: -150% 0%; } 100% { background-position: 150% 0%; } }
@@ -95,7 +101,7 @@
 <body>
 
     <nav>
-        <div class="logo">ETHIC</div>
+        <a href="https://ethicoin.biz" class="logo">ETHIC</a>
         
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
@@ -120,8 +126,12 @@
     </div>
 
     <div class="social-dock">
-        <a href="#" class="social-icon" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
-        <a href="#" class="social-icon" title="X (Twitter)"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://t.me/ethicprotocol" target="_blank" class="social-icon" title="Join Telegram Community">
+            <i class="fab fa-telegram-plane"></i>
+        </a >
+        <a href="https://x.com/ethicprotocol" target="_blank" class="social-icon" title="Follow on X (Twitter)">
+            <i class="fab fa-x-twitter"></i>
+        </a>
     </div>
 
     <div id="aiModal" class="ai-modal" onclick="closeAI()">
@@ -170,8 +180,6 @@
                 document.getElementById('walletBtn').style.background = "#fff";
             } else { alert("MetaMask required!"); }
         }
-        function openModal() { document.getElementById("wpModal").style.display = "block"; }
-        function closeModal() { document.getElementById("wpModal").style.display = "none"; }
     </script>
 </body>
 </html>
