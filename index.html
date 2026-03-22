@@ -3,94 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHICOIN</title>
+    <title>ETHICOIN | The Intelligence Protocol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        /* Senin Sevdiğin Renk Paleti */
-        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; }
+        :root { --bg: #0b0e11; --green: #2ecc71; --pink: #ff69b4; --white: #ffffff; }
 
+        * { box-sizing: border-box; }
         body { 
-            background-color: var(--bg); 
-            color: white; 
-            font-family: 'Inter', sans-serif; 
-            margin: 0; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh;
-            text-align: center;
+            background-color: var(--bg); color: var(--white); 
+            font-family: 'Inter', sans-serif; margin: 0; 
+            display: flex; flex-direction: column; align-items: center; 
+            justify-content: center; min-height: 100vh; text-align: center;
+            overflow-x: hidden;
         }
 
-        /* O Meşhur Gradyan Başlık */
+        /* Işıltılı Arka Plan Efekti */
+        body::before {
+            content: ""; position: absolute; width: 300px; height: 300px;
+            background: var(--green); filter: blur(150px); opacity: 0.1;
+            top: 10%; left: 10%; z-index: -1;
+        }
+
+        /* Gradyan Başlık - Senin İmzan */
         h1 { 
-            font-size: clamp(3rem, 15vw, 6rem); 
-            background: linear-gradient(to right, var(--green), var(--pink)); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            margin: 0;
-            font-weight: 900;
-            letter-spacing: -2px;
+            font-size: clamp(3.5rem, 15vw, 6.5rem); 
+            background: linear-gradient(135deg, var(--green), var(--pink)); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            margin: 0; font-weight: 900; letter-spacing: -3px;
+            line-height: 1;
         }
 
-        p { color: #888; font-size: 1.1rem; margin-top: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        .tagline { 
+            color: #888; font-size: 1rem; margin-top: 15px; 
+            letter-spacing: 4px; text-transform: uppercase; font-weight: 400;
+        }
 
-        /* Şık Buton Tasarımları */
-        .btn-container { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; width: 80%; max-width: 300px; }
+        /* Buton Grubu */
+        .btn-container { margin-top: 50px; display: flex; flex-direction: column; gap: 15px; width: 90%; max-width: 320px; }
 
         .btn {
-            padding: 16px;
-            border-radius: 12px;
-            border: none;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase;
+            padding: 18px; border-radius: 14px; border: none; 
+            font-weight: 700; font-size: 1rem; cursor: pointer; 
+            transition: all 0.3s ease; text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        .btn-primary { background: var(--green); color: black; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.2); }
+        .btn-primary { background: var(--green); color: #000; }
         .btn-secondary { background: transparent; border: 2px solid var(--pink); color: var(--pink); }
 
-        .btn:hover { transform: scale(1.05); filter: brightness(1.1); }
-        .btn:active { transform: scale(0.95); }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn:active { transform: scale(0.98); }
 
-        /* Mobil Alt Bilgi */
-        footer { position: fixed; bottom: 30px; color: #444; font-size: 0.7rem; letter-spacing: 1px; }
+        /* Sosyal Medya & Durum */
+        .social-icons { margin-top: 40px; display: flex; gap: 25px; opacity: 0.6; }
+        .social-icons a { color: white; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .social-icons a:hover { color: var(--pink); opacity: 1; }
+
+        .status-bar { 
+            margin-top: 30px; font-size: 0.75rem; color: #444; 
+            display: flex; align-items: center; gap: 8px;
+        }
+        .dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; display: inline-block; animation: blink 1.5s infinite; }
+
+        @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+
+        footer { margin-top: 60px; padding-bottom: 20px; color: #222; font-size: 0.7rem; }
     </style>
 </head>
 <body>
 
     <h1>ETHICOIN</h1>
-    <p>Intelligence Protocol</p>
+    <div class="tagline">INTELLIGENCE PROTOCOL</div>
 
     <div class="btn-container">
-        <button id="walletBtn" class="btn btn-primary" onclick="connect()">Connect Wallet</button>
-        <button class="btn btn-secondary" onclick="alert('Whitepaper Coming Soon')">Whitepaper</button>
+        <button id="walletBtn" class="btn btn-primary" onclick="connectWallet()">Connect Wallet</button>
+        <button class="btn btn-secondary" onclick="window.open('https://t.me/ethicoin', '_blank')">Join Community</button>
     </div>
 
-    <footer>ETHICOIN.BIZ — 2026</footer>
+    <div class="social-icons">
+        <a href="#">TWITTER</a>
+        <a href="#">TELEGRAM</a>
+        <a href="#">WHITEPAPER</a>
+    </div>
+
+    <div class="status-bar">
+        <span class="dot"></span> NETWORK: BSC/ETH MAINNET OPERATIONAL
+    </div>
+
+    <footer>ETHICOIN.BIZ — SECURED BY WEB3</footer>
 
     <script>
-        async function connect() {
-            if (typeof window.ethereum !== 'undefined') {
+        // Modern ve Güvenli Web3 Bağlantısı
+        async function connectWallet() {
+            if (window.ethereum) {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     const account = accounts[0];
                     const btn = document.getElementById('walletBtn');
                     
-                    // Bağlanınca buton beyaza döner ve adresin görünür
-                    btn.innerText = account.substring(0, 6) + "..." + account.substring(account.length - 4);
+                    // Adresi kısaltıp butona yaz (Örn: 0x1234...abcd)
+                    const displayAddress = account.substring(0, 6) + "..." + account.substring(account.length - 4);
+                    btn.innerText = displayAddress;
                     btn.style.background = "white";
                     btn.style.color = "black";
-                    console.log("Connected!");
-                } catch (e) {
-                    console.log("User rejected");
+                    
+                    console.log("Welcome to ETHICOIN: " + account);
+                } catch (error) {
+                    if (error.code === 4001) {
+                        alert("Please confirm the connection in MetaMask.");
+                    } else {
+                        console.error(error);
+                    }
                 }
             } else {
-                alert("Please open this site in MetaMask Browser!");
+                alert("Please open this site in a Web3 browser like MetaMask or Brave.");
             }
         }
     </script>
-
 </body>
 </html>
