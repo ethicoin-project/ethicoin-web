@@ -24,79 +24,72 @@
             overflow: hidden;
         }
 
-        /* 🌌 ARKA PLAN PARLAMALARI */
+        /* 🌌 BACKGROUND GLOWS */
         .glow-bg {
             position: fixed; inset: 0; z-index: -1;
             background: 
-                radial-gradient(circle at 15% 50%, rgba(255, 105, 180, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 85% 50%, rgba(46, 204, 113, 0.08) 0%, transparent 40%);
+                radial-gradient(circle at 20% 40%, rgba(255, 105, 180, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 40%, rgba(46, 204, 113, 0.12) 0%, transparent 40%);
         }
 
         /* 🚀 NAV */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 50px; position: fixed; width: 100%; top: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            padding: 30px 60px; position: fixed; width: 100%; top: 0;
             z-index: 100;
         }
-        .logo-group { display: flex; align-items: center; gap: 10px; }
-        .logo-img { width: 30px; filter: drop-shadow(0 0 5px var(--pink)); }
-        .logo-text { font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; }
-        .logo-text span { color: var(--pink); }
+        .logo-group { display: flex; align-items: center; gap: 12px; }
+        .logo-box {
+            width: 32px; height: 32px;
+            border: 2px solid var(--pink);
+            display: flex; align-items: center; justify-content: center;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            box-shadow: 0 0 15px var(--pink);
+        }
+        .logo-text { font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; color: white; text-decoration: none;}
 
-        .nav-links { display: flex; gap: 40px; }
+        .nav-links { display: flex; gap: 45px; }
         .nav-item { 
             color: var(--text-dim); text-decoration: none; font-size: 0.85rem; 
-            font-weight: 600; text-transform: capitalize; transition: 0.3s;
+            font-weight: 600; transition: 0.3s;
         }
         .nav-item:hover, .nav-item.active { color: white; }
-        .nav-item.active { position: relative; color: var(--green); }
+        .nav-item.active { color: var(--green); position: relative; }
         .nav-item.active::after {
-            content: ''; position: absolute; bottom: -10px; left: 0; 
+            content: ''; position: absolute; bottom: -12px; left: 0; 
             width: 100%; height: 2px; background: var(--green);
-            box-shadow: 0 0 10px var(--green);
+            box-shadow: 0 0 15px var(--green);
         }
 
-        /* 🛡️ ANA İÇERİK */
+        /* 🛡️ HERO CONTENT */
         .hero {
             height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
-            position: relative; padding-top: 60px;
+            position: relative;
         }
 
-        /* Beyin Görseli Alanı */
+        /* Brain/Shield Visual Area */
         .visual-container {
-            position: relative; width: 600px; height: 400px;
+            position: relative; width: 650px; height: 450px;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: -40px;
+            margin-bottom: -50px;
         }
-        .main-visual {
-            width: 100%; height: auto;
-            filter: drop-shadow(0 0 30px rgba(46, 204, 113, 0.2));
-            /* Görsel buraya gelecek: background-image: url('brain-shield.png'); */
+        .brain-overlay {
+            width: 100%; height: 100%;
+            opacity: 0.5;
+            filter: drop-shadow(0 0 20px rgba(46, 204, 113, 0.3));
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" stroke="%232ecc71" fill="none" stroke-width="0.2"><circle cx="50" cy="50" r="40"/><path d="M50 10v80M10 50h80"/></svg>'); /* Placeholder brain grid */
+            background-size: contain; background-repeat: no-repeat;
+        }
+        .shield-icon {
+            position: absolute; width: 120px;
+            filter: drop-shadow(0 0 25px var(--pink));
         }
 
-        .title-group { position: relative; z-index: 10; }
+        /* Typography */
         h1 { 
-            font-size: 7.5rem; font-weight: 900; letter-spacing: -5px; 
-            line-height: 1; margin-bottom: 10px;
-            background: linear-gradient(to right, var(--green), white, var(--pink));
+            font-size: 8rem; font-weight: 900; letter-spacing: -6px; 
+            line-height: 1; margin-bottom: 15px;
+            background: linear-gradient(to right, var(--green), #fff, var(--pink));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .tagline { 
-            font-size: 1.1rem; color: var(--text-dim); letter-spacing: 1px;
-            margin-bottom: 40px;
-        }
-
-        /* 🔘 BUTONLAR */
-        .btn-group { display: flex; gap: 15px; z-index: 20; }
-        .btn {
-            padding: 14px 28px; border-radius: 50px; border: none;
-            font-weight: 700; cursor: pointer; font-size: 0.85rem;
-            transition: 0.3s; text-decoration: none;
-        }
-        .btn-green { background: var(--green); color: black; }
-        .btn-gray { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-pink { 
-            background: rgba(255, 105, 180, 0.15); color: white; 
-            border: 1px solid var(--pink); box-shadow: 0 0 15px rgba(255, 105, 1
