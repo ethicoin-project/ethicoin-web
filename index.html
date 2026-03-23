@@ -31,45 +31,48 @@
                 radial-gradient(circle at 85% 45%, rgba(46, 204, 113, 0.08) 0%, transparent 50%);
         }
 
-        /* 🚀 NAV & DİNAMİK RENK DEĞİŞİMİ */
+        /* 🚀 NAV */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
-            background: rgba(3, 5, 8, 0.8); backdrop-filter: blur(10px);
+            background: rgba(3, 5, 8, 0.85); backdrop-filter: blur(10px);
         }
-        .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo-text { font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; color: #fff; }
+        
+        /* SOL ÜST LOGO IŞIK EFEKTİ */
+        .logo-text { 
+            font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; 
+            color: #fff; position: relative; overflow: hidden;
+            background: linear-gradient(90deg, #fff 0%, var(--green) 50%, #fff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
 
         .nav-links { display: flex; gap: 25px; }
         .nav-item { 
-            color: var(--green); /* Normalde Yeşil */
+            color: var(--green);
             text-decoration: none; font-size: 0.8rem; 
             font-weight: 700; text-transform: uppercase; transition: 0.3s ease;
             position: relative; text-shadow: var(--neon-green);
         }
         
-        /* Dokunulduğunda veya aktif olduğunda Pembe Neon */
-        .nav-item:hover, .nav-item:active, .nav-item.active { 
+        .nav-item:hover, .nav-item.active { 
             color: var(--pink); 
             text-shadow: var(--neon-pink);
-        }
-        
-        .nav-item.active::after {
-            content: ''; position: absolute; bottom: -8px; left: 0; 
-            width: 100%; height: 2px; background: var(--pink);
-            box-shadow: var(--neon-pink); border-radius: 10px;
         }
 
         /* 🛡️ CENTRAL STAGE */
         .stage {
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
-            padding: 80px 20px;
+            padding: 100px 20px 140px 20px; /* Mobilde sayaç çakışmaması için alt padding artırıldı */
         }
 
         .neural-shield-box {
-            position: relative; width: 100%; max-width: 600px; height: 300px;
+            position: relative; width: 100%; max-width: 600px; height: 180px;
             display: flex; align-items: center; justify-content: center;
+            margin-bottom: 20px;
         }
 
         .central-shield {
@@ -78,53 +81,62 @@
             clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
             box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
             display: flex; align-items: center; justify-content: center;
-            z-index: 10;
         }
 
-        /* ✍️ EPHIC YAZISI SIĞDIRMA */
+        /* ✍️ ANA ETHIC YAZISI & IŞIK KAYMASI */
         h1 { 
-            font-size: clamp(3.5rem, 15vw, 8.5rem); /* Dinamik boyutlandırma */
+            font-size: clamp(3.5rem, 15vw, 8.5rem);
             font-weight: 900; letter-spacing: -5px; 
             line-height: 0.8; z-index: 20; position: relative;
-            background: linear-gradient(to right, var(--green), #fff, var(--pink));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+            background: linear-gradient(90deg, var(--green) 0%, #fff 50%, var(--pink) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
             margin: 10px 0;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
 
         .desc { font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
 
-        /* 🔘 MOBILE ACTIONS */
-        .actions { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 300px; z-index: 30; }
+        /* 🔘 ACTIONS */
+        .actions { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; z-index: 30; }
         .btn {
-            padding: 16px 20px; border-radius: 50px; border: none;
-            font-weight: 800; cursor: pointer; font-size: 0.8rem;
+            padding: 18px 20px; border-radius: 50px; border: none;
+            font-weight: 800; cursor: pointer; font-size: 0.85rem;
             transition: 0.3s; text-transform: uppercase;
         }
         .btn-green { background: var(--green); color: #000; box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
         .btn-outline { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-pink { background: rgba(255, 105, 180, 0.1); color: #fff; border: 1.5px solid var(--pink); box-shadow: 0 0 15px rgba(255, 105, 180, 0.3); }
+        .btn-pink { background: rgba(255, 105, 180, 0.15); color: #fff; border: 1.5px solid var(--pink); box-shadow: 0 0 15px rgba(255, 105, 180, 0.3); }
 
-        /* 📱 MOBILE OPTIMIZATION */
-        @media (max-width: 768px) {
-            nav { padding: 15px 20px; }
-            .nav-links { gap: 12px; }
-            .nav-item { font-size: 0.65rem; letter-spacing: 1px; }
-            .logo-text { font-size: 1.2rem; }
-            .neural-shield-box { height: 200px; }
-            .central-shield { width: 80px; height: 100px; }
-            .glass-counter { width: 90%; padding: 12px; font-size: 0.75rem; bottom: 20px; }
-            .social-dock { display: none; } /* Mobilde yan ikonları gizle (sadelik için) */
-        }
-
+        /* 🟢 GLASS COUNTER (FIXED BOTTOM) */
         .glass-counter {
-            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-            background: rgba(10, 15, 20, 0.8); padding: 12px 25px; border-radius: 100px;
-            border: 1px solid rgba(46, 204, 113, 0.3); backdrop-filter: blur(10px);
-            display: flex; align-items: center; gap: 10px; font-size: 0.8rem; width: auto;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+            background: rgba(10, 15, 20, 0.9); padding: 12px 25px; border-radius: 100px;
+            border: 1px solid rgba(46, 204, 113, 0.3); backdrop-filter: blur(15px);
+            display: flex; align-items: center; gap: 10px; font-size: 0.8rem; 
+            width: max-content; z-index: 1001;
         }
         .status-pulse { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* 📱 MOBILE OPTIMIZATION */
+        @media (max-width: 768px) {
+            nav { padding: 10px 15px; }
+            .nav-links { gap: 10px; }
+            .nav-item { font-size: 0.6rem; letter-spacing: 0.5px; }
+            .logo-text { font-size: 1.1rem; }
+            h1 { font-size: 4.2rem; letter-spacing: -2px; }
+            .stage { padding-top: 60px; padding-bottom: 120px; } /* Sayaç için alan açıldı */
+            .glass-counter { width: 90%; justify-content: center; bottom: 15px; font-size: 0.7rem; }
+            .social-dock { display: none; }
+        }
 
         .social-dock { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; }
         .social-item { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; }
@@ -136,9 +148,9 @@
     <div class="ambient-layer"></div>
 
     <nav>
-        <a href="#" class="logo-wrap">
+        <div class="logo-wrap">
             <div class="logo-text">ETHIC</div>
-        </a>
+        </div>
         <div class="nav-links">
             <a href="#" class="nav-item">Ecosystem</a>
             <a href="#" class="nav-item">Network</a>
@@ -149,11 +161,11 @@
     <main class="stage">
         <div class="neural-shield-box">
             <div class="central-shield">
-                <i class="fas fa-fingerprint" style="color:var(--green); font-size:2rem;"></i>
+                <i class="fas fa-fingerprint" style="color:var(--green); font-size:2.5rem;"></i>
             </div>
         </div>
 
-        <h1 data-text="EPHIC">EPHIC</h1>
+        <h1>ETHIC</h1>
         <p class="desc">Fair Data Ownership Protocol</p>
 
         <div class="actions">
@@ -161,13 +173,13 @@
             <button class="btn btn-outline">Protocol Specs</button>
             <button class="btn btn-pink">Join Genesis Waitlist</button>
         </div>
-
-        <div class="glass-counter">
-            <div class="status-pulse"></div>
-            <span style="color:var(--green); font-weight: 800;">LIVE</span>
-            <span>Data Processed: <strong>1,241,120 GB</strong></span>
-        </div>
     </main>
+
+    <div class="glass-counter">
+        <div class="status-pulse"></div>
+        <span style="color:var(--green); font-weight: 800;">LIVE</span>
+        <span>Data Processed: <strong>1,241,120 GB</strong></span>
+    </div>
 
     <div class="social-dock">
         <a href="#" class="social-item"><i class="fab fa-telegram-plane"></i></a>
