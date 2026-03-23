@@ -11,10 +11,11 @@
             --bg: #030508;
             --green: #2ecc71;
             --pink: #ff69b4;
-            --text-dim: #666;
+            --text-dim: #94a3b8;
+            --neon-shadow: 0 0 20px rgba(46, 204, 113, 0.3);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         body, html { 
             width: 100%; height: 100%; 
             font-family: 'Inter', sans-serif; 
@@ -22,173 +23,99 @@
             color: white; overflow: hidden;
         }
 
-        /* 🌌 GÖRSELDEKİ ARKA PLAN IŞIKLARI */
-        .glow-layer {
+        /* 🌌 DERİNLİK VE NEON PARLAMALARI */
+        .ambient-glow {
             position: fixed; inset: 0; z-index: -1;
             background: 
-                radial-gradient(circle at 10% 40%, rgba(255, 105, 180, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 40%, rgba(46, 204, 113, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 10% 40%, rgba(255, 105, 180, 0.07) 0%, transparent 50%),
+                radial-gradient(circle at 90% 40%, rgba(46, 204, 113, 0.07) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 1) 0%, var(--bg) 100%);
         }
 
-        /* 🚀 NAVİGASYON (GÖRSELLE AYNI) */
+        /* 🚀 NAVİGASYON */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 30px 60px; position: fixed; width: 100%; top: 0; z-index: 100;
+            padding: 30px 60px; position: fixed; width: 100%; top: 0; z-index: 1000;
         }
-        .logo-section { display: flex; align-items: center; gap: 12px; }
-        .logo-icon {
-            width: 28px; height: 32px; border: 1.5px solid var(--pink);
+        .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .shield-mini {
+            width: 30px; height: 35px; border: 1.5px solid var(--pink);
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex; align-items: center; justify-content: center;
             box-shadow: 0 0 15px var(--pink);
         }
-        .logo-text { font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; }
+        .logo-text { font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; color: #fff; }
 
         .nav-links { display: flex; gap: 40px; }
         .nav-item { 
             color: var(--text-dim); text-decoration: none; font-size: 0.85rem; 
             font-weight: 700; text-transform: capitalize; transition: 0.3s;
+            position: relative;
         }
-        .nav-item.active { color: var(--green); position: relative; }
+        .nav-item.active { color: var(--green); }
         .nav-item.active::after {
-            content: ''; position: absolute; bottom: -12px; left: 0; 
-            width: 100%; height: 2px; background: var(--green);
-            box-shadow: 0 0 15px var(--green);
+            content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 3px; background: var(--green);
+            box-shadow: 0 0 15px var(--green), 0 0 30px var(--green); border-radius: 10px;
         }
 
-        /* 🛡️ ANA GÖRSEL VE TYPOGRAPHY */
-        .hero {
+        /* 🛡️ CENTRAL NEURAL INTERFACE */
+        .main-stage {
             height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
+            position: relative;
         }
 
-        .visual-core {
-            position: relative; width: 500px; height: 350px;
+        /* Görseldeki Beyin ve Kalkan Çerçevesi */
+        .neural-frame {
+            position: relative; width: 800px; height: 500px;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: -40px;
-        }
-        /* CSS İLE ÇİZİLMİŞ BEYİN VE KALKAN KATMANI */
-        .shield-neon {
-            width: 120px; height: 150px; border: 2px solid var(--green);
-            clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
-            box-shadow: 0 0 40px rgba(46, 204, 113, 0.4);
-            background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
-            z-index: 5;
-        }
-        .brain-glow {
-            position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(255,105,180,0.1) 0%, transparent 70%);
-            filter: blur(30px); z-index: 1;
+            margin-bottom: -100px;
         }
 
-        h1 { 
-            font-size: 8.5rem; font-weight: 900; letter-spacing: -8px; 
-            line-height: 0.8; margin-bottom: 10px;
+        /* SVG Devre Ağları */
+        .circuit-lines {
+            position: absolute; inset: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" opacity="0.2"><path d="M400 250 m-150 0 a 150 150 0 1 0 300 0 a 150 150 0 1 0 -300 0 M200 100 L300 200 M600 100 L500 200 M200 400 L300 300 M600 400 L500 300" stroke="%232ecc71" fill="none" stroke-width="0.5" /></svg>');
+            background-size: contain; background-repeat: no-repeat;
+            mask-image: radial-gradient(circle, black 40%, transparent 70%);
+        }
+
+        .neon-shield-center {
+            position: relative; width: 140px; height: 170px;
+            border: 2px solid var(--green); background: rgba(0,0,0,0.6);
+            clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
+            box-shadow: 0 0 50px rgba(46, 204, 113, 0.4);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10;
+        }
+
+        /* GÖRSELDEKİ O ÖZEL BEYİN EFEKTİ (CSS) */
+        .neural-glow {
+            position: absolute; width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(255, 105, 180, 0.15) 0%, transparent 60%);
+            mix-blend-mode: screen; pointer-events: none;
+        }
+
+        /* TYPOGRAPHY */
+        .brand-h1 { 
+            font-size: clamp(4rem, 12vw, 9rem); font-weight: 900; letter-spacing: -8px; 
+            line-height: 0.8; position: relative; z-index: 20;
             background: linear-gradient(to right, var(--green) 20%, #fff 50%, var(--pink) 80%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
         }
-        .sub-text { font-size: 1.1rem; color: var(--text-dim); letter-spacing: 2px; margin-bottom: 40px; }
-
-        /* 🔘 BUTONLAR (GÖRSELDEKİ ÜÇLÜ YAPI) */
-        .btn-wrap { display: flex; gap: 15px; }
-        .btn {
-            padding: 16px 30px; border-radius: 50px; border: none;
-            font-weight: 900; cursor: pointer; font-size: 0.85rem;
-            transition: 0.4s; text-decoration: none; text-transform: capitalize;
-        }
-        .btn-green { background: var(--green); color: black; }
-        .btn-dark { background: #222; color: white; border: 1px solid #333; }
-        .btn-waitlist { 
-            background: rgba(255, 105, 180, 0.1); color: white; 
-            border: 1px solid var(--pink); box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+        .protocol-sub { 
+            font-size: 1.1rem; color: var(--text-dim); letter-spacing: 3px; 
+            margin-top: 20px; text-transform: uppercase; font-weight: 400;
         }
 
-        /* 🟢 ALT SAYAÇ (ŞEFFAF CAM) */
-        .status-bar {
-            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-            background: rgba(255,255,255,0.03); padding: 10px 30px; border-radius: 50px;
-            border: 1px solid rgba(46, 204, 113, 0.2); backdrop-filter: blur(15px);
-            display: flex; align-items: center; gap: 12px; font-size: 0.8rem;
+        /* 🔘 BUTONLAR (GÖRSELDEKİ BİREBİR TASARIM) */
+        .action-group { display: flex; gap: 20px; margin-top: 50px; z-index: 30; }
+        .cyber-btn {
+            padding: 16px 36px; border-radius: 50px; border: none;
+            font-weight: 800; cursor: pointer; font-size: 0.85rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: capitalize; letter-spacing: 0.5px;
         }
-        .live-indicator { 
-            width: 8px; height: 8px; background: var(--green); 
-            border-radius: 50%; box-shadow: 0 0 10px var(--green);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        /* 📱 SOSYAL DOCK (SAĞ TARAF) */
-        .socials {
-            position: absolute; right: 40px; top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 20px;
-        }
-        .social-btn {
-            width: 45px; height: 45px; border-radius: 12px;
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; justify-content: center;
-            color: white; text-decoration: none; transition: 0.3s;
-        }
-        .social-btn:hover { border-color: var(--pink); color: var(--pink); transform: translateX(-5px); }
-
-        /* Yıldız İkonu (Sağ Alt) */
-        .star-decoration { position: absolute; bottom: 40px; right: 40px; color: var(--text-dim); opacity: 0.4; font-size: 1.5rem; }
-
-    </style>
-</head>
-<body>
-
-    <div class="glow-layer"></div>
-
-    <nav>
-        <div class="logo-section">
-            <div class="logo-icon"><i class="fas fa-bolt" style="color:var(--pink); font-size:0.7rem;"></i></div>
-            <div class="logo-text">ETHIC</div>
-        </div>
-        <div class="nav-links">
-            <a href="#" class="nav-item">Ecosystem</a>
-            <a href="#" class="nav-item">Network</a>
-            <a href="#" class="nav-item active">Governance</a>
-        </div>
-    </nav>
-
-    <div class="hero">
-        <div class="visual-core">
-            <div class="brain-glow"></div>
-            <div class="shield-neon">
-                <i class="fas fa-fingerprint" style="color:var(--green); font-size:2.5rem;"></i>
-            </div>
-        </div>
-
-        <h1 data-text="ETHIC">ETHIC</h1>
-        <p class="sub-text">Fair Data Ownership Protocol</p>
-
-        <div class="btn-wrap">
-            <button class="btn btn-green" onclick="connect()">Connect Wallet</button>
-            <button class="btn btn-dark">Protocol Specs</button>
-            <button class="btn btn-waitlist">Join Genesis Waitlist</button>
-        </div>
-
-        <div class="status-bar">
-            <div class="live-indicator"></div>
-            <span style="color:var(--text-dim)">Live</span>
-            <span>Data Processed: <strong>1,241,120 GB</strong></span>
-        </div>
-    </div>
-
-    <div class="socials">
-        <a href="#" class="social-btn"><i class="fab fa-telegram-plane"></i></a>
-        <a href="#" class="social-icon social-btn"><i class="fab fa-twitter"></i></a>
-    </div>
-
-    <div class="star-decoration">✦</div>
-
-    <script>
-        function connect() {
-            if(window.ethereum) {
-                window.ethereum.request({method:'eth_requestAccounts'})
-                .then(res => alert("Wallet Connected: " + res[0]));
-            } else { alert("Please install MetaMask"); }
-        }
-    </script>
-</body>
-</html>
+        .btn-connect { background: var(--green); color: #000; box-shadow: 0 0 20px rgba(
