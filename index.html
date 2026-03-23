@@ -4,119 +4,184 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHIC | Fair Data Ownership Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --bg: #030508;
             --green: #2ecc71;
             --pink: #ff69b4;
-            --text-dim: #666;
-            --neon-green-shadow: 0 0 10px rgba(46, 204, 113, 0.8);
-            --neon-pink-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
+            --text-dim: #94a3b8;
+            --neon-green: 0 0 25px rgba(46, 204, 113, 0.5);
+            --neon-pink: 0 0 25px rgba(255, 105, 180, 0.5);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         body, html { 
             width: 100%; height: 100%; 
             font-family: 'Inter', sans-serif; 
             background-color: var(--bg); 
             color: white; overflow: hidden;
+            cursor: crosshair;
         }
 
-        .glow-layer {
+        /* 🌌 DERİNLİK KATMANLARI */
+        .ambient-layer {
             position: fixed; inset: 0; z-index: -1;
             background: 
-                radial-gradient(circle at 10% 40%, rgba(255, 105, 180, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 40%, rgba(46, 204, 113, 0.1) 0%, transparent 40%);
+                radial-gradient(circle at 10% 40%, rgba(255, 105, 180, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 90% 40%, rgba(46, 204, 113, 0.1) 0%, transparent 45%);
         }
 
+        /* 🚀 NAV & GOVERNANCE */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 30px 60px; position: fixed; width: 100%; top: 0; z-index: 100;
+            padding: 30px 60px; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: linear-gradient(to bottom, rgba(3,5,8,1), transparent);
         }
-        
-        /* 🧠 YENİ LOGO: BEYİN + PARMAK İZİ KARIŞIMI */
-        .logo-section { display: flex; align-items: center; gap: 12px; }
-        .logo-icon {
-            width: 40px; height: 40px; border: 1.5px solid var(--pink);
+        .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .shield-icon {
+            width: 32px; height: 38px; border: 1.5px solid var(--pink);
             clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
             display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 15px var(--pink);
-            position: relative;
+            box-shadow: var(--neon-pink); animation: rotateShield 10s infinite linear;
         }
-        .logo-icon i.fa-brain { font-size: 0.8rem; position: absolute; color: var(--green); opacity: 0.7; }
-        .logo-icon i.fa-fingerprint { font-size: 1.1rem; color: var(--pink); }
+        @keyframes rotateShield { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        .logo-text { font-weight: 900; font-size: 1.7rem; letter-spacing: 2px; color: #fff; }
 
-        .logo-text { font-weight: 900; font-size: 1.6rem; letter-spacing: 2px; }
-
-        /* 🟢 SAĞ ÜST NAV: YEŞİL -> PEMBE GEÇİŞİ */
         .nav-links { display: flex; gap: 40px; }
         .nav-item { 
-            color: var(--green); 
-            text-shadow: var(--neon-green-shadow);
-            text-decoration: none; font-size: 0.85rem; 
-            font-weight: 700; text-transform: capitalize; transition: 0.3s;
+            color: var(--text-dim); text-decoration: none; font-size: 0.8rem; 
+            font-weight: 700; text-transform: uppercase; transition: 0.3s;
+            position: relative; letter-spacing: 2px;
         }
-        .nav-item:hover { opacity: 0.8; }
-        .nav-item.active { 
-            color: var(--pink); 
-            text-shadow: var(--neon-pink-shadow);
-            position: relative; 
-        }
+        .nav-item.active { color: white; }
         .nav-item.active::after {
-            content: ''; position: absolute; bottom: -12px; left: 0; 
-            width: 100%; height: 2px; background: var(--pink);
-            box-shadow: 0 0 15px var(--pink);
+            content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
+            width: 100%; height: 2px; background: var(--green);
+            box-shadow: 0 0 15px var(--green); border-radius: 10px;
         }
 
-        .hero {
+        /* 🛡️ CENTRAL NEURAL INTERFACE (BİREBİR GÖRSEL) */
+        .stage {
             height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
+            position: relative;
         }
 
-        /* 🛡️ MERKEZİ GÖRSEL */
-        .visual-core {
-            position: relative; width: 500px; height: 350px;
+        .neural-shield-box {
+            position: relative; width: 1000px; height: 600px;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: -40px;
+            margin-bottom: -150px;
         }
-        .shield-neon {
-            width: 120px; height: 150px; border: 2px solid var(--green);
+
+        /* Dinamik Devre Hatları */
+        .circuitry {
+            position: absolute; inset: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" opacity="0.15"><path d="M400 250 m-200 0 a 200 200 0 1 0 400 0 a 200 200 0 1 0 -400 0 M100 100 L250 200 M700 100 L550 200 M100 400 L250 300 M700 400 L550 300" stroke="%23ff69b4" fill="none" stroke-width="0.5" /><path d="M400 250 m-100 0 a 100 100 0 1 0 200 0 a 100 100 0 1 0 -200 0" stroke="%232ecc71" fill="none" stroke-width="1" /></svg>');
+            background-size: contain; background-repeat: no-repeat;
+            animation: circuitPulse 4s infinite alternate;
+        }
+        @keyframes circuitPulse { from { transform: scale(0.98); opacity: 0.1; } to { transform: scale(1.02); opacity: 0.3; } }
+
+        .central-shield {
+            position: relative; width: 160px; height: 200px;
+            border: 2px solid var(--green); background: rgba(0,0,0,0.8);
             clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
-            box-shadow: 0 0 40px rgba(46, 204, 113, 0.4);
-            background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
-            z-index: 5;
+            box-shadow: 0 0 60px rgba(46, 204, 113, 0.4);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 10; transition: 0.5s;
         }
-        .brain-glow {
-            position: absolute; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(255,105,180,0.1) 0%, transparent 70%);
-            filter: blur(30px); z-index: 1;
-        }
+        .central-shield:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 100px var(--green); }
 
-        /* ✨ ETHIC YAZISI: IŞIKLI GEÇİŞ */
+        /* TYPOGRAPHY (PIXEL PERFECT) */
         h1 { 
-            font-size: 8.5rem; font-weight: 900; letter-spacing: -8px; 
-            line-height: 0.8; margin-bottom: 10px;
-            background: linear-gradient(90deg, #2ecc71, #fff, #ff69b4, #2ecc71);
-            background-size: 200% auto;
+            font-size: clamp(5rem, 15vw, 11rem); font-weight: 900; letter-spacing: -12px; 
+            line-height: 0.8; z-index: 20; position: relative;
+            background: linear-gradient(to right, var(--green) 10%, #fff 50%, var(--pink) 90%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite;
+            filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
+            animation: titleFloat 6s infinite ease-in-out;
         }
-        @keyframes shine {
-            to { background-position: 200% center; }
+        @keyframes titleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+        .desc { 
+            font-size: 1.3rem; color: var(--text-dim); letter-spacing: 5px; 
+            margin-top: 30px; text-transform: uppercase; font-weight: 600;
+            font-family: 'Space Mono', monospace;
         }
 
-        /* 🌈 PROTOCOL YAZISI: PEMBE-YEŞİL NEON */
-        .sub-text { 
-            font-size: 1.1rem; 
-            font-weight: 700;
-            letter-spacing: 2px; 
-            margin-bottom: 40px;
-            color: #fff;
-            text-shadow: 0 0 5px var(--green), 0 0 10px var(--pink);
-            animation: neonPulse 3s infinite alternate;
+        /* 🔘 ACTION BUTTONS (GÖRSELDEKİ ÜÇLÜ YAPI) */
+        .actions { display: flex; gap: 25px; margin-top: 60px; z-index: 30; }
+        .btn {
+            padding: 20px 45px; border-radius: 100px; border: none;
+            font-weight: 900; cursor: pointer; font-size: 0.9rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-transform: uppercase; letter-spacing: 1px;
         }
-        @keyframes neonPulse {
-            from { text-shadow: 0 0 5px var(--green), 0 0 10px var(--pink); }
-            to { text-shadow: 0 0 15px var(--pink), 0 0 20px var(--green); }
+        .btn-green { background: var(--green); color: #000; box-shadow: var(--neon-green); }
+        .btn-outline { background: rgba(255,255,255,0.05); color: #fff; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
+        .btn-pink { 
+            background: rgba(255, 105, 180, 0.1); color: #fff; 
+            border: 2px solid var(--pink); box-shadow: var(--neon-pink);
+        }
+        .btn:hover { transform: translateY(-10px) scale(1.05); filter: brightness(1.3); }
+
+        /* 🟢 DATA COUNTER (GLASS BAR) */
+        .glass-counter {
+            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
+            background: rgba(5, 10, 15, 0.8); padding: 16px 45px; border-radius: 100px;
+            border: 1px solid rgba(46, 204, 113, 0.4); backdrop-filter: blur(30px);
+            display: flex; align-items: center; gap: 20px; font-size: 1rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        .status-pulse { 
+            width: 12px; height: 12px; background: var(--green); 
+            border-radius: 50%; box-shadow: 0 0 20px var(--green);
+            animation: pulse-active 1.5s infinite;
+        }
+        @keyframes pulse-active { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* 📱 SOCIAL SIDE DOCK */
+        .social-dock {
+            position: absolute; right: 50px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 25px; z-index: 100;
+        }
+        .social-item {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; transition: 0.4s; font-size: 1.3rem;
+        }
+        .social-item:hover { border-color: var(--pink); color: var(--pink); transform: translateX(-10px) rotate(360deg); box-shadow: var(--neon-pink); }
+
+        .star-decorator { position: absolute; bottom: 40px; right: 50px; color: var(--green); opacity: 0.5; font-size: 3rem; filter: blur(1px); animation: starTwinkle 3s infinite; }
+        @keyframes starTwinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+    </style>
+</head>
+<body>
+
+    <div class="ambient-layer"></div>
+
+    <nav>
+        <a href="#" class="logo-wrap">
+            <div class="shield-icon"><i class="fas fa-brain" style="color:var(--pink); font-size:0.9rem;"></i></div>
+            <div class="logo-text">ETHIC</div>
+        </a>
+        <div class="nav-links">
+            <a href="#" class="nav-item">Ecosystem</a>
+            <a href="#" class="nav-item">Network</a>
+            <a href="#" class="nav-item active">Governance</a>
+        </div>
+    </nav>
+
+    <main class="stage">
+        <div class="neural-shield-box">
+            <div class="circuitry"></div>
+            <div class="central-shield">
+                <i class="fas fa-fingerprint" style="color:var(--green); font-size:3.5rem; filter: drop-shadow(0 0 15px var(--green));"></i>
+            </div>
+        </div>
+
+        <h1 data-text="ETHIC">ETHIC</h1>
