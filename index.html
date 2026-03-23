@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHIC | Fair Data Ownership Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -12,8 +12,8 @@
             --green: #2ecc71;
             --pink: #ff69b4;
             --text-dim: #94a3b8;
-            --neon-green: 0 0 25px rgba(46, 204, 113, 0.5);
-            --neon-pink: 0 0 25px rgba(255, 105, 180, 0.5);
+            --neon-green: 0 0 15px rgba(46, 204, 113, 0.6);
+            --neon-pink: 0 0 20px rgba(255, 105, 180, 0.8);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
@@ -21,142 +21,113 @@
             width: 100%; height: 100%; 
             font-family: 'Inter', sans-serif; 
             background-color: var(--bg); 
-            color: white; overflow: hidden;
-            cursor: crosshair;
+            color: white; overflow-x: hidden;
         }
 
-        /* 🌌 DERİNLİK KATMANLARI */
         .ambient-layer {
             position: fixed; inset: 0; z-index: -1;
             background: 
-                radial-gradient(circle at 10% 40%, rgba(255, 105, 180, 0.1) 0%, transparent 45%),
-                radial-gradient(circle at 90% 40%, rgba(46, 204, 113, 0.1) 0%, transparent 45%);
+                radial-gradient(circle at 15% 45%, rgba(255, 105, 180, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 45%, rgba(46, 204, 113, 0.08) 0%, transparent 50%);
         }
 
-        /* 🚀 NAV & GOVERNANCE */
+        /* 🚀 NAV & DİNAMİK RENK DEĞİŞİMİ */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 30px 60px; position: fixed; width: 100%; top: 0; z-index: 1000;
-            background: linear-gradient(to bottom, rgba(3,5,8,1), transparent);
+            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            background: rgba(3, 5, 8, 0.8); backdrop-filter: blur(10px);
         }
-        .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .shield-icon {
-            width: 32px; height: 38px; border: 1.5px solid var(--pink);
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: var(--neon-pink); animation: rotateShield 10s infinite linear;
-        }
-        @keyframes rotateShield { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
-        .logo-text { font-weight: 900; font-size: 1.7rem; letter-spacing: 2px; color: #fff; }
+        .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-text { font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; color: #fff; }
 
-        .nav-links { display: flex; gap: 40px; }
+        .nav-links { display: flex; gap: 25px; }
         .nav-item { 
-            color: var(--text-dim); text-decoration: none; font-size: 0.8rem; 
-            font-weight: 700; text-transform: uppercase; transition: 0.3s;
-            position: relative; letter-spacing: 2px;
+            color: var(--green); /* Normalde Yeşil */
+            text-decoration: none; font-size: 0.8rem; 
+            font-weight: 700; text-transform: uppercase; transition: 0.3s ease;
+            position: relative; text-shadow: var(--neon-green);
         }
-        .nav-item.active { color: white; }
+        
+        /* Dokunulduğunda veya aktif olduğunda Pembe Neon */
+        .nav-item:hover, .nav-item:active, .nav-item.active { 
+            color: var(--pink); 
+            text-shadow: var(--neon-pink);
+        }
+        
         .nav-item.active::after {
-            content: ''; position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%);
-            width: 100%; height: 2px; background: var(--green);
-            box-shadow: 0 0 15px var(--green); border-radius: 10px;
+            content: ''; position: absolute; bottom: -8px; left: 0; 
+            width: 100%; height: 2px; background: var(--pink);
+            box-shadow: var(--neon-pink); border-radius: 10px;
         }
 
-        /* 🛡️ CENTRAL NEURAL INTERFACE (BİREBİR GÖRSEL) */
+        /* 🛡️ CENTRAL STAGE */
         .stage {
-            height: 100vh; display: flex; flex-direction: column;
+            min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
-            position: relative;
+            padding: 80px 20px;
         }
 
         .neural-shield-box {
-            position: relative; width: 1000px; height: 600px;
+            position: relative; width: 100%; max-width: 600px; height: 300px;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: -150px;
         }
-
-        /* Dinamik Devre Hatları */
-        .circuitry {
-            position: absolute; inset: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" opacity="0.15"><path d="M400 250 m-200 0 a 200 200 0 1 0 400 0 a 200 200 0 1 0 -400 0 M100 100 L250 200 M700 100 L550 200 M100 400 L250 300 M700 400 L550 300" stroke="%23ff69b4" fill="none" stroke-width="0.5" /><path d="M400 250 m-100 0 a 100 100 0 1 0 200 0 a 100 100 0 1 0 -200 0" stroke="%232ecc71" fill="none" stroke-width="1" /></svg>');
-            background-size: contain; background-repeat: no-repeat;
-            animation: circuitPulse 4s infinite alternate;
-        }
-        @keyframes circuitPulse { from { transform: scale(0.98); opacity: 0.1; } to { transform: scale(1.02); opacity: 0.3; } }
 
         .central-shield {
-            position: relative; width: 160px; height: 200px;
-            border: 2px solid var(--green); background: rgba(0,0,0,0.8);
+            position: relative; width: 100px; height: 130px;
+            border: 2px solid var(--green); background: rgba(0,0,0,0.7);
             clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
-            box-shadow: 0 0 60px rgba(46, 204, 113, 0.4);
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
             display: flex; align-items: center; justify-content: center;
-            z-index: 10; transition: 0.5s;
+            z-index: 10;
         }
-        .central-shield:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 100px var(--green); }
 
-        /* TYPOGRAPHY (PIXEL PERFECT) */
+        /* ✍️ EPHIC YAZISI SIĞDIRMA */
         h1 { 
-            font-size: clamp(5rem, 15vw, 11rem); font-weight: 900; letter-spacing: -12px; 
+            font-size: clamp(3.5rem, 15vw, 8.5rem); /* Dinamik boyutlandırma */
+            font-weight: 900; letter-spacing: -5px; 
             line-height: 0.8; z-index: 20; position: relative;
-            background: linear-gradient(to right, var(--green) 10%, #fff 50%, var(--pink) 90%);
+            background: linear-gradient(to right, var(--green), #fff, var(--pink));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(255,255,255,0.1));
-            animation: titleFloat 6s infinite ease-in-out;
-        }
-        @keyframes titleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-
-        .desc { 
-            font-size: 1.3rem; color: var(--text-dim); letter-spacing: 5px; 
-            margin-top: 30px; text-transform: uppercase; font-weight: 600;
-            font-family: 'Space Mono', monospace;
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.1));
+            margin: 10px 0;
         }
 
-        /* 🔘 ACTION BUTTONS (GÖRSELDEKİ ÜÇLÜ YAPI) */
-        .actions { display: flex; gap: 25px; margin-top: 60px; z-index: 30; }
+        .desc { font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
+
+        /* 🔘 MOBILE ACTIONS */
+        .actions { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 300px; z-index: 30; }
         .btn {
-            padding: 20px 45px; border-radius: 100px; border: none;
-            font-weight: 900; cursor: pointer; font-size: 0.9rem;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-transform: uppercase; letter-spacing: 1px;
+            padding: 16px 20px; border-radius: 50px; border: none;
+            font-weight: 800; cursor: pointer; font-size: 0.8rem;
+            transition: 0.3s; text-transform: uppercase;
         }
-        .btn-green { background: var(--green); color: #000; box-shadow: var(--neon-green); }
-        .btn-outline { background: rgba(255,255,255,0.05); color: #fff; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); }
-        .btn-pink { 
-            background: rgba(255, 105, 180, 0.1); color: #fff; 
-            border: 2px solid var(--pink); box-shadow: var(--neon-pink);
-        }
-        .btn:hover { transform: translateY(-10px) scale(1.05); filter: brightness(1.3); }
+        .btn-green { background: var(--green); color: #000; box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
+        .btn-outline { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-pink { background: rgba(255, 105, 180, 0.1); color: #fff; border: 1.5px solid var(--pink); box-shadow: 0 0 15px rgba(255, 105, 180, 0.3); }
 
-        /* 🟢 DATA COUNTER (GLASS BAR) */
+        /* 📱 MOBILE OPTIMIZATION */
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; }
+            .nav-links { gap: 12px; }
+            .nav-item { font-size: 0.65rem; letter-spacing: 1px; }
+            .logo-text { font-size: 1.2rem; }
+            .neural-shield-box { height: 200px; }
+            .central-shield { width: 80px; height: 100px; }
+            .glass-counter { width: 90%; padding: 12px; font-size: 0.75rem; bottom: 20px; }
+            .social-dock { display: none; } /* Mobilde yan ikonları gizle (sadelik için) */
+        }
+
         .glass-counter {
-            position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%);
-            background: rgba(5, 10, 15, 0.8); padding: 16px 45px; border-radius: 100px;
-            border: 1px solid rgba(46, 204, 113, 0.4); backdrop-filter: blur(30px);
-            display: flex; align-items: center; gap: 20px; font-size: 1rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+            background: rgba(10, 15, 20, 0.8); padding: 12px 25px; border-radius: 100px;
+            border: 1px solid rgba(46, 204, 113, 0.3); backdrop-filter: blur(10px);
+            display: flex; align-items: center; gap: 10px; font-size: 0.8rem; width: auto;
         }
-        .status-pulse { 
-            width: 12px; height: 12px; background: var(--green); 
-            border-radius: 50%; box-shadow: 0 0 20px var(--green);
-            animation: pulse-active 1.5s infinite;
-        }
-        @keyframes pulse-active { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.5; } 100% { transform: scale(1); opacity: 1; } }
+        .status-pulse { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* 📱 SOCIAL SIDE DOCK */
-        .social-dock {
-            position: absolute; right: 50px; top: 50%; transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 25px; z-index: 100;
-        }
-        .social-item {
-            width: 60px; height: 60px; border-radius: 50%;
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08);
-            display: flex; align-items: center; justify-content: center;
-            color: white; text-decoration: none; transition: 0.4s; font-size: 1.3rem;
-        }
-        .social-item:hover { border-color: var(--pink); color: var(--pink); transform: translateX(-10px) rotate(360deg); box-shadow: var(--neon-pink); }
-
-        .star-decorator { position: absolute; bottom: 40px; right: 50px; color: var(--green); opacity: 0.5; font-size: 3rem; filter: blur(1px); animation: starTwinkle 3s infinite; }
-        @keyframes starTwinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+        .social-dock { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; }
+        .social-item { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; }
 
     </style>
 </head>
@@ -166,7 +137,6 @@
 
     <nav>
         <a href="#" class="logo-wrap">
-            <div class="shield-icon"><i class="fas fa-brain" style="color:var(--pink); font-size:0.9rem;"></i></div>
             <div class="logo-text">ETHIC</div>
         </a>
         <div class="nav-links">
@@ -178,10 +148,39 @@
 
     <main class="stage">
         <div class="neural-shield-box">
-            <div class="circuitry"></div>
             <div class="central-shield">
-                <i class="fas fa-fingerprint" style="color:var(--green); font-size:3.5rem; filter: drop-shadow(0 0 15px var(--green));"></i>
+                <i class="fas fa-fingerprint" style="color:var(--green); font-size:2rem;"></i>
             </div>
         </div>
 
-        <h1 data-text="ETHIC">ETHIC</h1>
+        <h1 data-text="EPHIC">EPHIC</h1>
+        <p class="desc">Fair Data Ownership Protocol</p>
+
+        <div class="actions">
+            <button class="btn btn-green" onclick="connect()">Connect Wallet</button>
+            <button class="btn btn-outline">Protocol Specs</button>
+            <button class="btn btn-pink">Join Genesis Waitlist</button>
+        </div>
+
+        <div class="glass-counter">
+            <div class="status-pulse"></div>
+            <span style="color:var(--green); font-weight: 800;">LIVE</span>
+            <span>Data Processed: <strong>1,241,120 GB</strong></span>
+        </div>
+    </main>
+
+    <div class="social-dock">
+        <a href="#" class="social-item"><i class="fab fa-telegram-plane"></i></a>
+        <a href="#" class="social-item"><i class="fab fa-twitter"></i></a>
+    </div>
+
+    <script>
+        async function connect() {
+            if (window.ethereum) {
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                alert("Connected: " + accounts[0].substring(0,6) + "...");
+            } else { alert("MetaMask not found!"); }
+        }
+    </script>
+</body>
+</html>
