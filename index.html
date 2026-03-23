@@ -4,154 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHIC | Fair Data Ownership Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --bg: #030508; --green: #2ecc71; --pink: #ff69b4; --text: #888; }
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        body, html { width: 100%; height: 100%; font-family: 'Inter', sans-serif; background: var(--bg); color: #fff; overflow-x: hidden; }
-
-        /* 🌌 BACKGROUND PARTICLE EFFECT (BAĞLANTILAR) */
-        #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.5; }
-
-        /* 🚀 NAV (ÜST YAZILAR SAĞDA) */
-        nav { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 20px 5%; position: fixed; width: 100%; top: 0; 
-            backdrop-filter: blur(25px); border-bottom: 1px solid rgba(255,255,255,0.05); z-index: 1000; 
+        :root {
+            --bg: #030508;
+            --green: #2ecc71;
+            --pink: #ff69b4;
+            --text-dim: #888;
+            --glass: rgba(255, 255, 255, 0.03);
         }
-        .logo-area { font-weight: 900; font-size: 1.2rem; letter-spacing: 2px; color: var(--green); text-decoration: none; display: flex; align-items: center; gap: 10px; }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-item { position: relative; color: #666; text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { color: var(--pink); filter: drop-shadow(0 0 5px var(--pink)); }
-        
-        /* ✨ IŞIK KAYMASI ✨ */
-        .nav-item::after { content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255, 255, 255, 0.4) 50%, transparent 60%, transparent 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-size: 200% 100%; background-position: -150% 0%; animation: lightScan 5s infinite linear; }
-        @keyframes lightScan { 0% { background-position: -150% 0%; } 100% { background-position: 150% 0%; } }
 
-        /* HERO CONTAINER (GÖRSELİN RUHU) */
-        .hero-container { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 20px 80px 20px; }
-        
-        .shield-box {
-            position: relative; width: 350px; height: 350px; margin-bottom: -15px;
-            background: radial-gradient(circle, rgba(46, 204, 113, 0.1) 0%, transparent 70%);
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, html { 
+            width: 100%; height: 100%; 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: white; 
+            overflow: hidden;
+        }
+
+        /* 🌌 ARKA PLAN PARLAMALARI */
+        .glow-bg {
+            position: fixed; inset: 0; z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(255, 105, 180, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 50%, rgba(46, 204, 113, 0.08) 0%, transparent 40%);
+        }
+
+        /* 🚀 NAV */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 25px 50px; position: fixed; width: 100%; top: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            z-index: 100;
+        }
+        .logo-group { display: flex; align-items: center; gap: 10px; }
+        .logo-img { width: 30px; filter: drop-shadow(0 0 5px var(--pink)); }
+        .logo-text { font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; }
+        .logo-text span { color: var(--pink); }
+
+        .nav-links { display: flex; gap: 40px; }
+        .nav-item { 
+            color: var(--text-dim); text-decoration: none; font-size: 0.85rem; 
+            font-weight: 600; text-transform: capitalize; transition: 0.3s;
+        }
+        .nav-item:hover, .nav-item.active { color: white; }
+        .nav-item.active { position: relative; color: var(--green); }
+        .nav-item.active::after {
+            content: ''; position: absolute; bottom: -10px; left: 0; 
+            width: 100%; height: 2px; background: var(--green);
+            box-shadow: 0 0 10px var(--green);
+        }
+
+        /* 🛡️ ANA İÇERİK */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center;
+            position: relative; padding-top: 60px;
+        }
+
+        /* Beyin Görseli Alanı */
+        .visual-container {
+            position: relative; width: 600px; height: 400px;
             display: flex; align-items: center; justify-content: center;
+            margin-bottom: -40px;
         }
-        /* Buraya logonun görselini (beyin ve kalkan) koyabilirsin */
-        .shield-icon { font-size: 10rem; background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 30px rgba(46, 204, 113, 0.5)); }
-
-        h1 { font-size: clamp(3.5rem, 15vw, 9rem); font-weight: 900; letter-spacing: -7px; line-height: 0.8; background: linear-gradient(135deg, var(--green), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: transparent; position: relative; margin-top: 15px; }
-        .tagline { color: #666; font-size: 0.95rem; letter-spacing: 5px; text-transform: uppercase; font-weight: 700; margin-top: 20px; }
-
-        /* 🟢 CENTERED LIVE COUNTER (DENGELENDİ) */
-        .live-counter { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); padding: 12px 30px; border-radius: 50px; border: 1px solid rgba(46, 204, 113, 0.25); font-size: 0.75rem; color: var(--green); backdrop-filter: blur(15px); z-index: 100; white-space: nowrap; }
-        .dot { height: 8px; width: 8px; background-color: var(--green); border-radius: 50%; display: inline-block; margin-right: 12px; animation: blink 1.2s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
-
-        /* 📱 MOBİL MEDIA QUERY (DENGELİ) */
-        @media (max-width: 768px) {
-            nav { flex-direction: row; padding: 15px 5%; justify-content: center; }
-            .nav-top { justify-content: center; margin-bottom: 10px; }
-            .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 5px; }
-            .nav-item { font-size: 0.65rem; }
-            h1 { font-size: 4rem; letter-spacing: -2px; }
-            .shield-box { width: 250px; height: 250px; }
-            .social-dock { bottom: 85px; right: 20px; flex-direction: column; gap: 10px; }
-            .live-counter { width: 90%; text-align: center; bottom: 20px; }
+        .main-visual {
+            width: 100%; height: auto;
+            filter: drop-shadow(0 0 30px rgba(46, 204, 113, 0.2));
+            /* Görsel buraya gelecek: background-image: url('brain-shield.png'); */
         }
 
-        .social-dock { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
-        .social-icon { width: 48px; height: 48px; background: rgba(255,255,255,0.03); border: 1px solid #222; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.3s; font-size: 1.1rem; }
-        .social-icon:hover { border-color: var(--green); color: var(--green); transform: translateY(-3px); }
-        
-        .btn-container { margin-top: 40px; display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; }
-        .btn { padding: 20px; border-radius: 15px; border: none; font-weight: 900; cursor: pointer; text-transform: uppercase; transition: 0.4s; font-size: 0.85rem; letter-spacing: 1px; }
-        .btn-primary { background: var(--green); color: #000; box-shadow: 0 10px 30px rgba(46, 204, 113, 0.2); }
-        .btn-airdrop { background: linear-gradient(90deg, var(--pink), #8e44ad); color: white; box-shadow: 0 10px 25px rgba(255,105,180,0.25); }
-    </style>
-</head>
-<body>
-
-    <canvas id="canvas"></canvas>
-    
-    <nav>
-        <a href="#" class="logo-area">
-            ETHIC
-        </a>
-        <div class="nav-links">
-            <a href="#" class="nav-item active">Ecosystem</a>
-            <a href="#" class="nav-item">Network</a>
-            <a href="#" class="nav-item">Governance</a>
-        </div>
-    </nav>
-
-    <div class="hero-container">
-        <div class="shield-box">
-            <i class="fas fa-shield-alt shield-icon"></i>
-        </div>
-        
-        <h1 data-text="ETHIC">ETHIC</h1>
-        <div class="tagline">Fair Data Ownership Protocol</div>
-        
-        <div class="btn-container">
-            <button id="walletBtn" class="btn btn-primary" onclick="connectWallet()">Connect Wallet</button>
-            <button class="btn btn-airdrop" onclick="joinWaitlist()">Join Genesis Waitlist</button>
-        </div>
-    </div>
-
-    <div class="live-counter">
-        <span class="dot"></span> Ethical Data Processed: <span id="dataCount">1,241,120</span> GB
-    </div>
-
-    <div class="social-dock">
-        <a href="https://t.me/ethicprotocol" target="_blank" class="social-icon"><i class="fab fa-telegram-plane"></i></a>
-        <a href="https://x.com/ethicprotocol" target="_blank" class="social-icon"><i class="fab fa-x-twitter"></i></a>
-    </div>
-
-    <script>
-        // 🌌 NETWORK PARTICLE EFFECT (BAĞLANTILAR)
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        let particles = [];
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-            }
-            update() {
-                this.x += this.vx; this.y += this.vy;
-                if(this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if(this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(46, 204, 113, 0.3)';
-                ctx.beginPath(); ctx.arc(this.x, this.y, 1, 0, Math.PI * 2); ctx.fill();
-            }
+        .title-group { position: relative; z-index: 10; }
+        h1 { 
+            font-size: 7.5rem; font-weight: 900; letter-spacing: -5px; 
+            line-height: 1; margin-bottom: 10px;
+            background: linear-gradient(to right, var(--green), white, var(--pink));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        function init() { for(let i=0; i<80; i++) particles.push(new Particle()); }
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            requestAnimationFrame(animate);
-        }
-        init(); animate();
-
-        async function connectWallet() {
-            if (window.ethereum) {
-                const acc = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                document.getElementById('walletBtn').innerText = acc[0].substring(0,6)+"..."+acc[0].slice(-4);
-            }
+        .tagline { 
+            font-size: 1.1rem; color: var(--text-dim); letter-spacing: 1px;
+            margin-bottom: 40px;
         }
 
-        let count = 1241120;
-        setInterval(() => {
-            count += Math.floor(Math.random() * 5);
-            document.getElementById('dataCount').innerText = count.toLocaleString();
-        }, 2000);
-    </script>
-</body>
-</html>
+        /* 🔘 BUTONLAR */
+        .btn-group { display: flex; gap: 15px; z-index: 20; }
+        .btn {
+            padding: 14px 28px; border-radius: 50px; border: none;
+            font-weight: 700; cursor: pointer; font-size: 0.85rem;
+            transition: 0.3s; text-decoration: none;
+        }
+        .btn-green { background: var(--green); color: black; }
+        .btn-gray { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-pink { 
+            background: rgba(255, 105, 180, 0.15); color: white; 
+            border: 1px solid var(--pink); box-shadow: 0 0 15px rgba(255, 105, 1
