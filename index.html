@@ -21,7 +21,7 @@
             width: 100%; height: 100%; 
             font-family: 'Inter', sans-serif; 
             background-color: var(--bg); 
-            color: white; overflow-x: hidden;
+            color: white; overflow-x: auto;
         }
 
         .ambient-layer {
@@ -31,14 +31,12 @@
                 radial-gradient(circle at 85% 45%, rgba(46, 204, 113, 0.08) 0%, transparent 50%);
         }
 
-        /* 🚀 NAV */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
             background: rgba(3, 5, 8, 0.85); backdrop-filter: blur(10px);
         }
         
-        /* SOL ÜST LOGO IŞIK EFEKTİ */
         .logo-text { 
             font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; 
             color: #fff; position: relative; overflow: hidden;
@@ -51,96 +49,102 @@
 
         .nav-links { display: flex; gap: 25px; }
         .nav-item { 
-            color: var(--green);
-            text-decoration: none; font-size: 0.8rem; 
+            color: var(--green); text-decoration: none; font-size: 0.8rem; 
             font-weight: 700; text-transform: uppercase; transition: 0.3s ease;
             position: relative; text-shadow: var(--neon-green);
         }
-        
-        .nav-item:hover, .nav-item.active { 
-            color: var(--pink); 
-            text-shadow: var(--neon-pink);
-        }
+        .nav-item:hover, .nav-item.active { color: var(--pink); text-shadow: var(--neon-pink); }
 
-        /* 🛡️ CENTRAL STAGE */
+        /* 🛡️ STAGE */
         .stage {
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
-            padding: 100px 20px 140px 20px; /* Mobilde sayaç çakışmaması için alt padding artırıldı */
+            padding: 120px 20px 100px 20px;
         }
 
         .neural-shield-box {
-            position: relative; width: 100%; max-width: 600px; height: 180px;
+            position: relative; width: 100%; max-width: 600px; height: 160px;
             display: flex; align-items: center; justify-content: center;
-            margin-bottom: 20px;
         }
 
         .central-shield {
-            position: relative; width: 100px; height: 130px;
+            position: relative; width: 90px; height: 120px;
             border: 2px solid var(--green); background: rgba(0,0,0,0.7);
             clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
             box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* ✍️ ANA ETHIC YAZISI & IŞIK KAYMASI */
         h1 { 
-            font-size: clamp(3.5rem, 15vw, 8.5rem);
-            font-weight: 900; letter-spacing: -5px; 
+            font-size: clamp(3.5rem, 15vw, 8.5rem); font-weight: 900; letter-spacing: -5px; 
             line-height: 0.8; z-index: 20; position: relative;
             background: linear-gradient(90deg, var(--green) 0%, #fff 50%, var(--pink) 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 4s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
             margin: 10px 0;
         }
 
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+
+        /* 👤 FOUNDER BIOGRAPHY SECTION (YENİ) */
+        .founder-section {
+            padding: 80px 10%; background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            display: flex; justify-content: center;
         }
 
-        .desc { font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
+        .founder-card {
+            max-width: 800px; background: rgba(10, 15, 20, 0.6);
+            padding: 40px; border-radius: 25px; border: 1px solid rgba(46, 204, 113, 0.2);
+            backdrop-filter: blur(15px); display: flex; gap: 30px; align-items: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
 
-        /* 🔘 ACTIONS */
+        .founder-img-wrap {
+            width: 150px; height: 150px; border-radius: 50%;
+            border: 2px solid var(--green); padding: 5px; flex-shrink: 0;
+            box-shadow: var(--neon-green);
+        }
+
+        .founder-img-wrap img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            filter: grayscale(1) contrast(1.2); transition: 0.3s;
+        }
+
+        .founder-card:hover .founder-img-wrap img { filter: grayscale(0); }
+
+        .founder-info { text-align: left; }
+        .founder-name { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 5px; }
+        .founder-title { font-size: 0.8rem; color: var(--green); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 15px; display: block;}
+        .founder-bio { font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 20px; }
+        
+        .founder-social { display: flex; gap: 15px; }
+        .founder-social a { color: #fff; font-size: 1.2rem; transition: 0.3s; }
+        .founder-social a:hover { color: var(--pink); transform: translateY(-3px); }
+
         .actions { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; z-index: 30; }
-        .btn {
-            padding: 18px 20px; border-radius: 50px; border: none;
-            font-weight: 800; cursor: pointer; font-size: 0.85rem;
-            transition: 0.3s; text-transform: uppercase;
-        }
+        .btn { padding: 18px; border-radius: 50px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; }
         .btn-green { background: var(--green); color: #000; box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
-        .btn-outline { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); }
-        .btn-pink { background: rgba(255, 105, 180, 0.15); color: #fff; border: 1.5px solid var(--pink); box-shadow: 0 0 15px rgba(255, 105, 180, 0.3); }
+        .btn-pink { background: rgba(255, 105, 180, 0.15); color: #fff; border: 1.5px solid var(--pink); }
 
-        /* 🟢 GLASS COUNTER (FIXED BOTTOM) */
         .glass-counter {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: rgba(10, 15, 20, 0.9); padding: 12px 25px; border-radius: 100px;
             border: 1px solid rgba(46, 204, 113, 0.3); backdrop-filter: blur(15px);
-            display: flex; align-items: center; gap: 10px; font-size: 0.8rem; 
-            width: max-content; z-index: 1001;
+            display: flex; align-items: center; gap: 10px; font-size: 0.8rem; z-index: 1001;
         }
         .status-pulse { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
 
-        /* 📱 MOBILE OPTIMIZATION */
         @media (max-width: 768px) {
-            nav { padding: 10px 15px; }
-            .nav-links { gap: 10px; }
-            .nav-item { font-size: 0.6rem; letter-spacing: 0.5px; }
-            .logo-text { font-size: 1.1rem; }
-            h1 { font-size: 4.2rem; letter-spacing: -2px; }
-            .stage { padding-top: 60px; padding-bottom: 120px; } /* Sayaç için alan açıldı */
-            .glass-counter { width: 90%; justify-content: center; bottom: 15px; font-size: 0.7rem; }
-            .social-dock { display: none; }
+            .founder-card { flex-direction: column; text-align: center; padding: 30px 20px; }
+            .founder-info { text-align: center; }
+            .founder-social { justify-content: center; }
+            h1 { font-size: 4.2rem; }
+            .stage { padding-bottom: 150px; }
         }
-
-        .social-dock { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; }
-        .social-item { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; }
-
     </style>
 </head>
 <body>
@@ -148,42 +152,49 @@
     <div class="ambient-layer"></div>
 
     <nav>
-        <div class="logo-wrap">
-            <div class="logo-text">ETHIC</div>
-        </div>
+        <div class="logo-wrap"><div class="logo-text">ETHIC</div></div>
         <div class="nav-links">
             <a href="#" class="nav-item">Ecosystem</a>
-            <a href="#" class="nav-item">Network</a>
+            <a href="#founder" class="nav-item">Founder</a>
             <a href="#" class="nav-item active">Governance</a>
         </div>
     </nav>
 
     <main class="stage">
         <div class="neural-shield-box">
-            <div class="central-shield">
-                <i class="fas fa-fingerprint" style="color:var(--green); font-size:2.5rem;"></i>
-            </div>
+            <div class="central-shield"><i class="fas fa-fingerprint" style="color:var(--green); font-size:2.5rem;"></i></div>
         </div>
-
         <h1>ETHIC</h1>
-        <p class="desc">Fair Data Ownership Protocol</p>
-
+        <p style="font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px;">Fair Data Ownership Protocol</p>
         <div class="actions">
             <button class="btn btn-green" onclick="connect()">Connect Wallet</button>
-            <button class="btn btn-outline">Protocol Specs</button>
             <button class="btn btn-pink">Join Genesis Waitlist</button>
         </div>
     </main>
+
+    <section class="founder-section" id="founder">
+        <div class="founder-card">
+            <div class="founder-img-wrap">
+                <img src="https://via.placeholder.com/150/030508/2ecc71?text=CD" alt="Cemile Doğan">
+            </div>
+            <div class="founder-info">
+                <span class="founder-title">Founder & Visionary</span>
+                <h2 class="founder-name">Cemile Doğan</h2>
+                <p class="founder-bio">
+                    Teknoloji dünyasında veri adaleti ve blokzinciri çözümleri üzerine uzmanlaşmış başarılı bir girişimci olan Cemile Doğan, ETHIC protokolünün mimarıdır. "Veri sömürüsüne son" vizyonuyla yola çıkan Doğan, yapay zeka ve insan emeği arasındaki ekonomik dengeyi yeniden kurmayı hedefleyen global projeleriyle tanınmaktadır.
+                </p>
+                <div class="founder-social">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div class="glass-counter">
         <div class="status-pulse"></div>
         <span style="color:var(--green); font-weight: 800;">LIVE</span>
         <span>Data Processed: <strong>1,241,120 GB</strong></span>
-    </div>
-
-    <div class="social-dock">
-        <a href="#" class="social-item"><i class="fab fa-telegram-plane"></i></a>
-        <a href="#" class="social-item"><i class="fab fa-twitter"></i></a>
     </div>
 
     <script>
