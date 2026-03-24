@@ -60,7 +60,7 @@
         .stage {
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
-            padding: 120px 20px 80px 20px;
+            padding: 120px 20px 100px 20px;
         }
 
         .neural-shield-box {
@@ -89,7 +89,7 @@
 
         @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 
-        /* 👤 FOUNDER BIOGRAPHY SECTION */
+        /* 👤 FOUNDER SECTION */
         .founder-section {
             padding: 100px 10%; background: rgba(255, 255, 255, 0.02);
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
@@ -125,10 +125,21 @@
         .founder-social a { color: #fff; font-size: 1.2rem; transition: 0.3s; }
         .founder-social a:hover { color: var(--pink); transform: translateY(-3px); }
 
+        /* 🔌 BUTTONS & WALLET UI */
         .actions { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; z-index: 30; }
-        .btn { padding: 18px; border-radius: 50px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; }
-        .btn-green { background: var(--green); color: #000; box-shadow: 0 0 15px rgba(46, 204, 113, 0.4); }
+        .btn { padding: 18px; border-radius: 50px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
+        
+        .btn-green { 
+            background: transparent; border: 1px solid var(--green); color: var(--green); 
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.2); 
+        }
+        .btn-green.connected {
+            background: var(--green); color: #000; box-shadow: var(--neon-green);
+        }
+        .btn-green:hover { transform: translateY(-2px); filter: brightness(1.2); }
+
         .btn-pink { background: rgba(255, 105, 180, 0.15); color: #fff; border: 1.5px solid var(--pink); }
+        .btn-pink:hover { transform: translateY(-2px); box-shadow: var(--neon-pink); }
 
         @media (max-width: 768px) {
             .founder-card { flex-direction: column; text-align: center; padding: 30px 20px; }
@@ -159,8 +170,8 @@
         <h1>ETHIC</h1>
         <p style="font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px;">Fair Data Ownership Protocol</p>
         <div class="actions">
-            <button class="btn btn-green" onclick="connect()">Connect Wallet</button>
-            <button class="btn btn-pink">Join Genesis Waitlist</button>
+            <button id="walletBtn" class="btn btn-green" onclick="connectWallet()">Connect Wallet</button>
+            <button id="airdropBtn" class="btn btn-pink" onclick="joinWaitlist()">Join Genesis Waitlist</button>
         </div>
     </main>
 
@@ -176,3 +187,57 @@
                     Teknoloji dünyasında veri adaleti ve blokzinciri çözümleri üzerine uzmanlaşmış başarılı bir girişimci olan Cemile Doğan, ETHIC protokolünün mimarıdır. "Veri sömürüsüne son" vizyonuyla yola çıkan Doğan, yapay zeka ve insan emeği arasındaki ekonomik dengeyi yeniden kurmayı hedefleyen global projeleriyle tanınmaktadır.
                 </p>
                 <div class="founder-social">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Sayfa yüklendiğinde cüzdanı kontrol et
+        window.onload = () => {
+            const savedAddr = localStorage.getItem('ethic_wallet');
+            if (savedAddr) {
+                updateWalletUI(savedAddr);
+            }
+        };
+
+        // 🔌 Cüzdan Bağlama Fonksiyonu
+        async function connectWallet() {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    const account = accounts[0];
+                    localStorage.setItem('ethic_wallet', account);
+                    updateWalletUI(account);
+                } catch (error) {
+                    console.error("User denied connection");
+                }
+            } else {
+                alert("MetaMask not found! Please install it.");
+            }
+        }
+
+        // 🎨 Cüzdan Arayüzünü Güncelle
+        function updateWalletUI(address) {
+            const btn = document.getElementById('walletBtn');
+            btn.innerText = address.substring(0, 6) + "..." + address.slice(-4);
+            btn.classList.add('connected');
+        }
+
+        // 🎁 Waitlist Kaydı
+        function joinWaitlist() {
+            const wallet = localStorage.getItem('ethic_wallet');
+            if (!wallet) {
+                alert("Please connect your wallet first!");
+                connectWallet();
+            } else {
+                document.getElementById('airdropBtn').innerText = "REGISTERED";
+                document.getElementById('airdropBtn').style.background = "#2ecc71";
+                alert("Wallet registered for Genesis Waitlist!");
+            }
+        }
+    </script>
+</body>
+</html>
