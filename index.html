@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHIC | Fair Data Ownership Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -19,10 +19,9 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
         body, html { 
-            width: 100%; height: 100%; 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
-            color: white; overflow-x: auto;
+            width: 100%; font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); color: white; overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         .ambient-layer {
@@ -39,205 +38,86 @@
         }
         
         .logo-text { 
-            font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; 
-            color: #fff; position: relative; overflow: hidden;
+            font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; color: #fff; position: relative; overflow: hidden;
             background: linear-gradient(90deg, #fff 0%, var(--green) 50%, #fff 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: shimmer 3s linear infinite;
         }
 
         .nav-links { display: flex; gap: 25px; }
-        .nav-item { 
-            color: var(--green); text-decoration: none; font-size: 0.8rem; 
-            font-weight: 700; text-transform: uppercase; transition: 0.3s ease;
-            position: relative; text-shadow: var(--neon-green);
-        }
-        .nav-item:hover, .nav-item.active { color: var(--pink); text-shadow: var(--neon-pink); }
+        .nav-item { color: var(--green); text-decoration: none; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; position: relative; }
+        .nav-item:hover { color: var(--pink); text-shadow: var(--neon-pink); }
 
-        /* 🛡️ STAGE */
+        /* 🛡️ MAIN STAGE */
         .stage {
             min-height: 100vh; display: flex; flex-direction: column;
             align-items: center; justify-content: center; text-align: center;
-            padding: 120px 20px 100px 20px;
-        }
-
-        .neural-shield-box {
-            position: relative; width: 100%; max-width: 600px; height: 160px;
-            display: flex; align-items: center; justify-content: center;
+            padding: 120px 20px;
         }
 
         .central-shield {
-            position: relative; width: 90px; height: 120px;
-            border: 2px solid var(--green); background: rgba(0,0,0,0.7);
+            position: relative; width: 90px; height: 120px; border: 2px solid var(--green); background: rgba(0,0,0,0.7);
             clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
-            box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);
-            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); display: flex; align-items: center; justify-content: center;
         }
 
         h1 { 
-            font-size: clamp(3.5rem, 15vw, 8.5rem); font-weight: 900; letter-spacing: -5px; 
-            line-height: 0.8; z-index: 20; position: relative;
+            font-size: clamp(3.5rem, 15vw, 8.5rem); font-weight: 900; letter-spacing: -5px; line-height: 0.8;
             background: linear-gradient(90deg, var(--green) 0%, #fff 50%, var(--pink) 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 4s linear infinite;
-            margin: 10px 0;
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: shimmer 4s linear infinite; margin: 10px 0;
         }
 
         @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 
         /* 👤 FOUNDER SECTION */
-        .founder-section {
-            padding: 100px 10%; background: rgba(255, 255, 255, 0.02);
-            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-            display: flex; justify-content: center;
-        }
-
+        .founder-section { padding: 80px 5%; display: flex; justify-content: center; border-bottom: 1px solid var(--border); }
         .founder-card {
-            max-width: 800px; background: rgba(10, 15, 20, 0.6);
-            padding: 40px; border-radius: 25px; border: 1px solid rgba(46, 204, 113, 0.2);
-            backdrop-filter: blur(15px); display: flex; gap: 30px; align-items: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 800px; background: rgba(10, 15, 20, 0.6); padding: 40px; border-radius: 25px;
+            border: 1px solid rgba(46, 204, 113, 0.2); backdrop-filter: blur(15px); display: flex; gap: 30px; align-items: center;
         }
+        .founder-img-wrap { width: 100px; height: 100px; border-radius: 50%; border: 2px solid var(--green); padding: 5px; flex-shrink: 0; box-shadow: var(--neon-green); }
+        .founder-img-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .founder-name { font-size: 1.8rem; font-weight: 900; color: #fff; }
+        .founder-bio { font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin: 10px 0; }
 
-        .founder-img-wrap {
-            width: 150px; height: 150px; border-radius: 50%;
-            border: 2px solid var(--green); padding: 5px; flex-shrink: 0;
-            box-shadow: var(--neon-green);
+        /* 🗺️ SECTION GLOBAL STYLES */
+        .section-title { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 4px; text-align: center; }
+
+        /* 🗺️ ROADMAP SECTION */
+        .roadmap-section { padding: 100px 10%; border-bottom: 1px solid var(--border); }
+        .roadmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .roadmap-item {
+            background: rgba(255, 255, 255, 0.02); padding: 30px; border-radius: 20px;
+            border: 1px solid var(--border); text-align: left; transition: 0.3s;
         }
+        .roadmap-item:hover { border-color: var(--pink); transform: scale(1.02); }
+        .phase-tag { color: var(--green); font-family: 'Space Mono'; font-size: 0.75rem; margin-bottom: 10px; display: block; }
 
-        .founder-img-wrap img {
-            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-            filter: grayscale(1) contrast(1.2); transition: 0.3s;
-        }
-
-        .founder-card:hover .founder-img-wrap img { filter: grayscale(0); }
-
-        .founder-info { text-align: left; }
-        .founder-name { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 5px; }
-        .founder-title { font-size: 0.8rem; color: var(--green); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 15px; display: block;}
-        .founder-bio { font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin-bottom: 20px; }
+        /* 💎 TOKENOMICS SECTION (YENİ) */
+        .tokenomics-section { padding: 100px 10%; }
+        .tokenomics-content { display: flex; flex-wrap: wrap; gap: 50px; align-items: center; justify-content: center; }
+        .tokenomics-stats { flex: 1; min-width: 300px; max-width: 500px; }
+        .tokenomics-item { margin-bottom: 25px; }
+        .tokenomics-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-family: 'Space Mono'; font-size: 0.85rem; }
+        .progress-bg { width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--green); box-shadow: var(--neon-green); border-radius: 10px; transition: 1.5s ease; width: 0; }
         
-        .founder-social { display: flex; gap: 15px; }
-        .founder-social a { color: #fff; font-size: 1.2rem; transition: 0.3s; }
-        .founder-social a:hover { color: var(--pink); transform: translateY(-3px); }
-
-        /* 🔌 BUTTONS & WALLET UI */
-        .actions { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; z-index: 30; }
-        .btn { padding: 18px; border-radius: 50px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s; }
-        
-        .btn-green { 
-            background: transparent; border: 1px solid var(--green); color: var(--green); 
-            box-shadow: 0 0 5px rgba(46, 204, 113, 0.2); 
+        .token-info-card { 
+            background: rgba(255, 255, 255, 0.03); padding: 30px; border-radius: 20px; border: 1px solid rgba(46, 204, 113, 0.2); 
+            min-width: 280px; text-align: left;
         }
-        .btn-green.connected {
-            background: var(--green); color: #000; box-shadow: var(--neon-green);
-        }
-        .btn-green:hover { transform: translateY(-2px); filter: brightness(1.2); }
+        .info-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .info-row:last-child { border: none; }
+        .info-label { color: var(--text-dim); font-size: 0.8rem; text-transform: uppercase; }
+        .info-value { color: var(--green); font-weight: 700; font-family: 'Space Mono'; }
 
+        /* 🔌 WALLET ACTIONS */
+        .actions { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; margin-top: 40px; }
+        .btn { padding: 18px; border-radius: 50px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .btn-green { background: transparent; border: 1px solid var(--green); color: var(--green); }
+        .btn-green.connected { background: var(--green); color: #000; box-shadow: var(--neon-green); }
         .btn-pink { background: rgba(255, 105, 180, 0.15); color: #fff; border: 1.5px solid var(--pink); }
-        .btn-pink:hover { transform: translateY(-2px); box-shadow: var(--neon-pink); }
 
         @media (max-width: 768px) {
-            .founder-card { flex-direction: column; text-align: center; padding: 30px 20px; }
-            .founder-info { text-align: center; }
-            .founder-social { justify-content: center; }
-            h1 { font-size: 4.2rem; }
-            .stage { padding-bottom: 80px; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="ambient-layer"></div>
-
-    <nav>
-        <div class="logo-wrap"><div class="logo-text">ETHIC</div></div>
-        <div class="nav-links">
-            <a href="#" class="nav-item">Ecosystem</a>
-            <a href="#founder" class="nav-item">Founder</a>
-            <a href="#" class="nav-item active">Governance</a>
-        </div>
-    </nav>
-
-    <main class="stage">
-        <div class="neural-shield-box">
-            <div class="central-shield"><i class="fas fa-fingerprint" style="color:var(--green); font-size:2.5rem;"></i></div>
-        </div>
-        <h1>ETHIC</h1>
-        <p style="font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px;">Fair Data Ownership Protocol</p>
-        <div class="actions">
-            <button id="walletBtn" class="btn btn-green" onclick="connectWallet()">Connect Wallet</button>
-            <button id="airdropBtn" class="btn btn-pink" onclick="joinWaitlist()">Join Genesis Waitlist</button>
-        </div>
-    </main>
-
-    <section class="founder-section" id="founder">
-        <div class="founder-card">
-            <div class="founder-img-wrap">
-                <img src="https://via.placeholder.com/150/030508/2ecc71?text=CD" alt="Cemile Doğan">
-            </div>
-            <div class="founder-info">
-                <span class="founder-title">Founder & Visionary</span>
-                <h2 class="founder-name">Cemile Doğan</h2>
-                <p class="founder-bio">
-                    Teknoloji dünyasında veri adaleti ve blokzinciri çözümleri üzerine uzmanlaşmış başarılı bir girişimci olan Cemile Doğan, ETHIC protokolünün mimarıdır. "Veri sömürüsüne son" vizyonuyla yola çıkan Doğan, yapay zeka ve insan emeği arasındaki ekonomik dengeyi yeniden kurmayı hedefleyen global projeleriyle tanınmaktadır.
-                </p>
-                <div class="founder-social">
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // Sayfa yüklendiğinde cüzdanı kontrol et
-        window.onload = () => {
-            const savedAddr = localStorage.getItem('ethic_wallet');
-            if (savedAddr) {
-                updateWalletUI(savedAddr);
-            }
-        };
-
-        // 🔌 Cüzdan Bağlama Fonksiyonu
-        async function connectWallet() {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    const account = accounts[0];
-                    localStorage.setItem('ethic_wallet', account);
-                    updateWalletUI(account);
-                } catch (error) {
-                    console.error("User denied connection");
-                }
-            } else {
-                alert("MetaMask not found! Please install it.");
-            }
-        }
-
-        // 🎨 Cüzdan Arayüzünü Güncelle
-        function updateWalletUI(address) {
-            const btn = document.getElementById('walletBtn');
-            btn.innerText = address.substring(0, 6) + "..." + address.slice(-4);
-            btn.classList.add('connected');
-        }
-
-        // 🎁 Waitlist Kaydı
-        function joinWaitlist() {
-            const wallet = localStorage.getItem('ethic_wallet');
-            if (!wallet) {
-                alert("Please connect your wallet first!");
-                connectWallet();
-            } else {
-                document.getElementById('airdropBtn').innerText = "REGISTERED";
-                document.getElementById('airdropBtn').style.background = "#2ecc71";
-                alert("Wallet registered for Genesis Waitlist!");
-            }
-        }
-    </script>
-</body>
-</html>
+            .founder-card
