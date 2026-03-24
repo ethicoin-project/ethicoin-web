@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Fair Data Ownership Protocol</title>
+    <title>ETHIC | Neural Data Protocol v1.0</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <style>
         :root {
             --bg: #030508;
@@ -24,6 +25,7 @@
             scroll-behavior: smooth;
         }
 
+        /* 🌌 BACKGROUND EFFECTS */
         .ambient-layer {
             position: fixed; inset: 0; z-index: -1;
             background: 
@@ -31,106 +33,86 @@
                 radial-gradient(circle at 85% 45%, rgba(46, 204, 113, 0.08) 0%, transparent 50%);
         }
 
+        /* 🧭 NAVIGATION */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
-            background: rgba(3, 5, 8, 0.85); backdrop-filter: blur(10px);
+            background: rgba(3, 5, 8, 0.85); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
         }
         
         .logo-text { 
-            font-weight: 900; font-size: 1.5rem; letter-spacing: 2px; color: #fff; position: relative; overflow: hidden;
+            font-weight: 900; font-size: 1.5rem; letter-spacing: 2px;
             background: linear-gradient(90deg, #fff 0%, var(--green) 50%, #fff 100%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             animation: shimmer 3s linear infinite;
         }
 
-        .nav-links { display: flex; gap: 25px; }
-        .nav-item { color: var(--green); text-decoration: none; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; position: relative; }
-        .nav-item:hover { color: var(--pink); text-shadow: var(--neon-pink); }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-item { color: var(--text-dim); text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
+        .nav-item:hover { color: var(--green); }
 
-        /* 🛡️ MAIN STAGE */
-        .stage {
-            min-height: 100vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; text-align: center;
-            padding: 120px 20px;
-        }
-
-        .central-shield {
-            position: relative; width: 90px; height: 120px; border: 2px solid var(--green); background: rgba(0,0,0,0.7);
-            clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%);
-            box-shadow: 0 0 30px rgba(46, 204, 113, 0.4); display: flex; align-items: center; justify-content: center;
-        }
-
-        h1 { 
-            font-size: clamp(3.5rem, 15vw, 8.5rem); font-weight: 900; letter-spacing: -5px; line-height: 0.8;
-            background: linear-gradient(90deg, var(--green) 0%, #fff 50%, var(--pink) 100%);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shimmer 4s linear infinite; margin: 10px 0;
-        }
-
+        /* 🚀 HERO SECTION */
+        .stage { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 20px; }
+        h1 { font-size: clamp(3rem, 12vw, 7.5rem); font-weight: 900; letter-spacing: -5px; line-height: 0.9; margin: 20px 0; }
         @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 
-        /* 👤 FOUNDER SECTION */
-        .founder-section { padding: 80px 5%; display: flex; justify-content: center; border-top: 1px solid var(--border); }
-        .founder-card {
-            max-width: 800px; background: rgba(10, 15, 20, 0.6); padding: 40px; border-radius: 25px;
-            border: 1px solid rgba(46, 204, 113, 0.2); backdrop-filter: blur(15px); display: flex; gap: 30px; align-items: center;
+        /* 💻 DASHBOARD (HIDDEN BY DEFAULT) */
+        #dashboard { 
+            display: none; width: 95%; max-width: 1300px; margin: 120px auto 50px; 
+            grid-template-columns: 1fr 1.5fr; gap: 30px; animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
         }
-        .founder-img-wrap { width: 120px; height: 120px; border-radius: 50%; border: 2px solid var(--green); padding: 5px; flex-shrink: 0; box-shadow: var(--neon-green); }
-        .founder-img-wrap img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .founder-name { font-size: 1.8rem; font-weight: 900; color: #fff; }
-        .founder-bio { font-size: 0.95rem; line-height: 1.6; color: var(--text-dim); margin: 10px 0; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 🗺️ SECTION STYLES */
-        .section-title { font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 50px; text-transform: uppercase; letter-spacing: 5px; text-align: center; }
-
-        /* 🗺️ ROADMAP SECTION */
-        .roadmap-section { padding: 100px 10%; border-top: 1px solid var(--border); }
-        .roadmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
-        .roadmap-item {
-            background: rgba(255, 255, 255, 0.03); padding: 40px; border-radius: 20px;
-            border: 1px solid var(--border); text-align: left; transition: 0.4s;
+        .dash-card { 
+            background: rgba(10, 15, 20, 0.85); border: 1px solid rgba(46, 204, 113, 0.2); 
+            border-radius: 24px; padding: 30px; backdrop-filter: blur(20px);
+            position: relative; overflow: hidden;
         }
-        .roadmap-item:hover { border-color: var(--pink); transform: translateY(-5px); }
-        .phase-tag { color: var(--green); font-family: 'Space Mono'; font-weight: 700; font-size: 0.8rem; display: block; margin-bottom: 10px; }
 
-        /* 💎 TOKENOMICS SECTION (YENİ) */
-        .tokenomics-section { padding: 100px 10%; border-top: 1px solid var(--border); }
-        .tokenomics-grid { display: flex; flex-wrap: wrap; gap: 50px; align-items: flex-start; justify-content: center; }
-        .token-chart { flex: 1; min-width: 320px; max-width: 600px; }
-        .chart-item { margin-bottom: 25px; }
-        .chart-info { display: flex; justify-content: space-between; margin-bottom: 10px; font-family: 'Space Mono'; font-size: 0.85rem; }
-        .bar-bg { width: 100%; height: 10px; background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--green); box-shadow: var(--neon-green); border-radius: 20px; width: 0; transition: 1.5s ease-out; }
-        
-        .token-data-card { 
-            background: rgba(255, 255, 255, 0.03); padding: 35px; border-radius: 25px; border: 1px solid rgba(46, 204, 113, 0.2); 
-            min-width: 300px;
+        .stat-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid var(--border); transition: 0.3s; }
+        .stat-box:hover { border-color: var(--green); background: rgba(46, 204, 113, 0.05); }
+        .stat-value { font-family: 'Space Mono'; font-size: 1.6rem; color: var(--green); text-shadow: var(--neon-green); }
+
+        .upload-zone { 
+            border: 2px dashed rgba(255, 105, 180, 0.3); border-radius: 20px; padding: 50px 20px; 
+            text-align: center; cursor: pointer; transition: 0.4s; margin-top: 20px;
         }
-        .data-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .data-row:last-child { border: none; }
-        .data-label { color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-        .data-value { color: var(--green); font-weight: 900; font-family: 'Space Mono'; }
+        .upload-zone:hover { border-color: var(--pink); background: rgba(255, 105, 180, 0.08); box-shadow: var(--neon-pink); }
 
-        /* 🔌 WALLET ACTIONS */
-        .actions { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 320px; margin-top: 40px; }
-        .btn { padding: 18px; border-radius: 50px; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        .btn-green { background: transparent; border: 1px solid var(--green); color: var(--green); }
-        .btn-green.connected { background: var(--green); color: #000; box-shadow: var(--neon-green); }
-        .btn-pink { background: rgba(255, 105, 180, 0.15); color: #fff; border: 1.5px solid var(--pink); }
+        /* 🗺️ CONTENT SECTIONS */
+        section { padding: 100px 8%; border-top: 1px solid var(--border); }
+        .section-title { font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 60px; letter-spacing: 4px; text-transform: uppercase; }
 
-        /* 👣 FOOTER SECTION (YENİ) */
-        footer { padding: 60px 5% 40px; border-top: 1px solid var(--border); text-align: center; background: rgba(0,0,0,0.3); }
-        .footer-logo { font-size: 1.2rem; font-weight: 900; color: var(--green); margin-bottom: 20px; display: inline-block; }
-        .footer-socials { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
-        .footer-socials a { color: var(--text-dim); font-size: 1.5rem; transition: 0.3s; }
-        .footer-socials a:hover { color: var(--pink); transform: translateY(-3px); }
-        .copyright { font-size: 0.75rem; color: #444; letter-spacing: 1px; }
+        /* ROADMAP GRID */
+        .roadmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .roadmap-item { background: rgba(255,255,255,0.02); padding: 40px; border-radius: 20px; border: 1px solid var(--border); transition: 0.3s; }
+        .roadmap-item:hover { border-color: var(--pink); transform: translateY(-10px); }
 
-        @media (max-width: 768px) {
+        /* TOKENOMICS BARS */
+        .tokenomics-container { display: flex; flex-wrap: wrap; gap: 50px; align-items: center; }
+        .token-chart { flex: 1; min-width: 320px; }
+        .bar-bg { width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 20px; margin: 12px 0 25px; overflow: hidden; }
+        .bar-fill { height: 100%; background: var(--green); box-shadow: var(--neon-green); width: 0; transition: 2s ease-out; }
+
+        /* 👤 FOUNDER CARD */
+        .founder-card { 
+            max-width: 900px; margin: 0 auto; background: linear-gradient(145deg, rgba(10,15,20,0.9), rgba(5,8,12,0.9));
+            padding: 50px; border-radius: 30px; display: flex; gap: 40px; align-items: center; border: 1px solid rgba(255,255,255,0.05);
+        }
+        .founder-img { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--green); padding: 8px; box-shadow: var(--neon-green); }
+
+        /* 🔘 BUTTONS */
+        .btn { padding: 18px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.3s; border: none; font-size: 0.9rem; }
+        .btn-green { background: transparent; border: 2px solid var(--green); color: var(--green); }
+        .btn-green:hover, .btn-green.connected { background: var(--green); color: #000; box-shadow: var(--neon-green); }
+        .btn-pink { background: rgba(255, 105, 180, 0.1); border: 2px solid var(--pink); color: #fff; box-shadow: var(--neon-pink); }
+
+        /* 📱 MOBILE OPTIMIZATION */
+        @media (max-width: 850px) {
+            #dashboard { grid-template-columns: 1fr; }
             .founder-card { flex-direction: column; text-align: center; }
-            h1 { font-size: 4.2rem; }
-            .tokenomics-grid { flex-direction: column; }
+            h1 { font-size: 4rem; }
         }
     </style>
 </head>
@@ -139,137 +121,193 @@
     <div class="ambient-layer"></div>
 
     <nav>
-        <div class="logo-wrap"><div class="logo-text">ETHIC</div></div>
+        <div class="logo-text">ETHIC</div>
         <div class="nav-links">
-            <a href="#roadmap" class="nav-item">Roadmap</a>
-            <a href="#tokenomics" class="nav-item">Tokenomics</a>
-            <a href="#founder" class="nav-item">Founder</a>
+            <a href="#roadmap" class="nav-item hide-on-dash">Roadmap</a>
+            <a href="#tokenomics" class="nav-item hide-on-dash">Tokenomics</a>
+            <button id="walletBtn" class="btn-green" style="padding: 10px 20px; border-radius: 8px; font-size: 0.7rem;" onclick="connectWallet()">CONNECT WALLET</button>
         </div>
     </nav>
 
-    <main class="stage">
-        <div class="neural-shield-box">
-            <div class="central-shield"><i class="fas fa-fingerprint" style="color:var(--green); font-size:2.5rem;"></i></div>
+    <main class="stage" id="heroSection">
+        <div style="width: 80px; height: 110px; border: 2px solid var(--green); clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%); display: flex; align-items: center; justify-content: center; margin-bottom: 30px; box-shadow: var(--neon-green);">
+            <i class="fas fa-brain" style="color: var(--green); font-size: 2rem;"></i>
         </div>
-        <h1>ETHIC</h1>
-        <p style="font-size: 0.9rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Fair Data Ownership Protocol</p>
-        <div class="actions">
-            <button id="walletBtn" class="btn btn-green" onclick="connectWallet()">Connect Wallet</button>
-            <button id="airdropBtn" class="btn btn-pink" onclick="joinWaitlist()">Join Genesis Waitlist</button>
-        </div>
+        <h1 id="mainTitle">NEURAL<br><span style="color: var(--pink); text-shadow: var(--neon-pink);">PROTOCOL</span></h1>
+        <p style="color: var(--text-dim); letter-spacing: 5px; font-weight: 700; margin-bottom: 40px;">DECENTRALIZED DATA ECONOMY</p>
+        <button class="btn btn-pink" onclick="connectWallet()">START MINING $ETHIC</button>
     </main>
 
-    <section class="roadmap-section" id="roadmap">
-        <h2 class="section-title">Roadmap</h2>
-        <div class="roadmap-grid">
-            <div class="roadmap-item">
-                <span class="phase-tag">PHASE 01 — Q1 2026</span>
-                <h3>Genesis Phase</h3>
-                <p>ETHIC Protokolü'nün teknik altyapısının kurulması ve ilk 1.000 içerik üreticisinin Genesis listesine dahil edilmesi.</p>
+    <section id="dashboard">
+        <div class="dash-left">
+            <div class="dash-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                    <h3 style="font-size: 0.8rem; color: var(--pink); letter-spacing: 2px;">NODE OPERATOR v1.0</h3>
+                    <span id="nodeStatus" class="status-dot" style="width: 10px; height: 10px; background: var(--green); border-radius: 50%; box-shadow: var(--neon-green);"></span>
+                </div>
+                <div class="stat-box" style="margin-bottom: 20px;">
+                    <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Accumulated Earnings</span>
+                    <div style="display: flex; align-items: baseline; gap: 10px;">
+                        <span class="stat-value" id="balanceDisplay">0.0000</span>
+                        <span style="color: var(--green); font-weight: 900; font-size: 0.8rem;">$ETHIC</span>
+                    </div>
+                </div>
+                <div class="upload-zone" id="dropZone" onclick="simulateMining()">
+                    <i class="fas fa-shield-virus" style="font-size: 3rem; color: var(--green); margin-bottom: 20px;"></i>
+                    <p style="font-weight: 900; font-size: 0.9rem;">MINT DATA SEED</p>
+                    <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 10px;">Click to verify and sign new data block</p>
+                </div>
             </div>
-            <div class="roadmap-item">
-                <span class="phase-tag">PHASE 02 — Q3 2026</span>
-                <h3>Neural Expansion</h3>
-                <p>Akıllı sözleşmelerin mainnet dağıtımı ve ilk yapay zeka eğitim veri seti iş ortaklıklarının başlatılması.</p>
-            </div>
-            <div class="roadmap-item">
-                <span class="phase-tag">PHASE 03 — 2027</span>
-                <h3>Global Sovereign</h3>
-                <p>Global veri pazarının açılması ve $ETHIC token sahipleri için DAO yönetişim sisteminin aktif hale getirilmesi.</p>
+        </div>
+        <div class="dash-right">
+            <div class="dash-card" style="height: 100%; display: flex; flex-direction: column;">
+                <h3 style="font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 2px;"><i class="fas fa-terminal"></i> LIVE NETWORK FEED</h3>
+                <div id="feed" style="flex-grow: 1; font-family: 'Space Mono'; font-size: 0.75rem; color: var(--text-dim); overflow-y: auto;">
+                    <p style="color: var(--green); margin-bottom: 10px;">> Initializing Neural Link...</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="tokenomics-section" id="tokenomics">
+    <section id="roadmap">
+        <h2 class="section-title">Development Roadmap</h2>
+        <div class="roadmap-grid">
+            <div class="roadmap-item">
+                <span style="color: var(--green); font-family: 'Space Mono'; font-size: 0.8rem;">PHASE 01</span>
+                <h3 style="margin: 15px 0;">Genesis Mint</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">Protokolün yayına alınması, ilk 10.000 veri madencisinin sisteme dahil edilmesi ve $ETHIC akıllı sözleşme dağıtımı.</p>
+            </div>
+            <div class="roadmap-item">
+                <span style="color: var(--pink); font-family: 'Space Mono'; font-size: 0.8rem;">PHASE 02</span>
+                <h3 style="margin: 15px 0;">AI Integration</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">Yapay zeka devleriyle ilk veri alışverişi köprülerinin kurulması ve "Proof of Data" mekanizmasının aktifleştirilmesi.</p>
+            </div>
+            <div class="roadmap-item">
+                <span style="color: #fff; font-family: 'Space Mono'; font-size: 0.8rem;">PHASE 03</span>
+                <h3 style="margin: 15px 0;">DAO Governance</h3>
+                <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">Protokolün tamamen topluluğa devredilmesi. Veri fiyatlandırma ve yeni AI ortaklıkları için oylama sisteminin başlatılması.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tokenomics">
         <h2 class="section-title">Tokenomics</h2>
-        <div class="tokenomics-grid">
+        <div class="tokenomics-container">
             <div class="token-chart">
                 <div class="chart-item">
-                    <div class="chart-info"><span>Community Rewards</span><span>40%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 40%"></div></div>
+                    <div style="display:flex; justify-content: space-between; font-family:'Space Mono'; font-size:0.8rem;"><span>Data Mining Rewards</span><span>45%</span></div>
+                    <div class="bar-bg"><div class="bar-fill" style="width: 45%"></div></div>
                 </div>
                 <div class="chart-item">
-                    <div class="chart-info"><span>Ecosystem Fund</span><span>25%</span></div>
+                    <div style="display:flex; justify-content: space-between; font-family:'Space Mono'; font-size:0.8rem;"><span>Ecosystem Growth</span><span>25%</span></div>
                     <div class="bar-bg"><div class="bar-fill" style="width: 25%"></div></div>
                 </div>
                 <div class="chart-item">
-                    <div class="chart-info"><span>Team & Founders</span><span>15%</span></div>
+                    <div style="display:flex; justify-content: space-between; font-family:'Space Mono'; font-size:0.8rem;"><span>Core Contributors</span><span>15%</span></div>
                     <div class="bar-bg"><div class="bar-fill" style="width: 15%"></div></div>
                 </div>
-                <div class="chart-item">
-                    <div class="chart-info"><span>Public Sale (IDO)</span><span>12%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 12%"></div></div>
-                </div>
-                <div class="chart-item">
-                    <div class="chart-info"><span>Liquidity</span><span>8%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 8%"></div></div>
-                </div>
             </div>
-
-            <div class="token-data-card">
-                <div class="data-row"><span class="data-label">Token Name</span><span class="data-value">ETHIC</span></div>
-                <div class="data-row"><span class="data-label">Total Supply</span><span class="data-value">1,000,000,000</span></div>
-                <div class="data-row"><span class="data-label">Network</span><span class="data-value">Ethereum L2</span></div>
-                <div class="data-row"><span class="data-label">Tax</span><span class="data-value">0%</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section class="founder-section" id="founder">
-        <div class="founder-card">
-            <div class="founder-img-wrap"><img src="https://via.placeholder.com/150/030508/2ecc71?text=CD" alt="Cemile Doğan"></div>
-            <div class="founder-info">
-                <h2 class="founder-name">KURCU</h2>
-                <p class="founder-bio">
-                    ETHIC Kurucusu, veri adaleti vizyonuyla blokzinciri ve yapay zeka teknolojilerini birleştirerek dijital sömürüyü sona erdirmeyi hedefleyen vizyoner bir girişimcidir.
+            <div style="background: rgba(46, 204, 113, 0.05); border: 1px solid var(--green); padding: 40px; border-radius: 20px; flex: 1; min-width: 300px;">
+                <p style="color: var(--green); font-family: 'Space Mono'; margin-bottom: 10px;">[ TOKEN_INFO ]</p>
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px;">$ETHIC</h3>
+                <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.8;">
+                    $ETHIC, verinin yeni petrol olduğu bu çağda, kullanıcının gerçek değerini temsil eden bir varlıktır. Enflasyonist olmayan, sabit arzlı ve kullanım odaklı bir ekonomiye sahiptir.
                 </p>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-logo">ETHIC PROTOCOL</div>
-        <div class="footer-socials">
-            <a href="#"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-medium"></i></a>
+    <section id="founder">
+        <div class="founder-card">
+            <div class="founder-img"><img src="https://via.placeholder.com/180/030508/2ecc71?text=CD" alt="Founder" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"></div>
+            <div class="founder-info">
+                <span style="color: var(--pink); font-family: 'Space Mono'; font-size: 0.8rem;">PROTOCOL ARCHITECT</span>
+                <h2 style="font-size: 2.5rem; margin: 10px 0;">CEMİLE DOĞAN</h2>
+                <p style="color: var(--text-dim); line-height: 1.7;">
+                    Vizyoner girişimci ve veri adaleti savunucusu. "Neural Protocol" ile dijital dünyanın sömürü düzenini yıkarak, verinin gücünü gerçek sahiplerine, yani insanlara iade etmeyi amaçlıyor.
+                </p>
+            </div>
         </div>
-        <p class="copyright">© 2026 ETHIC. ALL RIGHTS RESERVED. POWERED BY DATA SOVEREIGNTY.</p>
+    </section>
+
+    <footer style="padding: 60px; text-align: center; border-top: 1px solid var(--border); background: #000;">
+        <p style="color: var(--text-dim); font-size: 0.8rem; letter-spacing: 2px;">© 2026 ETHIC PROTOCOL | ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
-        window.onload = () => {
-            const savedAddr = localStorage.getItem('ethic_wallet');
-            if (savedAddr) updateWalletUI(savedAddr);
-        };
+        let balance = 0.0000;
+        let isConnected = false;
 
         async function connectWallet() {
-            if (window.ethereum) {
+            if (typeof window.ethereum !== 'undefined') {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    localStorage.setItem('ethic_wallet', accounts[0]);
-                    updateWalletUI(accounts[0]);
-                } catch (e) { console.error(e); }
-            } else { alert("MetaMask not found!"); }
-        }
-
-        function updateWalletUI(address) {
-            const btn = document.getElementById('walletBtn');
-            btn.innerText = address.substring(0, 6) + "..." + address.slice(-4);
-            btn.classList.add('connected');
-        }
-
-        function joinWaitlist() {
-            if (!localStorage.getItem('ethic_wallet')) {
-                alert("Please connect wallet!");
-                connectWallet();
+                    loginSuccess(accounts[0]);
+                } catch (e) { console.log("Connection Denied"); }
             } else {
-                document.getElementById('airdropBtn').innerText = "REGISTERED";
-                document.getElementById('airdropBtn').style.background = "#2ecc71";
-                alert("You are on the Genesis List!");
+                alert("Web3 Wallet not found. Running in Simulation Mode.");
+                loginSuccess("0x71C...3451");
             }
         }
+
+        function loginSuccess(addr) {
+            isConnected = true;
+            // Hide Landing, Show Dashboard
+            document.getElementById('heroSection').style.display = 'none';
+            document.querySelectorAll('.hide-on-dash').forEach(el => el.style.display = 'none');
+            document.getElementById('dashboard').style.display = 'grid';
+            
+            // Update UI
+            const btn = document.getElementById('walletBtn');
+            btn.innerText = addr.substring(0,6) + "..." + addr.slice(-4);
+            btn.classList.add('connected');
+            
+            logFeed("Authorized: Neural Link established with address " + addr, "SUCCESS");
+            startMiningLoop();
+        }
+
+        function startMiningLoop() {
+            setInterval(() => {
+                if(isConnected) {
+                    let drift = Math.random() * 0.0005;
+                    balance += drift;
+                    document.getElementById('balanceDisplay').innerText = balance.toFixed(4);
+                }
+            }, 3000);
+        }
+
+        function simulateMining() {
+            const reward = (Math.random() * 2).toFixed(2);
+            balance = parseFloat(balance) + parseFloat(reward);
+            document.getElementById('balanceDisplay').innerText = balance.toFixed(4);
+            
+            logFeed(`Data block signed. Reward: +${reward} $ETHIC`, "MINED");
+            
+            // Visual feedback
+            const card = document.querySelector('.dash-card');
+            card.style.borderColor = 'var(--pink)';
+            setTimeout(() => card.style.borderColor = 'rgba(46, 204, 113, 0.2)', 300);
+        }
+
+        function logFeed(msg, type) {
+            const feed = document.getElementById('feed');
+            const time = new Date().toLocaleTimeString();
+            const color = type === "MINED" ? "var(--pink)" : "var(--green)";
+            const p = document.createElement('p');
+            p.innerHTML = `<span style="color: #444;">[${time}]</span> <span style="color: ${color};">> ${msg}</span>`;
+            feed.prepend(p);
+        }
+
+        // Tokenomics Bar Animation on Scroll
+        window.addEventListener('scroll', () => {
+            const tokenSec = document.getElementById('tokenomics');
+            const pos = tokenSec.getBoundingClientRect().top;
+            if(pos < window.innerHeight - 100) {
+                document.querySelectorAll('.bar-fill').forEach(bar => {
+                    bar.style.width = bar.style.width; // Trigger transition
+                });
+            }
+        });
     </script>
 </body>
 </html>
