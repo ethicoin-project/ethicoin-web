@@ -3,304 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Neural Data Sovereignty Protocol</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <title>ETHIC | Neural Protocol</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <style>
         :root {
-            --bg: #030508;
-            --green: #2ecc71;
-            --pink: #ff69b4;
-            --text-dim: #94a3b8;
-            --neon-green: 0 0 15px rgba(46, 204, 113, 0.6);
-            --neon-pink: 0 0 20px rgba(255, 105, 180, 0.8);
-            --border: rgba(255,255,255,0.05);
+            --bg: #000000;
+            --accent-green: #00ffa3;
+            --accent-pink: #ff007a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-dim: #888888;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
-        body, html { 
-            width: 100%; font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); color: white; overflow-x: hidden;
-            scroll-behavior: smooth;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            background: var(--bg); color: #fff; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* 🌌 BACKGROUND EFFECTS */
-        .ambient-layer {
+        /* 🌌 AMBIENT BACKGROUND */
+        .void {
             position: fixed; inset: 0; z-index: -1;
             background: 
-                radial-gradient(circle at 15% 45%, rgba(255, 105, 180, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 85% 45%, rgba(46, 204, 113, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 163, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.05) 0%, transparent 40%);
+        }
+        .void::after {
+            content: ''; position: absolute; inset: 0;
+            background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.2; pointer-events: none;
         }
 
         /* 🧭 NAVIGATION */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
-            background: rgba(3, 5, 8, 0.85); backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
+            padding: 30px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
         }
-        
-        .logo-text { 
-            font-weight: 900; font-size: 1.5rem; letter-spacing: 2px;
-            background: linear-gradient(90deg, #fff 0%, var(--green) 50%, #fff 100%);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-        }
-
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-item { color: var(--text-dim); text-decoration: none; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; transition: 0.3s; }
-        .nav-item:hover { color: var(--green); }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
+        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); }
 
         /* 🚀 HERO SECTION */
-        .stage { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 20px; }
-        h1 { font-size: clamp(3rem, 12vw, 7.5rem); font-weight: 900; letter-spacing: -5px; line-height: 0.9; margin: 20px 0; }
-        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-
-        /* 💻 DASHBOARD */
-        #dashboard { 
-            display: none; width: 95%; max-width: 1300px; margin: 120px auto 50px; 
-            grid-template-columns: 1fr 1.5fr; gap: 30px; animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+        .hero {
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 0 20px;
         }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .hero h1 {
+            font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 800; letter-spacing: -4px; line-height: 0.95;
+            background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.4) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { color: var(--text-dim); margin-top: 20px; letter-spacing: 5px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
 
-        .dash-card { 
-            background: rgba(10, 15, 20, 0.85); border: 1px solid rgba(46, 204, 113, 0.2); 
-            border-radius: 24px; padding: 30px; backdrop-filter: blur(20px);
-            position: relative; overflow: hidden;
+        /* 💻 PRO DASHBOARD */
+        #main-app { display: none; padding: 120px 5% 50px; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .grid { display: grid; grid-template-columns: 1fr 350px; gap: 25px; max-width: 1400px; margin: 0 auto; }
+        
+        .glass-card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 32px; padding: 40px; backdrop-filter: blur(40px);
+            transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        .glass-card:hover { border-color: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+
+        .balance-label { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
+        .balance-value { font-family: 'Space Mono'; font-size: 3.5rem; font-weight: 800; margin: 15px 0; color: var(--accent-green); }
+
+        /* ⚡ ACTIONS */
+        .btn {
+            padding: 16px 32px; border-radius: 100px; font-weight: 700; cursor: pointer;
+            transition: 0.3s; border: none; font-size: 0.9rem; text-transform: uppercase;
+        }
+        .btn-primary { background: #fff; color: #000; }
+        .btn-primary:hover { background: var(--accent-green); transform: scale(1.05); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: #fff; }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+        input {
+            width: 100%; padding: 18px; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border); border-radius: 16px; color: #fff;
+            margin-bottom: 12px; font-family: 'Space Mono'; transition: 0.3s;
+        }
+        input:focus { border-color: var(--accent-pink); background: rgba(255,255,255,0.06); }
+
+        /* 📟 TERMINAL FEED */
+        #terminal {
+            height: 250px; overflow-y: auto; font-family: 'Space Mono';
+            font-size: 0.7rem; line-height: 1.8; color: var(--text-dim);
         }
 
-        .stat-box { background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid var(--border); transition: 0.3s; }
-        .stat-box:hover { border-color: var(--green); background: rgba(46, 204, 113, 0.05); }
-        .stat-value { font-family: 'Space Mono'; font-size: 1.6rem; color: var(--green); text-shadow: var(--neon-green); }
-
-        .upload-zone { 
-            border: 2px dashed rgba(255, 105, 180, 0.3); border-radius: 20px; padding: 50px 20px; 
-            text-align: center; cursor: pointer; transition: 0.4s; margin-top: 20px;
-        }
-        .upload-zone:hover { border-color: var(--pink); background: rgba(255, 105, 180, 0.08); box-shadow: var(--neon-pink); }
-
-        /* 🗺️ CONTENT SECTIONS */
-        section { padding: 100px 8%; border-top: 1px solid var(--border); }
-        .section-title { font-size: 2.5rem; font-weight: 900; text-align: center; margin-bottom: 60px; letter-spacing: 4px; text-transform: uppercase; }
-
-        .roadmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .roadmap-item { background: rgba(255,255,255,0.02); padding: 40px; border-radius: 20px; border: 1px solid var(--border); transition: 0.3s; }
-        .roadmap-item:hover { border-color: var(--pink); transform: translateY(-10px); }
-
-        .tokenomics-container { display: flex; flex-wrap: wrap; gap: 50px; align-items: center; }
-        .token-chart { flex: 1; min-width: 320px; }
-        .bar-bg { width: 100%; height: 12px; background: rgba(255,255,255,0.05); border-radius: 20px; margin: 12px 0 25px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--green); box-shadow: var(--neon-green); width: 0; transition: 2s ease-out; }
-
-        .founder-card { 
-            max-width: 900px; margin: 0 auto; background: linear-gradient(145deg, rgba(10,15,20,0.9), rgba(5,8,12,0.9));
-            padding: 50px; border-radius: 30px; display: flex; gap: 40px; align-items: center; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .founder-img { width: 180px; height: 180px; border-radius: 50%; border: 3px solid var(--green); padding: 8px; box-shadow: var(--neon-green); }
-
-        .btn { padding: 18px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; text-transform: uppercase; transition: 0.3s; border: none; font-size: 0.9rem; }
-        .btn-green { background: transparent; border: 2px solid var(--green); color: var(--green); }
-        .btn-green:hover, .btn-green.connected { background: var(--green); color: #000; box-shadow: var(--neon-green); }
-        .btn-pink { background: rgba(255, 105, 180, 0.1); border: 2px solid var(--pink); color: #fff; box-shadow: var(--neon-pink); }
-
-        @media (max-width: 850px) {
-            #dashboard { grid-template-columns: 1fr; }
-            .founder-card { flex-direction: column; text-align: center; }
-            h1 { font-size: 4rem; }
+        /* 📱 RESPONSIVE */
+        @media (max-width: 1000px) {
+            .grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 4rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="ambient-layer"></div>
+    <div class="void"></div>
 
     <nav>
-        <div class="logo-text">ETHIC</div>
-        <div class="nav-links">
-            <a href="#roadmap" class="nav-item hide-on-dash">Roadmap</a>
-            <a href="#tokenomics" class="nav-item hide-on-dash">Tokenomics</a>
-            <button id="walletBtn" class="btn-green" style="padding: 10px 20px; border-radius: 8px; font-size: 0.7rem;" onclick="connectWallet()">CONNECT WALLET</button>
-        </div>
+        <div class="logo"><div class="logo-dot"></div> ETHIC.AI</div>
+        <button id="walletBtn" class="btn btn-outline" onclick="connect()">CONNECT NODE</button>
     </nav>
 
-    <main class="stage" id="heroSection">
-        <div style="width: 80px; height: 110px; border: 2px solid var(--green); clip-path: polygon(50% 0%, 100% 20%, 100% 80%, 50% 100%, 0% 80%, 0% 20%); display: flex; align-items: center; justify-content: center; margin-bottom: 30px; box-shadow: var(--neon-green);">
-            <i class="fas fa-brain" style="color: var(--green); font-size: 2rem;"></i>
+    <main class="hero" id="hero">
+        <p>Decentralized Neural Sovereignty</p>
+        <h1>OWN YOUR<br>DATA.</h1>
+        <div style="margin-top: 50px; display: flex; gap: 20px;">
+            <button class="btn btn-primary" onclick="connect()">INITIALIZE LINK</button>
+            <button class="btn btn-outline">WHITEPAPER</button>
         </div>
-        <h1 id="mainTitle">NEURAL<br><span style="color: var(--pink); text-shadow: var(--neon-pink);">PROTOCOL</span></h1>
-        <p style="color: var(--text-dim); letter-spacing: 5px; font-weight: 700; margin-bottom: 40px;">DECENTRALIZED DATA SOVEREIGNTY</p>
-        <button class="btn btn-pink" onclick="connectWallet()">START MINING $ETHIC</button>
     </main>
 
-    <section id="dashboard">
-        <div class="dash-left">
-            <div class="dash-card">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                    <h3 style="font-size: 0.8rem; color: var(--pink); letter-spacing: 2px;">NODE OPERATOR v1.0</h3>
-                    <span id="nodeStatus" class="status-dot" style="width: 10px; height: 10px; background: var(--green); border-radius: 50%; box-shadow: var(--neon-green);"></span>
+    <section id="main-app">
+        <div class="grid">
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+                    <span class="balance-label">Node Status: <span style="color: var(--accent-green);">Active</span></span>
+                    <span class="balance-label">v1.0.4-Stable</span>
                 </div>
-                <div class="stat-box" style="margin-bottom: 20px;">
-                    <span style="font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase;">Unclaimed Rewards</span>
-                    <div style="display: flex; align-items: baseline; gap: 10px;">
-                        <span class="stat-value" id="balanceDisplay">0.0000</span>
-                        <span style="color: var(--green); font-weight: 900; font-size: 0.8rem;">$ETHIC</span>
+                <p class="balance-label">Total Neural Rewards</p>
+                <div class="balance-value" id="balance">1,000,000,000.0025</div>
+                <p style="color: var(--text-dim); font-size: 0.8rem;">$ETHIC Protocols Synced</p>
+                
+                <div style="margin-top: 60px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="glass-card" style="padding: 20px; text-align: center; border-radius: 20px;">
+                        <p class="balance-label" style="font-size: 0.6rem;">Block Height</p>
+                        <p id="blockHeight" style="font-family: 'Space Mono';">#5,482,192</p>
+                    </div>
+                    <div class="glass-card" style="padding: 20px; text-align: center; border-radius: 20px;">
+                        <p class="balance-label" style="font-size: 0.6rem;">Network Load</p>
+                        <p style="font-family: 'Space Mono'; color: var(--accent-pink);">0.24ms</p>
                     </div>
                 </div>
-                <div class="upload-zone" id="dropZone" onclick="simulateMining()">
-                    <i class="fas fa-shield-virus" style="font-size: 3rem; color: var(--green); margin-bottom: 20px;"></i>
-                    <p style="font-weight: 900; font-size: 0.9rem;">MINT DATA SEED</p>
-                    <p style="font-size: 0.7rem; color: var(--text-dim); margin-top: 10px;">Click to cryptographically sign new data block</p>
-                </div>
             </div>
-        </div>
-        <div class="dash-right">
-            <div class="dash-card" style="height: 100%; display: flex; flex-direction: column;">
-                <h3 style="font-size: 0.8rem; margin-bottom: 20px; letter-spacing: 2px;"><i class="fas fa-terminal"></i> LIVE NETWORK FEED</h3>
-                <div id="feed" style="flex-grow: 1; font-family: 'Space Mono'; font-size: 0.75rem; color: var(--text-dim); overflow-y: auto;">
-                    <p style="color: var(--green); margin-bottom: 10px;">> Initializing Neural Secure Link...</p>
+
+            <div style="display: flex; flex-direction: column; gap: 25px;">
+                <div class="glass-card" style="padding: 30px;">
+                    <p class="balance-label" style="margin-bottom: 20px;">Broadcast Pulse</p>
+                    <input type="text" id="target" placeholder="Recipient Address">
+                    <input type="number" id="amt" placeholder="Amount ($ETHIC)">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="send()">SEND PULSE</button>
+                </div>
+
+                <div class="glass-card" style="padding: 30px; flex-grow: 1;">
+                    <p class="balance-label" style="margin-bottom: 20px;">Neural Feed</p>
+                    <div id="terminal">
+                        > Initializing link...<br>
+                        > Handshake protocol verified.<br>
+                        > Sepolia Testnet detected.<br>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <section id="roadmap">
-        <h2 class="section-title">Global Roadmap</h2>
-        <div class="roadmap-grid">
-            <div class="roadmap-item">
-                <span style="color: var(--green); font-family: 'Space Mono'; font-size: 0.8rem;">PHASE 01 — Q1 2026</span>
-                <h3 style="margin: 15px 0;">Genesis Protocol</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">Launching the core infrastructure, onboarding the first 10,000 data miners, and deploying the $ETHIC smart contract on Layer 2.</p>
-            </div>
-            <div class="roadmap-item">
-                <span style="color: var(--pink); font-family: 'Space Mono'; font-size: 0.8rem;">PHASE 02 — Q3 2026</span>
-                <h3 style="margin: 15px 0;">Neural Expansion</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">Establishing real-time data bridges with major AI providers and activating the "Proof of Ownership" validation engine.</p>
-            </div>
-            <div class="roadmap-item">
-                <span style="color: #fff; font-family: 'Space Mono'; font-size: 0.8rem;">PHASE 03 — 2027</span>
-                <h3 style="margin: 15px 0;">Autonomous DAO</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem; line-height: 1.6;">Transitioning to full community governance. Holders will vote on data pricing models and new institutional partnerships.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="tokenomics">
-        <h2 class="section-title">Tokenomics</h2>
-        <div class="tokenomics-container">
-            <div class="token-chart">
-                <div class="chart-item">
-                    <div style="display:flex; justify-content: space-between; font-family:'Space Mono'; font-size:0.8rem;"><span>Data Mining Rewards</span><span>45%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 45%"></div></div>
-                </div>
-                <div class="chart-item">
-                    <div style="display:flex; justify-content: space-between; font-family:'Space Mono'; font-size:0.8rem;"><span>Ecosystem Growth</span><span>25%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 25%"></div></div>
-                </div>
-                <div class="chart-item">
-                    <div style="display:flex; justify-content: space-between; font-family:'Space Mono'; font-size:0.8rem;"><span>Core Contributors</span><span>15%</span></div>
-                    <div class="bar-bg"><div class="bar-fill" style="width: 15%"></div></div>
-                </div>
-            </div>
-            <div style="background: rgba(46, 204, 113, 0.05); border: 1px solid var(--green); padding: 40px; border-radius: 20px; flex: 1; min-width: 300px;">
-                <p style="color: var(--green); font-family: 'Space Mono'; margin-bottom: 10px;">[ TOKEN_METRICS ]</p>
-                <h3 style="font-size: 1.8rem; margin-bottom: 20px;">$ETHIC</h3>
-                <p style="color: var(--text-dim); font-size: 0.85rem; line-height: 1.8;">
-                    $ETHIC is the lifeblood of the data economy. It represents the actual value of user-generated data. Designed as a non-inflationary asset with utility-driven demand and fixed supply.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="founder">
-        <div class="founder-card">
-            <div class="founder-img"><img src="https://via.placeholder.com/180/030508/2ecc71?text=CD" alt="Founder" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"></div>
-            <div class="founder-info">
-                <span style="color: var(--pink); font-family: 'Space Mono'; font-size: 0.8rem;">PROTOCOL ARCHITECT</span>
-                <h2 style="font-size: 2.5rem; margin: 10px 0;">CEMILE DOGAN</h2>
-                <p style="color: var(--text-dim); line-height: 1.7;">
-                    Visionary entrepreneur and advocate for data justice. Through the Neural Protocol, she aims to dismantle digital exploitation by returning the power of data to its rightful owners: the people.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <footer style="padding: 60px; text-align: center; border-top: 1px solid var(--border); background: #000;">
-        <p style="color: var(--text-dim); font-size: 0.8rem; letter-spacing: 2px;">© 2026 ETHIC PROTOCOL | ENGINEERED FOR DATA FREEDOM</p>
-    </footer>
 
     <script>
-        let balance = 0.0000;
-        let isConnected = false;
+        const ADDR = "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8";
+        const ABI = ["function transfer(address, uint256) returns (bool)", "function balanceOf(address) view returns (uint256)"];
+        let provider, signer, contract;
 
-        async function connectWallet() {
-            if (typeof window.ethereum !== 'undefined') {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    loginSuccess(accounts[0]);
-                } catch (e) { console.log("User rejected the request."); }
-            } else {
-                alert("Web3 Wallet not found. Running in Simulation Environment.");
-                loginSuccess("0x71C...3451");
-            }
-        }
-
-        function loginSuccess(addr) {
-            isConnected = true;
-            document.getElementById('heroSection').style.display = 'none';
-            document.querySelectorAll('.hide-on-dash').forEach(el => el.style.display = 'none');
-            document.getElementById('dashboard').style.display = 'grid';
+        async function connect() {
+            if (!window.ethereum) return alert("MetaMask needed.");
+            provider = new ethers.BrowserProvider(window.ethereum);
+            signer = await provider.getSigner();
+            contract = new ethers.Contract(ADDR, ABI, signer);
             
-            const btn = document.getElementById('walletBtn');
-            btn.innerText = addr.substring(0,6) + "..." + addr.slice(-4);
-            btn.classList.add('connected');
+            const a = await signer.getAddress();
+            document.getElementById('hero').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('walletBtn').innerText = a.slice(0,6) + "..." + a.slice(-4);
             
-            logFeed("Identity Authenticated: Neural link established for " + addr, "SUCCESS");
-            startMiningLoop();
+            log("Node linked: " + a);
+            update();
+            setInterval(update, 10000);
         }
 
-        function startMiningLoop() {
-            setInterval(() => {
-                if(isConnected) {
-                    let drift = Math.random() * 0.0005;
-                    balance += drift;
-                    document.getElementById('balanceDisplay').innerText = balance.toFixed(4);
-                }
-            }, 3000);
+        async function update() {
+            const a = await signer.getAddress();
+            const b = await contract.balanceOf(a);
+            document.getElementById('balance').innerText = parseFloat(ethers.formatUnits(b, 18)).toLocaleString();
+            const block = await provider.getBlockNumber();
+            document.getElementById('blockHeight').innerText = "#" + block.toLocaleString();
         }
 
-        function simulateMining() {
-            const reward = (Math.random() * 2).toFixed(2);
-            balance = parseFloat(balance) + parseFloat(reward);
-            document.getElementById('balanceDisplay').innerText = balance.toFixed(4);
-            
-            logFeed(`Data block signed. Royalty assigned: +${reward} $ETHIC`, "MINED");
-            
-            const card = document.querySelector('.dash-card');
-            card.style.borderColor = 'var(--pink)';
-            setTimeout(() => card.style.borderColor = 'rgba(46, 204, 113, 0.2)', 300);
+        async function send() {
+            const to = document.getElementById('target').value;
+            const val = ethers.parseUnits(document.getElementById('amt').value, 18);
+            log("Broadcasting pulse...");
+            try {
+                const tx = await contract.transfer(to, val);
+                log("TX: " + tx.hash.slice(0,15) + "...");
+                await tx.wait();
+                log("PULSE CONFIRMED");
+                update();
+            } catch(e) { log("FAILED: " + e.message.slice(0,30)); }
         }
 
-        function logFeed(msg, type) {
-            const feed = document.getElementById('feed');
-            const time = new Date().toLocaleTimeString();
-            const color = type === "MINED" ? "var(--pink)" : "var(--green)";
-            const p = document.createElement('p');
-            p.innerHTML = `<span style="color: #444;">[${time}]</span> <span style="color: ${color};">> ${msg}</span>`;
-            feed.prepend(p);
+        function log(m) {
+            const t = document.getElementById('terminal');
+            t.innerHTML = `> [${new Date().toLocaleTimeString()}] ${m}<br>` + t.innerHTML;
         }
-
-        window.addEventListener('scroll', () => {
-            const tokenSec = document.getElementById('tokenomics');
-            if(tokenSec) {
-                const pos = tokenSec.getBoundingClientRect().top;
-                if(pos < window.innerHeight - 100) {
-                    document.querySelectorAll('.bar-fill').forEach(bar => {
-                        bar.style.width = bar.style.width; 
-                    });
-                }
-            }
-        });
     </script>
 </body>
 </html>
