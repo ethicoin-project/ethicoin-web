@@ -1,15 +1,194 @@
-<!DOCTYPE html>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHIC | Neural Protocol</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+    <style>
+        :root {
+            --bg: #000000;<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETHIC | Neural Protocol Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <style>
         :root {
             --bg: #000000;
             --accent-green: #00ffa3;
+            --accent-pink: #ff007a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-dim: #888888;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+
+        .void { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 20% 30%, rgba(0, 255, 163, 0.05) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.05) 0%, transparent 40%); }
+        .void::after { content: ''; position: absolute; inset: 0; background-image: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.2; pointer-events: none; }
+
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
+        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); }
+
+        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
+        .hero h1 { font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 800; letter-spacing: -4px; line-height: 0.95; background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { color: var(--text-dim); margin-top: 20px; letter-spacing: 5px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+
+        #main-app { display: none; padding: 120px 5% 50px; animation: fadeIn 1s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .grid { display: grid; grid-template-columns: 1fr 350px; gap: 25px; max-width: 1400px; margin: 0 auto; }
+        .glass-card { background: var(--glass); border: 1px solid var(--border); border-radius: 32px; padding: 40px; backdrop-filter: blur(40px); transition: 0.4s cubic-bezier(0.2, 1, 0.3, 1); }
+        .glass-card:hover { border-color: rgba(255, 255, 255, 0.2); transform: translateY(-5px); }
+
+        .balance-label { font-size: 0.75rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
+        .balance-value { font-family: 'Space Mono'; font-size: 3.5rem; font-weight: 800; margin: 15px 0; color: var(--accent-green); }
+
+        /* 🎖️ TIER SYSTEM STYLE */
+        .tier-badge { display: inline-block; padding: 6px 14px; border-radius: 100px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; background: rgba(0, 255, 163, 0.1); color: var(--accent-green); border: 1px solid rgba(0, 255, 163, 0.2); }
+
+        /* ⚡ ACTIONS */
+        .btn { padding: 16px 32px; border-radius: 100px; font-weight: 700; cursor: pointer; transition: 0.3s; border: none; font-size: 0.9rem; text-transform: uppercase; }
+        .btn-primary { background: #fff; color: #000; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: #fff; }
+        input { width: 100%; padding: 18px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 16px; color: #fff; margin-bottom: 12px; font-family: 'Space Mono'; transition: 0.3s; }
+
+        /* 🗺️ MAP SECTION */
+        .map-container { margin-top: 25px; height: 180px; background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') center/contain no-repeat; opacity: 0.15; position: relative; filter: invert(1); }
+        .node-dot { position: absolute; width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 10px var(--accent-green); animation: pulse 2s infinite; }
+
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+
+        #terminal { height: 180px; overflow-y: auto; font-family: 'Space Mono'; font-size: 0.7rem; line-height: 1.8; color: var(--text-dim); }
+    </style>
+</head>
+<body>
+    <div class="void"></div>
+
+    <nav>
+        <div class="logo"><div class="logo-dot"></div> ETHIC.AI</div>
+        <button id="walletBtn" class="btn btn-outline" onclick="connect()">CONNECT NODE</button>
+    </nav>
+
+    <main class="hero" id="hero">
+        <p>Decentralized Neural Sovereignty</p>
+        <h1>OWN YOUR<br>DATA.</h1>
+        <div style="margin-top: 50px; display: flex; gap: 20px;">
+            <button class="btn btn-primary" onclick="connect()">INITIALIZE LINK</button>
+            <button class="btn btn-outline">WHITEPAPER</button>
+        </div>
+    </main>
+
+    <section id="main-app">
+        <div class="grid">
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 40px;">
+                    <div>
+                        <span class="balance-label">Node Status: <span style="color: var(--accent-green);">Active</span></span><br>
+                        <div id="userTier" class="tier-badge">Calculating Node Tier...</div>
+                    </div>
+                    <span class="balance-label">v1.0.4-Stable</span>
+                </div>
+                <p class="balance-label">Total Neural Rewards</p>
+                <div class="balance-value" id="balance">0</div>
+                <p style="color: var(--text-dim); font-size: 0.8rem;">$ETHIC Protocols Synced</p>
+                
+                <div style="margin-top: 40px;">
+                    <p class="balance-label" style="font-size: 0.6rem;">Global Node Distribution</p>
+                    <div class="map-container">
+                        <div class="node-dot" style="top: 30%; left: 20%;"></div>
+                        <div class="node-dot" style="top: 45%; left: 45%;"></div>
+                        <div class="node-dot" style="top: 60%; left: 80%;"></div>
+                        <div class="node-dot" style="top: 25%; left: 75%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 25px;">
+                <div class="glass-card" style="padding: 30px;">
+                    <p class="balance-label" style="margin-bottom: 20px;">Broadcast Pulse</p>
+                    <input type="text" id="target" placeholder="Recipient Address">
+                    <input type="number" id="amt" placeholder="Amount ($ETHIC)">
+                    <button class="btn btn-primary" style="width: 100%;" onclick="send()">SEND PULSE</button>
+                </div>
+
+                <div class="glass-card" style="padding: 30px; flex-grow: 1;">
+                    <p class="balance-label" style="margin-bottom: 20px;">Neural Feed</p>
+                    <div id="terminal">
+                        > Initializing link...<br>
+                        > Handshake protocol verified.<br>
+                        > Global Node Map synced.<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const ADDR = "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8";
+        const ABI = ["function transfer(address, uint256) returns (bool)", "function balanceOf(address) view returns (uint256)"];
+        let provider, signer, contract;
+
+        async function connect() {
+            if (!window.ethereum) return alert("MetaMask needed.");
+            provider = new ethers.BrowserProvider(window.ethereum);
+            signer = await provider.getSigner();
+            contract = new ethers.Contract(ADDR, ABI, signer);
+            const a = await signer.getAddress();
+            document.getElementById('hero').style.display = 'none';
+            document.getElementById('main-app').style.display = 'block';
+            document.getElementById('walletBtn').innerText = a.slice(0,6) + "..." + a.slice(-4);
+            log("Node linked: " + a);
+            update();
+            setInterval(update, 10000);
+        }
+
+        async function update() {
+            const a = await signer.getAddress();
+            const b = await contract.balanceOf(a);
+            const formattedBal = parseFloat(ethers.formatUnits(b, 18));
+            document.getElementById('balance').innerText = formattedBal.toLocaleString();
+            
+            // 🎖️ TIER CALCULATION
+            let tier = "Observer Node";
+            if(formattedBal >= 1000000) tier = "Architect Node";
+            else if(formattedBal >= 100000) tier = "Validator Node";
+            else if(formattedBal > 0) tier = "Active Node";
+            
+            const badge = document.getElementById('userTier');
+            badge.innerText = tier;
+            if(tier === "Architect Node") {
+                badge.style.color = "var(--accent-pink)";
+                badge.style.borderColor = "var(--accent-pink)";
+            }
+        }
+
+        async function send() {
+            const to = document.getElementById('target').value;
+            const val = ethers.parseUnits(document.getElementById('amt').value, 18);
+            log("Broadcasting pulse...");
+            try {
+                const tx = await contract.transfer(to, val);
+                log("TX: " + tx.hash.slice(0,15) + "...");
+                await tx.wait();
+                log("PULSE CONFIRMED");
+                update();
+            } catch(e) { log("FAILED: " + e.message.slice(0,30)); }
+        }
+
+        function log(m) {
+            const t = document.getElementById('terminal');
+            t.innerHTML = `> [${new Date().toLocaleTimeString()}] ${m}<br>` + t.innerHTML;
+        }
+    </script>
+</body>
+</html>
             --accent-pink: #ff007a;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.08);
