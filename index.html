@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHIC | Neural Protocol v1.1</title>
+    
+    <link rel="icon" href="favicon.png" type="image/png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <style>
@@ -24,154 +27,9 @@
 
         nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
         .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
-        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); }
+        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); animation: pulse 2s infinite; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
         .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
-        .hero h1 { font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800; letter-spacing: -4px; line-height: 0.95; background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-        #main-app { display: none; padding: 120px 5% 50px; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        .grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; max-width: 1300px; margin: 0 auto; }
-        .glass-card { background: var(--glass); border: 1px solid var(--border); border-radius: 28px; padding: 35px; backdrop-filter: blur(30px); }
-
-        .balance-label { font-size: 0.7rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
-        .balance-value { font-family: 'Space Mono'; font-size: 2.8rem; font-weight: 800; margin: 10px 0; color: var(--accent-green); }
-
-        .btn { padding: 14px 28px; border-radius: 100px; font-weight: 700; cursor: pointer; transition: 0.3s; border: none; font-size: 0.8rem; text-transform: uppercase; }
-        .btn-primary { background: #fff; color: #000; }
-        .btn-primary:hover { background: var(--accent-green); transform: scale(1.02); }
-        .btn-outline { background: transparent; border: 1px solid var(--border); color: #fff; }
-        .btn-genesis { background: rgba(0, 255, 163, 0.05); border: 1px solid var(--accent-green); color: var(--accent-green); width: 100%; margin-top: 15px; }
-
-        input { width: 100%; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; color: #fff; margin-bottom: 10px; font-family: 'Space Mono'; outline: none; }
-        #terminal { height: 180px; overflow-y: auto; font-family: 'Space Mono'; font-size: 0.65rem; color: var(--text-dim); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 15px; margin-top: 15px; }
-    </style>
-</head>
-<body>
-    <div class="void"></div>
-
-    <nav>
-        <div class="logo"><div class="logo-dot"></div> ETHIC.AI</div>
-        <button id="walletBtn" class="btn btn-outline" style="font-size: 0.7rem;" onclick="connect()">CONNECT NODE</button>
-    </nav>
-
-    <main class="hero" id="hero">
-        <p>Decentralized Neural Sovereignty</p>
-        <h1>OWN YOUR<br>DATA.</h1>
-        <div style="margin-top: 40px; display: flex; gap: 15px;">
-            <button class="btn btn-primary" onclick="connect()">INITIALIZE LINK</button>
-            <button class="btn btn-outline" onclick="window.location.reload()">RELOAD</button>
-        </div>
-    </main>
-
-    <section id="main-app">
-        <div class="grid">
-            <div class="glass-card">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 30px;">
-                    <span class="balance-label">Node: <span id="nodeStatus" style="color: var(--accent-green);">Active</span></span>
-                    <span class="balance-label" id="blockHeight">#0000000</span>
-                </div>
-                
-                <p class="balance-label">Total Neural Rewards</p>
-                <div class="balance-value" id="balance">0.0000</div>
-                <p style="color: var(--text-dim); font-size: 0.7rem; letter-spacing: 1px;">$ETHIC NEURAL CREDITS</p>
-                
-                <hr style="border: 0.5px solid var(--border); margin: 30px 0;">
-
-                <div id="genesisPanel">
-                    <p class="balance-label" style="color: var(--accent-pink);">Genesis Access Detected</p>
-                    <p style="font-size: 0.75rem; color: var(--text-dim); margin: 10px 0;">Cüzdanında $ETHIC bulunamadı. Protokolü başlatmak için 1 Milyar coin'i bas.</p>
-                    <button class="btn btn-genesis" onclick="claimGenesis()">ACTIVATE GENESIS MINT (1B)</button>
-                </div>
-            </div>
-
-            <div class="glass-card" style="padding: 30px;">
-                <p class="balance-label" style="margin-bottom: 15px;">Broadcast Pulse</p>
-                <input type="text" id="target" placeholder="Recipient: 0x...">
-                <input type="number" id="amt" placeholder="Amount: 0.00">
-                <button class="btn btn-primary" style="width: 100%;" onclick="send()">SEND PULSE</button>
-                
-                <div id="terminal">> Awaiting neural handshake...</div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        // 🛠️ KONTRAT AYARLARI
-        const ADDR = "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8";
-        const ABI = [
-            "function mint(address to, uint256 amount) public",
-            "function transfer(address to, uint256 amount) returns (bool)",
-            "function balanceOf(address owner) view returns (uint256)"
-        ];
-
-        let provider, signer, contract;
-
-        async function connect() {
-            if (!window.ethereum) return alert("MetaMask required!");
-            provider = new ethers.BrowserProvider(window.ethereum);
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            signer = await provider.getSigner();
-            contract = new ethers.Contract(ADDR, ABI, signer);
-            
-            document.getElementById('hero').style.display = 'none';
-            document.getElementById('main-app').style.display = 'block';
-            document.getElementById('walletBtn').innerText = accounts[0].slice(0,6) + "..." + accounts[0].slice(-4);
-            
-            log("Node linked: " + accounts[0]);
-            updateData();
-            setInterval(updateData, 15000);
-        }
-
-        async function updateData() {
-            try {
-                const addr = await signer.getAddress();
-                const bal = await contract.balanceOf(addr);
-                const formatted = parseFloat(ethers.formatUnits(bal, 18));
-                
-                document.getElementById('balance').innerText = formatted.toLocaleString(undefined, {minimumFractionDigits: 4});
-                document.getElementById('blockHeight').innerText = "#" + (await provider.getBlockNumber());
-
-                // Eğer bakiye 0 ise Mint panelini göster
-                document.getElementById('genesisPanel').style.display = (formatted < 1) ? 'block' : 'none';
-            } catch (e) { console.error(e); }
-        }
-
-        async function claimGenesis() {
-            try {
-                log("Genesis Mint başlatılıyor...");
-                const amount = ethers.parseUnits("1000000000", 18);
-                const myAddr = await signer.getAddress();
-                
-                const tx = await contract.mint(myAddr, amount);
-                log("Onay bekleniyor... Pulse ID: " + tx.hash.slice(0,10));
-                
-                await tx.wait();
-                log("BAŞARILI: 1,000,000,000 $ETHIC cüzdanına eklendi!");
-                updateData();
-            } catch (err) {
-                log("HATA: Yetki yok veya kontrat uyumsuz.");
-                alert("Mint başarısız. Bu cüzdanın mint yetkisi olmayabilir.");
-            }
-        }
-
-        async function send() {
-            const to = document.getElementById('target').value;
-            const val = ethers.parseUnits(document.getElementById('amt').value, 18);
-            log("Broadcasting pulse...");
-            try {
-                const tx = await contract.transfer(to, val);
-                await tx.wait();
-                log("CONFIRMED: Pulse delivered.");
-                updateData();
-            } catch(e) { log("FAILED: " + e.message.slice(0,40)); }
-        }
-
-        function log(m) {
-            const t = document.getElementById('terminal');
-            t.innerHTML = `<div>> [${new Date().toLocaleTimeString()}] ${m}</div>` + t.innerHTML;
-        }
-    </script>
-</body>
-</html>
+        .hero h1 { font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800;
