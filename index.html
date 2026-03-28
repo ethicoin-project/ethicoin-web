@@ -23,35 +23,187 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background: var(--bg); 
-            color: #fff; 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            overflow-x: hidden; 
+
+        body {
+            background: var(--bg);
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* BACKGROUND */
-        .void { 
-            position: fixed; inset: 0; z-index: -1; 
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 255, 163, 0.06) 0%, transparent 50%), 
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.06) 0%, transparent 50%),
+        /* ═══════════════════════════════════════
+           ARKA PLAN: DİJİTAL HAKLAR TEMASI
+           Parmak izi + veri ağı + yapay zeka
+        ═══════════════════════════════════════ */
+        .void {
+            position: fixed; inset: 0; z-index: -2;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 163, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.05) 0%, transparent 50%),
                 radial-gradient(circle at 50% 50%, rgba(0, 207, 255, 0.03) 0%, transparent 60%);
         }
 
-        /* NAV */
-        nav { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; 
-            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
-            background: rgba(0,0,0,0.4);
+        /* SVG Arka Plan Canvas */
+        #bg-canvas {
+            position: fixed; inset: 0; z-index: -1;
+            width: 100%; height: 100%;
+            pointer-events: none;
         }
-        .logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
-        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); animation: blink 2s infinite; }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        /* Parmak izi halkaları */
+        @keyframes fpRing {
+            0%   { opacity: 0; transform: scale(0.92); }
+            40%  { opacity: 1; }
+            100% { opacity: 0; transform: scale(1.04); }
+        }
+        .fp-ring { animation: fpRing 4s ease-in-out infinite; transform-origin: 50% 50%; }
+        .fp-ring:nth-child(1) { animation-delay: 0s; }
+        .fp-ring:nth-child(2) { animation-delay: 0.6s; }
+        .fp-ring:nth-child(3) { animation-delay: 1.2s; }
+        .fp-ring:nth-child(4) { animation-delay: 1.8s; }
+        .fp-ring:nth-child(5) { animation-delay: 2.4s; }
+        .fp-ring:nth-child(6) { animation-delay: 3.0s; }
+
+        /* Gezgin veri parçacıkları */
+        @keyframes particle1 { 0%{transform:translate(0,0);opacity:0} 20%{opacity:1} 80%{opacity:1} 100%{transform:translate(120px,-80px);opacity:0} }
+        @keyframes particle2 { 0%{transform:translate(0,0);opacity:0} 20%{opacity:0.7} 80%{opacity:0.7} 100%{transform:translate(-80px,-120px);opacity:0} }
+        @keyframes particle3 { 0%{transform:translate(0,0);opacity:0} 20%{opacity:0.5} 80%{opacity:0.5} 100%{transform:translate(60px,100px);opacity:0} }
+        .pt1 { animation: particle1 3s ease-in-out infinite; }
+        .pt2 { animation: particle2 4s ease-in-out infinite 1s; }
+        .pt3 { animation: particle3 5s ease-in-out infinite 2s; }
+
+        /* Ağ bağlantı çizgileri pulse */
+        @keyframes netPulse { 0%,100%{opacity:0.04} 50%{opacity:0.12} }
+        .net-line { animation: netPulse 3s ease-in-out infinite; }
+        .net-line:nth-child(odd) { animation-delay: 1s; }
+
+        /* Kod yağmuru karakterleri */
+        @keyframes codeRain {
+            0% { transform: translateY(-20px); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+        .code-char {
+            position: fixed;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--accent-green);
+            pointer-events: none;
+            z-index: -1;
+            animation: codeRain linear infinite;
+        }
+
+        /* ═══════════════════════════════════════
+           NAV & LOGO - GÜNCELLENDİ
+        ═══════════════════════════════════════ */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 22px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+            background: rgba(0,0,0,0.5);
+        }
+
+        .logo {
+            font-weight: 800; font-size: 1.5rem; letter-spacing: -1px;
+            display: flex; align-items: center; gap: 12px;
+            position: relative;
+        }
+
+        /* ETHIC yazısı - büyütüldü */
+        .logo-text {
+            position: relative;
+            overflow: hidden;
+            letter-spacing: -1px;
+        }
+
+        /* Sağdan sola ışık tarama animasyonu - neon yeşil + pembe */
+        .logo-text::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 60%; height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(255, 0, 122, 0.15) 20%,
+                rgba(0, 255, 163, 0.6) 50%,
+                rgba(255, 0, 122, 0.15) 80%,
+                transparent 100%
+            );
+            animation: logoSweep 2.8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: screen;
+        }
+
+        /* İkinci tarama katmanı - ters yön, farklı renk */
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            top: 0; right: -100%; width: 40%; height: 100%;
+            background: linear-gradient(
+                270deg,
+                transparent 0%,
+                rgba(0, 255, 163, 0.1) 30%,
+                rgba(255, 0, 122, 0.4) 60%,
+                rgba(0, 255, 163, 0.1) 80%,
+                transparent 100%
+            );
+            animation: logoSweepReverse 4s ease-in-out infinite 1.4s;
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes logoSweep {
+            0%   { left: -100%; opacity: 0; }
+            10%  { opacity: 1; }
+            90%  { opacity: 1; }
+            100% { left: 160%; opacity: 0; }
+        }
+
+        @keyframes logoSweepReverse {
+            0%   { right: -100%; opacity: 0; }
+            10%  { opacity: 1; }
+            90%  { opacity: 1; }
+            100% { right: 160%; opacity: 0; }
+        }
+
+        .logo-text span {
+            position: relative; z-index: 2;
+            background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 163, 0.3));
+        }
+
+        /* ETHIC arkasındaki büyük watermark */
+        .logo-bg-text {
+            position: absolute;
+            left: -8px; top: 50%; transform: translateY(-50%);
+            font-size: 3.5rem; font-weight: 800; letter-spacing: -3px;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.04);
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 0;
+            animation: bgTextPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes bgTextPulse {
+            0%,100% { -webkit-text-stroke: 1px rgba(255, 255, 255, 0.04); }
+            50% { -webkit-text-stroke: 1px rgba(0, 255, 163, 0.08); }
+        }
+
+        .logo-dot {
+            width: 9px; height: 9px; background: var(--accent-green);
+            border-radius: 50%; box-shadow: 0 0 20px var(--accent-green);
+            animation: blink 2s infinite; flex-shrink: 0;
+        }
+        @keyframes blink { 0%,100%{opacity:1;box-shadow:0 0 20px var(--accent-green)} 50%{opacity:0.3;box-shadow:0 0 5px var(--accent-green)} }
 
         .nav-right { display: flex; align-items: center; gap: 10px; }
 
@@ -76,7 +228,7 @@
         }
         .network-dropdown.open { display: block; animation: dropIn 0.2s ease; }
         @keyframes dropIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-        .net-option { 
+        .net-option {
             padding: 12px 16px; display: flex; align-items: center; gap: 10px;
             cursor: pointer; font-size: 0.72rem; font-weight: 600; transition: 0.15s;
         }
@@ -84,22 +236,22 @@
         .net-option .chain-id { margin-left: auto; color: var(--text-dim); font-family: 'Space Mono'; font-size: 0.6rem; }
 
         /* HERO */
-        .hero { 
-            height: 100vh; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; text-align: center; padding: 0 20px; 
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; text-align: center; padding: 0 20px;
         }
         .hero-label { color: var(--text-dim); letter-spacing: 5px; font-weight: 600; font-size: 0.65rem; text-transform: uppercase; margin-bottom: 25px; }
-        .hero h1 { 
-            font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800; letter-spacing: -4px; 
-            line-height: 0.95; background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.35) 100%); 
+        .hero h1 {
+            font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800; letter-spacing: -4px;
+            line-height: 0.95; background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.35) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
         .hero-sub { color: var(--text-dim); margin-top: 25px; font-size: 0.85rem; max-width: 400px; line-height: 1.7; }
         .hero-btns { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
         /* BUTTONS */
-        .btn { 
-            padding: 13px 26px; border-radius: 100px; font-weight: 700; cursor: pointer; 
+        .btn {
+            padding: 13px 26px; border-radius: 100px; font-weight: 700; cursor: pointer;
             transition: all 0.25s; border: none; font-size: 0.78rem; text-transform: uppercase;
             letter-spacing: 0.5px; font-family: 'Plus Jakarta Sans', sans-serif;
         }
@@ -121,8 +273,8 @@
 
         /* TABS */
         .tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--glass); padding: 4px; border-radius: 14px; border: 1px solid var(--border); }
-        .tab { 
-            flex: 1; padding: 10px; border-radius: 10px; text-align: center; 
+        .tab {
+            flex: 1; padding: 10px; border-radius: 10px; text-align: center;
             cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
             text-transform: uppercase; transition: 0.2s; color: var(--text-dim);
         }
@@ -131,31 +283,31 @@
         .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
 
         /* CARDS */
-        .glass-card { 
-            background: var(--glass); border: 1px solid var(--border); 
-            border-radius: 24px; padding: 28px; backdrop-filter: blur(30px); 
+        .glass-card {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 24px; padding: 28px; backdrop-filter: blur(30px);
         }
 
         .balance-label { font-size: 0.65rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
         .balance-value { font-family: 'Space Mono'; font-size: 2.6rem; font-weight: 700; margin: 8px 0; color: var(--accent-green); line-height: 1; }
 
-        .tier-badge { 
-            display: inline-block; padding: 4px 12px; border-radius: 100px; 
-            font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; 
-            margin-top: 8px; background: rgba(0, 255, 163, 0.08); 
-            color: var(--accent-green); border: 1px solid rgba(0, 255, 163, 0.2); 
+        .tier-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 100px;
+            font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;
+            margin-top: 8px; background: rgba(0, 255, 163, 0.08);
+            color: var(--accent-green); border: 1px solid rgba(0, 255, 163, 0.2);
             transition: all 0.4s;
         }
 
         /* ADDRESS DISPLAY */
-        .address-row { 
-            display: flex; align-items: center; gap: 8px; 
+        .address-row {
+            display: flex; align-items: center; gap: 8px;
             background: rgba(255,255,255,0.03); border: 1px solid var(--border);
             border-radius: 12px; padding: 10px 14px; margin-top: 16px;
         }
         .address-text { font-family: 'Space Mono'; font-size: 0.65rem; color: var(--text-dim); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .icon-btn { 
-            background: none; border: none; cursor: pointer; color: var(--text-dim); 
+        .icon-btn {
+            background: none; border: none; cursor: pointer; color: var(--text-dim);
             font-size: 0.75rem; padding: 4px 8px; border-radius: 8px; transition: 0.15s;
             display: flex; align-items: center; gap: 4px;
         }
@@ -163,18 +315,18 @@
 
         /* STATS ROW */
         .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
-        .stat-box { 
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border); 
-            border-radius: 14px; padding: 14px; 
+        .stat-box {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            border-radius: 14px; padding: 14px;
         }
         .stat-val { font-family: 'Space Mono'; font-size: 0.85rem; font-weight: 700; margin-top: 4px; }
 
         /* INPUT */
         .input-group { margin-bottom: 10px; }
         .input-label { font-size: 0.62rem; color: var(--text-dim); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; display: block; }
-        input, textarea { 
-            width: 100%; padding: 13px 16px; 
-            background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
+        input, textarea {
+            width: 100%; padding: 13px 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
             border-radius: 12px; color: #fff; font-family: 'Space Mono'; font-size: 0.78rem;
             outline: none; transition: border-color 0.2s;
         }
@@ -199,13 +351,13 @@
         .tx-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
         .tx-item {
-            display: flex; align-items: center; gap: 12px; 
+            display: flex; align-items: center; gap: 12px;
             padding: 12px 0; border-bottom: 1px solid var(--border);
             animation: fadeIn 0.3s ease;
         }
         .tx-item:last-child { border-bottom: none; }
-        .tx-icon { 
-            width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; 
+        .tx-icon {
+            width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center;
             justify-content: center; font-size: 0.75rem; flex-shrink: 0;
         }
         .tx-icon.out { background: rgba(255,0,122,0.12); color: var(--accent-pink); border: 1px solid rgba(255,0,122,0.2); }
@@ -223,36 +375,36 @@
         .tx-status.failed { background: rgba(255,59,59,0.1); color: var(--error); }
 
         /* TERMINAL */
-        #terminal { 
-            height: 130px; overflow-y: auto; font-family: 'Space Mono'; 
+        #terminal {
+            height: 130px; overflow-y: auto; font-family: 'Space Mono';
             font-size: 0.62rem; color: var(--text-dim); line-height: 1.8;
         }
         #terminal::-webkit-scrollbar { width: 3px; }
         #terminal::-webkit-scrollbar-thumb { background: var(--border); }
 
         /* MAP */
-        .map-container { 
-            margin-top: 20px; height: 120px; 
-            background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') center/contain no-repeat; 
-            opacity: 0.08; position: relative; filter: invert(1); 
+        .map-container {
+            margin-top: 20px; height: 120px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') center/contain no-repeat;
+            opacity: 0.08; position: relative; filter: invert(1);
         }
-        .node-dot { 
-            position: absolute; width: 5px; height: 5px; background: var(--accent-green); 
-            border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: nodePulse 2s infinite; 
+        .node-dot {
+            position: absolute; width: 5px; height: 5px; background: var(--accent-green);
+            border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: nodePulse 2s infinite;
         }
         .node-dot:nth-child(2) { animation-delay: 0.7s; }
         .node-dot:nth-child(3) { animation-delay: 1.4s; }
         @keyframes nodePulse { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(4)} }
 
         /* MODAL (QR) */
-        .modal-overlay { 
+        .modal-overlay {
             display: none; position: fixed; inset: 0; z-index: 9999;
             background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
             align-items: center; justify-content: center;
         }
         .modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
-        .modal { 
-            background: #0a0a0a; border: 1px solid var(--border); border-radius: 24px; 
+        .modal {
+            background: #0a0a0a; border: 1px solid var(--border); border-radius: 24px;
             padding: 32px; max-width: 340px; width: 90%; text-align: center;
         }
         .modal h3 { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
@@ -262,7 +414,7 @@
 
         /* TOAST */
         .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9998; display: flex; flex-direction: column; gap: 8px; }
-        .toast { 
+        .toast {
             padding: 12px 18px; border-radius: 12px; font-size: 0.72rem; font-weight: 600;
             backdrop-filter: blur(20px); animation: slideIn 0.3s ease;
             display: flex; align-items: center; gap: 10px; max-width: 300px;
@@ -278,9 +430,9 @@
         .progress-fill { height: 100%; background: var(--accent-green); border-radius: 2px; transition: width 0.4s ease; width: 0%; }
 
         /* LOADING SPINNER */
-        .spinner { 
-            width: 16px; height: 16px; border: 2px solid var(--border); 
-            border-top-color: var(--accent-green); border-radius: 50%; 
+        .spinner {
+            width: 16px; height: 16px; border: 2px solid var(--border);
+            border-top-color: var(--accent-green); border-radius: 50%;
             animation: spin 0.7s linear infinite; display: inline-block;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -297,6 +449,7 @@
         }
         @media (max-width: 600px) {
             nav { padding: 15px 4%; }
+            .logo { font-size: 1.25rem; }
             #main-app { padding: 85px 4% 40px; }
             .glass-card { padding: 20px; border-radius: 18px; }
             .hero h1 { letter-spacing: -2px; }
@@ -307,7 +460,97 @@
     </style>
 </head>
 <body>
+
+    <!-- ═══════════════════════════════════════════
+         ARKA PLAN: DİJİTAL HAKLAR / PARMAK İZİ
+    ═══════════════════════════════════════════ -->
     <div class="void"></div>
+
+    <!-- SVG Arka Plan: Parmak izi + veri ağı -->
+    <svg id="bg-canvas" xmlns="http://www.w3.org/2000/svg">
+        <!-- Parmak izi halkaları (sol-alt) -->
+        <g transform="translate(120, 70%) opacity">
+            <ellipse class="fp-ring" cx="0" cy="0" rx="18"  ry="24"  fill="none" stroke="#00ffa3" stroke-width="0.6" opacity="0.12"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="32"  ry="42"  fill="none" stroke="#00ffa3" stroke-width="0.5" opacity="0.10"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="48"  ry="62"  fill="none" stroke="#ff007a" stroke-width="0.5" opacity="0.08"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="64"  ry="82"  fill="none" stroke="#ff007a" stroke-width="0.4" opacity="0.07"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="82"  ry="104" fill="none" stroke="#00cfff" stroke-width="0.4" opacity="0.06"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="102" ry="128" fill="none" stroke="#00cfff" stroke-width="0.3" opacity="0.05"/>
+            <!-- Parmak izi karakteristik çizgileri -->
+            <path d="M-14,18 Q-5,8 0,0 Q5,8 14,18" fill="none" stroke="#00ffa3" stroke-width="0.5" opacity="0.15"/>
+            <path d="M-22,30 Q-10,14 0,0 Q10,14 22,30" fill="none" stroke="#00ffa3" stroke-width="0.4" opacity="0.12"/>
+            <path d="M-38,50 Q-18,22 0,0 Q18,22 38,50" fill="none" stroke="#ff007a" stroke-width="0.4" opacity="0.10"/>
+        </g>
+
+        <!-- Parmak izi (sağ-üst) - küçük -->
+        <g transform="translate(85%, 15%)">
+            <ellipse class="fp-ring" cx="0" cy="0" rx="12"  ry="16" fill="none" stroke="#ff007a" stroke-width="0.5" opacity="0.08"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="22"  ry="30" fill="none" stroke="#ff007a" stroke-width="0.4" opacity="0.06"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="34"  ry="45" fill="none" stroke="#00ffa3" stroke-width="0.3" opacity="0.05"/>
+            <ellipse class="fp-ring" cx="0" cy="0" rx="48"  ry="62" fill="none" stroke="#00ffa3" stroke-width="0.3" opacity="0.04"/>
+        </g>
+
+        <!-- Veri ağı bağlantı çizgileri -->
+        <line class="net-line" x1="5%"  y1="20%" x2="30%" y2="45%" stroke="#00ffa3" stroke-width="0.4"/>
+        <line class="net-line" x1="30%" y1="45%" x2="55%" y2="25%" stroke="#00ffa3" stroke-width="0.4"/>
+        <line class="net-line" x1="55%" y1="25%" x2="80%" y2="55%" stroke="#ff007a" stroke-width="0.3"/>
+        <line class="net-line" x1="80%" y1="55%" x2="95%" y2="30%" stroke="#ff007a" stroke-width="0.3"/>
+        <line class="net-line" x1="20%" y1="70%" x2="60%" y2="80%" stroke="#00cfff" stroke-width="0.3"/>
+        <line class="net-line" x1="60%" y1="80%" x2="90%" y2="65%" stroke="#00cfff" stroke-width="0.3"/>
+        <line class="net-line" x1="10%" y1="50%" x2="45%" y2="65%" stroke="#00ffa3" stroke-width="0.25" style="animation-delay:1.5s"/>
+        <line class="net-line" x1="45%" y1="65%" x2="75%" y2="40%" stroke="#ff007a" stroke-width="0.25" style="animation-delay:2s"/>
+
+        <!-- Ağ düğüm noktaları -->
+        <circle cx="5%"  cy="20%" r="2" fill="#00ffa3" opacity="0.2"/>
+        <circle cx="30%" cy="45%" r="2" fill="#00ffa3" opacity="0.15"/>
+        <circle cx="55%" cy="25%" r="2" fill="#ff007a" opacity="0.15"/>
+        <circle cx="80%" cy="55%" r="2" fill="#ff007a" opacity="0.12"/>
+        <circle cx="95%" cy="30%" r="2" fill="#00cfff" opacity="0.12"/>
+        <circle cx="20%" cy="70%" r="2" fill="#00cfff" opacity="0.10"/>
+        <circle cx="60%" cy="80%" r="2" fill="#00cfff" opacity="0.10"/>
+
+        <!-- Gezgin veri parçacıkları (simge şeklinde) -->
+        <g class="pt1" transform="translate(30%, 45%)">
+            <rect x="-3" y="-3" width="6" height="6" rx="1" fill="#00ffa3" opacity="0.5"/>
+        </g>
+        <g class="pt2" transform="translate(55%, 25%)">
+            <rect x="-2" y="-2" width="4" height="4" rx="1" fill="#ff007a" opacity="0.4"/>
+        </g>
+        <g class="pt3" transform="translate(20%, 70%)">
+            <rect x="-2" y="-2" width="4" height="4" rx="1" fill="#00cfff" opacity="0.35"/>
+        </g>
+
+        <!-- Telif / AI sembolleri (çok hafif) -->
+        <!-- © simgesi sol üst -->
+        <text x="8%" y="12%" font-family="Space Mono" font-size="64" fill="none" stroke="#00ffa3" stroke-width="0.3" opacity="0.04" text-anchor="middle">©</text>
+        <!-- AI beyin ağı sağ-orta -->
+        <g transform="translate(92%, 50%)" opacity="0.05">
+            <circle cx="0"   cy="0"   r="4" fill="#ff007a"/>
+            <circle cx="-20" cy="-15" r="3" fill="#ff007a"/>
+            <circle cx="20"  cy="-15" r="3" fill="#ff007a"/>
+            <circle cx="-20" cy="15"  r="3" fill="#ff007a"/>
+            <circle cx="20"  cy="15"  r="3" fill="#ff007a"/>
+            <line x1="0"   y1="0"   x2="-20" y2="-15" stroke="#ff007a" stroke-width="0.8"/>
+            <line x1="0"   y1="0"   x2="20"  y2="-15" stroke="#ff007a" stroke-width="0.8"/>
+            <line x1="0"   y1="0"   x2="-20" y2="15"  stroke="#ff007a" stroke-width="0.8"/>
+            <line x1="0"   y1="0"   x2="20"  y2="15"  stroke="#ff007a" stroke-width="0.8"/>
+            <line x1="-20" y1="-15" x2="20"  y2="-15" stroke="#ff007a" stroke-width="0.5"/>
+            <line x1="-20" y1="15"  x2="20"  y2="15"  stroke="#ff007a" stroke-width="0.5"/>
+        </g>
+        <!-- DNA zinciri sol-alt -->
+        <g transform="translate(3%, 78%)" opacity="0.06">
+            <path d="M0,0 Q10,-20 0,-40 Q-10,-60 0,-80" fill="none" stroke="#00ffa3" stroke-width="1"/>
+            <path d="M0,0 Q-10,-20 0,-40 Q10,-60 0,-80" fill="none" stroke="#00cfff" stroke-width="1"/>
+            <line x1="-8" y1="-10" x2="8"  y2="-10" stroke="#fff" stroke-width="0.5"/>
+            <line x1="-8" y1="-25" x2="8"  y2="-25" stroke="#fff" stroke-width="0.5"/>
+            <line x1="-8" y1="-40" x2="8"  y2="-40" stroke="#fff" stroke-width="0.5"/>
+            <line x1="-8" y1="-55" x2="8"  y2="-55" stroke="#fff" stroke-width="0.5"/>
+            <line x1="-8" y1="-70" x2="8"  y2="-70" stroke="#fff" stroke-width="0.5"/>
+        </g>
+    </svg>
+
+    <!-- Kod yağmuru (JS ile oluşturulacak) -->
+    <div id="codeRainContainer"></div>
 
     <!-- TOAST CONTAINER -->
     <div class="toast-container" id="toastContainer"></div>
@@ -327,7 +570,15 @@
 
     <!-- NAV -->
     <nav>
-        <div class="logo"><div class="logo-dot"></div> ETHIC.AI</div>
+        <div class="logo">
+            <!-- Arkadaki büyük watermark yazı -->
+            <span class="logo-bg-text" aria-hidden="true">ETHIC</span>
+            <div class="logo-dot"></div>
+            <!-- Asıl logo yazısı ile ışık efekti -->
+            <div class="logo-text">
+                <span>ETHIC.AI</span>
+            </div>
+        </div>
         <div class="nav-right">
             <div class="network-switcher" id="networkSwitcher" onclick="toggleNetworkDropdown()">
                 <div class="net-dot" id="netDot"></div>
@@ -336,28 +587,23 @@
                 <div class="network-dropdown" id="networkDropdown">
                     <div class="net-option" onclick="switchNetwork('ethereum')">
                         <div class="net-dot" style="background:#627EEA;box-shadow:0 0 8px #627EEA;"></div>
-                        Ethereum
-                        <span class="chain-id">1</span>
+                        Ethereum <span class="chain-id">1</span>
                     </div>
                     <div class="net-option" onclick="switchNetwork('polygon')">
                         <div class="net-dot" style="background:#8247E5;box-shadow:0 0 8px #8247E5;"></div>
-                        Polygon
-                        <span class="chain-id">137</span>
+                        Polygon <span class="chain-id">137</span>
                     </div>
                     <div class="net-option" onclick="switchNetwork('bsc')">
                         <div class="net-dot" style="background:#F3BA2F;box-shadow:0 0 8px #F3BA2F;"></div>
-                        BNB Chain
-                        <span class="chain-id">56</span>
+                        BNB Chain <span class="chain-id">56</span>
                     </div>
                     <div class="net-option" onclick="switchNetwork('arbitrum')">
                         <div class="net-dot" style="background:#2D374B;box-shadow:0 0 8px #96BEDC;"></div>
-                        Arbitrum
-                        <span class="chain-id">42161</span>
+                        Arbitrum <span class="chain-id">42161</span>
                     </div>
                     <div class="net-option" onclick="switchNetwork('sepolia')">
                         <div class="net-dot" style="background:var(--warning);box-shadow:0 0 8px var(--warning);"></div>
-                        Sepolia (Test)
-                        <span class="chain-id">11155111</span>
+                        Sepolia (Test) <span class="chain-id">11155111</span>
                     </div>
                 </div>
             </div>
@@ -395,14 +641,12 @@
                     <div class="balance-value" id="balance">0.0000</div>
                     <p style="color:var(--text-dim);font-size:0.65rem;letter-spacing:1px;margin-top:2px;">$ETHIC NEURAL KREDİ</p>
 
-                    <!-- ADDRESS -->
                     <div class="address-row">
                         <span class="address-text" id="displayAddr">Bağlantı bekleniyor...</span>
                         <button class="icon-btn" onclick="copyAddress()" title="Kopyala">📋</button>
                         <button class="icon-btn" onclick="showQR()" title="QR Kod">📱</button>
                     </div>
 
-                    <!-- PROGRESS TO NEXT TIER -->
                     <div style="margin-top:16px;">
                         <div style="display:flex;justify-content:space-between;align-items:center;">
                             <span class="balance-label">Sonraki Tier İlerlemesi</span>
@@ -413,7 +657,6 @@
                         </div>
                     </div>
 
-                    <!-- STATS -->
                     <div class="stats-row">
                         <div class="stat-box">
                             <p class="balance-label">Gas Fiyatı</p>
@@ -453,14 +696,12 @@
 
             <!-- SAĞ PANEL -->
             <div style="display:flex;flex-direction:column;gap:16px;">
-                <!-- ACTION TABS -->
                 <div class="glass-card" style="padding:22px;">
                     <div class="tabs">
                         <div class="tab active" onclick="switchTab('send')">GÖNDER</div>
                         <div class="tab" onclick="switchTab('approve')">ONAYLA</div>
                     </div>
 
-                    <!-- SEND TAB -->
                     <div id="tab-send" class="tab-content active">
                         <div class="input-group">
                             <label class="input-label">Alıcı Adresi</label>
@@ -473,12 +714,9 @@
                                 <button class="max-btn" onclick="setMax()">MAX</button>
                             </div>
                         </div>
-                        <button class="btn btn-primary" style="width:100%;margin-top:6px;" id="sendBtn" onclick="send()">
-                            PULSE YAYINLA
-                        </button>
+                        <button class="btn btn-primary" style="width:100%;margin-top:6px;" id="sendBtn" onclick="send()">PULSE YAYINLA</button>
                     </div>
 
-                    <!-- APPROVE TAB -->
                     <div id="tab-approve" class="tab-content">
                         <div style="background:rgba(0,207,255,0.04);border:1px solid rgba(0,207,255,0.12);border-radius:12px;padding:12px;margin-bottom:14px;">
                             <p style="font-size:0.65rem;color:var(--accent-blue);line-height:1.7;">
@@ -496,13 +734,10 @@
                                 <button class="max-btn" onclick="setApproveMax()">MAX</button>
                             </div>
                         </div>
-                        <button class="btn btn-green" style="width:100%;margin-top:6px;" id="approveBtn" onclick="approve()">
-                            ONAYI GÖNDER
-                        </button>
+                        <button class="btn btn-green" style="width:100%;margin-top:6px;" id="approveBtn" onclick="approve()">ONAYI GÖNDER</button>
                     </div>
                 </div>
 
-                <!-- TERMINAL -->
                 <div class="glass-card" style="padding:22px;flex-grow:1;">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
                         <p class="balance-label">Neural Feed</p>
@@ -515,6 +750,30 @@
     </section>
 
     <script>
+        // ─── KOD YAĞMURU ───
+        (function() {
+            const chars = '01アイウエオカキクケコABCDEF©®™λΨΩ∑∞≠≡∂∫';
+            const cols = Math.floor(window.innerWidth / 20);
+            const container = document.getElementById('codeRainContainer');
+            for (let i = 0; i < Math.min(cols, 30); i++) {
+                const el = document.createElement('span');
+                el.className = 'code-char';
+                el.style.left = (Math.random() * 100) + 'vw';
+                el.style.animationDuration = (8 + Math.random() * 12) + 's';
+                el.style.animationDelay = (Math.random() * 10) + 's';
+                el.style.opacity = Math.random() * 0.15 + 0.05;
+                el.style.color = Math.random() > 0.6 ? 'var(--accent-pink)' : 'var(--accent-green)';
+                // Rastgele karakter değişimi
+                function randomChar() {
+                    el.textContent = chars[Math.floor(Math.random() * chars.length)];
+                    setTimeout(randomChar, 120 + Math.random() * 300);
+                }
+                randomChar();
+                container.appendChild(el);
+            }
+        })();
+
+        // ─── KONTRAT & STATE ───
         const ADDR = "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8";
         const ABI = [
             "function transfer(address to, uint256 amount) returns (bool)",
@@ -522,13 +781,12 @@
             "function approve(address spender, uint256 amount) returns (bool)",
             "function allowance(address owner, address spender) view returns (uint256)"
         ];
-
         const NETWORKS = {
-            ethereum:  { chainId: '0x1',       name: 'Ethereum',   color: '#627EEA' },
-            polygon:   { chainId: '0x89',      name: 'Polygon',    color: '#8247E5' },
-            bsc:       { chainId: '0x38',      name: 'BNB Chain',  color: '#F3BA2F' },
-            arbitrum:  { chainId: '0xA4B1',    name: 'Arbitrum',   color: '#96BEDC' },
-            sepolia:   { chainId: '0xAA36A7',  name: 'Sepolia',    color: '#FFB800' },
+            ethereum:  { chainId: '0x1',      name: 'Ethereum' },
+            polygon:   { chainId: '0x89',     name: 'Polygon' },
+            bsc:       { chainId: '0x38',     name: 'BNB Chain' },
+            arbitrum:  { chainId: '0xA4B1',   name: 'Arbitrum' },
+            sepolia:   { chainId: '0xAA36A7', name: 'Sepolia' },
         };
 
         let provider, signer, contract;
@@ -543,66 +801,44 @@
         async function connect() {
             if (isConnecting) return;
             if (typeof window.ethereum === 'undefined') {
-                toast('MetaMask bulunamadı! Lütfen yükleyin.', 'error');
-                return;
+                toast('MetaMask bulunamadı! Lütfen yükleyin.', 'error'); return;
             }
             isConnecting = true;
             const btn = document.getElementById('walletBtn');
             btn.innerHTML = '<span class="spinner"></span>';
             btn.disabled = true;
-
             try {
                 provider = new ethers.BrowserProvider(window.ethereum);
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
                 signer = await provider.getSigner();
                 contract = new ethers.Contract(ADDR, ABI, signer);
                 currentAddress = await signer.getAddress();
-
                 document.getElementById('hero').style.display = 'none';
                 document.getElementById('main-app').style.display = 'block';
                 document.getElementById('displayAddr').innerText = currentAddress;
-
-                const short = currentAddress.slice(0,6) + '...' + currentAddress.slice(-4);
-                btn.innerText = short;
+                btn.innerText = currentAddress.slice(0,6) + '...' + currentAddress.slice(-4);
                 btn.disabled = false;
-
                 log('Node bağlantısı kuruldu: ' + currentAddress);
                 toast('Cüzdan bağlandı!', 'success');
-
                 detectNetwork();
                 await updateData();
-
                 if (updateInterval) clearInterval(updateInterval);
                 updateInterval = setInterval(updateData, 15000);
-
-                // Hesap/ağ değişikliklerini dinle
                 window.ethereum.on('accountsChanged', handleAccountChange);
                 window.ethereum.on('chainChanged', handleChainChange);
-
             } catch (err) {
-                btn.innerText = 'NODE BAĞLA';
-                btn.disabled = false;
+                btn.innerText = 'NODE BAĞLA'; btn.disabled = false;
                 const msg = getErrorMessage(err);
-                toast(msg, 'error');
-                log('Bağlantı hatası: ' + msg);
-            } finally {
-                isConnecting = false;
-            }
+                toast(msg, 'error'); log('Bağlantı hatası: ' + msg);
+            } finally { isConnecting = false; }
         }
 
         function handleAccountChange(accounts) {
-            if (accounts.length === 0) {
-                toast('Cüzdan bağlantısı kesildi.', 'warning');
-                location.reload();
-            } else {
-                toast('Hesap değiştirildi, yenileniyor...', 'info');
-                setTimeout(() => location.reload(), 1000);
-            }
+            if (accounts.length === 0) { toast('Cüzdan bağlantısı kesildi.', 'warning'); location.reload(); }
+            else { toast('Hesap değiştirildi, yenileniyor...', 'info'); setTimeout(() => location.reload(), 1000); }
         }
-
         function handleChainChange() {
-            toast('Ağ değiştirildi, yenileniyor...', 'info');
-            setTimeout(() => location.reload(), 800);
+            toast('Ağ değiştirildi, yenileniyor...', 'info'); setTimeout(() => location.reload(), 800);
         }
 
         // ─── UPDATE DATA ───
@@ -611,25 +847,16 @@
             try {
                 const bal = await contract.balanceOf(currentAddress);
                 currentBalance = parseFloat(ethers.formatUnits(bal, 18));
-                document.getElementById('balance').innerText = currentBalance.toLocaleString('tr-TR', {minimumFractionDigits: 4, maximumFractionDigits: 4});
-
+                document.getElementById('balance').innerText = currentBalance.toLocaleString('tr-TR', {minimumFractionDigits:4, maximumFractionDigits:4});
                 const blockNum = await provider.getBlockNumber();
                 document.getElementById('blockHeight').innerText = '#' + blockNum.toLocaleString();
-
-                // Gas
                 try {
                     const feeData = await provider.getFeeData();
-                    const gwei = parseFloat(ethers.formatUnits(feeData.gasPrice, 'gwei')).toFixed(1);
-                    document.getElementById('gasPrice').innerText = gwei + ' Gwei';
+                    document.getElementById('gasPrice').innerText = parseFloat(ethers.formatUnits(feeData.gasPrice, 'gwei')).toFixed(1) + ' Gwei';
                 } catch(e) {}
-
-                // Tx count
-                const nonce = await provider.getTransactionCount(currentAddress);
-                document.getElementById('txCount').innerText = nonce;
-
+                document.getElementById('txCount').innerText = await provider.getTransactionCount(currentAddress);
                 updateTier(currentBalance);
                 document.getElementById('syncStatus').innerText = 'Senkronize';
-
             } catch (e) {
                 console.log('Güncelleme hatası:', e);
                 document.getElementById('syncStatus').innerText = 'Yeniden Deniyor...';
@@ -637,14 +864,9 @@
         }
 
         function updateTier(bal) {
-            let tier = 'Observer Node';
-            let color = 'var(--text-dim)';
-            let nextTier = 1;
-            let progress = (bal / nextTier) * 100;
-
+            let tier = 'Observer Node', color = 'var(--text-dim)', progress = 0;
             if (bal >= 1000000) {
-                tier = 'Architect Node'; color = 'var(--accent-pink)'; 
-                progress = 100;
+                tier = 'Architect Node'; color = 'var(--accent-pink)'; progress = 100;
                 document.getElementById('tierProgress').innerText = 'MAX TİER';
             } else if (bal >= 100000) {
                 tier = 'Validator Node'; color = '#FFB800';
@@ -656,15 +878,9 @@
                 document.getElementById('tierProgress').innerText = (100000 - bal).toLocaleString() + ' → Validator';
             } else {
                 document.getElementById('tierProgress').innerText = '1 → Active Node';
-                progress = 0;
             }
-
             const badge = document.getElementById('userTier');
-            badge.innerText = tier;
-            badge.style.color = color;
-            badge.style.borderColor = color;
-            badge.style.background = color.replace(')', ',0.08)').replace('var(', 'rgba(').replace('--accent-green', '0,255,163').replace('--accent-pink', '255,0,122').replace('--text-dim', '136,136,136');
-
+            badge.innerText = tier; badge.style.color = color; badge.style.borderColor = color;
             document.getElementById('tierProgressBar').style.width = Math.min(progress, 100) + '%';
         }
 
@@ -672,87 +888,56 @@
         async function send() {
             const to = document.getElementById('target').value.trim();
             const amountStr = document.getElementById('amt').value.trim();
-
             if (!to || !amountStr) { toast('Lütfen tüm alanları doldurun!', 'warning'); return; }
             if (!ethers.isAddress(to)) { toast('Geçersiz alıcı adresi!', 'error'); return; }
             const numAmt = parseFloat(amountStr);
             if (isNaN(numAmt) || numAmt <= 0) { toast('Geçersiz miktar!', 'error'); return; }
             if (numAmt > currentBalance) { toast('Yetersiz bakiye!', 'error'); return; }
-
             const btn = document.getElementById('sendBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> İşleniyor...';
-
+            btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> İşleniyor...';
             try {
-                const amount = ethers.parseUnits(amountStr, 18);
-                log('Pulse ağa yayınlanıyor...');
-                const tx = await contract.transfer(to, amount);
-
+                const tx = await contract.transfer(to, ethers.parseUnits(amountStr, 18));
                 addTx({ type: 'out', hash: tx.hash, to, amount: numAmt, status: 'pending' });
                 log('İşlem gönderildi: ' + tx.hash.slice(0,14) + '...');
                 toast('İşlem gönderildi! Onay bekleniyor...', 'info');
-
                 await tx.wait();
                 updateTxStatus(tx.hash, 'confirmed');
                 log('✅ Pulse onaylandı: ' + tx.hash.slice(0,14) + '...');
                 toast('İşlem onaylandı!', 'success');
                 updateData();
-
                 document.getElementById('target').value = '';
                 document.getElementById('amt').value = '';
-
             } catch (err) {
                 const msg = getErrorMessage(err);
-                log('❌ Broadcast hatası: ' + msg);
-                toast(msg, 'error');
-                if (transactions.length > 0 && transactions[0].status === 'pending') {
-                    updateTxStatus(transactions[0].hash, 'failed');
-                }
-            } finally {
-                btn.disabled = false;
-                btn.innerText = 'PULSE YAYINLA';
-            }
+                log('❌ Broadcast hatası: ' + msg); toast(msg, 'error');
+                if (transactions.length > 0 && transactions[0].status === 'pending') updateTxStatus(transactions[0].hash, 'failed');
+            } finally { btn.disabled = false; btn.innerText = 'PULSE YAYINLA'; }
         }
 
         // ─── APPROVE ───
         async function approve() {
             const spender = document.getElementById('spender').value.trim();
             const amountStr = document.getElementById('approveAmt').value.trim();
-
             if (!spender || !amountStr) { toast('Lütfen tüm alanları doldurun!', 'warning'); return; }
             if (!ethers.isAddress(spender)) { toast('Geçersiz spender adresi!', 'error'); return; }
             const numAmt = parseFloat(amountStr);
             if (isNaN(numAmt) || numAmt < 0) { toast('Geçersiz miktar!', 'error'); return; }
-
             const btn = document.getElementById('approveBtn');
-            btn.disabled = true;
-            btn.innerHTML = '<span class="spinner"></span> Onaylanıyor...';
-
+            btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Onaylanıyor...';
             try {
-                const amount = ethers.parseUnits(amountStr, 18);
-                log('Token onayı gönderiliyor...');
-                const tx = await contract.approve(spender, amount);
-
+                const tx = await contract.approve(spender, ethers.parseUnits(amountStr, 18));
                 addTx({ type: 'approve', hash: tx.hash, to: spender, amount: numAmt, status: 'pending' });
                 log('Onay işlemi gönderildi: ' + tx.hash.slice(0,14) + '...');
                 toast('Onay işlemi gönderildi!', 'info');
-
                 await tx.wait();
                 updateTxStatus(tx.hash, 'confirmed');
-                log('✅ Token onayı başarılı!');
-                toast('Token onaylandı!', 'success');
-
+                log('✅ Token onayı başarılı!'); toast('Token onaylandı!', 'success');
                 document.getElementById('spender').value = '';
                 document.getElementById('approveAmt').value = '';
-
             } catch (err) {
                 const msg = getErrorMessage(err);
-                log('❌ Onay hatası: ' + msg);
-                toast(msg, 'error');
-            } finally {
-                btn.disabled = false;
-                btn.innerText = 'ONAYI GÖNDER';
-            }
+                log('❌ Onay hatası: ' + msg); toast(msg, 'error');
+            } finally { btn.disabled = false; btn.innerText = 'ONAYI GÖNDER'; }
         }
 
         // ─── NETWORK ───
@@ -760,19 +945,12 @@
             try {
                 const network = await provider.getNetwork();
                 const chainId = Number(network.chainId);
-                let name = 'Bilinmiyor';
-                let isTestnet = false;
-
                 const chainMap = { 1:'Ethereum', 137:'Polygon', 56:'BNB Chain', 42161:'Arbitrum', 11155111:'Sepolia' };
                 const testNets = [11155111, 5, 3, 4, 420];
-                if (chainMap[chainId]) name = chainMap[chainId];
-                if (testNets.includes(chainId)) isTestnet = true;
-
+                const name = chainMap[chainId] || 'Bilinmiyor';
                 document.getElementById('chainName').innerText = name;
                 document.getElementById('netLabel').innerText = name.toUpperCase();
-
-                const dot = document.getElementById('netDot');
-                dot.className = 'net-dot' + (isTestnet ? ' testnet' : '');
+                document.getElementById('netDot').className = 'net-dot' + (testNets.includes(chainId) ? ' testnet' : '');
             } catch(e) {}
         }
 
@@ -792,26 +970,17 @@
             networkDropdownOpen = false;
             document.getElementById('networkDropdown').classList.remove('open');
             if (!window.ethereum) { toast('MetaMask gerekli!', 'error'); return; }
-            const net = NETWORKS[key];
             try {
-                await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: net.chainId }] });
-                toast(net.name + ' ağına geçildi!', 'success');
+                await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: NETWORKS[key].chainId }] });
+                toast(NETWORKS[key].name + ' ağına geçildi!', 'success');
             } catch (err) {
-                if (err.code === 4902) {
-                    toast('Bu ağ MetaMask\'ta tanımlı değil.', 'warning');
-                } else {
-                    toast('Ağ değiştirilemedi: ' + getErrorMessage(err), 'error');
-                }
+                toast(err.code === 4902 ? 'Bu ağ MetaMask\'ta tanımlı değil.' : 'Ağ değiştirilemedi.', 'error');
             }
         }
 
         // ─── HELPERS ───
-        function setMax() {
-            document.getElementById('amt').value = currentBalance;
-        }
-        function setApproveMax() {
-            document.getElementById('approveAmt').value = currentBalance;
-        }
+        function setMax() { document.getElementById('amt').value = currentBalance; }
+        function setApproveMax() { document.getElementById('approveAmt').value = currentBalance; }
 
         function switchTab(name) {
             document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['send','approve'][i] === name));
@@ -834,58 +1003,44 @@
             document.getElementById('qrcode').innerHTML = '';
             new QRCode(document.getElementById('qrcode'), {
                 text: currentAddress, width: 200, height: 200,
-                colorDark: '#000000', colorLight: '#ffffff',
-                correctLevel: QRCode.CorrectLevel.H
+                colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H
             });
             document.getElementById('qrModal').classList.add('open');
         }
         function closeQR() { document.getElementById('qrModal').classList.remove('open'); }
-        document.getElementById('qrModal').addEventListener('click', function(e) {
-            if (e.target === this) closeQR();
-        });
+        document.getElementById('qrModal').addEventListener('click', function(e) { if (e.target === this) closeQR(); });
 
         async function copyAddress() {
             if (!currentAddress) return;
-            try {
-                await navigator.clipboard.writeText(currentAddress);
-                toast('Adres kopyalandı!', 'success');
-            } catch(e) {
-                toast('Kopyalama başarısız.', 'error');
-            }
+            try { await navigator.clipboard.writeText(currentAddress); toast('Adres kopyalandı!', 'success'); }
+            catch(e) { toast('Kopyalama başarısız.', 'error'); }
         }
 
         // ─── TX HISTORY ───
-        function addTx(tx) {
-            tx.time = new Date();
-            transactions.unshift(tx);
-            renderTxList();
-        }
-
+        function addTx(tx) { tx.time = new Date(); transactions.unshift(tx); renderTxList(); }
         function updateTxStatus(hash, status) {
             const tx = transactions.find(t => t.hash === hash);
             if (tx) { tx.status = status; renderTxList(); }
         }
-
         function renderTxList() {
             const list = document.getElementById('txList');
-            if (transactions.length === 0) {
-                list.innerHTML = '<div class="empty-state"><div class="icon">📡</div><p>Henüz işlem yok</p></div>';
-                return;
+            if (!transactions.length) {
+                list.innerHTML = '<div class="empty-state"><div class="icon">📡</div><p>Henüz işlem yok</p></div>'; return;
             }
             list.innerHTML = transactions.map(tx => {
-                const typeLabel = tx.type === 'out' ? 'Gönder' : tx.type === 'in' ? 'Al' : 'Onay';
-                const icon = tx.type === 'out' ? '↑' : tx.type === 'in' ? '↓' : '✓';
-                const amtColor = tx.type === 'out' ? 'var(--accent-pink)' : tx.type === 'in' ? 'var(--accent-green)' : 'var(--accent-blue)';
-                const sign = tx.type === 'out' ? '-' : tx.type === 'in' ? '+' : '~';
+                const typeLabel = tx.type==='out'?'Gönder':tx.type==='in'?'Al':'Onay';
+                const icon = tx.type==='out'?'↑':tx.type==='in'?'↓':'✓';
+                const amtColor = tx.type==='out'?'var(--accent-pink)':tx.type==='in'?'var(--accent-green)':'var(--accent-blue)';
+                const sign = tx.type==='out'?'-':tx.type==='in'?'+':'~';
                 const timeStr = tx.time ? tx.time.toLocaleTimeString('tr-TR') : '';
                 const addrShort = tx.to ? tx.to.slice(0,8)+'...'+tx.to.slice(-6) : '-';
-                return `
-                <div class="tx-item">
+                const statusLabel = tx.status==='confirmed'?'Onaylandı':tx.status==='pending'?'Bekliyor...':'Başarısız';
+                return `<div class="tx-item">
                     <div class="tx-icon ${tx.type}">${icon}</div>
                     <div class="tx-info">
                         <div class="tx-type">${typeLabel}</div>
                         <div class="tx-addr">${addrShort}</div>
-                        <span class="tx-status ${tx.status}">${tx.status === 'confirmed' ? 'Onaylandı' : tx.status === 'pending' ? 'Bekliyor...' : 'Başarısız'}</span>
+                        <span class="tx-status ${tx.status}">${statusLabel}</span>
                     </div>
                     <div class="tx-amount">
                         <div class="tx-val" style="color:${amtColor}">${sign}${tx.amount?.toLocaleString('tr-TR',{maximumFractionDigits:4})}</div>
@@ -894,37 +1049,26 @@
                 </div>`;
             }).join('');
         }
-
-        function clearHistory() {
-            transactions = [];
-            renderTxList();
-            toast('İşlem geçmişi temizlendi.', 'info');
-        }
+        function clearHistory() { transactions = []; renderTxList(); toast('İşlem geçmişi temizlendi.', 'info'); }
 
         // ─── TERMINAL ───
         function log(m) {
             const t = document.getElementById('terminal');
-            const time = new Date().toLocaleTimeString('tr-TR');
             const div = document.createElement('div');
-            div.innerHTML = `<span style="color:#333">[${time}]</span> <span style="color:var(--accent-green)">›</span> ${m}`;
+            div.innerHTML = `<span style="color:#333">[${new Date().toLocaleTimeString('tr-TR')}]</span> <span style="color:var(--accent-green)">›</span> ${m}`;
             t.insertBefore(div, t.firstChild);
-            // Max 50 satır
             while (t.children.length > 50) t.removeChild(t.lastChild);
         }
-        function clearTerminal() {
-            document.getElementById('terminal').innerHTML = '';
-            log('Terminal temizlendi.');
-        }
+        function clearTerminal() { document.getElementById('terminal').innerHTML = ''; log('Terminal temizlendi.'); }
 
         // ─── TOAST ───
         function toast(msg, type = 'info') {
             const icons = { success:'✅', error:'❌', info:'ℹ️', warning:'⚠️' };
-            const container = document.getElementById('toastContainer');
             const el = document.createElement('div');
             el.className = `toast ${type}`;
             el.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
-            container.appendChild(el);
-            setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(30px)'; el.style.transition = '0.3s'; setTimeout(() => el.remove(), 300); }, 3500);
+            document.getElementById('toastContainer').appendChild(el);
+            setTimeout(() => { el.style.opacity='0'; el.style.transform='translateX(30px)'; el.style.transition='0.3s'; setTimeout(()=>el.remove(),300); }, 3500);
         }
     </script>
 </body>
