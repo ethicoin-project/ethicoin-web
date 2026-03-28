@@ -1,213 +1,930 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Neural Protocol Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>ETHIC | Neural Protocol Pro v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
         :root {
             --bg: #000000;
             --accent-green: #00ffa3;
             --accent-pink: #ff007a;
+            --accent-blue: #00cfff;
             --glass: rgba(255, 255, 255, 0.03);
+            --glass-hover: rgba(255, 255, 255, 0.06);
             --border: rgba(255, 255, 255, 0.08);
             --text-dim: #888888;
+            --success: #00ffa3;
+            --warning: #ffb800;
+            --error: #ff3b3b;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        
+        body { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
 
-        /* 🌌 BACKGROUND */
-        .void { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 20% 30%, rgba(0, 255, 163, 0.05) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.05) 0%, transparent 40%); }
-        .void::after { content: ''; position: absolute; inset: 0; background-image: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.15; pointer-events: none; }
+        /* BACKGROUND */
+        .void { 
+            position: fixed; inset: 0; z-index: -1; 
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 163, 0.06) 0%, transparent 50%), 
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(0, 207, 255, 0.03) 0%, transparent 60%);
+        }
 
-        /* 🧭 NAV */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
-        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); }
+        /* NAV */
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 20px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; 
+            backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+            background: rgba(0,0,0,0.4);
+        }
+        .logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
+        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-        /* 🚀 HERO */
-        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
-        .hero h1 { font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800; letter-spacing: -4px; line-height: 0.95; background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { color: var(--text-dim); margin-top: 20px; letter-spacing: 5px; font-weight: 600; font-size: 0.7rem; text-transform: uppercase; }
+        .nav-right { display: flex; align-items: center; gap: 10px; }
 
-        /* 💻 DASHBOARD */
-        #main-app { display: none; padding: 120px 5% 50px; animation: fadeIn 0.8s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        /* NETWORK SWITCHER */
+        .network-switcher {
+            display: flex; align-items: center; gap: 8px;
+            padding: 7px 14px; border-radius: 100px;
+            background: var(--glass); border: 1px solid var(--border);
+            cursor: pointer; font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 1px; color: #fff; transition: 0.2s;
+            position: relative;
+        }
+        .network-switcher:hover { background: var(--glass-hover); }
+        .net-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
+        .net-dot.testnet { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+        .net-dot.error { background: var(--error); box-shadow: 0 0 8px var(--error); }
 
-        .grid { display: grid; grid-template-columns: 1fr 350px; gap: 20px; max-width: 1300px; margin: 0 auto; }
-        .glass-card { background: var(--glass); border: 1px solid var(--border); border-radius: 28px; padding: 35px; backdrop-filter: blur(30px); }
+        .network-dropdown {
+            display: none; position: absolute; top: calc(100% + 8px); right: 0;
+            background: #111; border: 1px solid var(--border); border-radius: 14px;
+            overflow: hidden; min-width: 180px; z-index: 999;
+        }
+        .network-dropdown.open { display: block; animation: dropIn 0.2s ease; }
+        @keyframes dropIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+        .net-option { 
+            padding: 12px 16px; display: flex; align-items: center; gap: 10px;
+            cursor: pointer; font-size: 0.72rem; font-weight: 600; transition: 0.15s;
+        }
+        .net-option:hover { background: var(--glass-hover); }
+        .net-option .chain-id { margin-left: auto; color: var(--text-dim); font-family: 'Space Mono'; font-size: 0.6rem; }
 
-        .balance-label { font-size: 0.7rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
-        .balance-value { font-family: 'Space Mono'; font-size: 3rem; font-weight: 800; margin: 10px 0; color: var(--accent-green); }
+        /* HERO */
+        .hero { 
+            height: 100vh; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; text-align: center; padding: 0 20px; 
+        }
+        .hero-label { color: var(--text-dim); letter-spacing: 5px; font-weight: 600; font-size: 0.65rem; text-transform: uppercase; margin-bottom: 25px; }
+        .hero h1 { 
+            font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800; letter-spacing: -4px; 
+            line-height: 0.95; background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.35) 100%); 
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-sub { color: var(--text-dim); margin-top: 25px; font-size: 0.85rem; max-width: 400px; line-height: 1.7; }
+        .hero-btns { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
-        .tier-badge { display: inline-block; padding: 5px 12px; border-radius: 100px; font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; background: rgba(0, 255, 163, 0.1); color: var(--accent-green); border: 1px solid rgba(0, 255, 163, 0.2); }
-
-        .btn { padding: 14px 28px; border-radius: 100px; font-weight: 700; cursor: pointer; transition: 0.3s; border: none; font-size: 0.85rem; text-transform: uppercase; }
+        /* BUTTONS */
+        .btn { 
+            padding: 13px 26px; border-radius: 100px; font-weight: 700; cursor: pointer; 
+            transition: all 0.25s; border: none; font-size: 0.78rem; text-transform: uppercase;
+            letter-spacing: 0.5px; font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
         .btn-primary { background: #fff; color: #000; }
-        .btn-primary:hover { transform: scale(1.03); background: var(--accent-green); }
+        .btn-primary:hover:not(:disabled) { transform: scale(1.03); background: var(--accent-green); }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: #fff; }
+        .btn-outline:hover:not(:disabled) { background: var(--glass-hover); border-color: rgba(255,255,255,0.2); }
+        .btn-green { background: rgba(0,255,163,0.1); color: var(--accent-green); border: 1px solid rgba(0,255,163,0.2); }
+        .btn-green:hover:not(:disabled) { background: rgba(0,255,163,0.2); }
+        .btn-pink { background: rgba(255,0,122,0.1); color: var(--accent-pink); border: 1px solid rgba(255,0,122,0.2); }
+        .btn-pink:hover:not(:disabled) { background: rgba(255,0,122,0.2); }
 
-        input { width: 100%; padding: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 14px; color: #fff; margin-bottom: 10px; font-family: 'Space Mono'; outline: none; }
-        input:focus { border-color: var(--accent-pink); }
+        /* MAIN APP */
+        #main-app { display: none; padding: 100px 5% 50px; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* 🗺️ MAP */
-        .map-container { margin-top: 30px; height: 150px; background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') center/contain no-repeat; opacity: 0.1; position: relative; filter: invert(1); }
-        .node-dot { position: absolute; width: 5px; height: 5px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(3); } }
+        .grid { display: grid; grid-template-columns: 1fr 340px; gap: 16px; max-width: 1280px; margin: 0 auto; }
 
-        #terminal { height: 150px; overflow-y: auto; font-family: 'Space Mono'; font-size: 0.65rem; color: var(--text-dim); line-height: 1.6; }
+        /* TABS */
+        .tabs { display: flex; gap: 4px; margin-bottom: 20px; background: var(--glass); padding: 4px; border-radius: 14px; border: 1px solid var(--border); }
+        .tab { 
+            flex: 1; padding: 10px; border-radius: 10px; text-align: center; 
+            cursor: pointer; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; transition: 0.2s; color: var(--text-dim);
+        }
+        .tab.active { background: rgba(255,255,255,0.08); color: #fff; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+
+        /* CARDS */
+        .glass-card { 
+            background: var(--glass); border: 1px solid var(--border); 
+            border-radius: 24px; padding: 28px; backdrop-filter: blur(30px); 
+        }
+
+        .balance-label { font-size: 0.65rem; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; }
+        .balance-value { font-family: 'Space Mono'; font-size: 2.6rem; font-weight: 700; margin: 8px 0; color: var(--accent-green); line-height: 1; }
+
+        .tier-badge { 
+            display: inline-block; padding: 4px 12px; border-radius: 100px; 
+            font-size: 0.58rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; 
+            margin-top: 8px; background: rgba(0, 255, 163, 0.08); 
+            color: var(--accent-green); border: 1px solid rgba(0, 255, 163, 0.2); 
+            transition: all 0.4s;
+        }
+
+        /* ADDRESS DISPLAY */
+        .address-row { 
+            display: flex; align-items: center; gap: 8px; 
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 12px; padding: 10px 14px; margin-top: 16px;
+        }
+        .address-text { font-family: 'Space Mono'; font-size: 0.65rem; color: var(--text-dim); flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .icon-btn { 
+            background: none; border: none; cursor: pointer; color: var(--text-dim); 
+            font-size: 0.75rem; padding: 4px 8px; border-radius: 8px; transition: 0.15s;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .icon-btn:hover { color: #fff; background: var(--glass-hover); }
+
+        /* STATS ROW */
+        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+        .stat-box { 
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border); 
+            border-radius: 14px; padding: 14px; 
+        }
+        .stat-val { font-family: 'Space Mono'; font-size: 0.85rem; font-weight: 700; margin-top: 4px; }
+
+        /* INPUT */
+        .input-group { margin-bottom: 10px; }
+        .input-label { font-size: 0.62rem; color: var(--text-dim); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; display: block; }
+        input, textarea { 
+            width: 100%; padding: 13px 16px; 
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border); 
+            border-radius: 12px; color: #fff; font-family: 'Space Mono'; font-size: 0.78rem;
+            outline: none; transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus { border-color: rgba(255,255,255,0.25); }
+        input::placeholder { color: #444; }
+
+        /* MAX BUTTON */
+        .input-row { position: relative; }
+        .input-row .max-btn {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            font-size: 0.6rem; padding: 4px 10px; border-radius: 8px;
+            background: rgba(0,255,163,0.1); border: 1px solid rgba(0,255,163,0.2);
+            color: var(--accent-green); cursor: pointer; font-weight: 700; transition: 0.15s;
+        }
+        .input-row .max-btn:hover { background: rgba(0,255,163,0.2); }
+        .input-row input { padding-right: 60px; }
+
+        /* TRANSACTION HISTORY */
+        .tx-list { max-height: 320px; overflow-y: auto; }
+        .tx-list::-webkit-scrollbar { width: 3px; }
+        .tx-list::-webkit-scrollbar-track { background: transparent; }
+        .tx-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        .tx-item {
+            display: flex; align-items: center; gap: 12px; 
+            padding: 12px 0; border-bottom: 1px solid var(--border);
+            animation: fadeIn 0.3s ease;
+        }
+        .tx-item:last-child { border-bottom: none; }
+        .tx-icon { 
+            width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; 
+            justify-content: center; font-size: 0.75rem; flex-shrink: 0;
+        }
+        .tx-icon.out { background: rgba(255,0,122,0.12); color: var(--accent-pink); border: 1px solid rgba(255,0,122,0.2); }
+        .tx-icon.in { background: rgba(0,255,163,0.12); color: var(--accent-green); border: 1px solid rgba(0,255,163,0.2); }
+        .tx-icon.approve { background: rgba(0,207,255,0.12); color: var(--accent-blue); border: 1px solid rgba(0,207,255,0.2); }
+        .tx-info { flex: 1; min-width: 0; }
+        .tx-type { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tx-addr { font-family: 'Space Mono'; font-size: 0.58rem; color: var(--text-dim); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .tx-amount { text-align: right; }
+        .tx-val { font-family: 'Space Mono'; font-size: 0.8rem; font-weight: 700; }
+        .tx-time { font-size: 0.58rem; color: var(--text-dim); margin-top: 2px; }
+        .tx-status { font-size: 0.55rem; padding: 2px 8px; border-radius: 100px; margin-top: 3px; display: inline-block; }
+        .tx-status.confirmed { background: rgba(0,255,163,0.1); color: var(--accent-green); }
+        .tx-status.pending { background: rgba(255,184,0,0.1); color: var(--warning); }
+        .tx-status.failed { background: rgba(255,59,59,0.1); color: var(--error); }
+
+        /* TERMINAL */
+        #terminal { 
+            height: 130px; overflow-y: auto; font-family: 'Space Mono'; 
+            font-size: 0.62rem; color: var(--text-dim); line-height: 1.8;
+        }
+        #terminal::-webkit-scrollbar { width: 3px; }
+        #terminal::-webkit-scrollbar-thumb { background: var(--border); }
+
+        /* MAP */
+        .map-container { 
+            margin-top: 20px; height: 120px; 
+            background: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg') center/contain no-repeat; 
+            opacity: 0.08; position: relative; filter: invert(1); 
+        }
+        .node-dot { 
+            position: absolute; width: 5px; height: 5px; background: var(--accent-green); 
+            border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: nodePulse 2s infinite; 
+        }
+        .node-dot:nth-child(2) { animation-delay: 0.7s; }
+        .node-dot:nth-child(3) { animation-delay: 1.4s; }
+        @keyframes nodePulse { 0%{opacity:1;transform:scale(1)} 100%{opacity:0;transform:scale(4)} }
+
+        /* MODAL (QR) */
+        .modal-overlay { 
+            display: none; position: fixed; inset: 0; z-index: 9999;
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+            align-items: center; justify-content: center;
+        }
+        .modal-overlay.open { display: flex; animation: fadeIn 0.2s ease; }
+        .modal { 
+            background: #0a0a0a; border: 1px solid var(--border); border-radius: 24px; 
+            padding: 32px; max-width: 340px; width: 90%; text-align: center;
+        }
+        .modal h3 { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); margin-bottom: 20px; }
+        #qrcode { display: flex; justify-content: center; margin-bottom: 16px; }
+        #qrcode canvas, #qrcode img { border-radius: 12px; border: 8px solid #fff; }
+        .modal-addr { font-family: 'Space Mono'; font-size: 0.62rem; color: var(--text-dim); word-break: break-all; line-height: 1.6; }
+
+        /* TOAST */
+        .toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9998; display: flex; flex-direction: column; gap: 8px; }
+        .toast { 
+            padding: 12px 18px; border-radius: 12px; font-size: 0.72rem; font-weight: 600;
+            backdrop-filter: blur(20px); animation: slideIn 0.3s ease;
+            display: flex; align-items: center; gap: 10px; max-width: 300px;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+        .toast.success { background: rgba(0,255,163,0.1); border: 1px solid rgba(0,255,163,0.25); color: var(--accent-green); }
+        .toast.error { background: rgba(255,59,59,0.1); border: 1px solid rgba(255,59,59,0.25); color: var(--error); }
+        .toast.info { background: rgba(0,207,255,0.1); border: 1px solid rgba(0,207,255,0.25); color: var(--accent-blue); }
+        .toast.warning { background: rgba(255,184,0,0.1); border: 1px solid rgba(255,184,0,0.25); color: var(--warning); }
+
+        /* PROGRESS */
+        .progress-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 8px; }
+        .progress-fill { height: 100%; background: var(--accent-green); border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+
+        /* LOADING SPINNER */
+        .spinner { 
+            width: 16px; height: 16px; border: 2px solid var(--border); 
+            border-top-color: var(--accent-green); border-radius: 50%; 
+            animation: spin 0.7s linear infinite; display: inline-block;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* EMPTY STATE */
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-dim); }
+        .empty-state .icon { font-size: 2rem; margin-bottom: 10px; opacity: 0.3; }
+        .empty-state p { font-size: 0.72rem; letter-spacing: 1px; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+            .balance-value { font-size: 2rem; }
+        }
+        @media (max-width: 600px) {
+            nav { padding: 15px 4%; }
+            #main-app { padding: 85px 4% 40px; }
+            .glass-card { padding: 20px; border-radius: 18px; }
+            .hero h1 { letter-spacing: -2px; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .toast-container { bottom: 16px; right: 16px; left: 16px; }
+            .toast { max-width: 100%; }
+        }
     </style>
 </head>
 <body>
     <div class="void"></div>
 
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- QR MODAL -->
+    <div class="modal-overlay" id="qrModal">
+        <div class="modal">
+            <h3>📡 Node Adresi</h3>
+            <div id="qrcode"></div>
+            <p class="modal-addr" id="qrAddr"></p>
+            <div style="display:flex;gap:8px;margin-top:16px;">
+                <button class="btn btn-outline" style="flex:1;font-size:0.7rem;" onclick="copyAddress()">KOPYALA</button>
+                <button class="btn btn-outline" style="flex:1;font-size:0.7rem;" onclick="closeQR()">KAPAT</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAV -->
     <nav>
         <div class="logo"><div class="logo-dot"></div> ETHIC.AI</div>
-        <button id="walletBtn" class="btn btn-outline" style="font-size: 0.7rem; padding: 10px 20px;" onclick="connect()">CONNECT NODE</button>
+        <div class="nav-right">
+            <div class="network-switcher" id="networkSwitcher" onclick="toggleNetworkDropdown()">
+                <div class="net-dot" id="netDot"></div>
+                <span id="netLabel">AĞSIZ</span>
+                <span style="opacity:0.4;font-size:0.6rem;">▼</span>
+                <div class="network-dropdown" id="networkDropdown">
+                    <div class="net-option" onclick="switchNetwork('ethereum')">
+                        <div class="net-dot" style="background:#627EEA;box-shadow:0 0 8px #627EEA;"></div>
+                        Ethereum
+                        <span class="chain-id">1</span>
+                    </div>
+                    <div class="net-option" onclick="switchNetwork('polygon')">
+                        <div class="net-dot" style="background:#8247E5;box-shadow:0 0 8px #8247E5;"></div>
+                        Polygon
+                        <span class="chain-id">137</span>
+                    </div>
+                    <div class="net-option" onclick="switchNetwork('bsc')">
+                        <div class="net-dot" style="background:#F3BA2F;box-shadow:0 0 8px #F3BA2F;"></div>
+                        BNB Chain
+                        <span class="chain-id">56</span>
+                    </div>
+                    <div class="net-option" onclick="switchNetwork('arbitrum')">
+                        <div class="net-dot" style="background:#2D374B;box-shadow:0 0 8px #96BEDC;"></div>
+                        Arbitrum
+                        <span class="chain-id">42161</span>
+                    </div>
+                    <div class="net-option" onclick="switchNetwork('sepolia')">
+                        <div class="net-dot" style="background:var(--warning);box-shadow:0 0 8px var(--warning);"></div>
+                        Sepolia (Test)
+                        <span class="chain-id">11155111</span>
+                    </div>
+                </div>
+            </div>
+            <button id="walletBtn" class="btn btn-outline" style="font-size:0.68rem;padding:9px 18px;" onclick="connect()">NODE BAĞLA</button>
+        </div>
     </nav>
 
+    <!-- HERO -->
     <main class="hero" id="hero">
-        <p>Decentralized Neural Sovereignty</p>
+        <p class="hero-label">Decentralized Neural Sovereignty</p>
         <h1>OWN YOUR<br>DATA.</h1>
-        <div style="margin-top: 40px; display: flex; gap: 15px;">
-            <button class="btn btn-primary" onclick="connect()">INITIALIZE LINK</button>
-            <button class="btn btn-outline" onclick="window.location.reload()">REFRESH</button>
+        <p class="hero-sub">Blockchain tabanlı veri egemenliği protokolü. Neural kredilerinizi yönetin, pulse yayınlayın.</p>
+        <div class="hero-btns">
+            <button class="btn btn-primary" onclick="connect()">BAĞLANTI BAŞLAT</button>
+            <button class="btn btn-outline" onclick="window.location.reload()">YENİLE</button>
         </div>
     </main>
 
+    <!-- MAIN APP -->
     <section id="main-app">
         <div class="grid">
-            <div class="glass-card">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 30px;">
-                    <div>
-                        <span class="balance-label">Status: <span style="color: var(--accent-green);">Syncing</span></span><br>
-                        <div id="userTier" class="tier-badge">CALCULATING NODE...</div>
+            <!-- SOL PANEL -->
+            <div>
+                <!-- BALANCE CARD -->
+                <div class="glass-card" style="margin-bottom:16px;">
+                    <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px;">
+                        <div>
+                            <span class="balance-label">Durum: <span style="color:var(--accent-green);" id="syncStatus">Senkronize Ediliyor</span></span>
+                            <div id="userTier" class="tier-badge">NODE HESAPLANIYOR...</div>
+                        </div>
+                        <span class="balance-label" id="blockHeight" style="font-family:'Space Mono';font-size:0.65rem;">#0000000</span>
                     </div>
-                    <span class="balance-label" id="blockHeight">#0000000</span>
+
+                    <p class="balance-label">Toplam Neural Ödüller</p>
+                    <div class="balance-value" id="balance">0.0000</div>
+                    <p style="color:var(--text-dim);font-size:0.65rem;letter-spacing:1px;margin-top:2px;">$ETHIC NEURAL KREDİ</p>
+
+                    <!-- ADDRESS -->
+                    <div class="address-row">
+                        <span class="address-text" id="displayAddr">Bağlantı bekleniyor...</span>
+                        <button class="icon-btn" onclick="copyAddress()" title="Kopyala">📋</button>
+                        <button class="icon-btn" onclick="showQR()" title="QR Kod">📱</button>
+                    </div>
+
+                    <!-- PROGRESS TO NEXT TIER -->
+                    <div style="margin-top:16px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <span class="balance-label">Sonraki Tier İlerlemesi</span>
+                            <span id="tierProgress" style="font-family:'Space Mono';font-size:0.6rem;color:var(--text-dim);">-</span>
+                        </div>
+                        <div class="progress-bar" style="margin-top:6px;">
+                            <div class="progress-fill" id="tierProgressBar"></div>
+                        </div>
+                    </div>
+
+                    <!-- STATS -->
+                    <div class="stats-row">
+                        <div class="stat-box">
+                            <p class="balance-label">Gas Fiyatı</p>
+                            <p class="stat-val" id="gasPrice" style="color:var(--accent-blue);">-</p>
+                        </div>
+                        <div class="stat-box">
+                            <p class="balance-label">Ağ</p>
+                            <p class="stat-val" id="chainName" style="color:var(--warning);">-</p>
+                        </div>
+                        <div class="stat-box">
+                            <p class="balance-label">İşlem</p>
+                            <p class="stat-val" id="txCount" style="color:var(--accent-pink);">-</p>
+                        </div>
+                    </div>
+
+                    <div class="map-container">
+                        <div class="node-dot" style="top:25%;left:15%;"></div>
+                        <div class="node-dot" style="top:40%;left:45%;"></div>
+                        <div class="node-dot" style="top:55%;left:75%;"></div>
+                    </div>
                 </div>
-                
-                <p class="balance-label">Total Neural Rewards</p>
-                <div class="balance-value" id="balance">0.0000</div>
-                <p style="color: var(--text-dim); font-size: 0.7rem; letter-spacing: 1px;">$ETHIC NEURAL CREDITS</p>
-                
-                <div class="map-container">
-                    <div class="node-dot" style="top: 25%; left: 15%;"></div>
-                    <div class="node-dot" style="top: 40%; left: 45%;"></div>
-                    <div class="node-dot" style="top: 55%; left: 75%;"></div>
+
+                <!-- TX HISTORY -->
+                <div class="glass-card">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                        <p class="balance-label">İşlem Geçmişi</p>
+                        <button class="btn btn-outline" style="font-size:0.6rem;padding:6px 14px;" onclick="clearHistory()">TEMİZLE</button>
+                    </div>
+                    <div class="tx-list" id="txList">
+                        <div class="empty-state">
+                            <div class="icon">📡</div>
+                            <p>Henüz işlem yok</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="glass-card" style="padding: 25px;">
-                    <p class="balance-label" style="margin-bottom: 15px;">Broadcast Pulse</p>
-                    <input type="text" id="target" placeholder="Recipient: 0x...">
-                    <input type="number" id="amt" placeholder="Amount: 0.00">
-                    <button class="btn btn-primary" style="width: 100%;" onclick="send()">SEND PULSE</button>
+            <!-- SAĞ PANEL -->
+            <div style="display:flex;flex-direction:column;gap:16px;">
+                <!-- ACTION TABS -->
+                <div class="glass-card" style="padding:22px;">
+                    <div class="tabs">
+                        <div class="tab active" onclick="switchTab('send')">GÖNDER</div>
+                        <div class="tab" onclick="switchTab('approve')">ONAYLA</div>
+                    </div>
+
+                    <!-- SEND TAB -->
+                    <div id="tab-send" class="tab-content active">
+                        <div class="input-group">
+                            <label class="input-label">Alıcı Adresi</label>
+                            <input type="text" id="target" placeholder="0x...">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Miktar (ETHIC)</label>
+                            <div class="input-row">
+                                <input type="number" id="amt" placeholder="0.00" min="0" step="any">
+                                <button class="max-btn" onclick="setMax()">MAX</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width:100%;margin-top:6px;" id="sendBtn" onclick="send()">
+                            PULSE YAYINLA
+                        </button>
+                    </div>
+
+                    <!-- APPROVE TAB -->
+                    <div id="tab-approve" class="tab-content">
+                        <div style="background:rgba(0,207,255,0.04);border:1px solid rgba(0,207,255,0.12);border-radius:12px;padding:12px;margin-bottom:14px;">
+                            <p style="font-size:0.65rem;color:var(--accent-blue);line-height:1.7;">
+                                💡 Token onay işlemi, belirtilen adresin hesabınızdan belirlediğiniz miktarda token harcamasına izin verir.
+                            </p>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Spender Adresi</label>
+                            <input type="text" id="spender" placeholder="0x...">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Onay Miktarı (ETHIC)</label>
+                            <div class="input-row">
+                                <input type="number" id="approveAmt" placeholder="0.00" min="0" step="any">
+                                <button class="max-btn" onclick="setApproveMax()">MAX</button>
+                            </div>
+                        </div>
+                        <button class="btn btn-green" style="width:100%;margin-top:6px;" id="approveBtn" onclick="approve()">
+                            ONAYI GÖNDER
+                        </button>
+                    </div>
                 </div>
 
-                <div class="glass-card" style="padding: 25px; flex-grow: 1;">
-                    <p class="balance-label" style="margin-bottom: 15px;">Neural Feed</p>
-                    <div id="terminal">> Awaiting neural handshake...</div>
+                <!-- TERMINAL -->
+                <div class="glass-card" style="padding:22px;flex-grow:1;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                        <p class="balance-label">Neural Feed</p>
+                        <button class="icon-btn" onclick="clearTerminal()" style="font-size:0.6rem;">TEMİZLE</button>
+                    </div>
+                    <div id="terminal">> Neural el sıkışması bekleniyor...</div>
                 </div>
             </div>
         </div>
     </section>
 
     <script>
-        // Sözleşme Bilgileri
         const ADDR = "0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8";
         const ABI = [
             "function transfer(address to, uint256 amount) returns (bool)",
-            "function balanceOf(address owner) view returns (uint256)"
+            "function balanceOf(address owner) view returns (uint256)",
+            "function approve(address spender, uint256 amount) returns (bool)",
+            "function allowance(address owner, address spender) view returns (uint256)"
         ];
 
-        let provider, signer, contract;
+        const NETWORKS = {
+            ethereum:  { chainId: '0x1',       name: 'Ethereum',   color: '#627EEA' },
+            polygon:   { chainId: '0x89',      name: 'Polygon',    color: '#8247E5' },
+            bsc:       { chainId: '0x38',      name: 'BNB Chain',  color: '#F3BA2F' },
+            arbitrum:  { chainId: '0xA4B1',    name: 'Arbitrum',   color: '#96BEDC' },
+            sepolia:   { chainId: '0xAA36A7',  name: 'Sepolia',    color: '#FFB800' },
+        };
 
+        let provider, signer, contract;
+        let currentAddress = '';
+        let currentBalance = 0;
+        let transactions = [];
+        let updateInterval = null;
+        let isConnecting = false;
+        let networkDropdownOpen = false;
+
+        // ─── CONNECT ───
         async function connect() {
+            if (isConnecting) return;
             if (typeof window.ethereum === 'undefined') {
-                return alert("Lütfen MetaMask yükleyin!");
+                toast('MetaMask bulunamadı! Lütfen yükleyin.', 'error');
+                return;
             }
+            isConnecting = true;
+            const btn = document.getElementById('walletBtn');
+            btn.innerHTML = '<span class="spinner"></span>';
+            btn.disabled = true;
 
             try {
-                // Ethers v6 Bağlantısı
                 provider = new ethers.BrowserProvider(window.ethereum);
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
                 signer = await provider.getSigner();
                 contract = new ethers.Contract(ADDR, ABI, signer);
-                
-                const address = accounts[0];
-                
-                // UI Güncelleme
+                currentAddress = await signer.getAddress();
+
                 document.getElementById('hero').style.display = 'none';
                 document.getElementById('main-app').style.display = 'block';
-                document.getElementById('walletBtn').innerText = address.slice(0,6) + "..." + address.slice(-4);
-                
-                log("Node Link Established: " + address);
-                
-                // İlk veri çekme
-                updateData();
-                // 10 saniyede bir otomatik güncelle
-                setInterval(updateData, 10000);
+                document.getElementById('displayAddr').innerText = currentAddress;
+
+                const short = currentAddress.slice(0,6) + '...' + currentAddress.slice(-4);
+                btn.innerText = short;
+                btn.disabled = false;
+
+                log('Node bağlantısı kuruldu: ' + currentAddress);
+                toast('Cüzdan bağlandı!', 'success');
+
+                detectNetwork();
+                await updateData();
+
+                if (updateInterval) clearInterval(updateInterval);
+                updateInterval = setInterval(updateData, 15000);
+
+                // Hesap/ağ değişikliklerini dinle
+                window.ethereum.on('accountsChanged', handleAccountChange);
+                window.ethereum.on('chainChanged', handleChainChange);
+
             } catch (err) {
-                console.error(err);
-                log("Connection Failed: " + err.message);
+                btn.innerText = 'NODE BAĞLA';
+                btn.disabled = false;
+                const msg = getErrorMessage(err);
+                toast(msg, 'error');
+                log('Bağlantı hatası: ' + msg);
+            } finally {
+                isConnecting = false;
             }
         }
 
-        async function updateData() {
-            try {
-                const address = await signer.getAddress();
-                const bal = await contract.balanceOf(address);
-                const formattedBal = parseFloat(ethers.formatUnits(bal, 18));
-                
-                // Bakiye ve Blok No Yaz
-                document.getElementById('balance').innerText = formattedBal.toLocaleString(undefined, {minimumFractionDigits: 4});
-                const blockNum = await provider.getBlockNumber();
-                document.getElementById('blockHeight').innerText = "#" + blockNum;
-
-                // 🎖️ Tier Sistemi
-                let tier = "Observer Node";
-                let color = "var(--accent-green)";
-                if(formattedBal >= 1000000) { tier = "Architect Node"; color = "var(--accent-pink)"; }
-                else if(formattedBal >= 100000) tier = "Validator Node";
-                else if(formattedBal > 0) tier = "Active Node";
-                
-                const badge = document.getElementById('userTier');
-                badge.innerText = tier;
-                badge.style.color = color;
-                badge.style.borderColor = color;
-
-            } catch (e) { console.log("Update Error:", e); }
+        function handleAccountChange(accounts) {
+            if (accounts.length === 0) {
+                toast('Cüzdan bağlantısı kesildi.', 'warning');
+                location.reload();
+            } else {
+                toast('Hesap değiştirildi, yenileniyor...', 'info');
+                setTimeout(() => location.reload(), 1000);
+            }
         }
 
+        function handleChainChange() {
+            toast('Ağ değiştirildi, yenileniyor...', 'info');
+            setTimeout(() => location.reload(), 800);
+        }
+
+        // ─── UPDATE DATA ───
+        async function updateData() {
+            if (!signer || !contract) return;
+            try {
+                const bal = await contract.balanceOf(currentAddress);
+                currentBalance = parseFloat(ethers.formatUnits(bal, 18));
+                document.getElementById('balance').innerText = currentBalance.toLocaleString('tr-TR', {minimumFractionDigits: 4, maximumFractionDigits: 4});
+
+                const blockNum = await provider.getBlockNumber();
+                document.getElementById('blockHeight').innerText = '#' + blockNum.toLocaleString();
+
+                // Gas
+                try {
+                    const feeData = await provider.getFeeData();
+                    const gwei = parseFloat(ethers.formatUnits(feeData.gasPrice, 'gwei')).toFixed(1);
+                    document.getElementById('gasPrice').innerText = gwei + ' Gwei';
+                } catch(e) {}
+
+                // Tx count
+                const nonce = await provider.getTransactionCount(currentAddress);
+                document.getElementById('txCount').innerText = nonce;
+
+                updateTier(currentBalance);
+                document.getElementById('syncStatus').innerText = 'Senkronize';
+
+            } catch (e) {
+                console.log('Güncelleme hatası:', e);
+                document.getElementById('syncStatus').innerText = 'Yeniden Deniyor...';
+            }
+        }
+
+        function updateTier(bal) {
+            let tier = 'Observer Node';
+            let color = 'var(--text-dim)';
+            let nextTier = 1;
+            let progress = (bal / nextTier) * 100;
+
+            if (bal >= 1000000) {
+                tier = 'Architect Node'; color = 'var(--accent-pink)'; 
+                progress = 100;
+                document.getElementById('tierProgress').innerText = 'MAX TİER';
+            } else if (bal >= 100000) {
+                tier = 'Validator Node'; color = '#FFB800';
+                progress = ((bal - 100000) / 900000) * 100;
+                document.getElementById('tierProgress').innerText = (1000000 - bal).toLocaleString() + ' → Architect';
+            } else if (bal >= 1) {
+                tier = 'Active Node'; color = 'var(--accent-green)';
+                progress = (bal / 100000) * 100;
+                document.getElementById('tierProgress').innerText = (100000 - bal).toLocaleString() + ' → Validator';
+            } else {
+                document.getElementById('tierProgress').innerText = '1 → Active Node';
+                progress = 0;
+            }
+
+            const badge = document.getElementById('userTier');
+            badge.innerText = tier;
+            badge.style.color = color;
+            badge.style.borderColor = color;
+            badge.style.background = color.replace(')', ',0.08)').replace('var(', 'rgba(').replace('--accent-green', '0,255,163').replace('--accent-pink', '255,0,122').replace('--text-dim', '136,136,136');
+
+            document.getElementById('tierProgressBar').style.width = Math.min(progress, 100) + '%';
+        }
+
+        // ─── SEND ───
         async function send() {
-            const to = document.getElementById('target').value;
-            const amountStr = document.getElementById('amt').value;
-            
-            if(!to || !amountStr) return alert("Lütfen tüm alanları doldurun!");
+            const to = document.getElementById('target').value.trim();
+            const amountStr = document.getElementById('amt').value.trim();
+
+            if (!to || !amountStr) { toast('Lütfen tüm alanları doldurun!', 'warning'); return; }
+            if (!ethers.isAddress(to)) { toast('Geçersiz alıcı adresi!', 'error'); return; }
+            const numAmt = parseFloat(amountStr);
+            if (isNaN(numAmt) || numAmt <= 0) { toast('Geçersiz miktar!', 'error'); return; }
+            if (numAmt > currentBalance) { toast('Yetersiz bakiye!', 'error'); return; }
+
+            const btn = document.getElementById('sendBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> İşleniyor...';
 
             try {
                 const amount = ethers.parseUnits(amountStr, 18);
-                log("Broadcasting pulse to network...");
-                
+                log('Pulse ağa yayınlanıyor...');
                 const tx = await contract.transfer(to, amount);
-                log("Transaction sent. Pulse ID: " + tx.hash.slice(0,12) + "...");
-                
+
+                addTx({ type: 'out', hash: tx.hash, to, amount: numAmt, status: 'pending' });
+                log('İşlem gönderildi: ' + tx.hash.slice(0,14) + '...');
+                toast('İşlem gönderildi! Onay bekleniyor...', 'info');
+
                 await tx.wait();
-                log("Pulse confirmed by blockchain.");
+                updateTxStatus(tx.hash, 'confirmed');
+                log('✅ Pulse onaylandı: ' + tx.hash.slice(0,14) + '...');
+                toast('İşlem onaylandı!', 'success');
                 updateData();
+
+                document.getElementById('target').value = '';
+                document.getElementById('amt').value = '';
+
             } catch (err) {
-                log("Broadcast failed: " + err.message.slice(0,40));
+                const msg = getErrorMessage(err);
+                log('❌ Broadcast hatası: ' + msg);
+                toast(msg, 'error');
+                if (transactions.length > 0 && transactions[0].status === 'pending') {
+                    updateTxStatus(transactions[0].hash, 'failed');
+                }
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'PULSE YAYINLA';
             }
         }
 
+        // ─── APPROVE ───
+        async function approve() {
+            const spender = document.getElementById('spender').value.trim();
+            const amountStr = document.getElementById('approveAmt').value.trim();
+
+            if (!spender || !amountStr) { toast('Lütfen tüm alanları doldurun!', 'warning'); return; }
+            if (!ethers.isAddress(spender)) { toast('Geçersiz spender adresi!', 'error'); return; }
+            const numAmt = parseFloat(amountStr);
+            if (isNaN(numAmt) || numAmt < 0) { toast('Geçersiz miktar!', 'error'); return; }
+
+            const btn = document.getElementById('approveBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner"></span> Onaylanıyor...';
+
+            try {
+                const amount = ethers.parseUnits(amountStr, 18);
+                log('Token onayı gönderiliyor...');
+                const tx = await contract.approve(spender, amount);
+
+                addTx({ type: 'approve', hash: tx.hash, to: spender, amount: numAmt, status: 'pending' });
+                log('Onay işlemi gönderildi: ' + tx.hash.slice(0,14) + '...');
+                toast('Onay işlemi gönderildi!', 'info');
+
+                await tx.wait();
+                updateTxStatus(tx.hash, 'confirmed');
+                log('✅ Token onayı başarılı!');
+                toast('Token onaylandı!', 'success');
+
+                document.getElementById('spender').value = '';
+                document.getElementById('approveAmt').value = '';
+
+            } catch (err) {
+                const msg = getErrorMessage(err);
+                log('❌ Onay hatası: ' + msg);
+                toast(msg, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'ONAYI GÖNDER';
+            }
+        }
+
+        // ─── NETWORK ───
+        async function detectNetwork() {
+            try {
+                const network = await provider.getNetwork();
+                const chainId = Number(network.chainId);
+                let name = 'Bilinmiyor';
+                let isTestnet = false;
+
+                const chainMap = { 1:'Ethereum', 137:'Polygon', 56:'BNB Chain', 42161:'Arbitrum', 11155111:'Sepolia' };
+                const testNets = [11155111, 5, 3, 4, 420];
+                if (chainMap[chainId]) name = chainMap[chainId];
+                if (testNets.includes(chainId)) isTestnet = true;
+
+                document.getElementById('chainName').innerText = name;
+                document.getElementById('netLabel').innerText = name.toUpperCase();
+
+                const dot = document.getElementById('netDot');
+                dot.className = 'net-dot' + (isTestnet ? ' testnet' : '');
+            } catch(e) {}
+        }
+
+        function toggleNetworkDropdown() {
+            networkDropdownOpen = !networkDropdownOpen;
+            document.getElementById('networkDropdown').className = 'network-dropdown' + (networkDropdownOpen ? ' open' : '');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!document.getElementById('networkSwitcher').contains(e.target)) {
+                networkDropdownOpen = false;
+                document.getElementById('networkDropdown').classList.remove('open');
+            }
+        });
+
+        async function switchNetwork(key) {
+            networkDropdownOpen = false;
+            document.getElementById('networkDropdown').classList.remove('open');
+            if (!window.ethereum) { toast('MetaMask gerekli!', 'error'); return; }
+            const net = NETWORKS[key];
+            try {
+                await window.ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: net.chainId }] });
+                toast(net.name + ' ağına geçildi!', 'success');
+            } catch (err) {
+                if (err.code === 4902) {
+                    toast('Bu ağ MetaMask\'ta tanımlı değil.', 'warning');
+                } else {
+                    toast('Ağ değiştirilemedi: ' + getErrorMessage(err), 'error');
+                }
+            }
+        }
+
+        // ─── HELPERS ───
+        function setMax() {
+            document.getElementById('amt').value = currentBalance;
+        }
+        function setApproveMax() {
+            document.getElementById('approveAmt').value = currentBalance;
+        }
+
+        function switchTab(name) {
+            document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['send','approve'][i] === name));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+        }
+
+        function getErrorMessage(err) {
+            if (err.code === 4001 || err.code === 'ACTION_REJECTED') return 'İşlem kullanıcı tarafından reddedildi.';
+            if (err.code === -32603) return 'RPC hatası. Ağ bağlantısını kontrol edin.';
+            if (err.message?.includes('insufficient funds')) return 'Yetersiz gas ücreti!';
+            if (err.message?.includes('nonce')) return 'Nonce hatası. MetaMask\'ı yenileyin.';
+            return (err.reason || err.message || 'Bilinmeyen hata').slice(0, 80);
+        }
+
+        // ─── QR CODE ───
+        function showQR() {
+            if (!currentAddress) { toast('Önce cüzdan bağlayın!', 'warning'); return; }
+            document.getElementById('qrAddr').innerText = currentAddress;
+            document.getElementById('qrcode').innerHTML = '';
+            new QRCode(document.getElementById('qrcode'), {
+                text: currentAddress, width: 200, height: 200,
+                colorDark: '#000000', colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            document.getElementById('qrModal').classList.add('open');
+        }
+        function closeQR() { document.getElementById('qrModal').classList.remove('open'); }
+        document.getElementById('qrModal').addEventListener('click', function(e) {
+            if (e.target === this) closeQR();
+        });
+
+        async function copyAddress() {
+            if (!currentAddress) return;
+            try {
+                await navigator.clipboard.writeText(currentAddress);
+                toast('Adres kopyalandı!', 'success');
+            } catch(e) {
+                toast('Kopyalama başarısız.', 'error');
+            }
+        }
+
+        // ─── TX HISTORY ───
+        function addTx(tx) {
+            tx.time = new Date();
+            transactions.unshift(tx);
+            renderTxList();
+        }
+
+        function updateTxStatus(hash, status) {
+            const tx = transactions.find(t => t.hash === hash);
+            if (tx) { tx.status = status; renderTxList(); }
+        }
+
+        function renderTxList() {
+            const list = document.getElementById('txList');
+            if (transactions.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="icon">📡</div><p>Henüz işlem yok</p></div>';
+                return;
+            }
+            list.innerHTML = transactions.map(tx => {
+                const typeLabel = tx.type === 'out' ? 'Gönder' : tx.type === 'in' ? 'Al' : 'Onay';
+                const icon = tx.type === 'out' ? '↑' : tx.type === 'in' ? '↓' : '✓';
+                const amtColor = tx.type === 'out' ? 'var(--accent-pink)' : tx.type === 'in' ? 'var(--accent-green)' : 'var(--accent-blue)';
+                const sign = tx.type === 'out' ? '-' : tx.type === 'in' ? '+' : '~';
+                const timeStr = tx.time ? tx.time.toLocaleTimeString('tr-TR') : '';
+                const addrShort = tx.to ? tx.to.slice(0,8)+'...'+tx.to.slice(-6) : '-';
+                return `
+                <div class="tx-item">
+                    <div class="tx-icon ${tx.type}">${icon}</div>
+                    <div class="tx-info">
+                        <div class="tx-type">${typeLabel}</div>
+                        <div class="tx-addr">${addrShort}</div>
+                        <span class="tx-status ${tx.status}">${tx.status === 'confirmed' ? 'Onaylandı' : tx.status === 'pending' ? 'Bekliyor...' : 'Başarısız'}</span>
+                    </div>
+                    <div class="tx-amount">
+                        <div class="tx-val" style="color:${amtColor}">${sign}${tx.amount?.toLocaleString('tr-TR',{maximumFractionDigits:4})}</div>
+                        <div class="tx-time">${timeStr}</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function clearHistory() {
+            transactions = [];
+            renderTxList();
+            toast('İşlem geçmişi temizlendi.', 'info');
+        }
+
+        // ─── TERMINAL ───
         function log(m) {
             const t = document.getElementById('terminal');
-            const time = new Date().toLocaleTimeString();
-            t.innerHTML = `<div><span style="color:#444">[${time}]</span> > ${m}</div>` + t.innerHTML;
+            const time = new Date().toLocaleTimeString('tr-TR');
+            const div = document.createElement('div');
+            div.innerHTML = `<span style="color:#333">[${time}]</span> <span style="color:var(--accent-green)">›</span> ${m}`;
+            t.insertBefore(div, t.firstChild);
+            // Max 50 satır
+            while (t.children.length > 50) t.removeChild(t.lastChild);
+        }
+        function clearTerminal() {
+            document.getElementById('terminal').innerHTML = '';
+            log('Terminal temizlendi.');
+        }
+
+        // ─── TOAST ───
+        function toast(msg, type = 'info') {
+            const icons = { success:'✅', error:'❌', info:'ℹ️', warning:'⚠️' };
+            const container = document.getElementById('toastContainer');
+            const el = document.createElement('div');
+            el.className = `toast ${type}`;
+            el.innerHTML = `<span>${icons[type]}</span><span>${msg}</span>`;
+            container.appendChild(el);
+            setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateX(30px)'; el.style.transition = '0.3s'; setTimeout(() => el.remove(), 300); }, 3500);
         }
     </script>
 </body>
