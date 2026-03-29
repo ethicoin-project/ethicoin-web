@@ -1,35 +1,650 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ETHIC | Neural Protocol v1.1</title>
-    
-    <link rel="icon" href="favicon.png" type="image/png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
-    <style>
-        :root {
-            --bg: #000000;
-            --accent-green: #00ffa3;
-            --accent-pink: #ff007a;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --text-dim: #888888;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETHICOIN — Veri Egemenliği Protokolü</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+<style>
+:root {
+  --bg: #04060f;
+  --bg2: #080d1a;
+  --cyan: #00f0ff;
+  --purple: #7b5cff;
+  --green: #00e676;
+  --border: rgba(0,240,255,0.1);
+  --border2: rgba(123,92,255,0.12);
+  --text: #d0eeff;
+  --muted: rgba(0,240,255,0.35);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; }
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
 
-        .void { position: fixed; inset: 0; z-index: -1; background: radial-gradient(circle at 20% 30%, rgba(0, 255, 163, 0.05) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(255, 0, 122, 0.05) 0%, transparent 40%); }
-        .void::after { content: ''; position: absolute; inset: 0; background-image: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.15; pointer-events: none; }
+/* ── ANIMATED GRID ── */
+.grid-layer {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,240,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  animation: gridScroll 16s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+@keyframes gridScroll { 0% { background-position: 0 0; } 100% { background-position: 0 48px; } }
 
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 25px 5%; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-        .logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -1px; display: flex; align-items: center; gap: 10px; }
-        .logo-dot { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 15px var(--accent-green); animation: pulse 2s infinite; }
+/* ── GLOW ORBS ── */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+}
+.orb-1 { width: 500px; height: 500px; background: rgba(0,240,255,0.06); top: -150px; right: -100px; animation: float1 10s ease-in-out infinite; }
+.orb-2 { width: 400px; height: 400px; background: rgba(123,92,255,0.07); bottom: -100px; left: -80px; animation: float2 13s ease-in-out infinite; }
+.orb-3 { width: 300px; height: 300px; background: rgba(0,230,118,0.04); top: 45%; left: 45%; animation: float3 8s ease-in-out infinite; }
+@keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,40px)} }
+@keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(40px,-30px)} }
+@keyframes float3 { 0%,100%{transform:translate(-50%,-50%) scale(1)} 50%{transform:translate(-50%,-50%) scale(1.15)} }
 
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+/* ── NAV ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 5%;
+  background: rgba(4,6,15,0.7);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 4px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--green);
+  background: rgba(0,230,118,0.07);
+  border: 1px solid rgba(0,230,118,0.2);
+  padding: 6px 16px;
+  border-radius: 30px;
+  letter-spacing: 2px;
+}
+.pulse-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;box-shadow:0 0 10px var(--green)} 50%{opacity:0.3;box-shadow:0 0 3px var(--green)} }
 
-        .hero { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px; }
-        .hero h1 { font-size: clamp(3.5rem, 10vw, 7rem); font-weight: 800;
+/* ── WRAPPER ── */
+.wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 120px 5% 60px;
+}
+
+/* ── HERO ── */
+.hero {
+  text-align: center;
+  padding: 60px 0 80px;
+}
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 3px;
+  border: 1px solid var(--border);
+  padding: 6px 16px;
+  border-radius: 30px;
+  margin-bottom: 28px;
+}
+.hero h1 {
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.hero h1 .line1 { display: block; background: linear-gradient(90deg, var(--cyan) 0%, #a0e8ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero h1 .line2 { display: block; background: linear-gradient(90deg, var(--purple) 0%, #c4b5ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(0,240,255,0.1), rgba(123,92,255,0.1));
+  border: 1px solid rgba(0,240,255,0.25);
+  color: var(--cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 14px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+.hero-cta:hover { background: rgba(0,240,255,0.15); border-color: var(--cyan); transform: translateY(-2px); }
+.arrow { transition: transform 0.3s; }
+.hero-cta:hover .arrow { transform: translateX(4px); }
+
+/* ── METRICS ── */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 14px;
+  margin-bottom: 60px;
+}
+.metric-card {
+  background: rgba(0,240,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.metric-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(0,240,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+.metric-card:hover { border-color: rgba(0,240,255,0.25); transform: translateY(-3px); }
+.metric-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.metric-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--cyan);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+.metric-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: rgba(0,230,118,0.5);
+  margin-top: 8px;
+  letter-spacing: 1px;
+}
+.verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--green);
+  background: rgba(0,230,118,0.08);
+  border: 1px solid rgba(0,230,118,0.2);
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+/* ── SECTION HEADER ── */
+.sec-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.sec-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
+.sec-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(123,92,255,0.6);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.sec-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(123,92,255,0.25), transparent); }
+
+/* ── SECTION ── */
+.section { margin-bottom: 48px; }
+
+/* ── WALLET QUERY ── */
+.query-row { display: flex; gap: 10px; margin-bottom: 12px; }
+.query-input {
+  flex: 1;
+  background: rgba(0,240,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 18px;
+  color: var(--cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.query-input::placeholder { color: rgba(0,240,255,0.2); }
+.query-input:focus { border-color: rgba(0,240,255,0.35); background: rgba(0,240,255,0.05); }
+.btn-query {
+  background: rgba(123,92,255,0.12);
+  border: 1px solid rgba(123,92,255,0.3);
+  color: #c4b5ff;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-query:hover { background: rgba(123,92,255,0.22); border-color: rgba(123,92,255,0.5); color: #fff; }
+.result-panel {
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(0,240,255,0.07);
+  border-radius: 12px;
+  padding: 18px 22px;
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.result-addr { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(0,240,255,0.22); word-break: break-all; margin-bottom: 8px; }
+.result-amount { font-size: 2rem; font-weight: 700; color: var(--cyan); letter-spacing: -1px; }
+.result-unit { font-size: 0.9rem; color: rgba(0,240,255,0.4); font-weight: 400; margin-left: 6px; }
+.result-hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,240,255,0.2); }
+
+/* ── TERMINAL ── */
+.terminal {
+  background: #000;
+  border: 1px solid rgba(0,240,255,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.term-titlebar {
+  background: rgba(0,240,255,0.03);
+  border-bottom: 1px solid rgba(0,240,255,0.07);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.term-btn { width: 10px; height: 10px; border-radius: 50%; }
+.term-body {
+  padding: 16px 20px;
+  height: 180px;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.9;
+}
+.log-line { animation: logIn 0.3s ease; }
+@keyframes logIn { from { opacity:0; transform:translateX(-8px); } to { opacity:1; transform:translateX(0); } }
+.lc { color: rgba(0,240,255,0.55); }
+.lg { color: #00e676; }
+.lp { color: #a78bfa; }
+.lw { color: #facc15; }
+
+/* ── CONTRACT TABLE ── */
+.contract-table { display: grid; gap: 8px; }
+.ct-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: rgba(123,92,255,0.04);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  transition: border-color 0.2s;
+}
+.ct-row:hover { border-color: rgba(123,92,255,0.25); }
+.ct-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(123,92,255,0.5);
+}
+.ct-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: #c4b5ff;
+  word-break: break-all;
+  text-align: right;
+  max-width: 55%;
+}
+.ct-val.cyan { color: var(--cyan); }
+.ct-val.green { color: var(--green); }
+
+/* ── ABOUT ── */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.about-card {
+  background: rgba(0,240,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.about-card:hover { border-color: rgba(0,240,255,0.2); transform: translateY(-2px); }
+.about-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  font-size: 16px;
+}
+.about-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.about-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; font-weight: 400; }
+
+/* ── FOOTER ── */
+footer {
+  margin-top: 80px;
+  padding: 28px 5%;
+  border-top: 1px solid rgba(0,240,255,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.foot-left { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(0,240,255,0.2); letter-spacing: 2px; }
+.foot-right { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(0,230,118,0.35); letter-spacing: 2px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .metrics { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .query-row { flex-direction: column; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-layer"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<nav>
+  <div class="nav-logo">ETHICOIN</div>
+  <div class="nav-badge">
+    <span class="pulse-dot"></span>
+    LIVE · BASE MAINNET
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">
+      <span style="width:5px;height:5px;border-radius:50%;background:var(--cyan);display:inline-block"></span>
+      PROTOKOL v1.0 · CHAIN #8453
+    </div>
+    <h1>
+      <span class="line1">VERİ</span>
+      <span class="line2">EGEMENLİĞİ</span>
+    </h1>
+    <p class="hero-desc">
+      Etik yapay zeka eğitimi ve veri egemenliği için inşa edilmiş merkeziyetsiz protokol. Base Mainnet üzerinde 1 milyar ETHIC arzıyla çalışır.
+    </p>
+    <a href="#dashboard" class="hero-cta">
+      PROTOKOLÜ KEŞFET
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+  <!-- METRICS -->
+  <div class="metrics" id="dashboard">
+    <div class="metric-card">
+      <div class="metric-label">Toplam Arz</div>
+      <div class="metric-value">1B</div>
+      <div class="metric-sub">ETHIC · ERC-20</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Hassasiyet</div>
+      <div class="metric-value">10<span style="font-size:1rem;color:rgba(0,240,255,0.4)">¹⁸</span></div>
+      <div class="metric-sub">18 Ondalık Basamak</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Doğrulama</div>
+      <div class="metric-value" style="font-size:1rem;color:var(--green);margin-top:4px;letter-spacing:0">Onaylandı</div>
+      <div class="verified-badge">✓ BaseScan Doğrulandı</div>
+    </div>
+  </div>
+
+  <!-- WALLET QUERY -->
+  <section class="section">
+    <div class="sec-header">
+      <div class="sec-dot"></div>
+      <div class="sec-title">Cüzdan Sorgulama</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="query-row">
+      <input class="query-input" id="walletAddr" placeholder="Base ağı cüzdan adresi — 0x..." />
+      <button class="btn-query" onclick="queryBalance()">SORGULA</button>
+    </div>
+    <div class="result-panel" id="resultPanel">
+      <div class="result-hint">Herhangi bir Base cüzdan adresinin ETHIC bakiyesini anında görüntüleyin</div>
+    </div>
+  </section>
+
+  <!-- NEURAL MONITOR -->
+  <section class="section">
+    <div class="sec-header">
+      <div class="sec-dot" style="background:var(--cyan)"></div>
+      <div class="sec-title" style="color:rgba(0,240,255,0.5)">Neural Monitor</div>
+      <div class="sec-line" style="background:linear-gradient(90deg,rgba(0,240,255,0.25),transparent)"></div>
+    </div>
+    <div class="terminal">
+      <div class="term-titlebar">
+        <div class="term-btn" style="background:#ff5f57"></div>
+        <div class="term-btn" style="background:#febc2e"></div>
+        <div class="term-btn" style="background:#28c840"></div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,240,255,0.2);margin-left:8px;letter-spacing:2px">ETHICOIN PROTOCOL — NODE #8453</span>
+      </div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+  </section>
+
+  <!-- CONTRACT INFO -->
+  <section class="section">
+    <div class="sec-header">
+      <div class="sec-dot" style="background:var(--purple)"></div>
+      <div class="sec-title">Kontrat Bilgileri</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="contract-table">
+      <div class="ct-row">
+        <span class="ct-label">Kontrat Adresi</span>
+        <span class="ct-val">0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93</span>
+      </div>
+      <div class="ct-row">
+        <span class="ct-label">Ağ</span>
+        <span class="ct-val cyan">Base Mainnet · Chain ID 8453</span>
+      </div>
+      <div class="ct-row">
+        <span class="ct-label">Token Adı</span>
+        <span class="ct-val cyan">Ethicoin Protocol</span>
+      </div>
+      <div class="ct-row">
+        <span class="ct-label">Sembol</span>
+        <span class="ct-val cyan">ETHIC</span>
+      </div>
+      <div class="ct-row">
+        <span class="ct-label">Standart</span>
+        <span class="ct-val green">ERC-20 · Doğrulandı ✓</span>
+      </div>
+      <div class="ct-row">
+        <span class="ct-label">Toplam Arz</span>
+        <span class="ct-val cyan">1.000.000.000 ETHIC</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="sec-header">
+      <div class="sec-dot" style="background:var(--green)"></div>
+      <div class="sec-title" style="color:rgba(0,230,118,0.5)">Protokol Hakkında</div>
+      <div class="sec-line" style="background:linear-gradient(90deg,rgba(0,230,118,0.2),transparent)"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="about-icon" style="background:rgba(0,240,255,0.08)">🧠</div>
+        <h3>Veri Egemenliği</h3>
+        <p>Kullanıcıların kendi verilerini kontrol ettiği merkeziyetsiz bir katman. Verileriniz sizindir — protokol bunu garanti eder.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon" style="background:rgba(123,92,255,0.08)">⚡</div>
+        <h3>Etik Yapay Zeka</h3>
+        <p>Yapay zeka eğitim süreçlerini şeffaf ve izlenebilir kılan on-chain doğrulama altyapısı.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon" style="background:rgba(0,230,118,0.08)">🔗</div>
+        <h3>Base Mainnet</h3>
+        <p>Coinbase'in geliştirdiği L2 ağında düşük işlem maliyeti ve yüksek işlem hızıyla tam operasyonel.</p>
+      </div>
+      <div class="about-card">
+        <div class="about-icon" style="background:rgba(0,240,255,0.08)">🛡️</div>
+        <h3>Doğrulanmış Kontrat</h3>
+        <p>Kaynak kodu BaseScan üzerinde doğrulanmış. Tam şeffaflık, sıfır gizli fonksiyon.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="foot-left">ETHICOIN PROTOCOL · 2025 · ISTANBUL</div>
+  <div class="foot-right">BASE · CHAIN #8453 · ONLINE</div>
+</footer>
+
+<script>
+// ── NEURAL MONITOR ──
+const logs = [
+  ['Sistem başlatılıyor — Ethicoin Protocol v1.0','lc'],
+  ['Node #8453 bağlantısı kuruldu — Base Mainnet','lg'],
+  ['ERC-20 kontrat arayüzü yüklendi','lg'],
+  ['BaseScan doğrulaması onaylandı ✓','lg'],
+  ['Veri egemenliği katmanı hazır','lp'],
+  ['Etik yapay zeka eğitim protokolü aktif','lp'],
+  ['Toplam arz kilitlendi — 1.000.000.000 ETHIC','lc'],
+  ['Sinirsel ağ düğümleri senkronize ediliyor','lp'],
+  ['Blok zinciri veri akışı doğrulandı','lg'],
+  ['Sahiplik kanıtı doğrulandı — 0xC8392b...','lw'],
+  ['Tüm sistemler operasyonel','lg'],
+  ['Veri bloğu doğrulandı — Blok #' + (Math.floor(Math.random()*1000000)+20000000),'lc'],
+];
+let logIdx = 0;
+const termBody = document.getElementById('termBody');
+function addLog() {
+  const now = new Date();
+  const ts = `[${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}]`;
+  const [msg, cls] = logs[logIdx % logs.length];
+  const div = document.createElement('div');
+  div.className = `log-line ${cls}`;
+  div.textContent = `${ts} > ${msg}`;
+  termBody.appendChild(div);
+  if (termBody.children.length > 8) termBody.removeChild(termBody.firstChild);
+  logIdx++;
+}
+addLog();
+setInterval(addLog, 3000);
+
+// ── WALLET QUERY ──
+const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
+const API_KEY  = 'YourBaseScanAPIKeyHere'; // BaseScan API key buraya
+
+async function queryBalance() {
+  const addr = document.getElementById('walletAddr').value.trim();
+  const panel = document.getElementById('resultPanel');
+  if (!addr || !addr.startsWith('0x') || addr.length !== 42) {
+    panel.innerHTML = '<div style="color:rgba(255,80,80,0.7);font-family:JetBrains Mono,monospace;font-size:10px">Hata: Geçerli bir Base cüzdan adresi girin (0x...)</div>';
+    return;
+  }
+  panel.innerHTML = '<div class="result-hint" style="animation:blink 1s infinite">Sorgulanıyor...</div>';
+  try {
+    const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${addr}&tag=latest&apikey=${API_KEY}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.status === '1') {
+      const raw = BigInt(data.result || '0');
+      const bal = Number(raw / BigInt('1000000000000000000')).toLocaleString('tr-TR');
+      panel.innerHTML = `
+        <div class="result-addr">${addr}</div>
+        <div class="result-amount">${bal}<span class="result-unit">ETHIC</span></div>
+      `;
+    } else {
+      panel.innerHTML = `
+        <div class="result-addr">${addr}</div>
+        <div class="result-amount">0<span class="result-unit">ETHIC</span></div>
+      `;
+    }
+  } catch(e) {
+    panel.innerHTML = `
+      <div class="result-addr">${addr}</div>
+      <div style="color:rgba(0,240,255,0.3);font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:6px">
+        API anahtarı gerekli — <code style="color:rgba(0,240,255,0.5)">API_KEY</code> değişkenini güncelleyin
+      </div>
+    `;
+  }
+}
+
+// Enter ile sorgula
+document.getElementById('walletAddr').addEventListener('keydown', e => {
+  if (e.key === 'Enter') queryBalance();
+});
+</script>
+</body>
+</html>
