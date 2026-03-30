@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ETHICOIN — Veri Egemenliği Protokolü</title>
+<title>ETHICOIN — Data Sovereignty Protocol</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
 <style>
 :root {
   --bg: #04060f;
@@ -40,19 +39,30 @@ body::before {
   z-index: 9999;
 }
 
-/* ── ANIMATED GRID ── */
+/* ── CIRCUIT BOARD BACKGROUND ── */
+.circuit-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.circuit-layer canvas {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── GRID ── */
 .grid-layer {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0,240,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,240,255,0.025) 1px, transparent 1px);
+    linear-gradient(rgba(0,240,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,240,255,0.018) 1px, transparent 1px);
   background-size: 48px 48px;
-  animation: gridScroll 16s linear infinite;
   pointer-events: none;
   z-index: 0;
 }
-@keyframes gridScroll { 0% { background-position: 0 0; } 100% { background-position: 0 48px; } }
 
 /* ── GLOW ORBS ── */
 .orb {
@@ -77,20 +87,30 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 5%;
-  background: rgba(4,6,15,0.7);
+  padding: 18px 5%;
+  background: rgba(4,6,15,0.75);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border);
 }
+
+/* ── LOGO WITH SHIMMER ── */
 .nav-logo {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  letter-spacing: 4px;
-  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  letter-spacing: 5px;
+  position: relative;
+  background: linear-gradient(90deg, var(--cyan) 0%, var(--purple) 40%, var(--cyan) 80%, var(--purple) 100%);
+  background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: logoShimmer 4s linear infinite;
 }
+@keyframes logoShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
 .nav-badge {
   display: flex;
   align-items: center;
@@ -141,14 +161,37 @@ nav {
   margin-bottom: 28px;
 }
 .hero h1 {
-  font-size: clamp(3rem, 10vw, 6.5rem);
+  font-size: clamp(2.8rem, 9vw, 6rem);
   font-weight: 800;
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -2px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
-.hero h1 .line1 { display: block; background: linear-gradient(90deg, var(--cyan) 0%, #a0e8ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.hero h1 .line2 { display: block; background: linear-gradient(90deg, var(--purple) 0%, #c4b5ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── HERO TEXT SHIMMER ── */
+.hero h1 .line1 {
+  display: block;
+  background: linear-gradient(90deg, var(--cyan) 0%, #a0e8ff 25%, var(--purple) 50%, var(--cyan) 75%, #a0e8ff 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: heroShimmer 5s linear infinite;
+}
+.hero h1 .line2 {
+  display: block;
+  background: linear-gradient(90deg, var(--purple) 0%, #c4b5ff 25%, var(--cyan) 50%, var(--purple) 75%, #c4b5ff 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: heroShimmer 5s linear infinite 0.5s;
+}
+@keyframes heroShimmer {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
 .hero-desc {
   font-size: 1rem;
   color: var(--muted);
@@ -188,7 +231,7 @@ nav {
   background: rgba(0,240,255,0.03);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 22px;
+  padding: 26px;
   position: relative;
   overflow: hidden;
   transition: border-color 0.3s, transform 0.3s;
@@ -203,14 +246,14 @@ nav {
 .metric-card:hover { border-color: rgba(0,240,255,0.25); transform: translateY(-3px); }
 .metric-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 2.5px;
   color: var(--muted);
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 .metric-value {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   color: var(--cyan);
   letter-spacing: -1px;
@@ -218,9 +261,9 @@ nav {
 }
 .metric-sub {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   color: rgba(0,230,118,0.5);
-  margin-top: 8px;
+  margin-top: 10px;
   letter-spacing: 1px;
 }
 .verified-badge {
@@ -228,13 +271,13 @@ nav {
   align-items: center;
   gap: 5px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   color: var(--green);
   background: rgba(0,230,118,0.08);
   border: 1px solid rgba(0,230,118,0.2);
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
-  margin-top: 10px;
+  margin-top: 12px;
 }
 
 /* ── SECTION HEADER ── */
@@ -247,7 +290,7 @@ nav {
 .sec-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--purple); flex-shrink: 0; }
 .sec-title {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 3px;
   color: rgba(123,92,255,0.6);
   text-transform: uppercase;
@@ -256,7 +299,7 @@ nav {
 .sec-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(123,92,255,0.25), transparent); }
 
 /* ── SECTION ── */
-.section { margin-bottom: 48px; }
+.section { margin-bottom: 52px; }
 
 /* ── WALLET QUERY ── */
 .query-row { display: flex; gap: 10px; margin-bottom: 12px; }
@@ -265,7 +308,7 @@ nav {
   background: rgba(0,240,255,0.03);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 12px 18px;
+  padding: 13px 18px;
   color: var(--cyan);
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
@@ -281,7 +324,7 @@ nav {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   letter-spacing: 2px;
-  padding: 12px 22px;
+  padding: 13px 22px;
   border-radius: 10px;
   cursor: pointer;
   transition: all 0.2s;
@@ -292,8 +335,8 @@ nav {
   background: rgba(0,0,0,0.35);
   border: 1px solid rgba(0,240,255,0.07);
   border-radius: 12px;
-  padding: 18px 22px;
-  min-height: 64px;
+  padding: 20px 24px;
+  min-height: 68px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -301,7 +344,7 @@ nav {
 .result-addr { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(0,240,255,0.22); word-break: break-all; margin-bottom: 8px; }
 .result-amount { font-size: 2rem; font-weight: 700; color: var(--cyan); letter-spacing: -1px; }
 .result-unit { font-size: 0.9rem; color: rgba(0,240,255,0.4); font-weight: 400; margin-left: 6px; }
-.result-hint { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,240,255,0.2); }
+.result-hint { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(0,240,255,0.2); }
 
 /* ── TERMINAL ── */
 .terminal {
@@ -320,12 +363,12 @@ nav {
 }
 .term-btn { width: 10px; height: 10px; border-radius: 50%; }
 .term-body {
-  padding: 16px 20px;
-  height: 180px;
+  padding: 18px 22px;
+  height: 190px;
   overflow: hidden;
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
-  line-height: 1.9;
+  line-height: 2;
 }
 .log-line { animation: logIn 0.3s ease; }
 @keyframes logIn { from { opacity:0; transform:translateX(-8px); } to { opacity:1; transform:translateX(0); } }
@@ -340,7 +383,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 18px;
+  padding: 14px 20px;
   background: rgba(123,92,255,0.04);
   border: 1px solid var(--border2);
   border-radius: 10px;
@@ -349,14 +392,14 @@ nav {
 .ct-row:hover { border-color: rgba(123,92,255,0.25); }
 .ct-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(123,92,255,0.5);
 }
 .ct-val {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 11px;
   color: #c4b5ff;
   word-break: break-all;
   text-align: right;
@@ -371,19 +414,19 @@ nav {
   background: rgba(0,240,255,0.02);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 24px;
+  padding: 28px;
   transition: border-color 0.3s, transform 0.3s;
 }
 .about-card:hover { border-color: rgba(0,240,255,0.2); transform: translateY(-2px); }
 .about-icon {
-  width: 36px; height: 36px;
-  border-radius: 8px;
+  width: 40px; height: 40px;
+  border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
-  font-size: 16px;
+  margin-bottom: 16px;
+  font-size: 18px;
 }
-.about-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-.about-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; font-weight: 400; }
+.about-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+.about-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; font-weight: 400; }
 
 /* ── FOOTER ── */
 footer {
@@ -396,8 +439,8 @@ footer {
   position: relative;
   z-index: 1;
 }
-.foot-left { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(0,240,255,0.2); letter-spacing: 2px; }
-.foot-right { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: rgba(0,230,118,0.35); letter-spacing: 2px; }
+.foot-left { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,240,255,0.2); letter-spacing: 2px; }
+.foot-right { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(0,230,118,0.35); letter-spacing: 2px; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
@@ -405,11 +448,14 @@ footer {
   .about-grid { grid-template-columns: 1fr; }
   .query-row { flex-direction: column; }
   footer { flex-direction: column; gap: 8px; text-align: center; }
+  .hero h1 { font-size: 2.6rem; letter-spacing: -1px; }
 }
 </style>
 </head>
 <body>
 
+<!-- CIRCUIT BACKGROUND -->
+<div class="circuit-layer"><canvas id="circuitCanvas"></canvas></div>
 <div class="grid-layer"></div>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
@@ -429,17 +475,17 @@ footer {
   <section class="hero">
     <div class="hero-tag">
       <span style="width:5px;height:5px;border-radius:50%;background:var(--cyan);display:inline-block"></span>
-      PROTOKOL v1.0 · CHAIN #8453
+      PROTOCOL v1.0 · CHAIN #8453
     </div>
     <h1>
-      <span class="line1">VERİ</span>
-      <span class="line2">EGEMENLİĞİ</span>
+      <span class="line1">DATA</span>
+      <span class="line2">SOVEREIGNTY</span>
     </h1>
     <p class="hero-desc">
-      Etik yapay zeka eğitimi ve veri egemenliği için inşa edilmiş merkeziyetsiz protokol. Base Mainnet üzerinde 1 milyar ETHIC arzıyla çalışır.
+      A decentralized protocol built for ethical AI training and data sovereignty. Powered by 1 billion ETHIC tokens on Base Mainnet.
     </p>
     <a href="#dashboard" class="hero-cta">
-      PROTOKOLÜ KEŞFET
+      EXPLORE PROTOCOL
       <span class="arrow">→</span>
     </a>
   </section>
@@ -447,19 +493,19 @@ footer {
   <!-- METRICS -->
   <div class="metrics" id="dashboard">
     <div class="metric-card">
-      <div class="metric-label">Toplam Arz</div>
+      <div class="metric-label">Total Supply</div>
       <div class="metric-value">1B</div>
       <div class="metric-sub">ETHIC · ERC-20</div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">Hassasiyet</div>
+      <div class="metric-label">Precision</div>
       <div class="metric-value">10<span style="font-size:1rem;color:rgba(0,240,255,0.4)">¹⁸</span></div>
-      <div class="metric-sub">18 Ondalık Basamak</div>
+      <div class="metric-sub">18 Decimal Places</div>
     </div>
     <div class="metric-card">
-      <div class="metric-label">Doğrulama</div>
-      <div class="metric-value" style="font-size:1rem;color:var(--green);margin-top:4px;letter-spacing:0">Onaylandı</div>
-      <div class="verified-badge">✓ BaseScan Doğrulandı</div>
+      <div class="metric-label">Verification</div>
+      <div class="metric-value" style="font-size:1rem;color:var(--green);margin-top:4px;letter-spacing:0">Verified</div>
+      <div class="verified-badge">✓ BaseScan Verified</div>
     </div>
   </div>
 
@@ -467,15 +513,15 @@ footer {
   <section class="section">
     <div class="sec-header">
       <div class="sec-dot"></div>
-      <div class="sec-title">Cüzdan Sorgulama</div>
+      <div class="sec-title">Wallet Query</div>
       <div class="sec-line"></div>
     </div>
     <div class="query-row">
-      <input class="query-input" id="walletAddr" placeholder="Base ağı cüzdan adresi — 0x..." />
-      <button class="btn-query" onclick="queryBalance()">SORGULA</button>
+      <input class="query-input" id="walletAddr" placeholder="Base network wallet address — 0x..." />
+      <button class="btn-query" onclick="queryBalance()">QUERY</button>
     </div>
     <div class="result-panel" id="resultPanel">
-      <div class="result-hint">Herhangi bir Base cüzdan adresinin ETHIC bakiyesini anında görüntüleyin</div>
+      <div class="result-hint">View the ETHIC balance of any Base wallet address instantly</div>
     </div>
   </section>
 
@@ -501,33 +547,33 @@ footer {
   <section class="section">
     <div class="sec-header">
       <div class="sec-dot" style="background:var(--purple)"></div>
-      <div class="sec-title">Kontrat Bilgileri</div>
+      <div class="sec-title">Contract Information</div>
       <div class="sec-line"></div>
     </div>
     <div class="contract-table">
       <div class="ct-row">
-        <span class="ct-label">Kontrat Adresi</span>
+        <span class="ct-label">Contract Address</span>
         <span class="ct-val">0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93</span>
       </div>
       <div class="ct-row">
-        <span class="ct-label">Ağ</span>
+        <span class="ct-label">Network</span>
         <span class="ct-val cyan">Base Mainnet · Chain ID 8453</span>
       </div>
       <div class="ct-row">
-        <span class="ct-label">Token Adı</span>
+        <span class="ct-label">Token Name</span>
         <span class="ct-val cyan">Ethicoin Protocol</span>
       </div>
       <div class="ct-row">
-        <span class="ct-label">Sembol</span>
+        <span class="ct-label">Symbol</span>
         <span class="ct-val cyan">ETHIC</span>
       </div>
       <div class="ct-row">
-        <span class="ct-label">Standart</span>
-        <span class="ct-val green">ERC-20 · Doğrulandı ✓</span>
+        <span class="ct-label">Standard</span>
+        <span class="ct-val green">ERC-20 · Verified ✓</span>
       </div>
       <div class="ct-row">
-        <span class="ct-label">Toplam Arz</span>
-        <span class="ct-val cyan">1.000.000.000 ETHIC</span>
+        <span class="ct-label">Total Supply</span>
+        <span class="ct-val cyan">1,000,000,000 ETHIC</span>
       </div>
     </div>
   </section>
@@ -536,29 +582,29 @@ footer {
   <section class="section">
     <div class="sec-header">
       <div class="sec-dot" style="background:var(--green)"></div>
-      <div class="sec-title" style="color:rgba(0,230,118,0.5)">Protokol Hakkında</div>
+      <div class="sec-title" style="color:rgba(0,230,118,0.5)">About the Protocol</div>
       <div class="sec-line" style="background:linear-gradient(90deg,rgba(0,230,118,0.2),transparent)"></div>
     </div>
     <div class="about-grid">
       <div class="about-card">
         <div class="about-icon" style="background:rgba(0,240,255,0.08)">🧠</div>
-        <h3>Veri Egemenliği</h3>
-        <p>Kullanıcıların kendi verilerini kontrol ettiği merkeziyetsiz bir katman. Verileriniz sizindir — protokol bunu garanti eder.</p>
+        <h3>Data Sovereignty</h3>
+        <p>A decentralized layer where users fully control their own data. Your data belongs to you — the protocol guarantees it.</p>
       </div>
       <div class="about-card">
         <div class="about-icon" style="background:rgba(123,92,255,0.08)">⚡</div>
-        <h3>Etik Yapay Zeka</h3>
-        <p>Yapay zeka eğitim süreçlerini şeffaf ve izlenebilir kılan on-chain doğrulama altyapısı.</p>
+        <h3>Ethical AI</h3>
+        <p>On-chain verification infrastructure that makes AI training processes transparent and fully traceable.</p>
       </div>
       <div class="about-card">
         <div class="about-icon" style="background:rgba(0,230,118,0.08)">🔗</div>
         <h3>Base Mainnet</h3>
-        <p>Coinbase'in geliştirdiği L2 ağında düşük işlem maliyeti ve yüksek işlem hızıyla tam operasyonel.</p>
+        <p>Fully operational on Coinbase's L2 network with ultra-low transaction costs and high throughput.</p>
       </div>
       <div class="about-card">
         <div class="about-icon" style="background:rgba(0,240,255,0.08)">🛡️</div>
-        <h3>Doğrulanmış Kontrat</h3>
-        <p>Kaynak kodu BaseScan üzerinde doğrulanmış. Tam şeffaflık, sıfır gizli fonksiyon.</p>
+        <h3>Verified Contract</h3>
+        <p>Source code verified on BaseScan. Full transparency — zero hidden functions, zero obfuscation.</p>
       </div>
     </div>
   </section>
@@ -566,25 +612,172 @@ footer {
 </div>
 
 <footer>
-  <div class="foot-left">ETHICOIN PROTOCOL · 2025 · ISTANBUL</div>
+  <div class="foot-left">ETHICOIN PROTOCOL · 2025</div>
   <div class="foot-right">BASE · CHAIN #8453 · ONLINE</div>
 </footer>
 
 <script>
+// ── CIRCUIT BOARD BACKGROUND ──
+const canvas = document.getElementById('circuitCanvas');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const CYAN = 'rgba(0,240,255,';
+const PURPLE = 'rgba(123,92,255,';
+const GREEN = 'rgba(0,230,118,';
+
+// Circuit nodes
+const nodes = [];
+const pulses = [];
+
+function initCircuit() {
+  nodes.length = 0;
+  const cols = Math.floor(canvas.width / 90);
+  const rows = Math.floor(canvas.height / 90);
+  for (let i = 0; i <= cols; i++) {
+    for (let j = 0; j <= rows; j++) {
+      if (Math.random() > 0.55) {
+        nodes.push({
+          x: i * 90 + (Math.random() - 0.5) * 30,
+          y: j * 90 + (Math.random() - 0.5) * 30,
+          r: Math.random() * 1.8 + 0.6,
+          color: Math.random() > 0.6 ? CYAN : Math.random() > 0.5 ? PURPLE : GREEN,
+          opacity: Math.random() * 0.4 + 0.1,
+        });
+      }
+    }
+  }
+}
+initCircuit();
+window.addEventListener('resize', initCircuit);
+
+// Edges between nearby nodes
+const edges = [];
+function buildEdges() {
+  edges.length = 0;
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 130 && Math.random() > 0.5) {
+        edges.push({ a: i, b: j, dist,
+          color: nodes[i].color,
+          opacity: Math.random() * 0.18 + 0.04,
+          right: Math.random() > 0.5
+        });
+      }
+    }
+  }
+}
+buildEdges();
+window.addEventListener('resize', buildEdges);
+
+// Pulse along edges
+function spawnPulse() {
+  if (edges.length === 0) return;
+  const edge = edges[Math.floor(Math.random() * edges.length)];
+  pulses.push({ edge, t: 0, speed: 0.004 + Math.random() * 0.006 });
+}
+setInterval(spawnPulse, 180);
+
+let animFrame;
+function drawCircuit() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Draw edges
+  for (const e of edges) {
+    const a = nodes[e.a], b = nodes[e.b];
+    ctx.beginPath();
+    if (e.right) {
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, a.y);
+      ctx.lineTo(b.x, b.y);
+    } else {
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(a.x, b.y);
+      ctx.lineTo(b.x, b.y);
+    }
+    ctx.strokeStyle = e.color + e.opacity + ')';
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+  }
+
+  // Draw nodes
+  for (const n of nodes) {
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+    ctx.fillStyle = n.color + n.opacity + ')';
+    ctx.fill();
+  }
+
+  // Draw pulses
+  for (let i = pulses.length - 1; i >= 0; i--) {
+    const p = pulses[i];
+    p.t += p.speed;
+    if (p.t >= 1) { pulses.splice(i, 1); continue; }
+
+    const e = p.edge;
+    const a = nodes[e.a], b = nodes[e.b];
+    let px, py;
+    if (e.right) {
+      const mid = { x: b.x, y: a.y };
+      if (p.t < 0.5) {
+        px = a.x + (mid.x - a.x) * (p.t / 0.5);
+        py = a.y;
+      } else {
+        px = mid.x;
+        py = a.y + (b.y - a.y) * ((p.t - 0.5) / 0.5);
+      }
+    } else {
+      const mid = { x: a.x, y: b.y };
+      if (p.t < 0.5) {
+        px = a.x;
+        py = a.y + (mid.y - a.y) * (p.t / 0.5);
+      } else {
+        px = a.x + (b.x - a.x) * ((p.t - 0.5) / 0.5);
+        py = mid.y;
+      }
+    }
+
+    const grd = ctx.createRadialGradient(px, py, 0, px, py, 8);
+    grd.addColorStop(0, e.color + '0.9)');
+    grd.addColorStop(1, e.color + '0)');
+    ctx.beginPath();
+    ctx.arc(px, py, 8, 0, Math.PI * 2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(px, py, 2, 0, Math.PI * 2);
+    ctx.fillStyle = e.color + '1)';
+    ctx.fill();
+  }
+
+  animFrame = requestAnimationFrame(drawCircuit);
+}
+drawCircuit();
+
 // ── NEURAL MONITOR ──
 const logs = [
-  ['Sistem başlatılıyor — Ethicoin Protocol v1.0','lc'],
-  ['Node #8453 bağlantısı kuruldu — Base Mainnet','lg'],
-  ['ERC-20 kontrat arayüzü yüklendi','lg'],
-  ['BaseScan doğrulaması onaylandı ✓','lg'],
-  ['Veri egemenliği katmanı hazır','lp'],
-  ['Etik yapay zeka eğitim protokolü aktif','lp'],
-  ['Toplam arz kilitlendi — 1.000.000.000 ETHIC','lc'],
-  ['Sinirsel ağ düğümleri senkronize ediliyor','lp'],
-  ['Blok zinciri veri akışı doğrulandı','lg'],
-  ['Sahiplik kanıtı doğrulandı — 0xC8392b...','lw'],
-  ['Tüm sistemler operasyonel','lg'],
-  ['Veri bloğu doğrulandı — Blok #' + (Math.floor(Math.random()*1000000)+20000000),'lc'],
+  ['System initializing — Ethicoin Protocol v1.0','lc'],
+  ['Node #8453 connected — Base Mainnet','lg'],
+  ['ERC-20 contract interface loaded','lg'],
+  ['BaseScan verification confirmed ✓','lg'],
+  ['Data sovereignty layer ready','lp'],
+  ['Ethical AI training protocol active','lp'],
+  ['Total supply locked — 1,000,000,000 ETHIC','lc'],
+  ['Neural network nodes synchronizing','lp'],
+  ['Blockchain data stream verified','lg'],
+  ['Ownership proof validated — 0xC8392b...','lw'],
+  ['All systems operational','lg'],
+  ['Data block verified — Block #' + (Math.floor(Math.random()*1000000)+20000000),'lc'],
 ];
 let logIdx = 0;
 const termBody = document.getElementById('termBody');
@@ -604,23 +797,23 @@ setInterval(addLog, 3000);
 
 // ── WALLET QUERY ──
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
-const API_KEY  = 'YourBaseScanAPIKeyHere'; // BaseScan API key buraya
+const API_KEY  = 'YourBaseScanAPIKeyHere';
 
 async function queryBalance() {
   const addr = document.getElementById('walletAddr').value.trim();
   const panel = document.getElementById('resultPanel');
   if (!addr || !addr.startsWith('0x') || addr.length !== 42) {
-    panel.innerHTML = '<div style="color:rgba(255,80,80,0.7);font-family:JetBrains Mono,monospace;font-size:10px">Hata: Geçerli bir Base cüzdan adresi girin (0x...)</div>';
+    panel.innerHTML = '<div style="color:rgba(255,80,80,0.7);font-family:JetBrains Mono,monospace;font-size:10px">Error: Please enter a valid Base wallet address (0x...)</div>';
     return;
   }
-  panel.innerHTML = '<div class="result-hint" style="animation:blink 1s infinite">Sorgulanıyor...</div>';
+  panel.innerHTML = '<div class="result-hint" style="animation:blink 1s infinite">Querying...</div>';
   try {
     const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${addr}&tag=latest&apikey=${API_KEY}`;
     const res = await fetch(url);
     const data = await res.json();
     if (data.status === '1') {
       const raw = BigInt(data.result || '0');
-      const bal = Number(raw / BigInt('1000000000000000000')).toLocaleString('tr-TR');
+      const bal = Number(raw / BigInt('1000000000000000000')).toLocaleString('en-US');
       panel.innerHTML = `
         <div class="result-addr">${addr}</div>
         <div class="result-amount">${bal}<span class="result-unit">ETHIC</span></div>
@@ -635,13 +828,12 @@ async function queryBalance() {
     panel.innerHTML = `
       <div class="result-addr">${addr}</div>
       <div style="color:rgba(0,240,255,0.3);font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:6px">
-        API anahtarı gerekli — <code style="color:rgba(0,240,255,0.5)">API_KEY</code> değişkenini güncelleyin
+        API key required — update the <code style="color:rgba(0,240,255,0.5)">API_KEY</code> variable
       </div>
     `;
   }
 }
 
-// Enter ile sorgula
 document.getElementById('walletAddr').addEventListener('keydown', e => {
   if (e.key === 'Enter') queryBalance();
 });
