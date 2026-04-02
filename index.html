@@ -187,6 +187,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .badge-soon{background:rgba(0,212,232,0.06);border:1px solid rgba(0,212,232,0.15);color:var(--cyan)}
 .badge-future{background:rgba(107,79,255,0.06);border:1px solid rgba(107,79,255,0.15);color:var(--purple2)}
 
+/* ⭐ TECH SPECS SECTION ⭐ */
+.tech-specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
+.tech-spec-card{background:linear-gradient(135deg,rgba(0,212,232,0.08),rgba(0,200,150,0.04));border:1px solid rgba(0,212,232,0.15);border-radius:14px;padding:24px 20px;text-align:center;position:relative;overflow:hidden;transition:all .3s}
+.tech-spec-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,212,232,0.1),transparent 70%);pointer-events:none}
+.tech-spec-card:hover{border-color:rgba(0,212,232,0.28);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,212,232,0.1)}
+.tech-spec-card.purple{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(157,135,255,0.04));border-color:rgba(107,79,255,0.15)}
+.tech-spec-card.purple:hover{border-color:rgba(107,79,255,0.28);box-shadow:0 12px 40px rgba(107,79,255,0.1)}
+.tech-spec-card.green{background:linear-gradient(135deg,rgba(0,200,150,0.08),rgba(0,230,118,0.04));border-color:rgba(0,200,150,0.15)}
+.tech-spec-card.green:hover{border-color:rgba(0,200,150,0.28);box-shadow:0 12px 40px rgba(0,200,150,0.1)}
+.tech-spec-icon{font-size:32px;margin-bottom:14px;display:block;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.tech-spec-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(0,212,232,0.4);margin-bottom:8px;font-weight:600}
+.tech-spec-title{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:10px;letter-spacing:-.3px}
+.tech-spec-desc{font-size:0.85rem;color:var(--text2);line-height:1.6}
+
 /* WHITEPAPER SECTION */
 .wp-section-card{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(0,212,232,0.02));border:1px dashed var(--purple);border-radius:16px;padding:32px;position:relative;overflow:hidden}
 .wp-section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,79,255,0.1) 0%,transparent 50%);pointer-events:none}
@@ -194,9 +209,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .wp-title{font-size:1.8rem;margin-bottom:20px;color:var(--text);font-weight:800}
 .wp-description{font-size:0.95rem;color:var(--text2);line-height:1.8;margin-bottom:30px}
 .wp-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:35px}
-.wp-tag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:7px 14px;background:rgba(0,212,232,0.1);border:1px solid rgba(0,212,232,0.2);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1px}
-.wp-tag.purple{background:rgba(107,79,255,0.1);border-color:rgba(107,79,255,0.2);color:var(--purple2)}
-.wp-tag.green{background:rgba(0,200,150,0.1);border-color:rgba(0,200,150,0.2);color:var(--green2)}
+.wp-tag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:8px 16px;background:rgba(0,212,232,0.12);border:1px solid rgba(0,212,232,0.25);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;transition:all .2s}
+.wp-tag:hover{background:rgba(0,212,232,0.2);border-color:var(--cyan);transform:translateY(-2px)}
+.wp-tag.purple{background:rgba(107,79,255,0.12);border-color:rgba(107,79,255,0.25);color:var(--purple2)}
+.wp-tag.purple:hover{background:rgba(107,79,255,0.2);border-color:var(--purple2)}
+.wp-tag.green{background:rgba(0,200,150,0.12);border-color:rgba(0,200,150,0.25);color:var(--green2)}
+.wp-tag.green:hover{background:rgba(0,200,150,0.2);border-color:var(--green2)}
 
 /* SOCIAL */
 .social-row{display:flex;gap:10px;flex-wrap:wrap}
@@ -218,6 +236,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .stats-row{grid-template-columns:repeat(2,1fr)}
   .feature-grid{grid-template-columns:1fr}
   .tokenomics-grid{grid-template-columns:repeat(2,1fr)}
+  .tech-specs-grid{grid-template-columns:1fr}
   .price-meta{display:none}
   .wp-section-card{padding:24px}
 }
@@ -234,6 +253,10 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .tokenomics-grid{grid-template-columns:1fr 1fr}
   .wp-section-card{padding:18px}
   .wp-title{font-size:1.3rem}
+  .tech-specs-grid{gap:10px}
+  .tech-spec-card{padding:18px 14px}
+  .tech-spec-icon{font-size:24px}
+  .tech-spec-title{font-size:0.95rem}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 </style>
@@ -509,6 +532,41 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
   </section>
 
+  <!-- ⭐ TECHNICAL SPECIFICATIONS ⭐ -->
+  <section class="section" id="tech-specs">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--cyan)"></div>
+      <div class="sec-label" style="color:rgba(0,212,232,.55)" data-i18n="sec_tech_specs">Technical Specifications</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
+    </div>
+
+    <div class="tech-specs-grid">
+      <!-- ZK-PROOF CARD -->
+      <div class="tech-spec-card">
+        <span class="tech-spec-icon">🔐</span>
+        <div class="tech-spec-label" data-i18n="arch_label">Architecture</div>
+        <div class="tech-spec-title" data-i18n="arch_title">Zero-Knowledge Proofs</div>
+        <p class="tech-spec-desc" data-i18n="arch_desc">Privacy-preserving cryptography allowing data verification without exposure. Users prove data authenticity without revealing raw information.</p>
+      </div>
+
+      <!-- DAO GOVERNANCE CARD -->
+      <div class="tech-spec-card purple">
+        <span class="tech-spec-icon">🏛️</span>
+        <div class="tech-spec-label" data-i18n="governance_label">Model</div>
+        <div class="tech-spec-title" data-i18n="governance_title">DAO Governance</div>
+        <p class="tech-spec-desc" data-i18n="governance_desc">Decentralized autonomous organization. Token holders vote on protocol upgrades, parameter changes, and ecosystem fund allocation.</p>
+      </div>
+
+      <!-- BASE L2 CARD -->
+      <div class="tech-spec-card green">
+        <span class="tech-spec-icon">⚡</span>
+        <div class="tech-spec-label" data-i18n="layer_label">Layer</div>
+        <div class="tech-spec-title" data-i18n="layer_title">Base Layer 2</div>
+        <p class="tech-spec-desc" data-i18n="layer_desc">Optimistic rollup on Ethereum. 10x lower costs than L1, instant finality, full security inheritance from Ethereum.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ⭐ TECHNICAL DOCUMENTATION (WHITEPAPER) ⭐ -->
   <section class="section" id="whitepaper">
     <div class="sec-head">
@@ -567,15 +625,14 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// ETHICOIN — COMPLETE VERSION WITH WHITEPAPER
+// ETHICOIN — COMPLETE VERSION WITH TECH SPECS
 // ════════════════════════════════════════════════════════════════
 
-// CONFIG
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
 const API_KEY = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';
 
-// ════════════════════════════════════════════════════════════════
-// I18N — COMPLETE TRANSLATIONS WITH WHITEPAPER
+// ═��══════════════════════════════════════════════════════════════
+// I18N — COMPLETE WITH TECH SPECS
 // ════════════════════════════════════════════════════════════════
 const T = {
   en: {
@@ -602,7 +659,11 @@ const T = {
     phase2: 'Phase II — Visibility', phase2_title: 'Exchange Listings & Community', phase2_desc: 'CoinGecko & CoinMarketCap listings. Community building on Telegram and X. Strategic partnerships with AI data platforms.',
     phase3: 'Phase III — Infrastructure', phase3_title: 'Data Sovereignty Layer', phase3_desc: 'On-chain data consent registry. Integration APIs for AI training platforms. ETHIC-powered compensation model for data contributors.',
     phase4: 'Phase IV — Scale', phase4_title: 'Governance & Ecosystem', phase4_desc: 'On-chain governance for protocol decisions. DAO formation. Ecosystem grants for ethical AI projects building on ETHIC infrastructure.',
-    wp_title_main: 'TECHNICAL DOCUMENTATION', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
+    sec_tech_specs: 'Technical Specifications',
+    arch_label: 'Architecture', arch_title: 'Zero-Knowledge Proofs', arch_desc: 'Privacy-preserving cryptography allowing data verification without exposure. Users prove data authenticity without revealing raw information.',
+    governance_label: 'Model', governance_title: 'DAO Governance', governance_desc: 'Decentralized autonomous organization. Token holders vote on protocol upgrades, parameter changes, and ecosystem fund allocation.',
+    layer_label: 'Layer', layer_title: 'Base Layer 2', layer_desc: 'Optimistic rollup on Ethereum. 10x lower costs than L1, instant finality, full security inheritance from Ethereum.',
+    wp_title_main: 'Technical Documentation', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
     sec_community: 'Community',
   },
   tr: {
@@ -626,9 +687,13 @@ const T = {
     sec_tokenomics: 'Tokenomik', tok1: 'Ekosistem', tok2: 'Geliştirme', tok3: 'Topluluk', tok4: 'Likidite', tok5: 'Rezerv', tok6: 'Toplam · Sabit',
     sec_roadmap: 'Yol Haritası', badge_live: 'Canlı', badge_progress: 'Devam Ediyor', badge_upcoming: 'Yakında',
     phase1: 'Faz I — Temel', phase1_title: 'Protokol Lansmanı', phase1_desc: 'ERC-20 token Base Mainnet\'te deploy edildi ve doğrulandı. Uniswap v4 likidite havuzu oluşturuldu. Akıllı kontrat kaynak kodu BaseScan\'de doğrulandı.',
-    phase2: 'Faz II — Görünürl��k', phase2_title: 'Borsa Listelemeleri ve Topluluk', phase2_desc: 'CoinGecko ve CoinMarketCap listelemeleri. Telegram ve X\'te topluluk inşası. Yapay zeka veri platformlarıyla stratejik ortaklıklar.',
+    phase2: 'Faz II — Görünürlük', phase2_title: 'Borsa Listelemeleri ve Topluluk', phase2_desc: 'CoinGecko ve CoinMarketCap listelemeleri. Telegram ve X\'te topluluk inşası. Yapay zeka veri platformlarıyla stratejik ortaklıklar.',
     phase3: 'Faz III — Altyapı', phase3_title: 'Veri Egemenliği Katmanı', phase3_desc: 'Zincir üstü veri onay kaydı. Yapay zeka eğitim platformları için entegrasyon API\'leri. Veri katkıcıları için ETHIC destekli ödeme modeli.',
     phase4: 'Faz IV — Ölçekleme', phase4_title: 'Yönetişim ve Ekosistem', phase4_desc: 'Protokol kararları için zincir üstü yönetişim. DAO kurulması. ETHIC altyapısı üzerine inşa eden etik yapay zeka projeleri için ekosistem hibeleri.',
+    sec_tech_specs: 'Teknik Spesifikasyonlar',
+    arch_label: 'Mimari', arch_title: 'Sıfır Bilgisi İspatları', arch_desc: 'Gizlilik koruyan kriptografi. Verinin açığa çıkmadan doğrulanmasına olanak tanır. Kullanıcılar verinin orijinalliğini kanıtlar.',
+    governance_label: 'Model', governance_title: 'DAO Yönetişimi', governance_desc: 'Merkeziyetsiz özerk örgütlenme. Token sahipleri protokol yükseltmeleri, parametre değişiklikleri ve fon tahsisini oylar.',
+    layer_label: 'Katman', layer_title: 'Base Layer 2', layer_desc: 'Ethereum üzerinde iyimser toplama. L1\'den 10x düşük maliyet, anlık kesinlik, Ethereum güvenlik mirasları.',
     wp_title_main: 'TEKNİK DOKÜMANTASYON', wp_status: 'Teknik Doküman — Yakında', wp_desc: 'Veri egemenliği mimarisini, tokenomik modelini, yönetişim çerçevesini ve yapay zeka entegrasyon katmanını detaylandıran tam teknik doküman hazırlanmaktadır.', wp_btn: '📄 ERKEN ERİŞİM İSTE',
     sec_community: 'Topluluk',
   },
@@ -646,152 +711,176 @@ const T = {
     sec_monitor: 'Monitor de Cadena', monitor_note: '↑ Datos en tiempo real de BaseScan API · Actualizado cada 10 segundos',
     sec_contract: 'Información del Contrato', ct_network: 'Red', ct_name: 'Nombre del Token', ct_standard: 'Estándar', ct_supply: 'Suministro Total',
     sec_features: 'Características del Protocolo',
-    feat1_title: 'Soberanía de Datos', feat1_desc: 'Los usuarios registran su hash de datos en la cadena y otorgan acceso solo con consentimiento explícito. El contrato inteligente DataSovereignty lo aplica criptográficamente — ninguna parte puede acceder a datos sin permiso registrado en la cadena.',
-    feat2_title: 'IA Ética', feat2_desc: 'Cada evento de entrenamiento de IA se registra en la cadena a través del contrato AITrainingLog — quién utilizó qué datos, cuándo y para qué propósito. Inmutable, público, verificable por cualquiera en Sepolia Etherscan.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Construido en la red Layer 2 de Coinbase, heredando la seguridad de Ethereum, costos ultra bajos y alto rendimiento de transacciones para escala global.',
-    feat4_title: 'Contrato Verificado', feat4_desc: 'Código fuente completamente verificado en BaseScan. Sin funciones ocultas, sin ofuscación. Cada línea de código es legible públicamente y auditable independientemente.',
+    feat1_title: 'Soberanía de Datos', feat1_desc: 'Los usuarios registran su hash de datos en la cadena y otorgan acceso solo con consentimiento explícito.',
+    feat2_title: 'IA Ética', feat2_desc: 'Cada evento de entrenamiento de IA se registra en la cadena a través del contrato AITrainingLog.',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Construido en la red Layer 2 de Coinbase, heredando la seguridad de Ethereum.',
+    feat4_title: 'Contrato Verificado', feat4_desc: 'Código fuente completamente verificado en BaseScan.',
     sec_tokenomics: 'Tokenómica', tok1: 'Ecosistema', tok2: 'Desarrollo', tok3: 'Comunidad', tok4: 'Liquidez', tok5: 'Reserva', tok6: 'Total · Fijo',
     sec_roadmap: 'Hoja de Ruta', badge_live: 'En Vivo', badge_progress: 'En Progreso', badge_upcoming: 'Próximamente',
-    phase1: 'Fase I — Fundación', phase1_title: 'Lanzamiento del Protocolo', phase1_desc: 'Token ERC-20 desplegado y verificado en Base Mainnet. Pool de liquidez Uniswap v4 establecido. Código fuente verificado públicamente en BaseScan.',
-    phase2: 'Fase II — Visibilidad', phase2_title: 'Listados y Comunidad', phase2_desc: 'Listados en CoinGecko y CoinMarketCap. Construcción de comunidad en Telegram y X. Asociaciones estratégicas con plataformas de datos IA.',
-    phase3: 'Fase III — Infraestructura', phase3_title: 'Capa de Soberanía de Datos', phase3_desc: 'Registro de consentimiento de datos en cadena. APIs de integración para plataformas de entrenamiento IA. Modelo de compensación impulsado por ETHIC para contribuyentes de datos.',
-    phase4: 'Fase IV — Escala', phase4_title: 'Gobernanza y Ecosistema', phase4_desc: 'Gobernanza en cadena para decisiones de protocolo. Formación del DAO. Subvenciones del ecosistema para proyectos de IA ética sobre infraestructura ETHIC.',
-    wp_title_main: 'DOCUMENTACIÓN TÉCNICA', wp_status: 'Documento Técnico — Próximamente', wp_desc: 'Un documento técnico completo detallando la arquitectura de soberanía de datos, modelo de tokenómica, marco de gobernanza e integración IA está en preparación.', wp_btn: '📄 SOLICITAR ACCESO ANTICIPADO',
+    phase1: 'Fase I — Fundación', phase1_title: 'Lanzamiento del Protocolo', phase1_desc: 'Token ERC-20 desplegado y verificado en Base Mainnet.',
+    phase2: 'Fase II — Visibilidad', phase2_title: 'Listados y Comunidad', phase2_desc: 'Listados en CoinGecko y CoinMarketCap.',
+    phase3: 'Fase III — Infraestructura', phase3_title: 'Capa de Soberanía de Datos', phase3_desc: 'Registro de consentimiento de datos en cadena.',
+    phase4: 'Fase IV — Escala', phase4_title: 'Gobernanza y Ecosistema', phase4_desc: 'Gobernanza en cadena para decisiones de protocolo.',
+    sec_tech_specs: 'Especificaciones Técnicas',
+    arch_label: 'Arquitectura', arch_title: 'Pruebas de Conocimiento Cero', arch_desc: 'Criptografía que preserva la privacidad. Permite la verificación de datos sin exposición.',
+    governance_label: 'Modelo', governance_title: 'Gobernanza DAO', governance_desc: 'Organización autónoma descentralizada. Los poseedores de tokens votan sobre actualizaciones del protocolo.',
+    layer_label: 'Capa', layer_title: 'Base Layer 2', layer_desc: 'Acumulación optimista en Ethereum. 10x más barato que L1, finalizabilidad instantánea.',
+    wp_title_main: 'DOCUMENTACIÓN TÉCNICA', wp_status: 'Documento Técnico — Próximamente', wp_desc: 'Un documento técnico completo está en preparación.', wp_btn: '📄 SOLICITAR ACCESO ANTICIPADO',
     sec_community: 'Comunidad',
   },
   fr: {
     nav_protocol: 'PROTOCOLE', nav_contract: 'CONTRAT', nav_roadmap: 'FEUILLE DE ROUTE',
     live_badge: 'EN DIRECT · BASE #8453', hero_tag: 'PROTOCOLE v1.0 · CHAÎNE #8453 · ERC-20',
     hero_t1: 'DONNÉES', hero_t2: 'SOUVERAINETÉ',
-    hero_sub: 'Un protocole décentralisé construit pour la formation éthique en IA et la souveraineté des données. Déployé sur Base Mainnet avec 1 milliard de tokens ETHIC.',
+    hero_sub: 'Un protocole décentralisé pour la formation éthique en IA et la souveraineté des données.',
     btn_explore: 'EXPLORER LE PROTOCOLE', btn_buy: 'ACHETER ETHIC ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'PRIX ETHIC', supply_label: 'Offre Totale', network_label: 'Réseau',
     stat_supply: 'Offre Totale', stat_decimals: 'Décimales', stat_verified: 'Vérifié', stat_network: 'Réseau',
     sec_wallet: 'Requête de Portefeuille', wallet_placeholder: 'Adresse Base — 0x...', btn_query: 'REQUÊTE',
-    wallet_hint: 'Consultez le solde ETHIC de n\'importe quelle adresse Base instantanément',
-    sec_transfers: 'Transferts en Direct', loading_transfers: 'Chargement des transferts récents...',
-    sec_monitor: 'Moniteur de Chaîne', monitor_note: '↑ Données en temps réel de BaseScan API · Mis à jour toutes les 10 secondes',
+    wallet_hint: 'Consultez le solde ETHIC instantanément',
+    sec_transfers: 'Transferts en Direct', loading_transfers: 'Chargement des transferts...',
+    sec_monitor: 'Moniteur de Chaîne', monitor_note: '↑ Données en temps réel de BaseScan API',
     sec_contract: 'Informations du Contrat', ct_network: 'Réseau', ct_name: 'Nom du Token', ct_standard: 'Standard', ct_supply: 'Offre Totale',
     sec_features: 'Fonctionnalités du Protocole',
-    feat1_title: 'Souveraineté des Données', feat1_desc: 'Les utilisateurs enregistrent leur hachage de données en chaîne et accordent l\'accès uniquement avec consentement explicite. Le contrat intelligent DataSovereignty l\'applique cryptographiquement — aucune partie ne peut accéder aux données sans permission enregistrée en chaîne.',
-    feat2_title: 'IA Éthique', feat2_desc: 'Chaque événement d\'entraînement IA est enregistré en chaîne via le contrat AITrainingLog — qui a utilisé quelles données, quand et pourquoi. Immuable, public, vérifiable par n\'importe qui sur Sepolia Etherscan.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Construit sur le réseau Layer 2 de Coinbase, héritant de la sécurité d\'Ethereum, des coûts ultra-bas et du débit de transaction élevé pour l\'échelle mondiale.',
-    feat4_title: 'Contrat Vérifié', feat4_desc: 'Code source entièrement vérifié sur BaseScan. Aucune fonction cachée, aucune obfuscation. Chaque ligne de code est lisible publiquement et auditable indépendamment.',
+    feat1_title: 'Souveraineté des Données', feat1_desc: 'Les utilisateurs enregistrent leur hachage de données en chaîne.',
+    feat2_title: 'IA Éthique', feat2_desc: 'Chaque événement d\'entraînement IA est enregistré en chaîne.',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Construit sur le réseau Layer 2 de Coinbase.',
+    feat4_title: 'Contrat Vérifié', feat4_desc: 'Code source entièrement vérifié sur BaseScan.',
     sec_tokenomics: 'Tokenomique', tok1: 'Écosystème', tok2: 'Développement', tok3: 'Communauté', tok4: 'Liquidité', tok5: 'Réserve', tok6: 'Total · Fixe',
     sec_roadmap: 'Feuille de Route', badge_live: 'En Direct', badge_progress: 'En Cours', badge_upcoming: 'À Venir',
-    phase1: 'Phase I — Fondation', phase1_title: 'Lancement du Protocole', phase1_desc: 'Token ERC-20 déployé et vérifié sur Base Mainnet. Pool de liquidité Uniswap v4 établi. Code source du contrat vérifié publiquement sur BaseScan.',
-    phase2: 'Phase II — Visibilité', phase2_title: 'Listings et Communauté', phase2_desc: 'Listings CoinGecko et CoinMarketCap. Construction de communauté sur Telegram et X. Partenariats stratégiques avec plateformes de données IA.',
-    phase3: 'Phase III — Infrastructure', phase3_title: 'Couche de Souveraineté des Données', phase3_desc: 'Registre de consentement de données en chaîne. APIs d\'intégration pour plateformes d\'entraînement IA. Modèle de compensation alimenté par ETHIC pour contributeurs de données.',
-    phase4: 'Phase IV — Échelle', phase4_title: 'Gouvernance et Écosystème', phase4_desc: 'Gouvernance en chaîne pour les décisions de protocole. Formation du DAO. Subventions écosystème pour projets IA éthique bâtis sur infrastructure ETHIC.',
-    wp_title_main: 'DOCUMENTATION TECHNIQUE', wp_status: 'Livre Blanc — Bientôt', wp_desc: 'Un livre blanc technique complet détaillant l\'architecture de souveraineté des données, le modèle de tokenomique, le cadre de gouvernance et l\'intégration IA est en préparation.', wp_btn: '📄 DEMANDER ACCÈS ANTICIPÉ',
+    phase1: 'Phase I — Fondation', phase1_title: 'Lancement du Protocole', phase1_desc: 'Token ERC-20 déployé et vérifié.',
+    phase2: 'Phase II — Visibilité', phase2_title: 'Listings et Communauté', phase2_desc: 'Listings CoinGecko et CoinMarketCap.',
+    phase3: 'Phase III — Infrastructure', phase3_title: 'Couche de Souveraineté', phase3_desc: 'Registre de consentement de données.',
+    phase4: 'Phase IV — Échelle', phase4_title: 'Gouvernance', phase4_desc: 'Gouvernance en chaîne.',
+    sec_tech_specs: 'Spécifications Techniques',
+    arch_label: 'Architecture', arch_title: 'Preuves de Connaissance Zéro', arch_desc: 'Cryptographie préservant la confidentialité.',
+    governance_label: 'Modèle', governance_title: 'Gouvernance DAO', governance_desc: 'Organisation autonome décentralisée.',
+    layer_label: 'Couche', layer_title: 'Base Layer 2', layer_desc: 'Roulement optimiste sur Ethereum.',
+    wp_title_main: 'DOCUMENTATION TECHNIQUE', wp_status: 'Livre Blanc — Bientôt', wp_desc: 'Un livre blanc technique complet est en préparation.', wp_btn: '📄 DEMANDER ACCÈS ANTICIPÉ',
     sec_community: 'Communauté',
   },
   de: {
     nav_protocol: 'PROTOKOLL', nav_contract: 'VERTRAG', nav_roadmap: 'ROADMAP',
     live_badge: 'LIVE · BASE #8453', hero_tag: 'PROTOKOLL v1.0 · KETTE #8453 · ERC-20',
     hero_t1: 'DATEN', hero_t2: 'SOUVERÄNITÄT',
-    hero_sub: 'Ein dezentrales Protokoll für ethisches KI-Training und Datensouveränität. Auf Base Mainnet mit 1 Milliarde ETHIC-Token bereitgestellt.',
+    hero_sub: 'Ein dezentrales Protokoll für ethisches KI-Training und Datensouveränität.',
     btn_explore: 'PROTOKOLL ERKUNDEN', btn_buy: 'ETHIC KAUFEN ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ETHIC-PREIS', supply_label: 'Gesamtangebot', network_label: 'Netzwerk',
     stat_supply: 'Gesamtangebot', stat_decimals: 'Dezimalstellen', stat_verified: 'Verifiziert', stat_network: 'Netzwerk',
     sec_wallet: 'Wallet-Abfrage', wallet_placeholder: 'Base-Wallet-Adresse — 0x...', btn_query: 'ABFRAGEN',
-    wallet_hint: 'ETHIC-Guthaben jeder Base-Wallet sofort abrufen',
-    sec_transfers: 'Live-Transfers', loading_transfers: 'Aktuelle Transfers werden geladen...',
-    sec_monitor: 'Ketten-Monitor', monitor_note: '↑ Echtzeit-Daten von BaseScan API · Aktualisierung alle 10 Sekunden',
+    wallet_hint: 'ETHIC-Guthaben sofort abrufen',
+    sec_transfers: 'Live-Transfers', loading_transfers: 'Transfers werden geladen...',
+    sec_monitor: 'Ketten-Monitor', monitor_note: '↑ Echtzeit-Daten von BaseScan API',
     sec_contract: 'Vertragsinformationen', ct_network: 'Netzwerk', ct_name: 'Token-Name', ct_standard: 'Standard', ct_supply: 'Gesamtangebot',
     sec_features: 'Protokoll-Funktionen',
-    feat1_title: 'Datensouveränität', feat1_desc: 'Benutzer registrieren ihren Daten-Hash in der Kette und erteilen Zugriff nur mit ausdrücklicher Zustimmung. Der Smart Contract DataSovereignty erzwingt dies kryptografisch — keine Partei kann ohne aufgezeichnete Berechtigung in der Kette auf Daten zugreifen.',
-    feat2_title: 'Ethische KI', feat2_desc: 'Jedes KI-Trainingsereignis wird über den AITrainingLog-Vertrag in der Kette protokolliert — wer, welche Daten, wann und warum. Unveränderlich, öffentlich, von jedem auf Sepolia Etherscan verifizierbar.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Auf Coinbases Layer-2-Netzwerk aufgebaut, mit Ethereums Sicherheit, ultraniedriger Transaktionskosten und hohem Transaktionsdurchsatz für globale Skalierung.',
-    feat4_title: 'Verifizierter Vertrag', feat4_desc: 'Quellcode vollständig auf BaseScan verifiziert. Keine versteckten Funktionen, keine Verschleierung. Jede Codezeile ist öffentlich lesbar und unabhängig prüfbar.',
+    feat1_title: 'Datensouveränität', feat1_desc: 'Benutzer registrieren ihren Daten-Hash in der Kette.',
+    feat2_title: 'Ethische KI', feat2_desc: 'Jedes KI-Trainingsereignis wird in der Kette protokolliert.',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Auf Coinbases Layer-2-Netzwerk aufgebaut.',
+    feat4_title: 'Verifizierter Vertrag', feat4_desc: 'Quellcode vollständig auf BaseScan verifiziert.',
     sec_tokenomics: 'Tokenomik', tok1: 'Ökosystem', tok2: 'Entwicklung', tok3: 'Gemeinschaft', tok4: 'Liquidität', tok5: 'Rücklage', tok6: 'Gesamt · Fest',
     sec_roadmap: 'Roadmap', badge_live: 'Live', badge_progress: 'In Bearbeitung', badge_upcoming: 'Demnächst',
-    phase1: 'Phase I — Grundlagen', phase1_title: 'Protokoll-Start', phase1_desc: 'ERC-20-Token auf Base Mainnet bereitgestellt und verifiziert. Uniswap v4 Liquiditäts-Pool eingerichtet. Smart-Contract-Code öffentlich auf BaseScan verifiziert.',
-    phase2: 'Phase II — Sichtbarkeit', phase2_title: 'Börsenlistings und Gemeinschaft', phase2_desc: 'CoinGecko- und CoinMarketCap-Listings. Gemeinschaftsaufbau auf Telegram und X. Strategische Partnerschaften mit KI-Datenplattformen.',
-    phase3: 'Phase III — Infrastruktur', phase3_title: 'Datensouveränitäts-Schicht', phase3_desc: 'On-Chain-Dateneinwilligungsregister. Integrations-APIs für KI-Trainingsplattformen. ETHIC-gestütztes Kompensationsmodell für Datenbeiträger.',
-    phase4: 'Phase IV — Skalierung', phase4_title: 'Governance und Ökosystem', phase4_desc: 'On-Chain-Governance für Protokollentscheidungen. DAO-Bildung. Ökosystem-Zuschüsse für ethische KI-Projekte auf ETHIC-Infrastruktur.',
-    wp_title_main: 'TECHNISCHE DOKUMENTATION', wp_status: 'Whitepaper — Demnächst', wp_desc: 'Ein vollständiges technisches Whitepaper mit Details zur Datensouveränitätsarchitektur, zum Tokenomik-Modell, Governance-Rahmen und KI-Integration ist in Vorbereitung.', wp_btn: '📄 FRÜHZUGANG ANFRAGEN',
+    phase1: 'Phase I — Grundlagen', phase1_title: 'Protokoll-Start', phase1_desc: 'ERC-20-Token auf Base Mainnet bereitgestellt.',
+    phase2: 'Phase II — Sichtbarkeit', phase2_title: 'Börsenlistings', phase2_desc: 'CoinGecko- und CoinMarketCap-Listings.',
+    phase3: 'Phase III — Infrastruktur', phase3_title: 'Datensouveränitäts-Schicht', phase3_desc: 'On-Chain-Dateneinwilligungsregister.',
+    phase4: 'Phase IV — Skalierung', phase4_title: 'Governance', phase4_desc: 'On-Chain-Governance.',
+    sec_tech_specs: 'Technische Spezifikationen',
+    arch_label: 'Architektur', arch_title: 'Null-Wissen-Beweise', arch_desc: 'Datenschutzerhaltende Kryptographie.',
+    governance_label: 'Modell', governance_title: 'DAO-Governance', governance_desc: 'Dezentralisierte autonome Organisation.',
+    layer_label: 'Schicht', layer_title: 'Base Layer 2', layer_desc: 'Optimistischer Rollup auf Ethereum.',
+    wp_title_main: 'TECHNISCHE DOKUMENTATION', wp_status: 'Whitepaper — Demnächst', wp_desc: 'Ein vollständiges technisches Whitepaper ist in Vorbereitung.', wp_btn: '📄 FRÜHZUGANG ANFRAGEN',
     sec_community: 'Gemeinschaft',
   },
   ru: {
     nav_protocol: 'ПРОТОКОЛ', nav_contract: 'КОНТРАКТ', nav_roadmap: 'ДОРОЖНАЯ КАРТА',
     live_badge: 'ONLINE · BASE #8453', hero_tag: 'ПРОТОКОЛ v1.0 · ЦЕПЬ #8453 · ERC-20',
     hero_t1: 'ДАННЫЕ', hero_t2: 'СУВЕРЕНИТЕТ',
-    hero_sub: 'Децентрализованный протокол для этичного обучения ИИ и суверенитета данных. Развернут на Base Mainnet с 1 миллиардом токенов ETHIC.',
+    hero_sub: 'Децентрализованный протокол для этичного обучения ИИ и суверенитета данных.',
     btn_explore: 'ИССЛЕДОВАТЬ ПРОТОКОЛ', btn_buy: 'КУПИТЬ ETHIC ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ЦЕНА ETHIC', supply_label: 'Общее предложение', network_label: 'Сеть',
     stat_supply: 'Общее предложение', stat_decimals: 'Десятичные', stat_verified: 'Проверено', stat_network: 'Сеть',
     sec_wallet: 'Запрос кошелька', wallet_placeholder: 'Адрес кошелька Base — 0x...', btn_query: 'ЗАПРОС',
-    wallet_hint: 'Мгновенно просмотрите баланс ETHIC любого кошелька Base',
-    sec_transfers: 'Переводы в реальном времени', loading_transfers: 'Загрузка недавних переводов...',
-    sec_monitor: 'Монитор сети', monitor_note: '↑ Данные в реальном времени от BaseScan API · Обновление каждые 10 секунд',
+    wallet_hint: 'Просмотрите баланс ETHIC мгновенно',
+    sec_transfers: 'Переводы в реальном времени', loading_transfers: 'Загрузка переводов...',
+    sec_monitor: 'Монитор сети', monitor_note: '↑ Данные в реальном времени от BaseScan API',
     sec_contract: 'Информация о контракте', ct_network: 'Сеть', ct_name: 'Название токена', ct_standard: 'Стандарт', ct_supply: 'Общее предложение',
     sec_features: 'Функции протокола',
-    feat1_title: 'Суверенитет данных', feat1_desc: 'Пользователи регистрируют хеш своих данных в цепи и предоставляют доступ только с явного согласия. Умный контракт DataSovereignty обеспечивает это криптографически — ни одна сторона не может получить доступ к данным без записанного разрешения в цепи.',
-    feat2_title: 'Этичный ИИ', feat2_desc: 'Каждое событие обучения ИИ регистрируется в цепи через контракт AITrainingLog — кто, какие данные, когда и зачем. Неизменяемо, публично, может быть проверено кем-либо на Sepolia Etherscan.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Построено на сети Layer 2 от Coinbase, наследуя безопасность Ethereum, супернизкие комиссии и высокую пропускную способность для глобального масштабирования.',
-    feat4_title: 'Проверенный контракт', feat4_desc: 'Исходный код полностью проверен на BaseScan. Нет скрытых функций, нет обфускации. Каждая строка кода открыта для чтения и может быть независимо проверена.',
+    feat1_title: 'Суверенитет данных', feat1_desc: 'Пользователи регистрируют хеш своих данных в цепи.',
+    feat2_title: 'Этичный ИИ', feat2_desc: 'Каждое событие обучения ИИ регистрируется в цепи.',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Построено на Layer 2 от Coinbase.',
+    feat4_title: 'Проверенный контракт', feat4_desc: 'Исходный код полностью проверен на BaseScan.',
     sec_tokenomics: 'Токеномика', tok1: 'Экосистема', tok2: 'Разработка', tok3: 'Сообщество', tok4: 'Ликвидность', tok5: 'Резерв', tok6: 'Итого · Зафиксировано',
     sec_roadmap: 'Дорожная карта', badge_live: 'Online', badge_progress: 'В процессе', badge_upcoming: 'Скоро',
-    phase1: 'Фаза I — Основа', phase1_title: 'Запуск протокола', phase1_desc: 'Токен ERC-20 развернут и проверен на Base Mainnet. Пул ликвидности Uniswap v4 создан. Код ��онтракта публично проверен на BaseScan.',
-    phase2: 'Фаза II — Видимость', phase2_title: 'Биржевые листинги и сообщество', phase2_desc: 'Листинги на CoinGecko и CoinMarketCap. Создание сообщества в Telegram и X. Стратегические партнерства с платформами данных ИИ.',
-    phase3: 'Фаза III — Инфраструктура', phase3_title: 'Уровень суверенитета данных', phase3_desc: 'Реестр согласия на данные в цепи. API интеграции для платформ обучения ИИ. Модель компенсации на основе ETHIC для участников данных.',
-    phase4: 'Фаза IV — Масштаб', phase4_title: 'Управление и экосистема', phase4_desc: 'Управление в цепи для решений протокола. Формирование DAO. Экосистемные гранты для этичных ИИ-проектов на инфраструктуре ETHIC.',
-    wp_title_main: 'ТЕХНИЧЕСКАЯ ДОКУМЕНТАЦИЯ', wp_status: 'Белая книга — Скоро', wp_desc: 'Полная техническая белая книга с описанием архитектуры суверенитета данных, модели токеномики, структуры управления и интеграции ИИ готовится к публикации.', wp_btn: '📄 ЗАПРОСИТЬ РАННИЙ ДОСТУП',
+    phase1: 'Фаза I — Основа', phase1_title: 'Запуск протокола', phase1_desc: 'Токен ERC-20 развернут.',
+    phase2: 'Фаза II — Видимость', phase2_title: 'Биржевые листинги', phase2_desc: 'Листинги на CoinGecko и CoinMarketCap.',
+    phase3: 'Фаза III — Инфраструктура', phase3_title: 'Уровень суверенитета', phase3_desc: 'Реестр согласия на данные.',
+    phase4: 'Фаза IV — Масштаб', phase4_title: 'Управление', phase4_desc: 'Управление в цепи.',
+    sec_tech_specs: 'Технические спецификации',
+    arch_label: 'Архитектура', arch_title: 'Доказательства нулевого знания', arch_desc: 'Криптография, сохраняющая конфиденциальность.',
+    governance_label: 'Модель', governance_title: 'DAO Управление', governance_desc: 'Децентрализованная автономная организация.',
+    layer_label: 'Уровень', layer_title: 'Base Layer 2', layer_desc: 'Оптимистичный рол-ап на Ethereum.',
+    wp_title_main: 'ТЕХНИЧЕСКАЯ ДОКУМЕНТАЦИЯ', wp_status: 'Белая книга — Скоро', wp_desc: 'Полная техническая белая книга готовится к публикации.', wp_btn: '📄 ЗАПРОСИТЬ РАННИЙ ДОСТУП',
     sec_community: 'Сообщество',
   },
   zh: {
     nav_protocol: '协议', nav_contract: '合约', nav_roadmap: '路线图',
     live_badge: '在线 · BASE #8453', hero_tag: '协议 v1.0 · 链 #8453 · ERC-20',
     hero_t1: '数据', hero_t2: '主权',
-    hero_sub: '为道德AI培训和数据主权构建的去中心化协议。在Base主网上部署，拥有10亿ETHIC代币。',
+    hero_sub: '为道德AI培训和数据主权构建的去中心化协议。',
     btn_explore: '探索协议', btn_buy: '购买ETHIC ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ETHIC价格', supply_label: '总供应量', network_label: '网络',
     stat_supply: '总供应量', stat_decimals: '小数位', stat_verified: '已验证', stat_network: '网络',
     sec_wallet: '钱包查询', wallet_placeholder: '输入Base钱包地址 — 0x...', btn_query: '查询',
-    wallet_hint: '立即查看任何Base钱包地址的ETHIC余额',
-    sec_transfers: '实时转账', loading_transfers: '正在加载最近的转账...',
-    sec_monitor: '链上监控', monitor_note: '↑ 来自BaseScan API的实时数据 · 每10秒更新一次',
+    wallet_hint: '立即查看ETHIC余额',
+    sec_transfers: '实时转账', loading_transfers: '正在加载转账...',
+    sec_monitor: '链上监控', monitor_note: '↑ 来自BaseScan API的实时数据',
     sec_contract: '合约信息', ct_network: '网络', ct_name: '代币名称', ct_standard: '标准', ct_supply: '总供应量',
     sec_features: '协议功能',
-    feat1_title: '数据主权', feat1_desc: '用户在链上注册其数据哈希，并仅在明确同意的情况下授予访问权限。DataSovereignty智能合约以加密方式强制执行此操作 —— 任何一方都无法在链上未记录权限的情况下访问数据。',
-    feat2_title: '道德AI', feat2_desc: '每个AI培训事件都通过AITrainingLog合约记录在链上 —— 谁使用了哪些数据、何时以及出于何种目的。不可改变、公开、可由Sepolia Etherscan上的任何人验证。',
-    feat3_title: 'Base主网', feat3_desc: '构建在Coinbase的Layer 2网络上，继承以太坊的安全性、超低交易费用和高交易吞吐量以实现全球规模。',
-    feat4_title: '已验证合约', feat4_desc: '源代码在BaseScan上完全验证。没有隐藏函数，没有混淆。每一行代码都可以公开读取和独立审计。',
+    feat1_title: '数据主权', feat1_desc: '用户在链上注册其数据哈希。',
+    feat2_title: '道德AI', feat2_desc: '每个AI培训事件都在链上记录。',
+    feat3_title: 'Base主网', feat3_desc: '构建在Coinbase的Layer 2网络上。',
+    feat4_title: '已验证合约', feat4_desc: '源代码在BaseScan上完全验证。',
     sec_tokenomics: '代币经济', tok1: '生态系统', tok2: '开发', tok3: '社区', tok4: '流动性', tok5: '储备', tok6: '总计·固定',
     sec_roadmap: '路线图', badge_live: '在线', badge_progress: '进行中', badge_upcoming: '即将推出',
-    phase1: '第一阶段 — 基础', phase1_title: '协议发布', phase1_desc: 'ERC-20代币在Base主网上部署并验证。建立了Uniswap v4流动性池。智能合约代码在BaseScan上公开验证。',
-    phase2: '第二阶段 — 可见性', phase2_title: '交易所上市与社区', phase2_desc: '在CoinGecko和CoinMarketCap上上市。在Telegram和X上建立社区。与AI数据平台的战略合作伙伴关系。',
-    phase3: '第三阶段 — 基础设施', phase3_title: '数据主权层', phase3_desc: '链上数据同意注册表。AI培训平台的集成API。数据贡献者的ETHIC支持的补偿模型。',
-    phase4: '第四阶段 — 规模化', phase4_title: '治理与生态系统', phase4_desc: '协议决策的链上治理。DAO形成。为在ETHIC基础设施上构建的道德AI项目的生态系统补助金。',
-    wp_title_main: '技术文档', wp_status: '白皮书 — 即将发布', wp_desc: '详细说明数据主权架构、代币经济模型、治理框架和AI集成的完整技术白皮书正在准备中。', wp_btn: '📄 申请早期访问',
+    phase1: '第一阶段 — 基础', phase1_title: '协议发布', phase1_desc: 'ERC-20代币已部署。',
+    phase2: '第二阶段 — 可见性', phase2_title: '交易所上市', phase2_desc: 'CoinGecko和CoinMarketCap上市。',
+    phase3: '第三阶段 — 基础设施', phase3_title: '数据主权层', phase3_desc: '链上数据同意注册表。',
+    phase4: '第四阶段 — 规模化', phase4_title: '治理', phase4_desc: '链上治理。',
+    sec_tech_specs: '技术规格',
+    arch_label: '架构', arch_title: '零知识证明', arch_desc: '隐私保护密码学。',
+    governance_label: '模型', governance_title: 'DAO治理', governance_desc: '去中心化自治组织。',
+    layer_label: '层', layer_title: 'Base Layer 2', layer_desc: '以太坊上的乐观汇总。',
+    wp_title_main: '技术文档', wp_status: '白皮书 — 即将发布', wp_desc: '完整的技术白皮书正在准备中。', wp_btn: '📄 申请早期访问',
     sec_community: '社区',
   },
   hi: {
     nav_protocol: 'प्रोटोकॉल', nav_contract: 'अनुबंध', nav_roadmap: 'रोडमैप',
     live_badge: 'ऑनलाइन · BASE #8453', hero_tag: 'प्रोटोकॉल v1.0 · चेन #8453 · ERC-20',
     hero_t1: 'डेटा', hero_t2: 'संप्रभुता',
-    hero_sub: 'नैतिक AI प्रशिक्षण और डेटा संप्रभुता के लिए निर्मित एक विकेंद्रीकृत प्रोटोकॉल। Base Mainnet पर 1 अरब ETHIC टोकन के साथ तैनात।',
+    hero_sub: 'नैतिक AI प्रशिक्षण और डेटा संप्रभुता के लिए निर्मित एक विकेंद्रीकृत प्रोटोकॉल।',
     btn_explore: 'प्रोटोकॉल का अन्वेषण करें', btn_buy: 'ETHIC खरीदें ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ETHIC मूल्य', supply_label: 'कुल आपूर्ति', network_label: 'नेटवर्क',
     stat_supply: 'कुल आपूर्ति', stat_decimals: 'दशमलव', stat_verified: 'सत्यापित', stat_network: 'नेटवर्क',
-    sec_wallet: 'वॉलेट प्रश्न', wallet_placeholder: 'Base वॉलेट पता दर्ज करें — 0x...', btn_query: 'प्रश्न',
-    wallet_hint: 'किसी भी Base वॉलेट का ETHIC बैलेंस तुरंत देखें',
-    sec_transfers: 'लाइव ट्रांसफर', loading_transfers: 'हाल के हस्तांतर लोड किए जा रहे हैं...',
-    sec_monitor: 'श्रृंखला मॉनिटर', monitor_note: '↑ BaseScan API से रीयल-टाइम डेटा · हर 10 सेकंड में अपडेट',
-    sec_contract: 'अनुबंध जानकारी', ct_network: 'नेटवर्क', ct_name: 'टोकन नाम', ct_standard: 'मानक', ct_supply: 'कुल आपूर्ति',
+    sec_wallet: 'वॉलेट प्रश्न', wallet_placeholder: 'Base वॉलेट पता — 0x...', btn_query: 'प्रश्न',
+    wallet_hint: 'ETHIC बैलेंस तुरंत देखें',
+    sec_transfers: 'लाइव ट्रांसफर', loading_transfers: 'ट्रांसफर लोड हो रहे हैं...',
+    sec_monitor: 'श्रृंखला मॉनिटर', monitor_note: '↑ BaseScan API से रीयल-टाइम डेटा',
+    sec_contract: 'अनुबंध जानकारी', ct_network: 'नेटवर्क', ct_name: 'टोकन नाम', ct_standard: '���ानक', ct_supply: 'कुल आपूर्ति',
     sec_features: 'प्रोटोकॉल विशेषताएं',
-    feat1_title: 'डेटा संप्रभुता', feat1_desc: 'उपयोगकर्ता अपने डेटा हैश को श्रृंखला पर पंजीकृत करते हैं और केवल स्पष्ट सहमति के साथ पहुंच देते हैं। DataSovereignty स्मार्ट अनुबंध इसे क्रिप्टोग्राफिक रूप से लागू करता है — कोई भी पक्ष श्रृंखला पर दर्ज अनुमति के बिना डेटा तक पहुंच नहीं सकता।',
-    feat2_title: 'नैतिक AI', feat2_desc: 'प्रत्येक AI प्रशिक्षण घटना AITrainingLog अनुबंध के माध्यम से श्रृंखला पर लॉग की जाती है — किसने कौन सा डेटा उपयोग किया, कब और क्यों। अपरिवर्तनीय, सार्वजनिक, Sepolia Etherscan पर किसी द्वारा भी सत्यापन योग्य।',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Coinbase के Layer 2 नेटवर्क पर निर्मित, Ethereum की सुरक्षा, अल्ट्रा-कम लेनदेन लागत और वैश्विक पैमाने के लिए उच्च लेनदेन थ्रूपुट को विरासत में प्राप्त करता है।',
-    feat4_title: 'सत्यापित अनुबंध', feat4_desc: 'स्रोत कोड BaseScan पर पूरी तरह सत्यापित है। कोई छिपे हुए कार्य नहीं, कोई अस्पष्टीकरण नहीं। प्रत्येक कोड पंक्ति सार्वजनिक रूप से पठनीय और स्वतंत्र रूप से ऑडिट योग्य है।',
+    feat1_title: 'डेटा संप्रभुता', feat1_desc: 'उपयोगकर्ता अपने डेटा हैश को श्रृंखला पर पंजीकृत करते हैं।',
+    feat2_title: 'नैतिक AI', feat2_desc: 'प्रत्येक AI प्रशिक्षण घटना श्रृंखला पर लॉग की जाती है।',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Coinbase के Layer 2 नेटवर्क पर निर्मित।',
+    feat4_title: 'सत्यापित अनुबंध', feat4_desc: 'स्रोत कोड BaseScan पर पूरी तरह सत्यापित।',
     sec_tokenomics: 'टोकनोमिक्स', tok1: 'पारिस्थितिकी तंत्र', tok2: 'विकास', tok3: 'समुदाय', tok4: 'तरलता', tok5: 'रिजर्व', tok6: 'कुल · निश्चित',
     sec_roadmap: 'रोडमैप', badge_live: 'ऑनलाइन', badge_progress: 'प्रगति में', badge_upcoming: 'जल्द ही आने वाली',
-    phase1: 'चरण I — नींव', phase1_title: 'प्रोटोकॉल लॉन्च', phase1_desc: 'ERC-20 टोकन Base Mainnet पर तैनात और सत्यापित। Uniswap v4 तरलता पूल स्थापित। स्मार्ट अनुबंध कोड BaseScan पर सार्वजनिक रूप से सत्यापित।',
-    phase2: 'चरण II — दृश्यता', phase2_title: 'विनिमय सूचियां और समुदाय', phase2_desc: 'CoinGecko और CoinMarketCap सूचियां। Telegram और X पर सामुदायिक निर्माण। AI डेटा प्लेटफार्म के साथ रणनीतिक साझेदारी।',
-    phase3: 'चरण III — बुनियादी ढांचा', phase3_title: 'डेटा संप्रभुता परत', phase3_desc: 'श्रृंखला पर डेटा सहमति रजिस्टर। AI प्रशिक्षण प्लेटफार्म के लिए एकीकरण API। डेटा योगदानकर्ताओं के लिए ETHIC-संचालित मुआवजा मॉडल।',
-    phase4: 'चरण IV — स्केल', phase4_title: 'शासन और पारिस्थितिकी तंत्र', phase4_desc: 'प्रोटोकॉल निर्णयों के लिए श्रृंखला पर शासन। DAO गठन। ETHIC बुनियादी ढांचे पर निर्मित नैतिक AI परियोजनाओं के लिए पारिस्थितिकी तंत्र अनुदान।',
-    wp_title_main: 'तकनीकी प्रलेखन', wp_status: 'श्वेतपत्र — जल्द ही आ रहा है', wp_desc: 'डेटा संप्रभुता आर्किटेक्चर, टोकनोमिक्स मॉडल, शासन ढांचे और AI एकीकरण का विवरण देने वाला एक पूर्ण तकनीकी श्वेतपत्र तैयार किया जा रहा है।', wp_btn: '📄 प्रारंभिक पहुंच का अनुरोध करें',
+    phase1: 'चरण I — नींव', phase1_title: 'प्रोटोकॉल लॉन्च', phase1_desc: 'ERC-20 टोकन तैनात।',
+    phase2: 'चरण II — दृश्यता', phase2_title: 'विनिमय सूचियां', phase2_desc: 'CoinGecko और CoinMarketCap सूचियां।',
+    phase3: 'चरण III — बुनियादी ढांचा', phase3_title: 'डेटा संप्रभुता परत', phase3_desc: 'श्रृंखला पर डेटा सहमति रजिस्टर।',
+    phase4: 'चरण IV — स्केल', phase4_title: 'शासन', phase4_desc: 'श्रृंखला पर शासन।',
+    sec_tech_specs: 'तकनीकी विशेषताएं',
+    arch_label: 'आर्किटेक्चर', arch_title: 'शून्य ज्ञान प्रमाण', arch_desc: 'गोपनीयता-संरक्षण क्रिप्टोग्राफी।',
+    governance_label: 'मॉडल', governance_title: 'DAO शासन', governance_desc: 'विकेंद्रीकृत स्वायत्त संगठन।',
+    layer_label: 'परत', layer_title: 'Base Layer 2', layer_desc: 'Ethereum पर आशावादी रोलअप।',
+    wp_title_main: 'तकनीकी प्रलेखन', wp_status: 'श्वेतपत्र — जल्द ही आ रहा है', wp_desc: 'पूर्ण तकनीकी श्वेतपत्र तैयारी में है।', wp_btn: '📄 प्रारंभिक पहुंच का अनुरोध करें',
     sec_community: 'समुदाय',
   },
 };
@@ -840,14 +929,14 @@ document.addEventListener('click', e => {
 });
 
 // ════════════════════════════════════════════════════════════════
-// WHITEPAPER ACCESS REQUEST
-// ═════════════════════════════════════════════════════════��══════
+// REQUEST ACCESS FUNCTION
+// ════════════════════════════════════════════════════════════════
 function requestAccess() {
   const termBody = document.getElementById('termBody');
   if (termBody) {
-    addLogLine('lp', '[' + new Date().toLocaleTimeString() + '] ✓ Whitepaper access request registered on-chain');
+    addLogLine('lp', '[' + new Date().toLocaleTimeString() + '] ✓ Whitepaper access request registered');
   }
-  alert('✓ Request registered!\nYou will be notified when the whitepaper is released.\n\n✓ İstek kaydedildi!\nTeknik doküman yayınlandığında bilgilendirileceksiniz.');
+  alert('✓ Request Registered!\nYou will be notified on-chain.\n\n✓ İstek Kaydedildi!\nBilgilendirileceksiniz.');
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -866,7 +955,7 @@ async function fetchPrice() {
       document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
     } else {
       document.getElementById('priceVal').textContent = 'Active';
-      document.getElementById('priceSub').textContent = 'Pool initialized · Awaiting price feed';
+      document.getElementById('priceSub').textContent = 'Pool initialized';
     }
   } catch(e) {
     console.warn('Price error:', e.message);
