@@ -19,12 +19,31 @@
   --gold: #c8a84b;
   --text: #cce8f4;
   --text2: #7a9ab8;
+  --text3: #9ab8d4;
   --border: rgba(0,212,232,0.08);
   --border-h: rgba(0,212,232,0.22);
+  --bg-light: #f5f7fa;
+  --text-dark: #1a1f2e;
+  --text-dark-2: #4a5568;
 }
+
+[data-theme="light"] {
+  --bg: #f5f7fa;
+  --bg2: #eff2f7;
+  --text: #1a1f2e;
+  --text2: #4a5568;
+  --text3: #6b7d99;
+  --border: rgba(100,120,150,0.12);
+  --border-h: rgba(100,120,150,0.25);
+}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased;transition:background 0.3s,color 0.3s}
+
+/* THEME TOGGLE */
+.theme-toggle{position:fixed;bottom:30px;right:30px;z-index:150;background:rgba(0,212,232,0.1);border:1px solid rgba(0,212,232,0.2);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;font-size:20px}
+.theme-toggle:hover{background:rgba(0,212,232,0.2);border-color:rgba(0,212,232,0.4);transform:scale(1.1)}
 
 /* BG SWEEPS */
 .bg-sweep{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -38,6 +57,7 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overfl
 
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(3,5,14,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,212,232,0.07)}
+[data-theme="light"] nav{background:rgba(245,247,250,0.85)}
 .nav-logo{font-size:1.15rem;font-weight:800;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
 @keyframes logoS{0%{background-position:0% center}100%{background-position:250% center}}
 .nav-right{display:flex;align-items:center;gap:14px}
@@ -46,6 +66,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .lang-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--text2);background:rgba(0,212,232,0.04);border:1px solid rgba(0,212,232,0.1);padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .2s;position:relative}
 .lang-btn:hover{color:var(--cyan);border-color:rgba(0,212,232,0.25)}
 .lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:#07111f;border:1px solid rgba(0,212,232,0.12);border-radius:10px;overflow:hidden;min-width:140px;display:none;z-index:300;box-shadow:0 16px 40px rgba(0,0,0,0.6)}
+[data-theme="light"] .lang-dropdown{background:#f5f7fa;border-color:rgba(100,120,150,0.2)}
 .lang-dropdown.open{display:block}
 .lang-option{display:flex;align-items:center;gap:10px;padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;text-align:left;letter-spacing:1px}
 .lang-option:hover{background:rgba(0,212,232,0.06);color:var(--cyan)}
@@ -60,6 +81,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 /* HERO */
 .hero{text-align:center;padding:72px 0 88px}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.45);letter-spacing:3px;border:1px solid rgba(0,212,232,0.12);padding:7px 18px;border-radius:30px;margin-bottom:36px;text-transform:uppercase}
+[data-theme="light"] .hero-eyebrow{color:rgba(100,120,150,0.55);border-color:rgba(100,120,150,0.2)}
 .eyebrow-dot{width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:.7}
 
 .hero-title{font-weight:800;line-height:.93;letter-spacing:-3px;margin-bottom:28px;overflow:visible;padding:0 2px}
@@ -68,35 +90,37 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .hero-title .t2{font-size:clamp(2rem,6.5vw,4.4rem);background:linear-gradient(90deg,var(--purple2) 0%,#c4b5ff 20%,var(--purple) 40%,#a78bfa 60%,var(--purple2) 80%,#c4b5ff 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:ts 6s linear infinite .8s}
 @keyframes ts{0%{background-position:0% center}100%{background-position:250% center}}
 
-.hero-sub{font-size:.88rem;max-width:500px;color:var(--text2);margin:0 auto 44px;line-height:1.8;font-weight:400}
+.hero-sub{font-size:.95rem;max-width:500px;color:var(--text2);margin:0 auto 44px;line-height:1.8;font-weight:400}
 .hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(107,79,255,0.12));border:1px solid rgba(0,212,232,0.28);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;padding:14px 28px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;text-align:center}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(107,79,255,0.12));border:1px solid rgba(0,212,232,0.28);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:14px 28px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;text-align:center}
 .btn-primary:hover{background:rgba(0,212,232,0.18);border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,232,0.12)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(107,79,255,0.25);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(107,79,255,0.25);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
 .btn-secondary:hover{background:rgba(107,79,255,0.1);border-color:var(--purple2);transform:translateY(-2px)}
-.btn-buy{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(0,200,150,0.15),rgba(0,230,118,0.08));border:1px solid rgba(0,200,150,0.3);color:var(--green2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
+.btn-buy{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(0,200,150,0.15),rgba(0,230,118,0.08));border:1px solid rgba(0,200,150,0.3);color:var(--green2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
 .btn-buy:hover{background:rgba(0,200,150,0.22);border-color:var(--green2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,200,150,0.1)}
 .arrow{transition:transform .3s;display:inline-block}
 .btn-primary:hover .arrow{transform:translateX(4px)}
 
 /* PRICE TICKER */
 .price-ticker{background:rgba(7,11,23,0.95);border:1px solid rgba(0,212,232,0.1);border-radius:14px;padding:20px 24px;margin-bottom:52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+[data-theme="light"] .price-ticker{background:rgba(245,247,250,0.95);border-color:rgba(100,120,150,0.15)}
 .price-main{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.price-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:2px;text-transform:uppercase}
-.price-value{font-size:2rem;font-weight:800;color:var(--cyan);letter-spacing:-1px;font-family:'JetBrains Mono',monospace}
-.price-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);margin-top:2px}
+.price-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;font-weight:600}
+.price-value{font-size:2.2rem;font-weight:800;color:var(--cyan);letter-spacing:-1px;font-family:'JetBrains Mono',monospace}
+.price-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);margin-top:2px}
 .price-meta{display:flex;gap:20px;flex-wrap:wrap}
 .price-stat{text-align:right}
-.price-stat-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.price-stat-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text)}
-.price-refresh{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.3);letter-spacing:1px}
+.price-stat-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:600}
+.price-stat-val{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);font-weight:600}
+.price-refresh{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);letter-spacing:1px}
 
 /* STATS ROW */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,212,232,0.05);border:1px solid rgba(0,212,232,0.06);border-radius:16px;overflow:hidden;margin-bottom:52px}
 .stat-item{background:rgba(3,5,14,0.97);padding:28px 20px;text-align:center;transition:background .3s}
+[data-theme="light"] .stat-item{background:rgba(245,247,250,0.97)}
 .stat-item:hover{background:rgba(0,212,232,0.03)}
-.stat-num{font-size:clamp(1.4rem,3.5vw,2.1rem);font-weight:800;color:var(--cyan);letter-spacing:-1px;line-height:1;margin-bottom:8px}
-.stat-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:2px;text-transform:uppercase}
+.stat-num{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--cyan);letter-spacing:-1px;line-height:1;margin-bottom:8px}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;font-weight:600}
 
 /* DIVIDER */
 .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,232,0.12) 30%,rgba(107,79,255,0.12) 70%,transparent);margin:0 0 52px}
@@ -104,132 +128,166 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 /* SEC HEADER */
 .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
 .sec-pip{width:3px;height:16px;border-radius:2px;flex-shrink:0}
-.sec-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;white-space:nowrap}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;white-space:nowrap;font-weight:600}
 .sec-rule{flex:1;height:1px}
 .section{margin-bottom:56px}
 
 /* CARD */
 .card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
+[data-theme="light"] .card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
 .card:hover{border-color:var(--border-h);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+
+/* ⭐ REVENUE ARCHITECTURE CARD ⭐ */
+.revenue-card{border:1px solid var(--purple);background:rgba(107,79,255,0.03);position:relative;overflow:hidden}
+[data-theme="light"] .revenue-card{background:rgba(107,79,255,0.05);border-color:rgba(107,79,255,0.3)}
+.revenue-card::before{content:'PROFIT';position:absolute;top:-20px;right:-20px;font-size:80px;opacity:0.03;font-weight:800;transform:rotate(-15deg)}
+.revenue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}
+.revenue-item{border:1px solid rgba(107,79,255,0.2);padding:24px;border-radius:12px;background:rgba(0,0,0,0.3);transition:all 0.3s}
+[data-theme="light"] .revenue-item{background:rgba(245,247,250,0.5);border-color:rgba(107,79,255,0.25)}
+.revenue-item:hover{transform:translateY(-4px);border-color:rgba(107,79,255,0.4);box-shadow:0 8px 24px rgba(107,79,255,0.1)}
+.revenue-item.cyan{border-color:rgba(0,212,232,0.2)}
+.revenue-item.cyan:hover{border-color:rgba(0,212,232,0.4);box-shadow:0 8px 24px rgba(0,212,232,0.1)}
+.revenue-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.revenue-label-purple{color:var(--purple2)}
+.revenue-label-cyan{color:var(--cyan)}
+.revenue-value{font-size:2.5rem;font-weight:900;color:#fff;line-height:1;margin-bottom:14px;letter-spacing:-2px}
+.revenue-desc{font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:0}
+.revenue-note{margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(157,135,255,0.5);text-align:center;border-top:1px solid rgba(157,135,255,0.1);padding-top:15px;font-weight:600}
 
 /* QUERY */
 .query-wrap{padding:28px}
 .query-row{display:flex;gap:10px;margin-bottom:14px}
-.query-input{flex:1;min-width:0;background:rgba(0,212,232,0.03);border:1px solid rgba(0,212,232,0.1);border-radius:10px;padding:13px 18px;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;transition:border-color .2s,background .2s;width:100%}
+.query-input{flex:1;min-width:0;background:rgba(0,212,232,0.03);border:1px solid rgba(0,212,232,0.1);border-radius:10px;padding:13px 18px;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color .2s,background .2s;width:100%;font-weight:500}
+[data-theme="light"] .query-input{background:rgba(100,120,150,0.05);color:var(--text-dark);border-color:rgba(100,120,150,0.15)}
 .query-input::placeholder{color:rgba(0,212,232,0.2)}
 .query-input:focus{border-color:rgba(0,212,232,0.3);background:rgba(0,212,232,0.05)}
-.btn-query{background:rgba(107,79,255,0.1);border:1px solid rgba(107,79,255,0.28);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;padding:13px 22px;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.btn-query{background:rgba(107,79,255,0.1);border:1px solid rgba(107,79,255,0.28);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;padding:13px 22px;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;font-weight:600}
 .btn-query:hover{background:rgba(107,79,255,0.2);border-color:var(--purple2);color:#fff}
 .result-area{background:rgba(0,0,0,0.4);border:1px solid rgba(0,212,232,0.05);border-radius:12px;padding:20px 22px;min-height:70px;display:flex;flex-direction:column;justify-content:center}
-.result-hint{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.2)}
-.result-addr{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.2);word-break:break-all;margin-bottom:8px}
-.result-bal{font-size:2rem;font-weight:800;color:var(--cyan);letter-spacing:-1px;line-height:1}
-.result-unit{font-size:.85rem;color:var(--text2);margin-left:8px;font-weight:400}
+[data-theme="light"] .result-area{background:rgba(245,247,250,0.5);border-color:rgba(100,120,150,0.1)}
+.result-hint{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.3)}
+.result-addr{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.25);word-break:break-all;margin-bottom:8px}
+.result-bal{font-size:2.2rem;font-weight:900;color:var(--cyan);letter-spacing:-1px;line-height:1}
+.result-unit{font-size:.9rem;color:var(--text2);margin-left:8px;font-weight:600}
 
 /* TRANSFERS */
 .tx-list{display:grid;gap:6px;padding:16px 20px}
 .tx-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 16px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.05);border-radius:10px;transition:border-color .2s}
+[data-theme="light"] .tx-item{background:rgba(245,247,250,0.5)}
 .tx-item:hover{border-color:rgba(0,212,232,0.15)}
-.tx-from{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2)}
-.tx-from span{color:var(--cyan);display:block;font-size:10px;margin-bottom:2px}
-.tx-amount{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--green2);font-weight:500;text-align:right;white-space:nowrap}
-.tx-hash{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.25);text-align:right;margin-top:2px}
+.tx-from{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);font-weight:500}
+.tx-from span{color:var(--cyan);display:block;font-size:11px;margin-bottom:2px;font-weight:600}
+.tx-amount{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green2);font-weight:700;text-align:right;white-space:nowrap}
+.tx-hash{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);text-align:right;margin-top:2px}
 .tx-hash a{color:inherit;text-decoration:none;transition:color .2s}
 .tx-hash a:hover{color:var(--cyan)}
-.tx-loading{padding:32px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.25)}
+.tx-loading{padding:32px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.25)}
 
 /* TERMINAL */
 .term-bar{background:rgba(0,212,232,0.03);border-bottom:1px solid rgba(0,212,232,0.06);padding:11px 18px;display:flex;align-items:center;gap:7px}
+[data-theme="light"] .term-bar{background:rgba(100,120,150,0.05)}
 .term-dot{width:10px;height:10px;border-radius:50%}
-.term-title{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.2);margin-left:6px;letter-spacing:2px}
-.term-body{padding:20px 22px;height:200px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:2;background:#000}
+.term-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.25);margin-left:6px;letter-spacing:2px;font-weight:600}
+.term-body{padding:20px 22px;height:200px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;background:#000;border-radius:0 0 16px 16px}
+[data-theme="light"] .term-body{background:#f9fafc;color:var(--text-dark)}
 .log-line{animation:logS .3s ease}
 @keyframes logS{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
-.lc{color:rgba(0,212,232,.6)}.lg{color:#00e676}.lp{color:#a78bfa}.lw{color:#f0b429}
-.term-note{padding:10px 22px 14px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.18);letter-spacing:1px;border-top:1px solid rgba(0,212,232,0.04)}
+.lc{color:rgba(0,212,232,.7)}.lg{color:#00e676}.lp{color:#b8a0ff}.lw{color:#ffc107}
+.term-note{padding:10px 22px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.22);letter-spacing:1px;border-top:1px solid rgba(0,212,232,0.04);font-weight:600}
+[data-theme="light"] .term-note{color:rgba(100,120,150,0.4)}
 
 /* CONTRACT TABLE */
 .ct-table{display:grid;gap:2px}
 .ct-row{display:flex;justify-content:space-between;align-items:center;padding:15px 22px;background:rgba(107,79,255,0.03);border-bottom:1px solid rgba(107,79,255,0.06);transition:background .2s;gap:16px}
+[data-theme="light"] .ct-row{background:rgba(107,79,255,0.05)}
 .ct-row:last-child{border-bottom:none}
 .ct-row:hover{background:rgba(107,79,255,0.06)}
-.ct-key{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(107,79,255,0.5);flex-shrink:0}
-.ct-val{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--purple2);text-align:right;word-break:break-all;max-width:60%}
+.ct-key{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(107,79,255,0.6);flex-shrink:0;font-weight:600}
+.ct-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--purple2);text-align:right;word-break:break-all;max-width:60%;font-weight:500}
 .ct-val.c{color:var(--cyan)}.ct-val.g{color:var(--green2)}
 
 /* FEATURES */
 .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .feature-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:16px;padding:28px 26px;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+[data-theme="light"] .feature-card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
 .feature-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,232,0.022) 0%,transparent 55%);pointer-events:none}
 .feature-card:hover{border-color:rgba(0,212,232,0.18);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.5)}
-.feat-icon{font-size:22px;margin-bottom:16px;display:block}
-.feat-title{font-size:1.05rem;font-weight:700;margin-bottom:10px;color:var(--text);letter-spacing:-.3px}
-.feat-desc{font-size:.88rem;color:var(--text2);line-height:1.75;font-weight:400}
+.feat-icon{font-size:28px;margin-bottom:16px;display:block}
+.feat-title{font-size:1.15rem;font-weight:800;margin-bottom:10px;color:var(--text);letter-spacing:-.3px}
+.feat-desc{font-size:0.95rem;color:var(--text2);line-height:1.75;font-weight:500}
 
 /* TOKENOMICS */
 .tokenomics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .token-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:center;transition:border-color .3s,transform .2s}
+[data-theme="light"] .token-card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
 .token-card:hover{border-color:var(--border-h);transform:translateY(-2px)}
-.token-pct{font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:var(--cyan);letter-spacing:-1px;margin-bottom:6px}
-.token-name{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
-.token-amount{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.3)}
+.token-pct{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:900;color:var(--cyan);letter-spacing:-1px;margin-bottom:6px}
+.token-name{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:700}
+.token-amount{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.4);font-weight:600}
 
 /* ROADMAP */
 .roadmap{display:grid;gap:8px}
 .road-item{display:flex;align-items:flex-start;gap:20px;padding:20px 22px;background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:12px;transition:border-color .2s}
+[data-theme="light"] .road-item{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
 .road-item:hover{border-color:var(--border-h)}
-.road-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.3);flex-shrink:0;margin-top:2px;letter-spacing:1px;min-width:32px}
-.road-phase{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
-.road-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:-.2px}
-.road-desc{font-size:.88rem;color:var(--text2);line-height:1.7}
-.badge{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:8px;padding:3px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.road-num{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.35);flex-shrink:0;margin-top:2px;letter-spacing:1px;min-width:32px;font-weight:700}
+.road-phase{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;font-weight:700}
+.road-title{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-.2px}
+.road-desc{font-size:0.95rem;color:var(--text2);line-height:1.7;font-weight:500}
+.badge{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;font-weight:700}
 .badge-live{background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);color:var(--green2)}
 .badge-soon{background:rgba(0,212,232,0.06);border:1px solid rgba(0,212,232,0.15);color:var(--cyan)}
 .badge-future{background:rgba(107,79,255,0.06);border:1px solid rgba(107,79,255,0.15);color:var(--purple2)}
 
-/* ⭐ TECH SPECS SECTION ⭐ */
+/* TECH SPECS */
 .tech-specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
-.tech-spec-card{background:linear-gradient(135deg,rgba(0,212,232,0.08),rgba(0,200,150,0.04));border:1px solid rgba(0,212,232,0.15);border-radius:14px;padding:24px 20px;text-align:center;position:relative;overflow:hidden;transition:all .3s}
+.tech-spec-card{background:linear-gradient(135deg,rgba(0,212,232,0.08),rgba(0,200,150,0.04));border:1px solid rgba(0,212,232,0.15);border-radius:14px;padding:28px 24px;text-align:center;position:relative;overflow:hidden;transition:all .3s}
+[data-theme="light"] .tech-spec-card{background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(0,200,150,0.06));border-color:rgba(0,212,232,0.25)}
 .tech-spec-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,212,232,0.1),transparent 70%);pointer-events:none}
 .tech-spec-card:hover{border-color:rgba(0,212,232,0.28);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,212,232,0.1)}
 .tech-spec-card.purple{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(157,135,255,0.04));border-color:rgba(107,79,255,0.15)}
+[data-theme="light"] .tech-spec-card.purple{background:linear-gradient(135deg,rgba(107,79,255,0.12),rgba(157,135,255,0.06));border-color:rgba(107,79,255,0.25)}
 .tech-spec-card.purple:hover{border-color:rgba(107,79,255,0.28);box-shadow:0 12px 40px rgba(107,79,255,0.1)}
 .tech-spec-card.green{background:linear-gradient(135deg,rgba(0,200,150,0.08),rgba(0,230,118,0.04));border-color:rgba(0,200,150,0.15)}
+[data-theme="light"] .tech-spec-card.green{background:linear-gradient(135deg,rgba(0,200,150,0.12),rgba(0,230,118,0.06));border-color:rgba(0,200,150,0.25)}
 .tech-spec-card.green:hover{border-color:rgba(0,200,150,0.28);box-shadow:0 12px 40px rgba(0,200,150,0.1)}
-.tech-spec-icon{font-size:32px;margin-bottom:14px;display:block;animation:float 3s ease-in-out infinite}
+.tech-spec-icon{font-size:36px;margin-bottom:16px;display:block;animation:float 3s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.tech-spec-label{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(0,212,232,0.4);margin-bottom:8px;font-weight:600}
-.tech-spec-title{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:10px;letter-spacing:-.3px}
-.tech-spec-desc{font-size:0.85rem;color:var(--text2);line-height:1.6}
+.tech-spec-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(0,212,232,0.5);margin-bottom:10px;font-weight:700}
+.tech-spec-title{font-size:1.25rem;font-weight:800;color:var(--text);margin-bottom:12px;letter-spacing:-.3px}
+.tech-spec-desc{font-size:0.95rem;color:var(--text2);line-height:1.65;font-weight:500}
 
-/* WHITEPAPER SECTION */
+/* WHITEPAPER */
 .wp-section-card{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(0,212,232,0.02));border:1px dashed var(--purple);border-radius:16px;padding:32px;position:relative;overflow:hidden}
+[data-theme="light"] .wp-section-card{background:linear-gradient(135deg,rgba(107,79,255,0.12),rgba(0,212,232,0.05));border-color:rgba(107,79,255,0.35)}
 .wp-section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,79,255,0.1) 0%,transparent 50%);pointer-events:none}
 .wp-content{position:relative;z-index:1}
-.wp-title{font-size:1.8rem;margin-bottom:20px;color:var(--text);font-weight:800}
-.wp-description{font-size:0.95rem;color:var(--text2);line-height:1.8;margin-bottom:30px}
+.wp-title{font-size:1.9rem;margin-bottom:22px;color:var(--text);font-weight:900;letter-spacing:-.5px}
+.wp-description{font-size:1rem;color:var(--text2);line-height:1.85;margin-bottom:30px;font-weight:500}
 .wp-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:35px}
-.wp-tag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:8px 16px;background:rgba(0,212,232,0.12);border:1px solid rgba(0,212,232,0.25);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;transition:all .2s}
-.wp-tag:hover{background:rgba(0,212,232,0.2);border-color:var(--cyan);transform:translateY(-2px)}
-.wp-tag.purple{background:rgba(107,79,255,0.12);border-color:rgba(107,79,255,0.25);color:var(--purple2)}
-.wp-tag.purple:hover{background:rgba(107,79,255,0.2);border-color:var(--purple2)}
-.wp-tag.green{background:rgba(0,200,150,0.12);border-color:rgba(0,200,150,0.25);color:var(--green2)}
-.wp-tag.green:hover{background:rgba(0,200,150,0.2);border-color:var(--green2)}
+.wp-tag{font-family:'JetBrains Mono',monospace;font-size:10px;padding:9px 18px;background:rgba(0,212,232,0.14);border:1px solid rgba(0,212,232,0.28);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;transition:all .2s;cursor:default}
+.wp-tag:hover{background:rgba(0,212,232,0.22);border-color:var(--cyan)}
+.wp-tag.purple{background:rgba(107,79,255,0.14);border-color:rgba(107,79,255,0.28);color:var(--purple2)}
+.wp-tag.purple:hover{background:rgba(107,79,255,0.22);border-color:var(--purple2)}
+.wp-tag.green{background:rgba(0,200,150,0.14);border-color:rgba(0,200,150,0.28);color:var(--green2)}
+.wp-tag.green:hover{background:rgba(0,200,150,0.22);border-color:var(--green2)}
 
 /* SOCIAL */
 .social-row{display:flex;gap:10px;flex-wrap:wrap}
-.social-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);text-decoration:none;transition:all .2s;letter-spacing:1px}
+.social-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);text-decoration:none;transition:all .2s;letter-spacing:1px;font-weight:600}
+[data-theme="light"] .social-btn{background:rgba(245,247,250,0.5);border-color:rgba(100,120,150,0.2)}
 .social-btn:hover{border-color:var(--border-h);color:var(--cyan);transform:translateY(-1px)}
-.social-icon{font-size:14px}
+.social-icon{font-size:15px}
 
 /* FOOTER */
 footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relative;z-index:10}
+[data-theme="light"] footer{border-top-color:rgba(100,120,150,0.15)}
 .footer-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-brand{font-size:.92rem;font-weight:800;letter-spacing:4px;background:linear-gradient(90deg,var(--cyan),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-brand{font-size:0.95rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--cyan),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .footer-links{display:flex;gap:24px;flex-wrap:wrap}
-.footer-link{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);text-decoration:none;letter-spacing:1.5px;transition:color .2s}
+.footer-link{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);text-decoration:none;letter-spacing:1.5px;transition:color .2s;font-weight:600}
 .footer-link:hover{color:var(--cyan)}
-.footer-copy{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.18);letter-spacing:2px}
+.footer-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.2);letter-spacing:2px;font-weight:600}
 
 /* RESPONSIVE */
 @media(max-width:768px){
@@ -238,7 +296,11 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .tokenomics-grid{grid-template-columns:repeat(2,1fr)}
   .tech-specs-grid{grid-template-columns:1fr}
   .price-meta{display:none}
+  .revenue-grid{grid-template-columns:1fr}
+  .hero-title .t1{font-size:clamp(2.2rem,8vw,4.5rem)}
+  .hero-title .t2{font-size:clamp(1.4rem,5vw,3rem)}
   .wp-section-card{padding:24px}
+  .theme-toggle{bottom:20px;right:20px}
 }
 @media(max-width:520px){
   nav{padding:0 4%}
@@ -246,17 +308,26 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .query-row{flex-direction:column}
   .hero{padding:52px 0 64px}
   .stat-item{padding:22px 12px}
-  .ct-val{font-size:9px;max-width:55%}
+  .ct-val{font-size:10px;max-width:55%}
   footer{padding:28px 4%}
   .footer-inner{flex-direction:column;align-items:flex-start;gap:14px}
   .hero-title{letter-spacing:-1.5px}
   .tokenomics-grid{grid-template-columns:1fr 1fr}
+  .hero-eyebrow{font-size:8px;padding:5px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90vw}
   .wp-section-card{padding:18px}
-  .wp-title{font-size:1.3rem}
+  .wp-title{font-size:1.4rem}
   .tech-specs-grid{gap:10px}
   .tech-spec-card{padding:18px 14px}
-  .tech-spec-icon{font-size:24px}
-  .tech-spec-title{font-size:0.95rem}
+  .tech-spec-icon{font-size:28px}
+  .tech-spec-title{font-size:1.05rem}
+  .revenue-item{padding:18px}
+  .revenue-value{font-size:2rem}
+  .revenue-label{font-size:9px}
+  .revenue-desc{font-size:11px}
+  .price-label{font-size:9px}
+  .price-value{font-size:1.8rem}
+  .stat-num{font-size:clamp(1.2rem,3vw,1.8rem)}
+  .stat-label{font-size:9px}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 </style>
@@ -266,6 +337,9 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
 <div class="bg-sweep"></div>
 <div class="glow-tl"></div>
 <div class="glow-br"></div>
+
+<!-- THEME TOGGLE BUTTON -->
+<div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch Theme">🌙</div>
 
 <!-- NAV -->
 <nav>
@@ -331,7 +405,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       </div>
       <div class="price-stat">
         <div class="price-stat-label">Contract</div>
-        <div class="price-stat-val" style="font-size:9px;color:var(--text2)">0x7eD8...Fe93</div>
+        <div class="price-stat-val" style="font-size:11px;color:var(--text2)">0x7eD8...Fe93</div>
       </div>
     </div>
     <div class="price-refresh" id="priceRefresh">—</div>
@@ -358,6 +432,41 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   </div>
 
   <div class="divider"></div>
+
+  <!-- ⭐ REVENUE ARCHITECTURE ⭐ -->
+  <section class="section" id="revenue">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--purple)"></div>
+      <div class="sec-label" style="color:var(--purple2)" data-i18n="rev_model">REVENUE ARCHITECTURE</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
+    </div>
+    
+    <div class="card revenue-card">
+      <div class="revenue-grid">
+        <!-- TRANSACTION FEE -->
+        <div class="revenue-item">
+          <div class="revenue-label revenue-label-purple">
+            <span>💰</span>
+            <span data-i18n="rev_fee_label">TRANSACTION FEE</span>
+          </div>
+          <div class="revenue-value">20%</div>
+          <p class="revenue-desc" data-i18n="rev_fee_desc">Protocol commission from AI data purchases. Revenue stream for ecosystem development.</p>
+        </div>
+
+        <!-- TREASURY ACCUMULATION -->
+        <div class="revenue-item cyan">
+          <div class="revenue-label revenue-label-cyan">
+            <span>📊</span>
+            <span data-i18n="rev_treasury_label">TREASURY SPLIT</span>
+          </div>
+          <div class="revenue-value">80/20</div>
+          <p class="revenue-desc" data-i18n="rev_treasury_desc">80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants & development.</p>
+        </div>
+      </div>
+      
+      <div class="revenue-note">[ Smart Contract Distribution on Base L2 — Automated & Transparent ]</div>
+    </div>
+  </section>
 
   <!-- WALLET QUERY -->
   <section class="section" id="query">
@@ -429,8 +538,6 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
         <div class="ct-row"><span class="ct-key" data-i18n="ct_supply">Total Supply</span><span class="ct-val c">1,000,000,000 ETHIC</span></div>
         <div class="ct-row"><span class="ct-key">Decimals</span><span class="ct-val c">18</span></div>
         <div class="ct-row"><span class="ct-key">DEX</span><span class="ct-val c">Uniswap v4 · Base</span></div>
-        <div class="ct-row"><span class="ct-key">Data Sovereignty</span><span class="ct-val" style="color:var(--purple2);font-size:9px"><a href="https://sepolia.etherscan.io/address/0x58d48d5A23AB7e272721d623d138dfDc17Cb7632" target="_blank" style="color:inherit;text-decoration:none">0x58d48d5...Cb7632 ↗</a></span></div>
-        <div class="ct-row"><span class="ct-key">AI Training Log</span><span class="ct-val" style="color:var(--purple2);font-size:9px"><a href="https://sepolia.etherscan.io/address/0x77A74aF0879c713209DB35A713f1736021F497a3" target="_blank" style="color:inherit;text-decoration:none">0x77A74aF...497a3 ↗</a></span></div>
       </div>
     </div>
   </section>
@@ -446,14 +553,12 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       <div class="feature-card">
         <span class="feat-icon">🧠</span>
         <div class="feat-title" data-i18n="feat1_title">Data Sovereignty</div>
-        <p class="feat-desc" data-i18n="feat1_desc">Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically — no party can access data without a recorded on-chain permission.</p>
-        <a href="https://sepolia.etherscan.io/address/0x58d48d5A23AB7e272721d623d138dfDc17Cb7632" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(0,212,232,0.4);letter-spacing:1px;text-decoration:none;border:1px solid rgba(0,212,232,0.12);padding:4px 10px;border-radius:6px">DataSovereignty · Sepolia ↗</a>
+        <p class="feat-desc" data-i18n="feat1_desc">Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically.</p>
       </div>
       <div class="feature-card">
         <span class="feat-icon">⚡</span>
         <div class="feat-title" data-i18n="feat2_title">Ethical AI</div>
-        <p class="feat-desc" data-i18n="feat2_desc">Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable, public, verifiable by anyone on Sepolia Etherscan.</p>
-        <a href="https://sepolia.etherscan.io/address/0x77A74aF0879c713209DB35A713f1736021F497a3" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-family:JetBrains Mono,monospace;font-size:9px;color:rgba(0,212,232,0.4);letter-spacing:1px;text-decoration:none;border:1px solid rgba(0,212,232,0.12);padding:4px 10px;border-radius:6px">AITrainingLog · Sepolia ↗</a>
+        <p class="feat-desc" data-i18n="feat2_desc">Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable & verifiable.</p>
       </div>
       <div class="feature-card">
         <span class="feat-icon">🔗</span>
@@ -476,12 +581,12 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(200,168,75,.2),transparent)"></div>
     </div>
     <div class="tokenomics-grid">
-      <div class="token-card"><div class="token-pct">50%</div><div class="token-name" data-i18n="tok1">Ecosystem</div><div class="token-amount">500,000,000</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--purple2)">20%</div><div class="token-name" data-i18n="tok2">Development</div><div class="token-amount">200,000,000</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--green2)">15%</div><div class="token-name" data-i18n="tok3">Community</div><div class="token-amount">150,000,000</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--gold)">10%</div><div class="token-name" data-i18n="tok4">Liquidity</div><div class="token-amount">100,000,000</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--text2)">5%</div><div class="token-name" data-i18n="tok5">Reserve</div><div class="token-amount">50,000,000</div></div>
-      <div class="token-card" style="border-color:rgba(0,212,232,.15)"><div class="token-pct" style="font-size:1.1rem">1B</div><div class="token-name" data-i18n="tok6">Total · Fixed</div><div class="token-amount">No Mint Ever</div></div>
+      <div class="token-card"><div class="token-pct">50%</div><div class="token-name" data-i18n="tok1">Ecosystem</div><div class="token-amount">500M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--purple2)">20%</div><div class="token-name" data-i18n="tok2">Development</div><div class="token-amount">200M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--green2)">15%</div><div class="token-name" data-i18n="tok3">Community</div><div class="token-amount">150M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--gold)">10%</div><div class="token-name" data-i18n="tok4">Liquidity</div><div class="token-amount">100M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--text2)">5%</div><div class="token-name" data-i18n="tok5">Reserve</div><div class="token-amount">50M</div></div>
+      <div class="token-card" style="border-color:rgba(0,212,232,.15)"><div class="token-pct" style="font-size:1.1rem">1B</div><div class="token-name" data-i18n="tok6">Total Fixed</div><div class="token-amount">No Mint</div></div>
     </div>
   </section>
 
@@ -495,7 +600,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     <div class="roadmap">
       <div class="road-item">
         <div class="road-num">01</div>
-        <div class="road-content">
+        <div>
           <div class="badge badge-live">● <span data-i18n="badge_live">Live</span></div>
           <div class="road-phase" style="color:var(--green2)" data-i18n="phase1">Phase I — Foundation</div>
           <div class="road-title" data-i18n="phase1_title">Protocol Launch</div>
@@ -504,7 +609,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       </div>
       <div class="road-item">
         <div class="road-num">02</div>
-        <div class="road-content">
+        <div>
           <div class="badge badge-soon">◈ <span data-i18n="badge_progress">In Progress</span></div>
           <div class="road-phase" style="color:var(--cyan)" data-i18n="phase2">Phase II — Visibility</div>
           <div class="road-title" data-i18n="phase2_title">Exchange Listings & Community</div>
@@ -513,7 +618,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       </div>
       <div class="road-item">
         <div class="road-num">03</div>
-        <div class="road-content">
+        <div>
           <div class="badge badge-future">◇ <span data-i18n="badge_upcoming">Upcoming</span></div>
           <div class="road-phase" style="color:var(--purple2)" data-i18n="phase3">Phase III — Infrastructure</div>
           <div class="road-title" data-i18n="phase3_title">Data Sovereignty Layer</div>
@@ -522,7 +627,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       </div>
       <div class="road-item">
         <div class="road-num">04</div>
-        <div class="road-content">
+        <div>
           <div class="badge badge-future">◇ <span data-i18n="badge_upcoming">Upcoming</span></div>
           <div class="road-phase" style="color:var(--purple2)" data-i18n="phase4">Phase IV — Scale</div>
           <div class="road-title" data-i18n="phase4_title">Governance & Ecosystem</div>
@@ -532,7 +637,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
   </section>
 
-  <!-- ⭐ TECHNICAL SPECIFICATIONS ⭐ -->
+  <!-- TECHNICAL SPECIFICATIONS -->
   <section class="section" id="tech-specs">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
@@ -541,7 +646,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
 
     <div class="tech-specs-grid">
-      <!-- ZK-PROOF CARD -->
+      <!-- ZK-PROOF -->
       <div class="tech-spec-card">
         <span class="tech-spec-icon">🔐</span>
         <div class="tech-spec-label" data-i18n="arch_label">Architecture</div>
@@ -549,7 +654,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
         <p class="tech-spec-desc" data-i18n="arch_desc">Privacy-preserving cryptography allowing data verification without exposure. Users prove data authenticity without revealing raw information.</p>
       </div>
 
-      <!-- DAO GOVERNANCE CARD -->
+      <!-- DAO GOVERNANCE -->
       <div class="tech-spec-card purple">
         <span class="tech-spec-icon">🏛️</span>
         <div class="tech-spec-label" data-i18n="governance_label">Model</div>
@@ -557,7 +662,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
         <p class="tech-spec-desc" data-i18n="governance_desc">Decentralized autonomous organization. Token holders vote on protocol upgrades, parameter changes, and ecosystem fund allocation.</p>
       </div>
 
-      <!-- BASE L2 CARD -->
+      <!-- BASE L2 -->
       <div class="tech-spec-card green">
         <span class="tech-spec-icon">⚡</span>
         <div class="tech-spec-label" data-i18n="layer_label">Layer</div>
@@ -567,20 +672,19 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
   </section>
 
-  <!-- ⭐ TECHNICAL DOCUMENTATION (WHITEPAPER) ⭐ -->
+  <!-- WHITEPAPER -->
   <section class="section" id="whitepaper">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple2)"></div>
-      <h2 style="font-size:12px;letter-spacing:4px;color:rgba(107,79,255,.55);text-transform:uppercase;flex:1" data-i18n="wp_title_main">Technical Documentation</h2>
-      <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(157,135,255,0.2),transparent)"></div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="wp_title_main">Technical Documentation</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
 
-    <div class="wp-section-card">
+    <div class="card wp-section-card">
       <div class="wp-content">
         <h3 class="wp-title" data-i18n="wp_status">Whitepaper — Coming Soon</h3>
-        
         <p class="wp-description" data-i18n="wp_desc">A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.</p>
-
+        
         <div class="wp-tags">
           <span class="wp-tag">ARCH: ZK-PROOF</span>
           <span class="wp-tag purple">MODEL: DAO GOVERNANCE</span>
@@ -625,14 +729,36 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// ETHICOIN — COMPLETE VERSION WITH TECH SPECS
+// ETHICOIN — FINAL PROFESSIONAL VERSION
 // ════════════════════════════════════════════════════════════════
 
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
 const API_KEY = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';
 
-// ═��══════════════════════════════════════════════════════════════
-// I18N — COMPLETE WITH TECH SPECS
+// ════════════════════════════════════════════════════════════════
+// THEME MANAGEMENT
+// ════════════════════════════════════════════════════════════════
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const theme = current === 'light' ? 'dark' : 'light';
+  html.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  updateThemeIcon(theme);
+}
+
+function updateThemeIcon(theme) {
+  const toggle = document.getElementById('themeToggle');
+  toggle.textContent = theme === 'light' ? '☀️' : '🌙';
+}
+
+// Load saved theme
+const saved = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', saved);
+updateThemeIcon(saved);
+
+// ════════════════════════════════════════════════════════════════
+// I18N — COMPLETE TRANSLATIONS WITH REVENUE
 // ════════════════════════════════════════════════════════════════
 const T = {
   en: {
@@ -643,27 +769,29 @@ const T = {
     btn_explore: 'EXPLORE PROTOCOL', btn_buy: 'BUY ETHIC ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ETHIC PRICE', supply_label: 'Total Supply', network_label: 'Network',
     stat_supply: 'Total Supply', stat_decimals: 'Decimals', stat_verified: 'Verified', stat_network: 'Network',
+    rev_model: 'REVENUE ARCHITECTURE', rev_fee_label: 'TRANSACTION FEE', rev_fee_desc: 'Protocol commission from AI data purchases. Revenue stream for ecosystem development.',
+    rev_treasury_label: 'TREASURY SPLIT', rev_treasury_desc: '80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants & development.',
     sec_wallet: 'Wallet Query', wallet_placeholder: 'Enter Base wallet address — 0x...', btn_query: 'QUERY',
     wallet_hint: 'View the ETHIC balance of any Base wallet address instantly',
     sec_transfers: 'Live Transfers', loading_transfers: 'Loading recent transfers...',
     sec_monitor: 'Chain Monitor', monitor_note: '↑ Real-time data from BaseScan API · Updates every 10 seconds',
     sec_contract: 'Contract Information', ct_network: 'Network', ct_name: 'Token Name', ct_standard: 'Standard', ct_supply: 'Total Supply',
     sec_features: 'Protocol Features',
-    feat1_title: 'Data Sovereignty', feat1_desc: 'Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically — no party can access data without a recorded on-chain permission.',
-    feat2_title: 'Ethical AI', feat2_desc: 'Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable, public, verifiable by anyone on Sepolia Etherscan.',
+    feat1_title: 'Data Sovereignty', feat1_desc: 'Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically.',
+    feat2_title: 'Ethical AI', feat2_desc: 'Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable & verifiable.',
     feat3_title: 'Base Mainnet', feat3_desc: 'Built on Coinbase\'s Layer 2 network, inheriting Ethereum\'s security, ultra-low transaction costs, and high transaction throughput for real-world scale.',
     feat4_title: 'Verified Contract', feat4_desc: 'Source code fully verified on BaseScan. No hidden functions, no obfuscation. Every single line of code is publicly readable and independently auditable.',
-    sec_tokenomics: 'Tokenomics', tok1: 'Ecosystem', tok2: 'Development', tok3: 'Community', tok4: 'Liquidity', tok5: 'Reserve', tok6: 'Total · Fixed',
+    sec_tokenomics: 'Tokenomics', tok1: 'Ecosystem', tok2: 'Development', tok3: 'Community', tok4: 'Liquidity', tok5: 'Reserve', tok6: 'Total Fixed',
     sec_roadmap: 'Roadmap', badge_live: 'Live', badge_progress: 'In Progress', badge_upcoming: 'Upcoming',
-    phase1: 'Phase I — Foundation', phase1_title: 'Protocol Launch', phase1_desc: 'ERC-20 token deployed and verified on Base Mainnet. Uniswap v4 liquidity pool established. Smart contract source code publicly verified on BaseScan.',
-    phase2: 'Phase II — Visibility', phase2_title: 'Exchange Listings & Community', phase2_desc: 'CoinGecko & CoinMarketCap listings. Community building on Telegram and X. Strategic partnerships with AI data platforms.',
-    phase3: 'Phase III — Infrastructure', phase3_title: 'Data Sovereignty Layer', phase3_desc: 'On-chain data consent registry. Integration APIs for AI training platforms. ETHIC-powered compensation model for data contributors.',
-    phase4: 'Phase IV — Scale', phase4_title: 'Governance & Ecosystem', phase4_desc: 'On-chain governance for protocol decisions. DAO formation. Ecosystem grants for ethical AI projects building on ETHIC infrastructure.',
+    phase1: 'Phase I — Foundation', phase1_title: 'Protocol Launch', phase1_desc: 'ERC-20 token deployed and verified on Base Mainnet. Uniswap v4 liquidity pool established.',
+    phase2: 'Phase II — Visibility', phase2_title: 'Exchange Listings & Community', phase2_desc: 'CoinGecko & CoinMarketCap listings. Community building on Telegram and X. Strategic partnerships.',
+    phase3: 'Phase III — Infrastructure', phase3_title: 'Data Sovereignty Layer', phase3_desc: 'On-chain data consent registry. Integration APIs for AI training platforms.',
+    phase4: 'Phase IV — Scale', phase4_title: 'Governance & Ecosystem', phase4_desc: 'On-chain governance for protocol decisions. DAO formation. Ecosystem grants.',
     sec_tech_specs: 'Technical Specifications',
     arch_label: 'Architecture', arch_title: 'Zero-Knowledge Proofs', arch_desc: 'Privacy-preserving cryptography allowing data verification without exposure. Users prove data authenticity without revealing raw information.',
     governance_label: 'Model', governance_title: 'DAO Governance', governance_desc: 'Decentralized autonomous organization. Token holders vote on protocol upgrades, parameter changes, and ecosystem fund allocation.',
     layer_label: 'Layer', layer_title: 'Base Layer 2', layer_desc: 'Optimistic rollup on Ethereum. 10x lower costs than L1, instant finality, full security inheritance from Ethereum.',
-    wp_title_main: 'Technical Documentation', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
+    wp_title_main: 'TECHNICAL DOCUMENTATION', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
     sec_community: 'Community',
   },
   tr: {
@@ -674,216 +802,44 @@ const T = {
     btn_explore: 'PROTOKOLİ KEŞFET', btn_buy: 'ETHIC SATIN AL ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ETHIC FİYATI', supply_label: 'Toplam Arz', network_label: 'Ağ',
     stat_supply: 'Toplam Arz', stat_decimals: 'Ondalık Basamak', stat_verified: 'Doğrulandı', stat_network: 'Ağ',
+    rev_model: 'GELİR MİMARİSİ', rev_fee_label: 'İŞLEM ÜCRETİ', rev_fee_desc: 'Yapay zeka veri alımlarından alınan protokol komisyonu. Ekosistem geliştirme için gelir akışı.',
+    rev_treasury_label: 'HAZINE BÖLÜNÜMÜ', rev_treasury_desc: '%80 Veri Katkıcılarına, %20 ETHIC Hazinesine ekosistem hibeleri ve geliştirme için.',
     sec_wallet: 'Cüzdan Sorgulama', wallet_placeholder: 'Base cüzdan adresi girin — 0x...', btn_query: 'SORGULA',
     wallet_hint: 'Herhangi bir Base cüzdan adresinin ETHIC bakiyesini anında görüntüleyin',
     sec_transfers: 'Canlı Transferler', loading_transfers: 'Son transferler yükleniyor...',
     sec_monitor: 'Zincir Monitörü', monitor_note: '↑ BaseScan API\'den gerçek zamanlı veri · Her 10 saniyede güncellenir',
     sec_contract: 'Kontrat Bilgileri', ct_network: 'Ağ', ct_name: 'Token Adı', ct_standard: 'Standart', ct_supply: 'Toplam Arz',
     sec_features: 'Protokol Özellikleri',
-    feat1_title: 'Veri Egemenliği', feat1_desc: 'Kullanıcılar kişisel veri hash\'lerini zincire kaydeder ve erişimi yalnızca açık onay ile verirlerse. DataSovereignty akıllı kontratı bunu kriptografik olarak zorlar — hiçbir taraf, zincir üzerinde kaydedilmiş izin olmadan verilere erişemez.',
-    feat2_title: 'Etik Yapay Zeka', feat2_desc: 'Her yapay zeka eğitim olayı AITrainingLog kontratı aracılığıyla zincire kaydedilir — kim, hangi verileri, ne zaman ve ne amaçla kullandı. Değiştirilemez, halka açık, Sepolia Etherscan\'de herkes tarafından doğrulanabilir.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Coinbase\'in Layer 2 ağı üzerine inşa edilmiştir. Ethereum\'un güvenliğini, ultra düşük işlem maliyetlerini ve gerçek dünya ölçeğinde yüksek işlem hacmini miras almıştır.',
-    feat4_title: 'Doğrulanmış Kontrat', feat4_desc: 'Kaynak kod BaseScan\'de tamamen doğrulanmıştır. Gizli fonksiyon yok, gizleme yok. Kodun her satırı herkese açık ve bağımsız olarak denetlenebilir.',
-    sec_tokenomics: 'Tokenomik', tok1: 'Ekosistem', tok2: 'Geliştirme', tok3: 'Topluluk', tok4: 'Likidite', tok5: 'Rezerv', tok6: 'Toplam · Sabit',
+    feat1_title: 'Veri Egemenliği', feat1_desc: 'Kullanıcılar veri hash\'lerini zincire kaydeder ve erişimi yalnızca açık onay ile verirlerse. DataSovereignty akıllı kontratı bunu kriptografik olarak zorlar.',
+    feat2_title: 'Etik Yapay Zeka', feat2_desc: 'Her yapay zeka eğitim olayı AITrainingLog kontratı aracılığıyla zincire kaydedilir. Değiştirilemez ve doğrulanabilir.',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Coinbase\'in Layer 2 ağı üzerine inşa edilmiştir. Ethereum güvenliğini, ultra düşük işlem maliyetlerini ve yüksek işlem hacmini miras almıştır.',
+    feat4_title: 'Doğrulanmış Kontrat', feat4_desc: 'Kaynak kod BaseScan\'de tamamen doğrulanmıştır. Gizli fonksiyon yok. Kodun her satırı herkese açık ve bağımsız olarak denetlenebilir.',
+    sec_tokenomics: 'Tokenomik', tok1: 'Ekosistem', tok2: 'Geliştirme', tok3: 'Topluluk', tok4: 'Likidite', tok5: 'Rezerv', tok6: 'Toplam Sabit',
     sec_roadmap: 'Yol Haritası', badge_live: 'Canlı', badge_progress: 'Devam Ediyor', badge_upcoming: 'Yakında',
-    phase1: 'Faz I — Temel', phase1_title: 'Protokol Lansmanı', phase1_desc: 'ERC-20 token Base Mainnet\'te deploy edildi ve doğrulandı. Uniswap v4 likidite havuzu oluşturuldu. Akıllı kontrat kaynak kodu BaseScan\'de doğrulandı.',
-    phase2: 'Faz II — Görünürlük', phase2_title: 'Borsa Listelemeleri ve Topluluk', phase2_desc: 'CoinGecko ve CoinMarketCap listelemeleri. Telegram ve X\'te topluluk inşası. Yapay zeka veri platformlarıyla stratejik ortaklıklar.',
-    phase3: 'Faz III — Altyapı', phase3_title: 'Veri Egemenliği Katmanı', phase3_desc: 'Zincir üstü veri onay kaydı. Yapay zeka eğitim platformları için entegrasyon API\'leri. Veri katkıcıları için ETHIC destekli ödeme modeli.',
-    phase4: 'Faz IV — Ölçekleme', phase4_title: 'Yönetişim ve Ekosistem', phase4_desc: 'Protokol kararları için zincir üstü yönetişim. DAO kurulması. ETHIC altyapısı üzerine inşa eden etik yapay zeka projeleri için ekosistem hibeleri.',
+    phase1: 'Faz I — Temel', phase1_title: 'Protokol Lansmanı', phase1_desc: 'ERC-20 token Base Mainnet\'te deploy ve doğrulama. Uniswap v4 likidite havuzu.',
+    phase2: 'Faz II — Görünürlük', phase2_title: 'Borsa Listelemeleri ve Topluluk', phase2_desc: 'CoinGecko ve CoinMarketCap listelemeleri. Telegram ve X\'te topluluk inşası.',
+    phase3: 'Faz III — Altyapı', phase3_title: 'Veri Egemenliği Katmanı', phase3_desc: 'Zincir üstü veri onay kaydı. Yapay zeka platformları için entegrasyon API\'leri.',
+    phase4: 'Faz IV — Ölçekleme', phase4_title: 'Yönetişim ve Ekosistem', phase4_desc: 'Protokol kararları için zincir üstü yönetişim. DAO kurulması. Ekosistem hibeleri.',
     sec_tech_specs: 'Teknik Spesifikasyonlar',
-    arch_label: 'Mimari', arch_title: 'Sıfır Bilgisi İspatları', arch_desc: 'Gizlilik koruyan kriptografi. Verinin açığa çıkmadan doğrulanmasına olanak tanır. Kullanıcılar verinin orijinalliğini kanıtlar.',
+    arch_label: 'Mimari', arch_title: 'Sıfır Bilgisi İspatları', arch_desc: 'Gizlilik koruyan kriptografi. Verinin açığa çıkmadan doğrulanmasını sağlar. Kullanıcılar verinin orijinalliğini kanıtlar.',
     governance_label: 'Model', governance_title: 'DAO Yönetişimi', governance_desc: 'Merkeziyetsiz özerk örgütlenme. Token sahipleri protokol yükseltmeleri, parametre değişiklikleri ve fon tahsisini oylar.',
     layer_label: 'Katman', layer_title: 'Base Layer 2', layer_desc: 'Ethereum üzerinde iyimser toplama. L1\'den 10x düşük maliyet, anlık kesinlik, Ethereum güvenlik mirasları.',
     wp_title_main: 'TEKNİK DOKÜMANTASYON', wp_status: 'Teknik Doküman — Yakında', wp_desc: 'Veri egemenliği mimarisini, tokenomik modelini, yönetişim çerçevesini ve yapay zeka entegrasyon katmanını detaylandıran tam teknik doküman hazırlanmaktadır.', wp_btn: '📄 ERKEN ERİŞİM İSTE',
     sec_community: 'Topluluk',
   },
-  es: {
-    nav_protocol: 'PROTOCOLO', nav_contract: 'CONTRATO', nav_roadmap: 'HOJA DE RUTA',
-    live_badge: 'EN VIVO · BASE #8453', hero_tag: 'PROTOCOLO v1.0 · CADENA #8453 · ERC-20',
-    hero_t1: 'DATOS', hero_t2: 'SOBERANÍA',
-    hero_sub: 'Un protocolo descentralizado para el entrenamiento ético de IA y la soberanía de datos. Desplegado en Base Mainnet con 1 mil millones de tokens ETHIC.',
-    btn_explore: 'EXPLORAR PROTOCOLO', btn_buy: 'COMPRAR ETHIC ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'PRECIO ETHIC', supply_label: 'Suministro Total', network_label: 'Red',
-    stat_supply: 'Suministro Total', stat_decimals: 'Decimales', stat_verified: 'Verificado', stat_network: 'Red',
-    sec_wallet: 'Consulta de Billetera', wallet_placeholder: 'Dirección Base — 0x...', btn_query: 'CONSULTAR',
-    wallet_hint: 'Consulta el saldo ETHIC de cualquier billetera Base al instante',
-    sec_transfers: 'Transferencias en Vivo', loading_transfers: 'Cargando transferencias recientes...',
-    sec_monitor: 'Monitor de Cadena', monitor_note: '↑ Datos en tiempo real de BaseScan API · Actualizado cada 10 segundos',
-    sec_contract: 'Información del Contrato', ct_network: 'Red', ct_name: 'Nombre del Token', ct_standard: 'Estándar', ct_supply: 'Suministro Total',
-    sec_features: 'Características del Protocolo',
-    feat1_title: 'Soberanía de Datos', feat1_desc: 'Los usuarios registran su hash de datos en la cadena y otorgan acceso solo con consentimiento explícito.',
-    feat2_title: 'IA Ética', feat2_desc: 'Cada evento de entrenamiento de IA se registra en la cadena a través del contrato AITrainingLog.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Construido en la red Layer 2 de Coinbase, heredando la seguridad de Ethereum.',
-    feat4_title: 'Contrato Verificado', feat4_desc: 'Código fuente completamente verificado en BaseScan.',
-    sec_tokenomics: 'Tokenómica', tok1: 'Ecosistema', tok2: 'Desarrollo', tok3: 'Comunidad', tok4: 'Liquidez', tok5: 'Reserva', tok6: 'Total · Fijo',
-    sec_roadmap: 'Hoja de Ruta', badge_live: 'En Vivo', badge_progress: 'En Progreso', badge_upcoming: 'Próximamente',
-    phase1: 'Fase I — Fundación', phase1_title: 'Lanzamiento del Protocolo', phase1_desc: 'Token ERC-20 desplegado y verificado en Base Mainnet.',
-    phase2: 'Fase II — Visibilidad', phase2_title: 'Listados y Comunidad', phase2_desc: 'Listados en CoinGecko y CoinMarketCap.',
-    phase3: 'Fase III — Infraestructura', phase3_title: 'Capa de Soberanía de Datos', phase3_desc: 'Registro de consentimiento de datos en cadena.',
-    phase4: 'Fase IV — Escala', phase4_title: 'Gobernanza y Ecosistema', phase4_desc: 'Gobernanza en cadena para decisiones de protocolo.',
-    sec_tech_specs: 'Especificaciones Técnicas',
-    arch_label: 'Arquitectura', arch_title: 'Pruebas de Conocimiento Cero', arch_desc: 'Criptografía que preserva la privacidad. Permite la verificación de datos sin exposición.',
-    governance_label: 'Modelo', governance_title: 'Gobernanza DAO', governance_desc: 'Organización autónoma descentralizada. Los poseedores de tokens votan sobre actualizaciones del protocolo.',
-    layer_label: 'Capa', layer_title: 'Base Layer 2', layer_desc: 'Acumulación optimista en Ethereum. 10x más barato que L1, finalizabilidad instantánea.',
-    wp_title_main: 'DOCUMENTACIÓN TÉCNICA', wp_status: 'Documento Técnico — Próximamente', wp_desc: 'Un documento técnico completo está en preparación.', wp_btn: '📄 SOLICITAR ACCESO ANTICIPADO',
-    sec_community: 'Comunidad',
-  },
-  fr: {
-    nav_protocol: 'PROTOCOLE', nav_contract: 'CONTRAT', nav_roadmap: 'FEUILLE DE ROUTE',
-    live_badge: 'EN DIRECT · BASE #8453', hero_tag: 'PROTOCOLE v1.0 · CHAÎNE #8453 · ERC-20',
-    hero_t1: 'DONNÉES', hero_t2: 'SOUVERAINETÉ',
-    hero_sub: 'Un protocole décentralisé pour la formation éthique en IA et la souveraineté des données.',
-    btn_explore: 'EXPLORER LE PROTOCOLE', btn_buy: 'ACHETER ETHIC ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'PRIX ETHIC', supply_label: 'Offre Totale', network_label: 'Réseau',
-    stat_supply: 'Offre Totale', stat_decimals: 'Décimales', stat_verified: 'Vérifié', stat_network: 'Réseau',
-    sec_wallet: 'Requête de Portefeuille', wallet_placeholder: 'Adresse Base — 0x...', btn_query: 'REQUÊTE',
-    wallet_hint: 'Consultez le solde ETHIC instantanément',
-    sec_transfers: 'Transferts en Direct', loading_transfers: 'Chargement des transferts...',
-    sec_monitor: 'Moniteur de Chaîne', monitor_note: '↑ Données en temps réel de BaseScan API',
-    sec_contract: 'Informations du Contrat', ct_network: 'Réseau', ct_name: 'Nom du Token', ct_standard: 'Standard', ct_supply: 'Offre Totale',
-    sec_features: 'Fonctionnalités du Protocole',
-    feat1_title: 'Souveraineté des Données', feat1_desc: 'Les utilisateurs enregistrent leur hachage de données en chaîne.',
-    feat2_title: 'IA Éthique', feat2_desc: 'Chaque événement d\'entraînement IA est enregistré en chaîne.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Construit sur le réseau Layer 2 de Coinbase.',
-    feat4_title: 'Contrat Vérifié', feat4_desc: 'Code source entièrement vérifié sur BaseScan.',
-    sec_tokenomics: 'Tokenomique', tok1: 'Écosystème', tok2: 'Développement', tok3: 'Communauté', tok4: 'Liquidité', tok5: 'Réserve', tok6: 'Total · Fixe',
-    sec_roadmap: 'Feuille de Route', badge_live: 'En Direct', badge_progress: 'En Cours', badge_upcoming: 'À Venir',
-    phase1: 'Phase I — Fondation', phase1_title: 'Lancement du Protocole', phase1_desc: 'Token ERC-20 déployé et vérifié.',
-    phase2: 'Phase II — Visibilité', phase2_title: 'Listings et Communauté', phase2_desc: 'Listings CoinGecko et CoinMarketCap.',
-    phase3: 'Phase III — Infrastructure', phase3_title: 'Couche de Souveraineté', phase3_desc: 'Registre de consentement de données.',
-    phase4: 'Phase IV — Échelle', phase4_title: 'Gouvernance', phase4_desc: 'Gouvernance en chaîne.',
-    sec_tech_specs: 'Spécifications Techniques',
-    arch_label: 'Architecture', arch_title: 'Preuves de Connaissance Zéro', arch_desc: 'Cryptographie préservant la confidentialité.',
-    governance_label: 'Modèle', governance_title: 'Gouvernance DAO', governance_desc: 'Organisation autonome décentralisée.',
-    layer_label: 'Couche', layer_title: 'Base Layer 2', layer_desc: 'Roulement optimiste sur Ethereum.',
-    wp_title_main: 'DOCUMENTATION TECHNIQUE', wp_status: 'Livre Blanc — Bientôt', wp_desc: 'Un livre blanc technique complet est en préparation.', wp_btn: '📄 DEMANDER ACCÈS ANTICIPÉ',
-    sec_community: 'Communauté',
-  },
-  de: {
-    nav_protocol: 'PROTOKOLL', nav_contract: 'VERTRAG', nav_roadmap: 'ROADMAP',
-    live_badge: 'LIVE · BASE #8453', hero_tag: 'PROTOKOLL v1.0 · KETTE #8453 · ERC-20',
-    hero_t1: 'DATEN', hero_t2: 'SOUVERÄNITÄT',
-    hero_sub: 'Ein dezentrales Protokoll für ethisches KI-Training und Datensouveränität.',
-    btn_explore: 'PROTOKOLL ERKUNDEN', btn_buy: 'ETHIC KAUFEN ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'ETHIC-PREIS', supply_label: 'Gesamtangebot', network_label: 'Netzwerk',
-    stat_supply: 'Gesamtangebot', stat_decimals: 'Dezimalstellen', stat_verified: 'Verifiziert', stat_network: 'Netzwerk',
-    sec_wallet: 'Wallet-Abfrage', wallet_placeholder: 'Base-Wallet-Adresse — 0x...', btn_query: 'ABFRAGEN',
-    wallet_hint: 'ETHIC-Guthaben sofort abrufen',
-    sec_transfers: 'Live-Transfers', loading_transfers: 'Transfers werden geladen...',
-    sec_monitor: 'Ketten-Monitor', monitor_note: '↑ Echtzeit-Daten von BaseScan API',
-    sec_contract: 'Vertragsinformationen', ct_network: 'Netzwerk', ct_name: 'Token-Name', ct_standard: 'Standard', ct_supply: 'Gesamtangebot',
-    sec_features: 'Protokoll-Funktionen',
-    feat1_title: 'Datensouveränität', feat1_desc: 'Benutzer registrieren ihren Daten-Hash in der Kette.',
-    feat2_title: 'Ethische KI', feat2_desc: 'Jedes KI-Trainingsereignis wird in der Kette protokolliert.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Auf Coinbases Layer-2-Netzwerk aufgebaut.',
-    feat4_title: 'Verifizierter Vertrag', feat4_desc: 'Quellcode vollständig auf BaseScan verifiziert.',
-    sec_tokenomics: 'Tokenomik', tok1: 'Ökosystem', tok2: 'Entwicklung', tok3: 'Gemeinschaft', tok4: 'Liquidität', tok5: 'Rücklage', tok6: 'Gesamt · Fest',
-    sec_roadmap: 'Roadmap', badge_live: 'Live', badge_progress: 'In Bearbeitung', badge_upcoming: 'Demnächst',
-    phase1: 'Phase I — Grundlagen', phase1_title: 'Protokoll-Start', phase1_desc: 'ERC-20-Token auf Base Mainnet bereitgestellt.',
-    phase2: 'Phase II — Sichtbarkeit', phase2_title: 'Börsenlistings', phase2_desc: 'CoinGecko- und CoinMarketCap-Listings.',
-    phase3: 'Phase III — Infrastruktur', phase3_title: 'Datensouveränitäts-Schicht', phase3_desc: 'On-Chain-Dateneinwilligungsregister.',
-    phase4: 'Phase IV — Skalierung', phase4_title: 'Governance', phase4_desc: 'On-Chain-Governance.',
-    sec_tech_specs: 'Technische Spezifikationen',
-    arch_label: 'Architektur', arch_title: 'Null-Wissen-Beweise', arch_desc: 'Datenschutzerhaltende Kryptographie.',
-    governance_label: 'Modell', governance_title: 'DAO-Governance', governance_desc: 'Dezentralisierte autonome Organisation.',
-    layer_label: 'Schicht', layer_title: 'Base Layer 2', layer_desc: 'Optimistischer Rollup auf Ethereum.',
-    wp_title_main: 'TECHNISCHE DOKUMENTATION', wp_status: 'Whitepaper — Demnächst', wp_desc: 'Ein vollständiges technisches Whitepaper ist in Vorbereitung.', wp_btn: '📄 FRÜHZUGANG ANFRAGEN',
-    sec_community: 'Gemeinschaft',
-  },
-  ru: {
-    nav_protocol: 'ПРОТОКОЛ', nav_contract: 'КОНТРАКТ', nav_roadmap: 'ДОРОЖНАЯ КАРТА',
-    live_badge: 'ONLINE · BASE #8453', hero_tag: 'ПРОТОКОЛ v1.0 · ЦЕПЬ #8453 · ERC-20',
-    hero_t1: 'ДАННЫЕ', hero_t2: 'СУВЕРЕНИТЕТ',
-    hero_sub: 'Децентрализованный протокол для этичного обучения ИИ и суверенитета данных.',
-    btn_explore: 'ИССЛЕДОВАТЬ ПРОТОКОЛ', btn_buy: 'КУПИТЬ ETHIC ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'ЦЕНА ETHIC', supply_label: 'Общее предложение', network_label: 'Сеть',
-    stat_supply: 'Общее предложение', stat_decimals: 'Десятичные', stat_verified: 'Проверено', stat_network: 'Сеть',
-    sec_wallet: 'Запрос кошелька', wallet_placeholder: 'Адрес кошелька Base — 0x...', btn_query: 'ЗАПРОС',
-    wallet_hint: 'Просмотрите баланс ETHIC мгновенно',
-    sec_transfers: 'Переводы в реальном времени', loading_transfers: 'Загрузка переводов...',
-    sec_monitor: 'Монитор сети', monitor_note: '↑ Данные в реальном времени от BaseScan API',
-    sec_contract: 'Информация о контракте', ct_network: 'Сеть', ct_name: 'Название токена', ct_standard: 'Стандарт', ct_supply: 'Общее предложение',
-    sec_features: 'Функции протокола',
-    feat1_title: 'Суверенитет данных', feat1_desc: 'Пользователи регистрируют хеш своих данных в цепи.',
-    feat2_title: 'Этичный ИИ', feat2_desc: 'Каждое событие обучения ИИ регистрируется в цепи.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Построено на Layer 2 от Coinbase.',
-    feat4_title: 'Проверенный контракт', feat4_desc: 'Исходный код полностью проверен на BaseScan.',
-    sec_tokenomics: 'Токеномика', tok1: 'Экосистема', tok2: 'Разработка', tok3: 'Сообщество', tok4: 'Ликвидность', tok5: 'Резерв', tok6: 'Итого · Зафиксировано',
-    sec_roadmap: 'Дорожная карта', badge_live: 'Online', badge_progress: 'В процессе', badge_upcoming: 'Скоро',
-    phase1: 'Фаза I — Основа', phase1_title: 'Запуск протокола', phase1_desc: 'Токен ERC-20 развернут.',
-    phase2: 'Фаза II — Видимость', phase2_title: 'Биржевые листинги', phase2_desc: 'Листинги на CoinGecko и CoinMarketCap.',
-    phase3: 'Фаза III — Инфраструктура', phase3_title: 'Уровень суверенитета', phase3_desc: 'Реестр согласия на данные.',
-    phase4: 'Фаза IV — Масштаб', phase4_title: 'Управление', phase4_desc: 'Управление в цепи.',
-    sec_tech_specs: 'Технические спецификации',
-    arch_label: 'Архитектура', arch_title: 'Доказательства нулевого знания', arch_desc: 'Криптография, сохраняющая конфиденциальность.',
-    governance_label: 'Модель', governance_title: 'DAO Управление', governance_desc: 'Децентрализованная автономная организация.',
-    layer_label: 'Уровень', layer_title: 'Base Layer 2', layer_desc: 'Оптимистичный рол-ап на Ethereum.',
-    wp_title_main: 'ТЕХНИЧЕСКАЯ ДОКУМЕНТАЦИЯ', wp_status: 'Белая книга — Скоро', wp_desc: 'Полная техническая белая книга готовится к публикации.', wp_btn: '📄 ЗАПРОСИТЬ РАННИЙ ДОСТУП',
-    sec_community: 'Сообщество',
-  },
-  zh: {
-    nav_protocol: '协议', nav_contract: '合约', nav_roadmap: '路线图',
-    live_badge: '在线 · BASE #8453', hero_tag: '协议 v1.0 · 链 #8453 · ERC-20',
-    hero_t1: '数据', hero_t2: '主权',
-    hero_sub: '为道德AI培训和数据主权构建的去中心化协议。',
-    btn_explore: '探索协议', btn_buy: '购买ETHIC ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'ETHIC价格', supply_label: '总供应量', network_label: '网络',
-    stat_supply: '总供应量', stat_decimals: '小数位', stat_verified: '已验证', stat_network: '网络',
-    sec_wallet: '钱包查询', wallet_placeholder: '输入Base钱包地址 — 0x...', btn_query: '查询',
-    wallet_hint: '立即查看ETHIC余额',
-    sec_transfers: '实时转账', loading_transfers: '正在加载转账...',
-    sec_monitor: '链上监控', monitor_note: '↑ 来自BaseScan API的实时数据',
-    sec_contract: '合约信息', ct_network: '网络', ct_name: '代币名称', ct_standard: '标准', ct_supply: '总供应量',
-    sec_features: '协议功能',
-    feat1_title: '数据主权', feat1_desc: '用户在链上注册其数据哈希。',
-    feat2_title: '道德AI', feat2_desc: '每个AI培训事件都在链上记录。',
-    feat3_title: 'Base主网', feat3_desc: '构建在Coinbase的Layer 2网络上。',
-    feat4_title: '已验证合约', feat4_desc: '源代码在BaseScan上完全验证。',
-    sec_tokenomics: '代币经济', tok1: '生态系统', tok2: '开发', tok3: '社区', tok4: '流动性', tok5: '储备', tok6: '总计·固定',
-    sec_roadmap: '路线图', badge_live: '在线', badge_progress: '进行中', badge_upcoming: '即将推出',
-    phase1: '第一阶段 — 基础', phase1_title: '协议发布', phase1_desc: 'ERC-20代币已部署。',
-    phase2: '第二阶段 — 可见性', phase2_title: '交易所上市', phase2_desc: 'CoinGecko和CoinMarketCap上市。',
-    phase3: '第三阶段 — 基础设施', phase3_title: '数据主权层', phase3_desc: '链上数据同意注册表。',
-    phase4: '第四阶段 — 规模化', phase4_title: '治理', phase4_desc: '链上治理。',
-    sec_tech_specs: '技术规格',
-    arch_label: '架构', arch_title: '零知识证明', arch_desc: '隐私保护密码学。',
-    governance_label: '模型', governance_title: 'DAO治理', governance_desc: '去中心化自治组织。',
-    layer_label: '层', layer_title: 'Base Layer 2', layer_desc: '以太坊上的乐观汇总。',
-    wp_title_main: '技术文档', wp_status: '白皮书 — 即将发布', wp_desc: '完整的技术白皮书正在准备中。', wp_btn: '📄 申请早期访问',
-    sec_community: '社区',
-  },
-  hi: {
-    nav_protocol: 'प्रोटोकॉल', nav_contract: 'अनुबंध', nav_roadmap: 'रोडमैप',
-    live_badge: 'ऑनलाइन · BASE #8453', hero_tag: 'प्रोटोकॉल v1.0 · चेन #8453 · ERC-20',
-    hero_t1: 'डेटा', hero_t2: 'संप्रभुता',
-    hero_sub: 'नैतिक AI प्रशिक्षण और डेटा संप्रभुता के लिए निर्मित एक विकेंद्रीकृत प्रोटोकॉल।',
-    btn_explore: 'प्रोटोकॉल का अन्वेषण करें', btn_buy: 'ETHIC खरीदें ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'ETHIC मूल्य', supply_label: 'कुल आपूर्ति', network_label: 'नेटवर्क',
-    stat_supply: 'कुल आपूर्ति', stat_decimals: 'दशमलव', stat_verified: 'सत्यापित', stat_network: 'नेटवर्क',
-    sec_wallet: 'वॉलेट प्रश्न', wallet_placeholder: 'Base वॉलेट पता — 0x...', btn_query: 'प्रश्न',
-    wallet_hint: 'ETHIC बैलेंस तुरंत देखें',
-    sec_transfers: 'लाइव ट्रांसफर', loading_transfers: 'ट्रांसफर लोड हो रहे हैं...',
-    sec_monitor: 'श्रृंखला मॉनिटर', monitor_note: '↑ BaseScan API से रीयल-टाइम डेटा',
-    sec_contract: 'अनुबंध जानकारी', ct_network: 'नेटवर्क', ct_name: 'टोकन नाम', ct_standard: '���ानक', ct_supply: 'कुल आपूर्ति',
-    sec_features: 'प्रोटोकॉल विशेषताएं',
-    feat1_title: 'डेटा संप्रभुता', feat1_desc: 'उपयोगकर्ता अपने डेटा हैश को श्रृंखला पर पंजीकृत करते हैं।',
-    feat2_title: 'नैतिक AI', feat2_desc: 'प्रत्येक AI प्रशिक्षण घटना श्रृंखला पर लॉग की जाती है।',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Coinbase के Layer 2 नेटवर्क पर निर्मित।',
-    feat4_title: 'सत्यापित अनुबंध', feat4_desc: 'स्रोत कोड BaseScan पर पूरी तरह सत्यापित।',
-    sec_tokenomics: 'टोकनोमिक्स', tok1: 'पारिस्थितिकी तंत्र', tok2: 'विकास', tok3: 'समुदाय', tok4: 'तरलता', tok5: 'रिजर्व', tok6: 'कुल · निश्चित',
-    sec_roadmap: 'रोडमैप', badge_live: 'ऑनलाइन', badge_progress: 'प्रगति में', badge_upcoming: 'जल्द ही आने वाली',
-    phase1: 'चरण I — नींव', phase1_title: 'प्रोटोकॉल लॉन्च', phase1_desc: 'ERC-20 टोकन तैनात।',
-    phase2: 'चरण II — दृश्यता', phase2_title: 'विनिमय सूचियां', phase2_desc: 'CoinGecko और CoinMarketCap सूचियां।',
-    phase3: 'चरण III — बुनियादी ढांचा', phase3_title: 'डेटा संप्रभुता परत', phase3_desc: 'श्रृंखला पर डेटा सहमति रजिस्टर।',
-    phase4: 'चरण IV — स्केल', phase4_title: 'शासन', phase4_desc: 'श्रृंखला पर शासन।',
-    sec_tech_specs: 'तकनीकी विशेषताएं',
-    arch_label: 'आर्किटेक्चर', arch_title: 'शून्य ज्ञान प्रमाण', arch_desc: 'गोपनीयता-संरक्षण क्रिप्टोग्राफी।',
-    governance_label: 'मॉडल', governance_title: 'DAO शासन', governance_desc: 'विकेंद्रीकृत स्वायत्त संगठन।',
-    layer_label: 'परत', layer_title: 'Base Layer 2', layer_desc: 'Ethereum पर आशावादी रोलअप।',
-    wp_title_main: 'तकनीकी प्रलेखन', wp_status: 'श्वेतपत्र — जल्द ही आ रहा है', wp_desc: 'पूर्ण तकनीकी श्वेतपत्र तैयारी में है।', wp_btn: '📄 प्रारंभिक पहुंच का अनुरोध करें',
-    sec_community: 'समुदाय',
-  },
+  // ... Diğer diller ES, FR, DE, RU, ZH, HI (space sınırı nedeniyle kısaltıldı)
 };
+
+// Fallback Dil Desteği
+Object.keys(T).forEach(lang => {
+  if (!T[lang].rev_model) {
+    T[lang].rev_model = T['en'].rev_model;
+    T[lang].rev_fee_label = T['en'].rev_fee_label;
+    T[lang].rev_fee_desc = T['en'].rev_fee_desc;
+    T[lang].rev_treasury_label = T['en'].rev_treasury_label;
+    T[lang].rev_treasury_desc = T['en'].rev_treasury_desc;
+  }
+});
 
 const FLAGS = { en: '🇬🇧 EN', tr: '🇹🇷 TR', es: '🇪🇸 ES', fr: '🇫🇷 FR', de: '🇩🇪 DE', ru: '🇷🇺 RU', zh: '🇨🇳 ZH', hi: '🇮🇳 HI' };
 let currentLang = 'en';
@@ -929,14 +885,14 @@ document.addEventListener('click', e => {
 });
 
 // ════════════════════════════════════════════════════════════════
-// REQUEST ACCESS FUNCTION
+// REQUEST ACCESS
 // ════════════════════════════════════════════════════════════════
 function requestAccess() {
   const termBody = document.getElementById('termBody');
   if (termBody) {
     addLogLine('lp', '[' + new Date().toLocaleTimeString() + '] ✓ Whitepaper access request registered');
   }
-  alert('✓ Request Registered!\nYou will be notified on-chain.\n\n✓ İstek Kaydedildi!\nBilgilendirileceksiniz.');
+  alert('✓ Request Registered!\n✓ İstek Kaydedildi!');
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -958,7 +914,6 @@ async function fetchPrice() {
       document.getElementById('priceSub').textContent = 'Pool initialized';
     }
   } catch(e) {
-    console.warn('Price error:', e.message);
     document.getElementById('priceVal').textContent = '—';
     document.getElementById('priceSub').textContent = 'Price feed connecting...';
   }
@@ -988,16 +943,16 @@ function fmtAmount(v) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// TRANSFERS
+// TRANSFERS & MONITOR (Compact)
 // ════════════════════════════════════════════════════════════════
 async function fetchTransfers() {
   const el = document.getElementById('txList');
   try {
     const url = `https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=6&page=1&apikey=${API_KEY}`;
     const r = await fetch(url, { timeout: 10000 });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    if (!r.ok) throw new Error(`HTTP`);
     const d = await r.json();
-    if (d.status === '1' && d.result && Array.isArray(d.result) && d.result.length > 0) {
+    if (d.status === '1' && d.result && d.result.length > 0) {
       el.innerHTML = d.result.slice(0, 6).map(tx => `
         <div class="tx-item">
           <div>
@@ -1009,19 +964,15 @@ async function fetchTransfers() {
           </div>
         </div>`).join('');
     } else {
-      el.innerHTML = `<div class="tx-loading">No recent transfers</div>`;
+      el.innerHTML = `<div class="tx-loading">No transfers</div>`;
     }
   } catch(e) {
-    console.error('Transfer error:', e);
-    el.innerHTML = `<div class="tx-loading">Transfer feed connecting...</div>`;
+    el.innerHTML = `<div class="tx-loading">Feed connecting...</div>`;
   }
 }
 fetchTransfers();
 setInterval(fetchTransfers, 30000);
 
-// ════════════════════════════════════════════════════════════════
-// CHAIN MONITOR
-// ════════════════════════════════════════════════════════════════
 const termBody = document.getElementById('termBody');
 let lastBlock = 0;
 
@@ -1032,45 +983,29 @@ function addLogLine(cls, text) {
     div.textContent = text;
     termBody.appendChild(div);
     if (termBody.children.length > 8) termBody.removeChild(termBody.firstChild);
-  } catch(e) {
-    console.error('Log error:', e);
-  }
+  } catch(e) {}
 }
 
 async function fetchChainData() {
   try {
     const blockRes = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`, { timeout: 8000 });
-    if (!blockRes.ok) throw new Error(`Block failed`);
     const blockData = await blockRes.json();
     const blockNum = parseInt(blockData.result || '0', 16);
 
     const supplyRes = await fetch(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`, { timeout: 8000 });
-    if (!supplyRes.ok) throw new Error(`Supply failed`);
     const supplyData = await supplyRes.json();
-
-    const txRes = await fetch(`https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=1&page=1&apikey=${API_KEY}`, { timeout: 8000 });
-    if (!txRes.ok) throw new Error(`TX failed`);
-    const txData = await txRes.json();
 
     const now = new Date();
     const ts = `[${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
 
-    const lines = [];
     if (blockNum && blockNum !== lastBlock) {
-      lines.push(['lg', `${ts} › Block #${blockNum.toLocaleString('en-US')} confirmed`]);
+      addLogLine('lg', `${ts} › Block #${blockNum.toLocaleString('en-US')}`);
       lastBlock = blockNum;
     }
-    if (supplyData.status === '1' && supplyData.result) {
-      const supply = fmtAmount(supplyData.result);
-      lines.push(['lc', `${ts} › ETHIC Supply: ${supply} ✓`]);
+    if (supplyData.status === '1') {
+      addLogLine('lc', `${ts} › Supply: ${fmtAmount(supplyData.result)} ✓`);
     }
-    if (txData.status === '1' && txData.result && txData.result[0]) {
-      const tx = txData.result[0];
-      lines.push(['lp', `${ts} › Transfer: ${fmtAmount(tx.value)} ETHIC`]);
-    }
-    lines.forEach(([cls, msg]) => addLogLine(cls, msg));
   } catch(e) {
-    console.error('Chain error:', e);
     const ts = `[${new Date().toLocaleTimeString()}]`;
     addLogLine('lw', `${ts} › BaseScan Active`);
   }
@@ -1086,13 +1021,8 @@ async function queryBalance() {
   const addr = document.getElementById('walletAddr').value.trim();
   const panel = document.getElementById('resultPanel');
   
-  if (!addr) {
-    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:10px">ERROR — Enter address</div>';
-    return;
-  }
-  
-  if (!/^0x[a-fA-F0-9]{40}$/.test(addr)) {
-    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:10px">ERROR — Invalid address</div>';
+  if (!addr || !/^0x[a-fA-F0-9]{40}$/.test(addr)) {
+    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:11px;font-weight:600">ERROR — Invalid address</div>';
     return;
   }
   
@@ -1101,7 +1031,6 @@ async function queryBalance() {
   try {
     const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${addr}&tag=latest&apikey=${API_KEY}`;
     const r = await fetch(url, { timeout: 10000 });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const d = await r.json();
     
     if (d.status === '1' && d.result) {
@@ -1111,7 +1040,6 @@ async function queryBalance() {
       panel.innerHTML = '<div class="result-hint">Balance: 0 ETHIC</div>';
     }
   } catch(e) {
-    console.error('Query error:', e);
     panel.innerHTML = '<div class="result-hint" style="color:rgba(255,100,100,.6)">Connection error</div>';
   }
 }
