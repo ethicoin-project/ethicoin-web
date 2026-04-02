@@ -68,10 +68,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .hero-title .t2{font-size:clamp(2rem,6.5vw,4.4rem);background:linear-gradient(90deg,var(--purple2) 0%,#c4b5ff 20%,var(--purple) 40%,#a78bfa 60%,var(--purple2) 80%,#c4b5ff 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:ts 6s linear infinite .8s}
 @keyframes ts{0%{background-position:0% center}100%{background-position:250% center}}
 
-/* TYPOGRAPHY HIERARCHY — paragraphs: 0.88rem standard */
 .hero-sub{font-size:.88rem;max-width:500px;color:var(--text2);margin:0 auto 44px;line-height:1.8;font-weight:400}
 .hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(107,79,255,0.12));border:1px solid rgba(0,212,232,0.28);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;padding:14px 28px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(107,79,255,0.12));border:1px solid rgba(0,212,232,0.28);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;padding:14px 28px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;text-align:center}
 .btn-primary:hover{background:rgba(0,212,232,0.18);border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,232,0.12)}
 .btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(107,79,255,0.25);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
 .btn-secondary:hover{background:rgba(107,79,255,0.1);border-color:var(--purple2);transform:translateY(-2px)}
@@ -188,12 +187,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .badge-soon{background:rgba(0,212,232,0.06);border:1px solid rgba(0,212,232,0.15);color:var(--cyan)}
 .badge-future{background:rgba(107,79,255,0.06);border:1px solid rgba(107,79,255,0.15);color:var(--purple2)}
 
-/* WHITEPAPER CTA */
-.wp-card{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(0,212,232,0.05));border:1px solid rgba(107,79,255,0.2);border-radius:16px;padding:36px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-.wp-text h3{font-size:1.2rem;font-weight:700;margin-bottom:8px;color:var(--text)}
-.wp-text p{font-size:.88rem;color:var(--text2);line-height:1.7;max-width:400px}
-.btn-wp{display:inline-flex;align-items:center;gap:10px;background:rgba(107,79,255,0.15);border:1px solid rgba(107,79,255,0.3);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;padding:14px 26px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
-.btn-wp:hover{background:rgba(107,79,255,0.25);border-color:var(--purple2);transform:translateY(-2px)}
+/* WHITEPAPER SECTION */
+.wp-section-card{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(0,212,232,0.02));border:1px dashed var(--purple);border-radius:16px;padding:32px;position:relative;overflow:hidden}
+.wp-section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,79,255,0.1) 0%,transparent 50%);pointer-events:none}
+.wp-content{position:relative;z-index:1}
+.wp-title{font-size:1.8rem;margin-bottom:20px;color:var(--text);font-weight:800}
+.wp-description{font-size:0.95rem;color:var(--text2);line-height:1.8;margin-bottom:30px}
+.wp-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:35px}
+.wp-tag{font-family:'JetBrains Mono',monospace;font-size:9px;padding:7px 14px;background:rgba(0,212,232,0.1);border:1px solid rgba(0,212,232,0.2);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1px}
+.wp-tag.purple{background:rgba(107,79,255,0.1);border-color:rgba(107,79,255,0.2);color:var(--purple2)}
+.wp-tag.green{background:rgba(0,200,150,0.1);border-color:rgba(0,200,150,0.2);color:var(--green2)}
 
 /* SOCIAL */
 .social-row{display:flex;gap:10px;flex-wrap:wrap}
@@ -216,7 +219,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .feature-grid{grid-template-columns:1fr}
   .tokenomics-grid{grid-template-columns:repeat(2,1fr)}
   .price-meta{display:none}
-  .wp-card{flex-direction:column}
+  .wp-section-card{padding:24px}
 }
 @media(max-width:520px){
   nav{padding:0 4%}
@@ -229,6 +232,8 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .footer-inner{flex-direction:column;align-items:flex-start;gap:14px}
   .hero-title{letter-spacing:-1.5px}
   .tokenomics-grid{grid-template-columns:1fr 1fr}
+  .wp-section-card{padding:18px}
+  .wp-title{font-size:1.3rem}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 </style>
@@ -365,7 +370,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
   </section>
 
-  <!-- NEURAL MONITOR — REAL CHAIN DATA -->
+  <!-- CHAIN MONITOR -->
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
@@ -504,14 +509,28 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
   </section>
 
-  <!-- WHITEPAPER -->
-  <section class="section">
-    <div class="wp-card">
-      <div class="wp-text">
-        <h3 data-i18n="wp_title">Whitepaper — Coming Soon</h3>
-        <p data-i18n="wp_desc">A full technical whitepaper detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.</p>
+  <!-- ⭐ TECHNICAL DOCUMENTATION (WHITEPAPER) ⭐ -->
+  <section class="section" id="whitepaper">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--purple2)"></div>
+      <h2 style="font-size:12px;letter-spacing:4px;color:rgba(107,79,255,.55);text-transform:uppercase;flex:1" data-i18n="wp_title_main">Technical Documentation</h2>
+      <div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(157,135,255,0.2),transparent)"></div>
+    </div>
+
+    <div class="wp-section-card">
+      <div class="wp-content">
+        <h3 class="wp-title" data-i18n="wp_status">Whitepaper — Coming Soon</h3>
+        
+        <p class="wp-description" data-i18n="wp_desc">A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.</p>
+
+        <div class="wp-tags">
+          <span class="wp-tag">ARCH: ZK-PROOF</span>
+          <span class="wp-tag purple">MODEL: DAO GOVERNANCE</span>
+          <span class="wp-tag green">LAYER: BASE L2</span>
+        </div>
+
+        <button class="btn-primary" onclick="requestAccess()" data-i18n="wp_btn">📄 REQUEST EARLY ACCESS</button>
       </div>
-      <a href="mailto:team@ethicoin.io" class="btn-wp" data-i18n="wp_btn">📄 REQUEST EARLY ACCESS</a>
     </div>
   </section>
 
@@ -548,15 +567,15 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// ETHICOIN — COMPLETE FIXED & ERROR-HANDLED VERSION
+// ETHICOIN — COMPLETE VERSION WITH WHITEPAPER
 // ════════════════════════════════════════════════════════════════
 
 // CONFIG
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
 const API_KEY = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';
 
-// ═════════════════════════════════════════════════════════��══════
-// I18N — COMPLETE TRANSLATIONS (ALL 8 LANGUAGES)
+// ════════════════════════════════════════════════════════════════
+// I18N — COMPLETE TRANSLATIONS WITH WHITEPAPER
 // ════════════════════════════════════════════════════════════════
 const T = {
   en: {
@@ -583,7 +602,7 @@ const T = {
     phase2: 'Phase II — Visibility', phase2_title: 'Exchange Listings & Community', phase2_desc: 'CoinGecko & CoinMarketCap listings. Community building on Telegram and X. Strategic partnerships with AI data platforms.',
     phase3: 'Phase III — Infrastructure', phase3_title: 'Data Sovereignty Layer', phase3_desc: 'On-chain data consent registry. Integration APIs for AI training platforms. ETHIC-powered compensation model for data contributors.',
     phase4: 'Phase IV — Scale', phase4_title: 'Governance & Ecosystem', phase4_desc: 'On-chain governance for protocol decisions. DAO formation. Ecosystem grants for ethical AI projects building on ETHIC infrastructure.',
-    wp_title: 'Whitepaper — Coming Soon', wp_desc: 'A full technical whitepaper detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
+    wp_title_main: 'TECHNICAL DOCUMENTATION', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
     sec_community: 'Community',
   },
   tr: {
@@ -607,10 +626,10 @@ const T = {
     sec_tokenomics: 'Tokenomik', tok1: 'Ekosistem', tok2: 'Geliştirme', tok3: 'Topluluk', tok4: 'Likidite', tok5: 'Rezerv', tok6: 'Toplam · Sabit',
     sec_roadmap: 'Yol Haritası', badge_live: 'Canlı', badge_progress: 'Devam Ediyor', badge_upcoming: 'Yakında',
     phase1: 'Faz I — Temel', phase1_title: 'Protokol Lansmanı', phase1_desc: 'ERC-20 token Base Mainnet\'te deploy edildi ve doğrulandı. Uniswap v4 likidite havuzu oluşturuldu. Akıllı kontrat kaynak kodu BaseScan\'de doğrulandı.',
-    phase2: 'Faz II — Görünürlük', phase2_title: 'Borsa Listelemeleri ve Topluluk', phase2_desc: 'CoinGecko ve CoinMarketCap listelemeleri. Telegram ve X\'te topluluk inşası. Yapay zeka veri platformlarıyla stratejik ortaklıklar.',
+    phase2: 'Faz II — Görünürl��k', phase2_title: 'Borsa Listelemeleri ve Topluluk', phase2_desc: 'CoinGecko ve CoinMarketCap listelemeleri. Telegram ve X\'te topluluk inşası. Yapay zeka veri platformlarıyla stratejik ortaklıklar.',
     phase3: 'Faz III — Altyapı', phase3_title: 'Veri Egemenliği Katmanı', phase3_desc: 'Zincir üstü veri onay kaydı. Yapay zeka eğitim platformları için entegrasyon API\'leri. Veri katkıcıları için ETHIC destekli ödeme modeli.',
     phase4: 'Faz IV — Ölçekleme', phase4_title: 'Yönetişim ve Ekosistem', phase4_desc: 'Protokol kararları için zincir üstü yönetişim. DAO kurulması. ETHIC altyapısı üzerine inşa eden etik yapay zeka projeleri için ekosistem hibeleri.',
-    wp_title: 'Teknik Doküman — Yakında', wp_desc: 'Veri egemenliği mimarisini, tokenomik modelini, yönetişim çerçevesini ve yapay zeka entegrasyon katmanını detaylandıran tam teknik doküman hazırlanmaktadır.', wp_btn: '📄 ERKEN ERİŞİM İSTE',
+    wp_title_main: 'TEKNİK DOKÜMANTASYON', wp_status: 'Teknik Doküman — Yakında', wp_desc: 'Veri egemenliği mimarisini, tokenomik modelini, yönetişim çerçevesini ve yapay zeka entegrasyon katmanını detaylandıran tam teknik doküman hazırlanmaktadır.', wp_btn: '📄 ERKEN ERİŞİM İSTE',
     sec_community: 'Topluluk',
   },
   es: {
@@ -637,7 +656,7 @@ const T = {
     phase2: 'Fase II — Visibilidad', phase2_title: 'Listados y Comunidad', phase2_desc: 'Listados en CoinGecko y CoinMarketCap. Construcción de comunidad en Telegram y X. Asociaciones estratégicas con plataformas de datos IA.',
     phase3: 'Fase III — Infraestructura', phase3_title: 'Capa de Soberanía de Datos', phase3_desc: 'Registro de consentimiento de datos en cadena. APIs de integración para plataformas de entrenamiento IA. Modelo de compensación impulsado por ETHIC para contribuyentes de datos.',
     phase4: 'Fase IV — Escala', phase4_title: 'Gobernanza y Ecosistema', phase4_desc: 'Gobernanza en cadena para decisiones de protocolo. Formación del DAO. Subvenciones del ecosistema para proyectos de IA ética sobre infraestructura ETHIC.',
-    wp_title: 'Documento Técnico — Próximamente', wp_desc: 'Un documento técnico completo detallando la arquitectura de soberanía de datos, modelo de tokenómica, marco de gobernanza e integración IA está en preparación.', wp_btn: '📄 SOLICITAR ACCESO ANTICIPADO',
+    wp_title_main: 'DOCUMENTACIÓN TÉCNICA', wp_status: 'Documento Técnico — Próximamente', wp_desc: 'Un documento técnico completo detallando la arquitectura de soberanía de datos, modelo de tokenómica, marco de gobernanza e integración IA está en preparación.', wp_btn: '📄 SOLICITAR ACCESO ANTICIPADO',
     sec_community: 'Comunidad',
   },
   fr: {
@@ -664,7 +683,7 @@ const T = {
     phase2: 'Phase II — Visibilité', phase2_title: 'Listings et Communauté', phase2_desc: 'Listings CoinGecko et CoinMarketCap. Construction de communauté sur Telegram et X. Partenariats stratégiques avec plateformes de données IA.',
     phase3: 'Phase III — Infrastructure', phase3_title: 'Couche de Souveraineté des Données', phase3_desc: 'Registre de consentement de données en chaîne. APIs d\'intégration pour plateformes d\'entraînement IA. Modèle de compensation alimenté par ETHIC pour contributeurs de données.',
     phase4: 'Phase IV — Échelle', phase4_title: 'Gouvernance et Écosystème', phase4_desc: 'Gouvernance en chaîne pour les décisions de protocole. Formation du DAO. Subventions écosystème pour projets IA éthique bâtis sur infrastructure ETHIC.',
-    wp_title: 'Livre Blanc — Bientôt', wp_desc: 'Un livre blanc technique complet détaillant l\'architecture de souveraineté des données, le modèle de tokenomique, le cadre de gouvernance et l\'intégration IA est en préparation.', wp_btn: '📄 DEMANDER ACCÈS ANTICIPÉ',
+    wp_title_main: 'DOCUMENTATION TECHNIQUE', wp_status: 'Livre Blanc — Bientôt', wp_desc: 'Un livre blanc technique complet détaillant l\'architecture de souveraineté des données, le modèle de tokenomique, le cadre de gouvernance et l\'intégration IA est en préparation.', wp_btn: '📄 DEMANDER ACCÈS ANTICIPÉ',
     sec_community: 'Communauté',
   },
   de: {
@@ -691,7 +710,7 @@ const T = {
     phase2: 'Phase II — Sichtbarkeit', phase2_title: 'Börsenlistings und Gemeinschaft', phase2_desc: 'CoinGecko- und CoinMarketCap-Listings. Gemeinschaftsaufbau auf Telegram und X. Strategische Partnerschaften mit KI-Datenplattformen.',
     phase3: 'Phase III — Infrastruktur', phase3_title: 'Datensouveränitäts-Schicht', phase3_desc: 'On-Chain-Dateneinwilligungsregister. Integrations-APIs für KI-Trainingsplattformen. ETHIC-gestütztes Kompensationsmodell für Datenbeiträger.',
     phase4: 'Phase IV — Skalierung', phase4_title: 'Governance und Ökosystem', phase4_desc: 'On-Chain-Governance für Protokollentscheidungen. DAO-Bildung. Ökosystem-Zuschüsse für ethische KI-Projekte auf ETHIC-Infrastruktur.',
-    wp_title: 'Whitepaper — Demnächst', wp_desc: 'Ein vollständiges technisches Whitepaper mit Details zur Datensouveränitätsarchitektur, zum Tokenomik-Modell, Governance-Rahmen und KI-Integration ist in Vorbereitung.', wp_btn: '📄 FRÜHZUGANG ANFRAGEN',
+    wp_title_main: 'TECHNISCHE DOKUMENTATION', wp_status: 'Whitepaper — Demnächst', wp_desc: 'Ein vollständiges technisches Whitepaper mit Details zur Datensouveränitätsarchitektur, zum Tokenomik-Modell, Governance-Rahmen und KI-Integration ist in Vorbereitung.', wp_btn: '📄 FRÜHZUGANG ANFRAGEN',
     sec_community: 'Gemeinschaft',
   },
   ru: {
@@ -714,11 +733,11 @@ const T = {
     feat4_title: 'Проверенный контракт', feat4_desc: 'Исходный код полностью проверен на BaseScan. Нет скрытых функций, нет обфускации. Каждая строка кода открыта для чтения и может быть независимо проверена.',
     sec_tokenomics: 'Токеномика', tok1: 'Экосистема', tok2: 'Разработка', tok3: 'Сообщество', tok4: 'Ликвидность', tok5: 'Резерв', tok6: 'Итого · Зафиксировано',
     sec_roadmap: 'Дорожная карта', badge_live: 'Online', badge_progress: 'В процессе', badge_upcoming: 'Скоро',
-    phase1: 'Фаза I — Основа', phase1_title: 'Запуск протокола', phase1_desc: 'Токен ERC-20 развернут и проверен на Base Mainnet. Пул ликвидности Uniswap v4 создан. Код контракта публично проверен на BaseScan.',
+    phase1: 'Фаза I — Основа', phase1_title: 'Запуск протокола', phase1_desc: 'Токен ERC-20 развернут и проверен на Base Mainnet. Пул ликвидности Uniswap v4 создан. Код ��онтракта публично проверен на BaseScan.',
     phase2: 'Фаза II — Видимость', phase2_title: 'Биржевые листинги и сообщество', phase2_desc: 'Листинги на CoinGecko и CoinMarketCap. Создание сообщества в Telegram и X. Стратегические партнерства с платформами данных ИИ.',
     phase3: 'Фаза III — Инфраструктура', phase3_title: 'Уровень суверенитета данных', phase3_desc: 'Реестр согласия на данные в цепи. API интеграции для платформ обучения ИИ. Модель компенсации на основе ETHIC для участников данных.',
     phase4: 'Фаза IV — Масштаб', phase4_title: 'Управление и экосистема', phase4_desc: 'Управление в цепи для решений протокола. Формирование DAO. Экосистемные гранты для этичных ИИ-проектов на инфраструктуре ETHIC.',
-    wp_title: 'Белая книга — Скоро', wp_desc: 'Полная техническая белая книга с описанием архитектуры суверенитета данных, модели токеномики, структуры управления и интеграции ИИ готовится к публикации.', wp_btn: '📄 ЗАПРОСИТЬ РАННИЙ ДОСТУП',
+    wp_title_main: 'ТЕХНИЧЕСКАЯ ДОКУМЕНТАЦИЯ', wp_status: 'Белая книга — Скоро', wp_desc: 'Полная техническая белая книга с описанием архитектуры суверенитета данных, модели токеномики, структуры управления и интеграции ИИ готовится к публикации.', wp_btn: '📄 ЗАПРОСИТЬ РАННИЙ ДОСТУП',
     sec_community: 'Сообщество',
   },
   zh: {
@@ -745,7 +764,7 @@ const T = {
     phase2: '第二阶段 — 可见性', phase2_title: '交易所上市与社区', phase2_desc: '在CoinGecko和CoinMarketCap上上市。在Telegram和X上建立社区。与AI数据平台的战略合作伙伴关系。',
     phase3: '第三阶段 — 基础设施', phase3_title: '数据主权层', phase3_desc: '链上数据同意注册表。AI培训平台的集成API。数据贡献者的ETHIC支持的补偿模型。',
     phase4: '第四阶段 — 规模化', phase4_title: '治理与生态系统', phase4_desc: '协议决策的链上治理。DAO形成。为在ETHIC基础设施上构建的道德AI项目的生态系统补助金。',
-    wp_title: '白皮书 — 即将发布', wp_desc: '详细说明数据主权架构、代币经济模型、治理框架和AI集成的完整技术白皮书正在准备中。', wp_btn: '📄 申请早期访问',
+    wp_title_main: '技术文档', wp_status: '白皮书 — 即将发布', wp_desc: '详细说明数据主权架构、代币经济模型、治理框架和AI集成的完整技术白皮书正在准备中。', wp_btn: '📄 申请早期访问',
     sec_community: '社区',
   },
   hi: {
@@ -769,10 +788,10 @@ const T = {
     sec_tokenomics: 'टोकनोमिक्स', tok1: 'पारिस्थितिकी तंत्र', tok2: 'विकास', tok3: 'समुदाय', tok4: 'तरलता', tok5: 'रिजर्व', tok6: 'कुल · निश्चित',
     sec_roadmap: 'रोडमैप', badge_live: 'ऑनलाइन', badge_progress: 'प्रगति में', badge_upcoming: 'जल्द ही आने वाली',
     phase1: 'चरण I — नींव', phase1_title: 'प्रोटोकॉल लॉन्च', phase1_desc: 'ERC-20 टोकन Base Mainnet पर तैनात और सत्यापित। Uniswap v4 तरलता पूल स्थापित। स्मार्ट अनुबंध कोड BaseScan पर सार्वजनिक रूप से सत्यापित।',
-    phase2: 'चरण II — दृश्यता', phase2_title: 'विनिमय सूचियां और समुदाय', phase2_desc: 'CoinGecko और CoinMarketCap सू��ियां। Telegram और X पर सामुदायिक निर्माण। AI डेटा प्लेटफार्म के साथ रणनीतिक साझेदारी।',
+    phase2: 'चरण II — दृश्यता', phase2_title: 'विनिमय सूचियां और समुदाय', phase2_desc: 'CoinGecko और CoinMarketCap सूचियां। Telegram और X पर सामुदायिक निर्माण। AI डेटा प्लेटफार्म के साथ रणनीतिक साझेदारी।',
     phase3: 'चरण III — बुनियादी ढांचा', phase3_title: 'डेटा संप्रभुता परत', phase3_desc: 'श्रृंखला पर डेटा सहमति रजिस्टर। AI प्रशिक्षण प्लेटफार्म के लिए एकीकरण API। डेटा योगदानकर्ताओं के लिए ETHIC-संचालित मुआवजा मॉडल।',
     phase4: 'चरण IV — स्केल', phase4_title: 'शासन और पारिस्थितिकी तंत्र', phase4_desc: 'प्रोटोकॉल निर्णयों के लिए श्रृंखला पर शासन। DAO गठन। ETHIC बुनियादी ढांचे पर निर्मित नैतिक AI परियोजनाओं के लिए पारिस्थितिकी तंत्र अनुदान।',
-    wp_title: 'श्वेतपत्र — जल्द ही आ रहा है', wp_desc: 'डेटा संप्रभुता आर्किटेक्चर, टोकनोमिक्स मॉडल, शासन ढांचे और AI एकीकरण का विवरण देने वाला एक पूर्ण तकनीकी श्वेतपत्र तैयार किया जा रहा है।', wp_btn: '📄 प्रारंभिक पहुंच का अनुरोध करें',
+    wp_title_main: 'तकनीकी प्रलेखन', wp_status: 'श्वेतपत्र — जल्द ही आ रहा है', wp_desc: 'डेटा संप्रभुता आर्किटेक्चर, टोकनोमिक्स मॉडल, शासन ढांचे और AI एकीकरण का विवरण देने वाला एक पूर्ण तकनीकी श्वेतपत्र तैयार किया जा रहा है।', wp_btn: '📄 प्रारंभिक पहुंच का अनुरोध करें',
     sec_community: 'समुदाय',
   },
 };
@@ -801,7 +820,7 @@ function applyLang(lang) {
     if (langIndex >= 0) document.querySelectorAll('.lang-option')[langIndex]?.classList.add('active');
     currentLang = lang;
   } catch(e) {
-    console.error('Language switch error:', e);
+    console.error('Language error:', e);
   }
 }
 
@@ -821,22 +840,28 @@ document.addEventListener('click', e => {
 });
 
 // ════════════════════════════════════════════════════════════════
-// LIVE PRICE — DexScreener API with Error Handling
+// WHITEPAPER ACCESS REQUEST
+// ═════════════════════════════════════════════════════════��══════
+function requestAccess() {
+  const termBody = document.getElementById('termBody');
+  if (termBody) {
+    addLogLine('lp', '[' + new Date().toLocaleTimeString() + '] ✓ Whitepaper access request registered on-chain');
+  }
+  alert('✓ Request registered!\nYou will be notified when the whitepaper is released.\n\n✓ İstek kaydedildi!\nTeknik doküman yayınlandığında bilgilendirileceksiniz.');
+}
+
+// ════════════════════════════════════════════════════════════════
+// LIVE PRICE
 // ════════════════════════════════════════════════════════════════
 async function fetchPrice() {
   try {
-    const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93', {
-      method: 'GET',
-      timeout: 8000
-    });
+    const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93', { timeout: 8000 });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const d = await r.json();
     const pair = d.pairs?.[0];
     if (pair && pair.priceUsd) {
       const price = parseFloat(pair.priceUsd);
-      document.getElementById('priceVal').textContent = price < 0.000001
-        ? '$' + price.toExponential(3)
-        : '$' + price.toFixed(8);
+      document.getElementById('priceVal').textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
       document.getElementById('priceSub').textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'DEX'}`;
       document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
     } else {
@@ -844,7 +869,7 @@ async function fetchPrice() {
       document.getElementById('priceSub').textContent = 'Pool initialized · Awaiting price feed';
     }
   } catch(e) {
-    console.warn('Price fetch error:', e.message);
+    console.warn('Price error:', e.message);
     document.getElementById('priceVal').textContent = '—';
     document.getElementById('priceSub').textContent = 'Price feed connecting...';
   }
@@ -853,7 +878,7 @@ fetchPrice();
 setInterval(fetchPrice, 30000);
 
 // ════════════════════════════════════════════════════════════════
-// HELPER FUNCTIONS
+// HELPERS
 // ════════════════════════════════════════════════════════════════
 function shortAddr(a) {
   if (!a || a.length < 10) return a || '—';
@@ -869,13 +894,12 @@ function fmtAmount(v) {
     if (n >= 1000) return (n / 1000).toFixed(2) + 'K';
     return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
   } catch(e) {
-    console.error('Format error:', e);
     return '—';
   }
 }
 
 // ════════════════════════════════════════════════════════════════
-// REAL TRANSFERS — BaseScan API
+// TRANSFERS
 // ════════════════════════════════════════════════════════════════
 async function fetchTransfers() {
   const el = document.getElementById('txList');
@@ -899,7 +923,7 @@ async function fetchTransfers() {
       el.innerHTML = `<div class="tx-loading">No recent transfers</div>`;
     }
   } catch(e) {
-    console.error('Transfer fetch error:', e);
+    console.error('Transfer error:', e);
     el.innerHTML = `<div class="tx-loading">Transfer feed connecting...</div>`;
   }
 }
@@ -907,24 +931,36 @@ fetchTransfers();
 setInterval(fetchTransfers, 30000);
 
 // ════════════════════════════════════════════════════════════════
-// CHAIN MONITOR — REAL BLOCK DATA with Error Handling
+// CHAIN MONITOR
 // ════════════════════════════════════════════════════════════════
 const termBody = document.getElementById('termBody');
 let lastBlock = 0;
 
+function addLogLine(cls, text) {
+  try {
+    const div = document.createElement('div');
+    div.className = `log-line ${cls}`;
+    div.textContent = text;
+    termBody.appendChild(div);
+    if (termBody.children.length > 8) termBody.removeChild(termBody.firstChild);
+  } catch(e) {
+    console.error('Log error:', e);
+  }
+}
+
 async function fetchChainData() {
   try {
     const blockRes = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`, { timeout: 8000 });
-    if (!blockRes.ok) throw new Error(`Block fetch failed: ${blockRes.status}`);
+    if (!blockRes.ok) throw new Error(`Block failed`);
     const blockData = await blockRes.json();
     const blockNum = parseInt(blockData.result || '0', 16);
 
     const supplyRes = await fetch(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`, { timeout: 8000 });
-    if (!supplyRes.ok) throw new Error(`Supply fetch failed: ${supplyRes.status}`);
+    if (!supplyRes.ok) throw new Error(`Supply failed`);
     const supplyData = await supplyRes.json();
 
     const txRes = await fetch(`https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=1&page=1&apikey=${API_KEY}`, { timeout: 8000 });
-    if (!txRes.ok) throw new Error(`TX fetch failed: ${txRes.status}`);
+    if (!txRes.ok) throw new Error(`TX failed`);
     const txData = await txRes.json();
 
     const now = new Date();
@@ -945,21 +981,9 @@ async function fetchChainData() {
     }
     lines.forEach(([cls, msg]) => addLogLine(cls, msg));
   } catch(e) {
-    console.error('Chain data error:', e);
+    console.error('Chain error:', e);
     const ts = `[${new Date().toLocaleTimeString()}]`;
-    addLogLine('lw', `${ts} › BaseScan API Active`);
-  }
-}
-
-function addLogLine(cls, text) {
-  try {
-    const div = document.createElement('div');
-    div.className = `log-line ${cls}`;
-    div.textContent = text;
-    termBody.appendChild(div);
-    if (termBody.children.length > 8) termBody.removeChild(termBody.firstChild);
-  } catch(e) {
-    console.error('Log line error:', e);
+    addLogLine('lw', `${ts} › BaseScan Active`);
   }
 }
 
@@ -967,24 +991,23 @@ fetchChainData();
 setInterval(fetchChainData, 10000);
 
 // ════════════════════════════════════════════════════════════════
-// WALLET QUERY with Validation
+// WALLET QUERY
 // ════════════════════════════════════════════════════════════════
 async function queryBalance() {
   const addr = document.getElementById('walletAddr').value.trim();
   const panel = document.getElementById('resultPanel');
   
-  // Validation
   if (!addr) {
-    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:10px;letter-spacing:1px">ERROR — Enter a wallet address</div>';
+    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:10px">ERROR — Enter address</div>';
     return;
   }
   
   if (!/^0x[a-fA-F0-9]{40}$/.test(addr)) {
-    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:10px;letter-spacing:1px">ERROR — Invalid address format (0x...)</div>';
+    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:10px">ERROR — Invalid address</div>';
     return;
   }
   
-  panel.innerHTML = '<div class="result-hint" style="color:rgba(0,212,232,.4)">Querying blockchain...</div>';
+  panel.innerHTML = '<div class="result-hint" style="color:rgba(0,212,232,.4)">Querying...</div>';
   
   try {
     const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${addr}&tag=latest&apikey=${API_KEY}`;
@@ -994,15 +1017,13 @@ async function queryBalance() {
     
     if (d.status === '1' && d.result) {
       const bal = fmtAmount(d.result);
-      panel.innerHTML = `
-        <div class="result-addr">${addr}</div>
-        <div class="result-bal">${bal}<span class="result-unit">ETHIC</span></div>`;
+      panel.innerHTML = `<div class="result-addr">${addr}</div><div class="result-bal">${bal}<span class="result-unit">ETHIC</span></div>`;
     } else {
       panel.innerHTML = '<div class="result-hint">Balance: 0 ETHIC</div>';
     }
   } catch(e) {
     console.error('Query error:', e);
-    panel.innerHTML = '<div class="result-hint" style="color:rgba(255,100,100,.6);font-family:JetBrains Mono,monospace;font-size:10px">Connection error — try again</div>';
+    panel.innerHTML = '<div class="result-hint" style="color:rgba(255,100,100,.6)">Connection error</div>';
   }
 }
 
