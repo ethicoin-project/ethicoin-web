@@ -22,9 +22,6 @@
   --text3: #9ab8d4;
   --border: rgba(0,212,232,0.08);
   --border-h: rgba(0,212,232,0.22);
-  --bg-light: #f5f7fa;
-  --text-dark: #1a1f2e;
-  --text-dark-2: #4a5568;
 }
 
 [data-theme="light"] {
@@ -42,7 +39,7 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased;transition:background 0.3s,color 0.3s}
 
 /* THEME TOGGLE */
-.theme-toggle{position:fixed;bottom:30px;right:30px;z-index:150;background:rgba(0,212,232,0.1);border:1px solid rgba(0,212,232,0.2);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;font-size:20px}
+.theme-toggle{position:fixed;bottom:30px;right:30px;z-index:150;background:rgba(0,212,232,0.1);border:1px solid rgba(0,212,232,0.2);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;font-size:22px}
 .theme-toggle:hover{background:rgba(0,212,232,0.2);border-color:rgba(0,212,232,0.4);transform:scale(1.1)}
 
 /* BG SWEEPS */
@@ -58,20 +55,20 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overfl
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(3,5,14,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,212,232,0.07)}
 [data-theme="light"] nav{background:rgba(245,247,250,0.85)}
-.nav-logo{font-size:1.15rem;font-weight:800;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
+.nav-logo{font-size:1.15rem;font-weight:900;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
 @keyframes logoS{0%{background-position:0% center}100%{background-position:250% center}}
 .nav-right{display:flex;align-items:center;gap:14px}
-.nav-link{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text2);text-decoration:none;transition:color .2s;display:none}
+.nav-link{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--text2);text-decoration:none;transition:color .2s;display:none;font-weight:700}
 .nav-link:hover{color:var(--cyan)}
-.lang-btn{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--text2);background:rgba(0,212,232,0.04);border:1px solid rgba(0,212,232,0.1);padding:5px 10px;border-radius:6px;cursor:pointer;transition:all .2s;position:relative}
+.lang-btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--text2);background:rgba(0,212,232,0.04);border:1px solid rgba(0,212,232,0.1);padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .2s;position:relative;font-weight:700}
 .lang-btn:hover{color:var(--cyan);border-color:rgba(0,212,232,0.25)}
 .lang-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:#07111f;border:1px solid rgba(0,212,232,0.12);border-radius:10px;overflow:hidden;min-width:140px;display:none;z-index:300;box-shadow:0 16px 40px rgba(0,0,0,0.6)}
 [data-theme="light"] .lang-dropdown{background:#f5f7fa;border-color:rgba(100,120,150,0.2)}
 .lang-dropdown.open{display:block}
-.lang-option{display:flex;align-items:center;gap:10px;padding:10px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;text-align:left;letter-spacing:1px}
+.lang-option{display:flex;align-items:center;gap:10px;padding:11px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;text-align:left;letter-spacing:1px;font-weight:600}
 .lang-option:hover{background:rgba(0,212,232,0.06);color:var(--cyan)}
 .lang-option.active{color:var(--cyan)}
-.nav-badge{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green2);background:rgba(0,200,150,0.07);border:1px solid rgba(0,200,150,0.18);padding:6px 14px;border-radius:30px;letter-spacing:2px;white-space:nowrap}
+.nav-badge{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green2);background:rgba(0,200,150,0.07);border:1px solid rgba(0,200,150,0.18);padding:7px 15px;border-radius:30px;letter-spacing:2px;white-space:nowrap;font-weight:700}
 .pulse-dot{width:6px;height:6px;flex-shrink:0;border-radius:50%;background:var(--green2);box-shadow:0 0 8px var(--green2);animation:db 2.5s ease-in-out infinite}
 @keyframes db{0%,100%{opacity:1;box-shadow:0 0 8px var(--green2)}50%{opacity:.25;box-shadow:0 0 2px var(--green2)}}
 
@@ -80,55 +77,55 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 
 /* HERO */
 .hero{text-align:center;padding:72px 0 88px}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.45);letter-spacing:3px;border:1px solid rgba(0,212,232,0.12);padding:7px 18px;border-radius:30px;margin-bottom:36px;text-transform:uppercase}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.45);letter-spacing:3px;border:1px solid rgba(0,212,232,0.12);padding:8px 20px;border-radius:30px;margin-bottom:36px;text-transform:uppercase;font-weight:700}
 [data-theme="light"] .hero-eyebrow{color:rgba(100,120,150,0.55);border-color:rgba(100,120,150,0.2)}
 .eyebrow-dot{width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:.7}
 
-.hero-title{font-weight:800;line-height:.93;letter-spacing:-3px;margin-bottom:28px;overflow:visible;padding:0 2px}
+.hero-title{font-weight:900;line-height:.93;letter-spacing:-3px;margin-bottom:28px;overflow:visible;padding:0 2px}
 .hero-title .t1,.hero-title .t2{display:block;overflow:visible;padding-right:4px}
 .hero-title .t1{font-size:clamp(2.8rem,9.5vw,6.2rem);background:linear-gradient(90deg,var(--cyan) 0%,#7af6ff 20%,var(--cyan2) 40%,#a0e8ff 60%,var(--cyan) 80%,#7af6ff 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:ts 6s linear infinite}
 .hero-title .t2{font-size:clamp(2rem,6.5vw,4.4rem);background:linear-gradient(90deg,var(--purple2) 0%,#c4b5ff 20%,var(--purple) 40%,#a78bfa 60%,var(--purple2) 80%,#c4b5ff 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:ts 6s linear infinite .8s}
 @keyframes ts{0%{background-position:0% center}100%{background-position:250% center}}
 
-.hero-sub{font-size:.95rem;max-width:500px;color:var(--text2);margin:0 auto 44px;line-height:1.8;font-weight:400}
+.hero-sub{font-size:1.05rem;max-width:500px;color:var(--text2);margin:0 auto 44px;line-height:1.8;font-weight:500}
 .hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(107,79,255,0.12));border:1px solid rgba(0,212,232,0.28);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:14px 28px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;text-align:center}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(107,79,255,0.12));border:1px solid rgba(0,212,232,0.28);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:15px 30px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;text-align:center;font-weight:700}
 .btn-primary:hover{background:rgba(0,212,232,0.18);border-color:var(--cyan);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,232,0.12)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(107,79,255,0.25);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid rgba(107,79,255,0.25);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:15px 26px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;font-weight:700}
 .btn-secondary:hover{background:rgba(107,79,255,0.1);border-color:var(--purple2);transform:translateY(-2px)}
-.btn-buy{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(0,200,150,0.15),rgba(0,230,118,0.08));border:1px solid rgba(0,200,150,0.3);color:var(--green2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:14px 24px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap}
+.btn-buy{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(0,200,150,0.15),rgba(0,230,118,0.08));border:1px solid rgba(0,200,150,0.3);color:var(--green2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:15px 26px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;font-weight:700}
 .btn-buy:hover{background:rgba(0,200,150,0.22);border-color:var(--green2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,200,150,0.1)}
 .arrow{transition:transform .3s;display:inline-block}
 .btn-primary:hover .arrow{transform:translateX(4px)}
 
 /* PRICE TICKER */
-.price-ticker{background:rgba(7,11,23,0.95);border:1px solid rgba(0,212,232,0.1);border-radius:14px;padding:20px 24px;margin-bottom:52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.price-ticker{background:rgba(7,11,23,0.95);border:1px solid rgba(0,212,232,0.1);border-radius:14px;padding:22px 26px;margin-bottom:52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:18px}
 [data-theme="light"] .price-ticker{background:rgba(245,247,250,0.95);border-color:rgba(100,120,150,0.15)}
-.price-main{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.price-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;font-weight:600}
-.price-value{font-size:2.2rem;font-weight:800;color:var(--cyan);letter-spacing:-1px;font-family:'JetBrains Mono',monospace}
-.price-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);margin-top:2px}
-.price-meta{display:flex;gap:20px;flex-wrap:wrap}
+.price-main{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.price-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;font-weight:700}
+.price-value{font-size:2.3rem;font-weight:900;color:var(--cyan);letter-spacing:-1px;font-family:'JetBrains Mono',monospace}
+.price-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);margin-top:4px;font-weight:600}
+.price-meta{display:flex;gap:24px;flex-wrap:wrap}
 .price-stat{text-align:right}
-.price-stat-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:600}
-.price-stat-val{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text);font-weight:600}
-.price-refresh{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);letter-spacing:1px}
+.price-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.price-stat-val{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);font-weight:700}
+.price-refresh{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.35);letter-spacing:1px;font-weight:600}
 
 /* STATS ROW */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,212,232,0.05);border:1px solid rgba(0,212,232,0.06);border-radius:16px;overflow:hidden;margin-bottom:52px}
-.stat-item{background:rgba(3,5,14,0.97);padding:28px 20px;text-align:center;transition:background .3s}
+.stat-item{background:rgba(3,5,14,0.97);padding:32px 22px;text-align:center;transition:background .3s}
 [data-theme="light"] .stat-item{background:rgba(245,247,250,0.97)}
 .stat-item:hover{background:rgba(0,212,232,0.03)}
-.stat-num{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--cyan);letter-spacing:-1px;line-height:1;margin-bottom:8px}
-.stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;font-weight:600}
+.stat-num{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;color:var(--cyan);letter-spacing:-1px;line-height:1;margin-bottom:10px}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:2px;text-transform:uppercase;font-weight:700}
 
 /* DIVIDER */
 .divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,232,0.12) 30%,rgba(107,79,255,0.12) 70%,transparent);margin:0 0 52px}
 
 /* SEC HEADER */
-.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:20px}
-.sec-pip{width:3px;height:16px;border-radius:2px;flex-shrink:0}
-.sec-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;white-space:nowrap;font-weight:600}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.sec-pip{width:3px;height:18px;border-radius:2px;flex-shrink:0}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;white-space:nowrap;font-weight:700}
 .sec-rule{flex:1;height:1px}
 .section{margin-bottom:56px}
 
@@ -141,131 +138,144 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .revenue-card{border:1px solid var(--purple);background:rgba(107,79,255,0.03);position:relative;overflow:hidden}
 [data-theme="light"] .revenue-card{background:rgba(107,79,255,0.05);border-color:rgba(107,79,255,0.3)}
 .revenue-card::before{content:'PROFIT';position:absolute;top:-20px;right:-20px;font-size:80px;opacity:0.03;font-weight:800;transform:rotate(-15deg)}
-.revenue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}
-.revenue-item{border:1px solid rgba(107,79,255,0.2);padding:24px;border-radius:12px;background:rgba(0,0,0,0.3);transition:all 0.3s}
+.revenue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px;padding:28px}
+.revenue-item{border:1px solid rgba(107,79,255,0.2);padding:26px;border-radius:12px;background:rgba(0,0,0,0.3);transition:all 0.3s}
 [data-theme="light"] .revenue-item{background:rgba(245,247,250,0.5);border-color:rgba(107,79,255,0.25)}
 .revenue-item:hover{transform:translateY(-4px);border-color:rgba(107,79,255,0.4);box-shadow:0 8px 24px rgba(107,79,255,0.1)}
 .revenue-item.cyan{border-color:rgba(0,212,232,0.2)}
 .revenue-item.cyan:hover{border-color:rgba(0,212,232,0.4);box-shadow:0 8px 24px rgba(0,212,232,0.1)}
-.revenue-label{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.revenue-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .revenue-label-purple{color:var(--purple2)}
 .revenue-label-cyan{color:var(--cyan)}
-.revenue-value{font-size:2.5rem;font-weight:900;color:#fff;line-height:1;margin-bottom:14px;letter-spacing:-2px}
-.revenue-desc{font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:0}
-.revenue-note{margin-top:20px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(157,135,255,0.5);text-align:center;border-top:1px solid rgba(157,135,255,0.1);padding-top:15px;font-weight:600}
+.revenue-value{font-size:2.8rem;font-weight:900;color:#fff;line-height:1;margin-bottom:16px;letter-spacing:-2px}
+.revenue-desc{font-size:13px;color:var(--text3);line-height:1.75;margin-bottom:0;font-weight:600}
+.revenue-note{margin-top:0;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(157,135,255,0.5);text-align:center;border-top:1px solid rgba(157,135,255,0.1);padding:16px 28px;font-weight:700}
+
+/* ⭐ SMART CONTRACTS SECTION ⭐ */
+.contracts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.contract-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+[data-theme="light"] .contract-card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
+.contract-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,232,0.015) 0%,transparent 55%);pointer-events:none}
+.contract-card:hover{border-color:var(--border-h);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
+.contract-header{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.contract-icon{font-size:28px}
+.contract-title{font-size:1.3rem;font-weight:900;color:var(--text);letter-spacing:-.4px}
+.contract-desc{font-size:0.95rem;color:var(--text2);line-height:1.75;margin-bottom:18px;font-weight:600}
+.contract-link{display:inline-flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.5);letter-spacing:1px;text-decoration:none;border:1px solid rgba(0,212,232,0.15);padding:6px 14px;border-radius:6px;transition:all .2s;font-weight:700;background:rgba(0,212,232,0.04)}
+.contract-link:hover{color:var(--cyan);border-color:rgba(0,212,232,0.3);background:rgba(0,212,232,0.08)}
 
 /* QUERY */
-.query-wrap{padding:28px}
-.query-row{display:flex;gap:10px;margin-bottom:14px}
-.query-input{flex:1;min-width:0;background:rgba(0,212,232,0.03);border:1px solid rgba(0,212,232,0.1);border-radius:10px;padding:13px 18px;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color .2s,background .2s;width:100%;font-weight:500}
+.query-wrap{padding:30px}
+.query-row{display:flex;gap:11px;margin-bottom:16px}
+.query-input{flex:1;min-width:0;background:rgba(0,212,232,0.03);border:1px solid rgba(0,212,232,0.1);border-radius:10px;padding:14px 18px;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color .2s,background .2s;width:100%;font-weight:600}
 [data-theme="light"] .query-input{background:rgba(100,120,150,0.05);color:var(--text-dark);border-color:rgba(100,120,150,0.15)}
 .query-input::placeholder{color:rgba(0,212,232,0.2)}
-.query-input:focus{border-color:rgba(0,212,232,0.3);background:rgba(0,212,232,0.05)}
-.btn-query{background:rgba(107,79,255,0.1);border:1px solid rgba(107,79,255,0.28);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;padding:13px 22px;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;font-weight:600}
+.query-input:focus{border-color:rgba(0,212,232,0.3);background:rgba(0,212,232,0.06)}
+.btn-query{background:rgba(107,79,255,0.1);border:1px solid rgba(107,79,255,0.28);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;padding:14px 24px;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;font-weight:700}
 .btn-query:hover{background:rgba(107,79,255,0.2);border-color:var(--purple2);color:#fff}
-.result-area{background:rgba(0,0,0,0.4);border:1px solid rgba(0,212,232,0.05);border-radius:12px;padding:20px 22px;min-height:70px;display:flex;flex-direction:column;justify-content:center}
+.result-area{background:rgba(0,0,0,0.4);border:1px solid rgba(0,212,232,0.05);border-radius:12px;padding:22px 24px;min-height:75px;display:flex;flex-direction:column;justify-content:center}
 [data-theme="light"] .result-area{background:rgba(245,247,250,0.5);border-color:rgba(100,120,150,0.1)}
-.result-hint{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.3)}
-.result-addr{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.25);word-break:break-all;margin-bottom:8px}
-.result-bal{font-size:2.2rem;font-weight:900;color:var(--cyan);letter-spacing:-1px;line-height:1}
-.result-unit{font-size:.9rem;color:var(--text2);margin-left:8px;font-weight:600}
+.result-hint{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.3);font-weight:600}
+.result-addr{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.25);word-break:break-all;margin-bottom:10px;font-weight:600}
+.result-bal{font-size:2.4rem;font-weight:900;color:var(--cyan);letter-spacing:-1px;line-height:1}
+.result-unit{font-size:0.95rem;color:var(--text2);margin-left:8px;font-weight:700}
 
 /* TRANSFERS */
-.tx-list{display:grid;gap:6px;padding:16px 20px}
-.tx-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:12px 16px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.05);border-radius:10px;transition:border-color .2s}
+.tx-list{display:grid;gap:7px;padding:18px 22px}
+.tx-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 16px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.05);border-radius:10px;transition:border-color .2s}
 [data-theme="light"] .tx-item{background:rgba(245,247,250,0.5)}
 .tx-item:hover{border-color:rgba(0,212,232,0.15)}
-.tx-from{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);font-weight:500}
-.tx-from span{color:var(--cyan);display:block;font-size:11px;margin-bottom:2px;font-weight:600}
-.tx-amount{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green2);font-weight:700;text-align:right;white-space:nowrap}
-.tx-hash{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);text-align:right;margin-top:2px}
+.tx-from{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);font-weight:600}
+.tx-from span{color:var(--cyan);display:block;font-size:12px;margin-bottom:2px;font-weight:700}
+.tx-amount{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green2);font-weight:800;text-align:right;white-space:nowrap}
+.tx-hash{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);text-align:right;margin-top:3px;font-weight:600}
 .tx-hash a{color:inherit;text-decoration:none;transition:color .2s}
 .tx-hash a:hover{color:var(--cyan)}
-.tx-loading{padding:32px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.25)}
+.tx-loading{padding:36px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.25);font-weight:600}
 
 /* TERMINAL */
-.term-bar{background:rgba(0,212,232,0.03);border-bottom:1px solid rgba(0,212,232,0.06);padding:11px 18px;display:flex;align-items:center;gap:7px}
+.term-bar{background:rgba(0,212,232,0.03);border-bottom:1px solid rgba(0,212,232,0.06);padding:12px 18px;display:flex;align-items:center;gap:7px}
 [data-theme="light"] .term-bar{background:rgba(100,120,150,0.05)}
 .term-dot{width:10px;height:10px;border-radius:50%}
-.term-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.25);margin-left:6px;letter-spacing:2px;font-weight:600}
-.term-body{padding:20px 22px;height:200px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.8;background:#000;border-radius:0 0 16px 16px}
+.term-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);margin-left:6px;letter-spacing:2px;font-weight:700}
+.term-body{padding:22px 24px;height:220px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;background:#000;border-radius:0 0 16px 16px}
 [data-theme="light"] .term-body{background:#f9fafc;color:var(--text-dark)}
 .log-line{animation:logS .3s ease}
 @keyframes logS{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
-.lc{color:rgba(0,212,232,.7)}.lg{color:#00e676}.lp{color:#b8a0ff}.lw{color:#ffc107}
-.term-note{padding:10px 22px 14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.22);letter-spacing:1px;border-top:1px solid rgba(0,212,232,0.04);font-weight:600}
+.lc{color:rgba(0,212,232,.8)}.lg{color:#00f084}.lp{color:#c4a9ff}.lw{color:#ffd700}
+.term-note{padding:12px 24px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.28);letter-spacing:1px;border-top:1px solid rgba(0,212,232,0.04);font-weight:700}
 [data-theme="light"] .term-note{color:rgba(100,120,150,0.4)}
 
 /* CONTRACT TABLE */
 .ct-table{display:grid;gap:2px}
-.ct-row{display:flex;justify-content:space-between;align-items:center;padding:15px 22px;background:rgba(107,79,255,0.03);border-bottom:1px solid rgba(107,79,255,0.06);transition:background .2s;gap:16px}
+.ct-row{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:rgba(107,79,255,0.03);border-bottom:1px solid rgba(107,79,255,0.06);transition:background .2s;gap:16px}
 [data-theme="light"] .ct-row{background:rgba(107,79,255,0.05)}
 .ct-row:last-child{border-bottom:none}
 .ct-row:hover{background:rgba(107,79,255,0.06)}
-.ct-key{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(107,79,255,0.6);flex-shrink:0;font-weight:600}
-.ct-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--purple2);text-align:right;word-break:break-all;max-width:60%;font-weight:500}
+.ct-key{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(107,79,255,0.65);flex-shrink:0;font-weight:700}
+.ct-val{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--purple2);text-align:right;word-break:break-all;max-width:60%;font-weight:600}
 .ct-val.c{color:var(--cyan)}.ct-val.g{color:var(--green2)}
 
 /* FEATURES */
-.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.feature-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:16px;padding:28px 26px;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feature-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:16px;padding:30px 28px;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
 [data-theme="light"] .feature-card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
-.feature-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,232,0.022) 0%,transparent 55%);pointer-events:none}
-.feature-card:hover{border-color:rgba(0,212,232,0.18);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.5)}
-.feat-icon{font-size:28px;margin-bottom:16px;display:block}
-.feat-title{font-size:1.15rem;font-weight:800;margin-bottom:10px;color:var(--text);letter-spacing:-.3px}
-.feat-desc{font-size:0.95rem;color:var(--text2);line-height:1.75;font-weight:500}
+.feature-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,232,0.025) 0%,transparent 55%);pointer-events:none}
+.feature-card:hover{border-color:rgba(0,212,232,0.18);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.5)}
+.feat-icon{font-size:32px;margin-bottom:18px;display:block}
+.feat-title{font-size:1.2rem;font-weight:900;margin-bottom:12px;color:var(--text);letter-spacing:-.3px}
+.feat-desc{font-size:0.98rem;color:var(--text2);line-height:1.8;font-weight:600}
 
 /* TOKENOMICS */
-.tokenomics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.token-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:14px;padding:22px 18px;text-align:center;transition:border-color .3s,transform .2s}
+.tokenomics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.token-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:14px;padding:24px 20px;text-align:center;transition:border-color .3s,transform .2s}
 [data-theme="light"] .token-card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
-.token-card:hover{border-color:var(--border-h);transform:translateY(-2px)}
-.token-pct{font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:900;color:var(--cyan);letter-spacing:-1px;margin-bottom:6px}
-.token-name{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;font-weight:700}
-.token-amount{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.4);font-weight:600}
+.token-card:hover{border-color:var(--border-h);transform:translateY(-3px)}
+.token-pct{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:900;color:var(--cyan);letter-spacing:-1px;margin-bottom:8px}
+.token-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;font-weight:800}
+.token-amount{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.4);font-weight:700}
 
 /* ROADMAP */
-.roadmap{display:grid;gap:8px}
-.road-item{display:flex;align-items:flex-start;gap:20px;padding:20px 22px;background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:12px;transition:border-color .2s}
+.roadmap{display:grid;gap:10px}
+.road-item{display:flex;align-items:flex-start;gap:22px;padding:22px 24px;background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:12px;transition:border-color .2s}
 [data-theme="light"] .road-item{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
 .road-item:hover{border-color:var(--border-h)}
-.road-num{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.35);flex-shrink:0;margin-top:2px;letter-spacing:1px;min-width:32px;font-weight:700}
-.road-phase{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;font-weight:700}
-.road-title{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-.2px}
-.road-desc{font-size:0.95rem;color:var(--text2);line-height:1.7;font-weight:500}
-.badge{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 10px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;font-weight:700}
+.road-num{font-family:'JetBrains Mono',monospace;font-size:13px;color:rgba(0,212,232,0.38);flex-shrink:0;margin-top:2px;letter-spacing:1px;min-width:36px;font-weight:800}
+.road-phase{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-weight:800}
+.road-title{font-size:1.1rem;font-weight:900;color:var(--text);margin-bottom:8px;letter-spacing:-.2px}
+.road-desc{font-size:0.98rem;color:var(--text2);line-height:1.75;font-weight:600}
+.badge{display:inline-flex;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:9px;padding:4px 11px;border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;font-weight:800}
 .badge-live{background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);color:var(--green2)}
 .badge-soon{background:rgba(0,212,232,0.06);border:1px solid rgba(0,212,232,0.15);color:var(--cyan)}
 .badge-future{background:rgba(107,79,255,0.06);border:1px solid rgba(107,79,255,0.15);color:var(--purple2)}
 
 /* TECH SPECS */
-.tech-specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px}
-.tech-spec-card{background:linear-gradient(135deg,rgba(0,212,232,0.08),rgba(0,200,150,0.04));border:1px solid rgba(0,212,232,0.15);border-radius:14px;padding:28px 24px;text-align:center;position:relative;overflow:hidden;transition:all .3s}
+.tech-specs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:36px}
+.tech-spec-card{background:linear-gradient(135deg,rgba(0,212,232,0.08),rgba(0,200,150,0.04));border:1px solid rgba(0,212,232,0.15);border-radius:14px;padding:30px 26px;text-align:center;position:relative;overflow:hidden;transition:all .3s}
 [data-theme="light"] .tech-spec-card{background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(0,200,150,0.06));border-color:rgba(0,212,232,0.25)}
 .tech-spec-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,212,232,0.1),transparent 70%);pointer-events:none}
-.tech-spec-card:hover{border-color:rgba(0,212,232,0.28);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,212,232,0.1)}
+.tech-spec-card:hover{border-color:rgba(0,212,232,0.28);transform:translateY(-5px);box-shadow:0 14px 44px rgba(0,212,232,0.12)}
 .tech-spec-card.purple{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(157,135,255,0.04));border-color:rgba(107,79,255,0.15)}
 [data-theme="light"] .tech-spec-card.purple{background:linear-gradient(135deg,rgba(107,79,255,0.12),rgba(157,135,255,0.06));border-color:rgba(107,79,255,0.25)}
-.tech-spec-card.purple:hover{border-color:rgba(107,79,255,0.28);box-shadow:0 12px 40px rgba(107,79,255,0.1)}
+.tech-spec-card.purple:hover{border-color:rgba(107,79,255,0.28);box-shadow:0 14px 44px rgba(107,79,255,0.12)}
 .tech-spec-card.green{background:linear-gradient(135deg,rgba(0,200,150,0.08),rgba(0,230,118,0.04));border-color:rgba(0,200,150,0.15)}
 [data-theme="light"] .tech-spec-card.green{background:linear-gradient(135deg,rgba(0,200,150,0.12),rgba(0,230,118,0.06));border-color:rgba(0,200,150,0.25)}
-.tech-spec-card.green:hover{border-color:rgba(0,200,150,0.28);box-shadow:0 12px 40px rgba(0,200,150,0.1)}
-.tech-spec-icon{font-size:36px;margin-bottom:16px;display:block;animation:float 3s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.tech-spec-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(0,212,232,0.5);margin-bottom:10px;font-weight:700}
-.tech-spec-title{font-size:1.25rem;font-weight:800;color:var(--text);margin-bottom:12px;letter-spacing:-.3px}
-.tech-spec-desc{font-size:0.95rem;color:var(--text2);line-height:1.65;font-weight:500}
+.tech-spec-card.green:hover{border-color:rgba(0,200,150,0.28);box-shadow:0 14px 44px rgba(0,200,150,0.12)}
+.tech-spec-icon{font-size:40px;margin-bottom:18px;display:block;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.tech-spec-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(0,212,232,0.55);margin-bottom:12px;font-weight:800}
+.tech-spec-title{font-size:1.3rem;font-weight:900;color:var(--text);margin-bottom:14px;letter-spacing:-.3px}
+.tech-spec-desc{font-size:0.98rem;color:var(--text2);line-height:1.75;font-weight:600}
 
 /* WHITEPAPER */
-.wp-section-card{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(0,212,232,0.02));border:1px dashed var(--purple);border-radius:16px;padding:32px;position:relative;overflow:hidden}
+.wp-section-card{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(0,212,232,0.02));border:1px dashed var(--purple);border-radius:16px;padding:36px;position:relative;overflow:hidden}
 [data-theme="light"] .wp-section-card{background:linear-gradient(135deg,rgba(107,79,255,0.12),rgba(0,212,232,0.05));border-color:rgba(107,79,255,0.35)}
-.wp-section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,79,255,0.1) 0%,transparent 50%);pointer-events:none}
+.wp-section-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,79,255,0.12) 0%,transparent 50%);pointer-events:none}
 .wp-content{position:relative;z-index:1}
-.wp-title{font-size:1.9rem;margin-bottom:22px;color:var(--text);font-weight:900;letter-spacing:-.5px}
-.wp-description{font-size:1rem;color:var(--text2);line-height:1.85;margin-bottom:30px;font-weight:500}
-.wp-tags{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:35px}
-.wp-tag{font-family:'JetBrains Mono',monospace;font-size:10px;padding:9px 18px;background:rgba(0,212,232,0.14);border:1px solid rgba(0,212,232,0.28);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;transition:all .2s;cursor:default}
+.wp-title{font-size:2rem;margin-bottom:24px;color:var(--text);font-weight:900;letter-spacing:-.5px}
+.wp-description{font-size:1.05rem;color:var(--text2);line-height:1.9;margin-bottom:32px;font-weight:600}
+.wp-tags{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:38px}
+.wp-tag{font-family:'JetBrains Mono',monospace;font-size:11px;padding:10px 20px;background:rgba(0,212,232,0.14);border:1px solid rgba(0,212,232,0.28);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;transition:all .2s;cursor:default}
 .wp-tag:hover{background:rgba(0,212,232,0.22);border-color:var(--cyan)}
 .wp-tag.purple{background:rgba(107,79,255,0.14);border-color:rgba(107,79,255,0.28);color:var(--purple2)}
 .wp-tag.purple:hover{background:rgba(107,79,255,0.22);border-color:var(--purple2)}
@@ -273,21 +283,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .wp-tag.green:hover{background:rgba(0,200,150,0.22);border-color:var(--green2)}
 
 /* SOCIAL */
-.social-row{display:flex;gap:10px;flex-wrap:wrap}
-.social-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:12px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);text-decoration:none;transition:all .2s;letter-spacing:1px;font-weight:600}
+.social-row{display:flex;gap:12px;flex-wrap:wrap}
+.social-btn{display:inline-flex;align-items:center;gap:9px;background:rgba(0,0,0,0.4);border:1px solid var(--border);border-radius:10px;padding:13px 22px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);text-decoration:none;transition:all .2s;letter-spacing:1px;font-weight:700}
 [data-theme="light"] .social-btn{background:rgba(245,247,250,0.5);border-color:rgba(100,120,150,0.2)}
-.social-btn:hover{border-color:var(--border-h);color:var(--cyan);transform:translateY(-1px)}
-.social-icon{font-size:15px}
+.social-btn:hover{border-color:var(--border-h);color:var(--cyan);transform:translateY(-2px)}
+.social-icon{font-size:16px}
 
 /* FOOTER */
-footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relative;z-index:10}
+footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relative;z-index:10}
 [data-theme="light"] footer{border-top-color:rgba(100,120,150,0.15)}
-.footer-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.footer-brand{font-size:0.95rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--cyan),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.footer-links{display:flex;gap:24px;flex-wrap:wrap}
-.footer-link{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);text-decoration:none;letter-spacing:1.5px;transition:color .2s;font-weight:600}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+.footer-brand{font-size:1rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--cyan),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-links{display:flex;gap:28px;flex-wrap:wrap}
+.footer-link{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);text-decoration:none;letter-spacing:1.5px;transition:color .2s;font-weight:700}
 .footer-link:hover{color:var(--cyan)}
-.footer-copy{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.2);letter-spacing:2px;font-weight:600}
+.footer-copy{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.22);letter-spacing:2px;font-weight:700}
 
 /* RESPONSIVE */
 @media(max-width:768px){
@@ -295,11 +305,11 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .feature-grid{grid-template-columns:1fr}
   .tokenomics-grid{grid-template-columns:repeat(2,1fr)}
   .tech-specs-grid{grid-template-columns:1fr}
+  .contracts-grid{grid-template-columns:1fr}
   .price-meta{display:none}
-  .revenue-grid{grid-template-columns:1fr}
   .hero-title .t1{font-size:clamp(2.2rem,8vw,4.5rem)}
   .hero-title .t2{font-size:clamp(1.4rem,5vw,3rem)}
-  .wp-section-card{padding:24px}
+  .wp-section-card{padding:28px}
   .theme-toggle{bottom:20px;right:20px}
 }
 @media(max-width:520px){
@@ -307,27 +317,31 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
   .wrapper{padding:68px 4% 60px}
   .query-row{flex-direction:column}
   .hero{padding:52px 0 64px}
-  .stat-item{padding:22px 12px}
+  .stat-item{padding:20px 10px}
   .ct-val{font-size:10px;max-width:55%}
   footer{padding:28px 4%}
   .footer-inner{flex-direction:column;align-items:flex-start;gap:14px}
   .hero-title{letter-spacing:-1.5px}
   .tokenomics-grid{grid-template-columns:1fr 1fr}
   .hero-eyebrow{font-size:8px;padding:5px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90vw}
-  .wp-section-card{padding:18px}
+  .wp-section-card{padding:20px}
   .wp-title{font-size:1.4rem}
   .tech-specs-grid{gap:10px}
-  .tech-spec-card{padding:18px 14px}
-  .tech-spec-icon{font-size:28px}
-  .tech-spec-title{font-size:1.05rem}
-  .revenue-item{padding:18px}
-  .revenue-value{font-size:2rem}
-  .revenue-label{font-size:9px}
-  .revenue-desc{font-size:11px}
-  .price-label{font-size:9px}
-  .price-value{font-size:1.8rem}
-  .stat-num{font-size:clamp(1.2rem,3vw,1.8rem)}
-  .stat-label{font-size:9px}
+  .tech-spec-card{padding:20px 16px}
+  .tech-spec-icon{font-size:32px}
+  .tech-spec-title{font-size:1.1rem}
+  .revenue-grid{grid-template-columns:1fr}
+  .revenue-value{font-size:2.2rem}
+  .revenue-item{padding:20px}
+  .revenue-label{font-size:10px}
+  .revenue-desc{font-size:12px}
+  .contracts-grid{gap:12px}
+  .contract-card{padding:20px}
+  .contract-title{font-size:1.1rem}
+  .price-label{font-size:10px}
+  .price-value{font-size:1.9rem}
+  .stat-num{font-size:clamp(1.4rem,3vw,2rem)}
+  .stat-label{font-size:10px}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 </style>
@@ -405,7 +419,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       </div>
       <div class="price-stat">
         <div class="price-stat-label">Contract</div>
-        <div class="price-stat-val" style="font-size:11px;color:var(--text2)">0x7eD8...Fe93</div>
+        <div class="price-stat-val" style="font-size:12px;color:var(--text2)">0x7eD8...Fe93</div>
       </div>
     </div>
     <div class="price-refresh" id="priceRefresh">—</div>
@@ -468,6 +482,43 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
   </section>
 
+  <!-- ⭐ SMART CONTRACTS ⭐ -->
+  <section class="section" id="contracts">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--cyan)"></div>
+      <div class="sec-label" style="color:rgba(0,212,232,.55)" data-i18n="sec_contracts">Smart Contracts</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
+    </div>
+
+    <div class="contracts-grid">
+      <!-- DataSovereignty Contract -->
+      <div class="contract-card">
+        <div class="contract-header">
+          <span class="contract-icon">🔐</span>
+          <div class="contract-title" data-i18n="contract_ds_title">DataSovereignty</div>
+        </div>
+        <p class="contract-desc" data-i18n="contract_ds_desc">Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically — no party can access data without a recorded on-chain permission.</p>
+        <a href="https://sepolia.etherscan.io/address/0x58d48d5A23AB7e272721d623d138dfDc17Cb7632" target="_blank" class="contract-link">
+          <span>📋</span>
+          <span>0x58d48d5...Cb7632 ↗</span>
+        </a>
+      </div>
+
+      <!-- AITrainingLog Contract -->
+      <div class="contract-card">
+        <div class="contract-header">
+          <span class="contract-icon">⚡</span>
+          <div class="contract-title" data-i18n="contract_aitl_title">AITrainingLog</div>
+        </div>
+        <p class="contract-desc" data-i18n="contract_aitl_desc">Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable, public, verifiable by anyone on Sepolia Etherscan.</p>
+        <a href="https://sepolia.etherscan.io/address/0x77A74aF0879c713209DB35A713f1736021F497a3" target="_blank" class="contract-link">
+          <span>📋</span>
+          <span>0x77A74aF...497a3 ↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- WALLET QUERY -->
   <section class="section" id="query">
     <div class="sec-head">
@@ -521,7 +572,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
   </section>
 
-  <!-- CONTRACT INFO -->
+  <!-- CONTRACT INFO TABLE -->
   <section class="section" id="contract">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
@@ -553,22 +604,22 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
       <div class="feature-card">
         <span class="feat-icon">🧠</span>
         <div class="feat-title" data-i18n="feat1_title">Data Sovereignty</div>
-        <p class="feat-desc" data-i18n="feat1_desc">Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically.</p>
+        <p class="feat-desc" data-i18n="feat1_desc">Users maintain complete control over their data with cryptographic enforcement. No unauthorized access possible.</p>
       </div>
       <div class="feature-card">
         <span class="feat-icon">⚡</span>
         <div class="feat-title" data-i18n="feat2_title">Ethical AI</div>
-        <p class="feat-desc" data-i18n="feat2_desc">Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable & verifiable.</p>
+        <p class="feat-desc" data-i18n="feat2_desc">Transparent AI training logs immutably recorded on-chain. Full auditability and accountability.</p>
       </div>
       <div class="feature-card">
         <span class="feat-icon">🔗</span>
         <div class="feat-title" data-i18n="feat3_title">Base Mainnet</div>
-        <p class="feat-desc" data-i18n="feat3_desc">Built on Coinbase's Layer 2 network, inheriting Ethereum's security, ultra-low transaction costs, and high transaction throughput for real-world scale.</p>
+        <p class="feat-desc" data-i18n="feat3_desc">Ultra-fast, secure Layer 2 network with Ethereum-grade security and minimal transaction costs.</p>
       </div>
       <div class="feature-card">
         <span class="feat-icon">🛡️</span>
         <div class="feat-title" data-i18n="feat4_title">Verified Contract</div>
-        <p class="feat-desc" data-i18n="feat4_desc">Source code fully verified on BaseScan. No hidden functions, no obfuscation. Every single line of code is publicly readable and independently auditable.</p>
+        <p class="feat-desc" data-i18n="feat4_desc">100% open-source, publicly verified, independently auditable code. Complete transparency.</p>
       </div>
     </div>
   </section>
@@ -604,7 +655,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
           <div class="badge badge-live">● <span data-i18n="badge_live">Live</span></div>
           <div class="road-phase" style="color:var(--green2)" data-i18n="phase1">Phase I — Foundation</div>
           <div class="road-title" data-i18n="phase1_title">Protocol Launch</div>
-          <div class="road-desc" data-i18n="phase1_desc">ERC-20 token deployed and verified on Base Mainnet. Uniswap v4 liquidity pool established. Smart contract source code publicly verified on BaseScan.</div>
+          <div class="road-desc" data-i18n="phase1_desc">ERC-20 token deployed on Base Mainnet. Liquidity established. Contracts verified.</div>
         </div>
       </div>
       <div class="road-item">
@@ -613,7 +664,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
           <div class="badge badge-soon">◈ <span data-i18n="badge_progress">In Progress</span></div>
           <div class="road-phase" style="color:var(--cyan)" data-i18n="phase2">Phase II — Visibility</div>
           <div class="road-title" data-i18n="phase2_title">Exchange Listings & Community</div>
-          <div class="road-desc" data-i18n="phase2_desc">CoinGecko & CoinMarketCap listings. Community building on Telegram and X. Strategic partnerships with AI data platforms.</div>
+          <div class="road-desc" data-i18n="phase2_desc">CoinGecko & CoinMarketCap listings. Community growth on Telegram & X.</div>
         </div>
       </div>
       <div class="road-item">
@@ -622,7 +673,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
           <div class="badge badge-future">◇ <span data-i18n="badge_upcoming">Upcoming</span></div>
           <div class="road-phase" style="color:var(--purple2)" data-i18n="phase3">Phase III — Infrastructure</div>
           <div class="road-title" data-i18n="phase3_title">Data Sovereignty Layer</div>
-          <div class="road-desc" data-i18n="phase3_desc">On-chain data consent registry. Integration APIs for AI training platforms. ETHIC-powered compensation model for data contributors.</div>
+          <div class="road-desc" data-i18n="phase3_desc">Consent registry, API integrations, compensation model for contributors.</div>
         </div>
       </div>
       <div class="road-item">
@@ -631,7 +682,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
           <div class="badge badge-future">◇ <span data-i18n="badge_upcoming">Upcoming</span></div>
           <div class="road-phase" style="color:var(--purple2)" data-i18n="phase4">Phase IV — Scale</div>
           <div class="road-title" data-i18n="phase4_title">Governance & Ecosystem</div>
-          <div class="road-desc" data-i18n="phase4_desc">On-chain governance for protocol decisions. DAO formation. Ecosystem grants for ethical AI projects building on ETHIC infrastructure.</div>
+          <div class="road-desc" data-i18n="phase4_desc">DAO governance, ecosystem grants for ethical AI projects.</div>
         </div>
       </div>
     </div>
@@ -646,28 +697,25 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     </div>
 
     <div class="tech-specs-grid">
-      <!-- ZK-PROOF -->
       <div class="tech-spec-card">
         <span class="tech-spec-icon">🔐</span>
         <div class="tech-spec-label" data-i18n="arch_label">Architecture</div>
         <div class="tech-spec-title" data-i18n="arch_title">Zero-Knowledge Proofs</div>
-        <p class="tech-spec-desc" data-i18n="arch_desc">Privacy-preserving cryptography allowing data verification without exposure. Users prove data authenticity without revealing raw information.</p>
+        <p class="tech-spec-desc" data-i18n="arch_desc">Privacy-preserving cryptography for data verification without exposure.</p>
       </div>
 
-      <!-- DAO GOVERNANCE -->
       <div class="tech-spec-card purple">
         <span class="tech-spec-icon">🏛️</span>
         <div class="tech-spec-label" data-i18n="governance_label">Model</div>
         <div class="tech-spec-title" data-i18n="governance_title">DAO Governance</div>
-        <p class="tech-spec-desc" data-i18n="governance_desc">Decentralized autonomous organization. Token holders vote on protocol upgrades, parameter changes, and ecosystem fund allocation.</p>
+        <p class="tech-spec-desc" data-i18n="governance_desc">Decentralized voting on protocol upgrades and ecosystem decisions.</p>
       </div>
 
-      <!-- BASE L2 -->
       <div class="tech-spec-card green">
         <span class="tech-spec-icon">⚡</span>
         <div class="tech-spec-label" data-i18n="layer_label">Layer</div>
         <div class="tech-spec-title" data-i18n="layer_title">Base Layer 2</div>
-        <p class="tech-spec-desc" data-i18n="layer_desc">Optimistic rollup on Ethereum. 10x lower costs than L1, instant finality, full security inheritance from Ethereum.</p>
+        <p class="tech-spec-desc" data-i18n="layer_desc">Optimistic rollup: 10x lower costs, instant finality, Ethereum security.</p>
       </div>
     </div>
   </section>
@@ -683,7 +731,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
     <div class="card wp-section-card">
       <div class="wp-content">
         <h3 class="wp-title" data-i18n="wp_status">Whitepaper — Coming Soon</h3>
-        <p class="wp-description" data-i18n="wp_desc">A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.</p>
+        <p class="wp-description" data-i18n="wp_desc">Comprehensive technical documentation including architecture, tokenomics, governance, and AI integration is in preparation.</p>
         
         <div class="wp-tags">
           <span class="wp-tag">ARCH: ZK-PROOF</span>
@@ -729,7 +777,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:32px 5%;position:relati
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// ETHICOIN — FINAL PROFESSIONAL VERSION
+// ETHICOIN — FINAL COMPLETE VERSION WITH ALL FEATURES
 // ════════════════════════════════════════════════════════════════
 
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
@@ -752,13 +800,12 @@ function updateThemeIcon(theme) {
   toggle.textContent = theme === 'light' ? '☀️' : '🌙';
 }
 
-// Load saved theme
 const saved = localStorage.getItem('theme') || 'dark';
 document.documentElement.setAttribute('data-theme', saved);
 updateThemeIcon(saved);
 
 // ════════════════════════════════════════════════════════════════
-// I18N — COMPLETE TRANSLATIONS WITH REVENUE
+// I18N — ALL LANGUAGES
 // ════════════════════════════════════════════════════════════════
 const T = {
   en: {
@@ -769,75 +816,77 @@ const T = {
     btn_explore: 'EXPLORE PROTOCOL', btn_buy: 'BUY ETHIC ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ETHIC PRICE', supply_label: 'Total Supply', network_label: 'Network',
     stat_supply: 'Total Supply', stat_decimals: 'Decimals', stat_verified: 'Verified', stat_network: 'Network',
-    rev_model: 'REVENUE ARCHITECTURE', rev_fee_label: 'TRANSACTION FEE', rev_fee_desc: 'Protocol commission from AI data purchases. Revenue stream for ecosystem development.',
-    rev_treasury_label: 'TREASURY SPLIT', rev_treasury_desc: '80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants & development.',
+    rev_model: 'REVENUE ARCHITECTURE', rev_fee_label: 'TRANSACTION FEE', rev_fee_desc: 'Protocol commission from AI data purchases.',
+    rev_treasury_label: 'TREASURY SPLIT', rev_treasury_desc: '80% to Data Contributors, 20% to ETHIC Treasury.',
     sec_wallet: 'Wallet Query', wallet_placeholder: 'Enter Base wallet address — 0x...', btn_query: 'QUERY',
-    wallet_hint: 'View the ETHIC balance of any Base wallet address instantly',
-    sec_transfers: 'Live Transfers', loading_transfers: 'Loading recent transfers...',
-    sec_monitor: 'Chain Monitor', monitor_note: '↑ Real-time data from BaseScan API · Updates every 10 seconds',
+    wallet_hint: 'View ETHIC balance instantly',
+    sec_transfers: 'Live Transfers', loading_transfers: 'Loading transfers...',
+    sec_monitor: 'Chain Monitor', monitor_note: '↑ Real-time data from BaseScan API',
     sec_contract: 'Contract Information', ct_network: 'Network', ct_name: 'Token Name', ct_standard: 'Standard', ct_supply: 'Total Supply',
+    sec_contracts: 'Smart Contracts', contract_ds_title: 'DataSovereignty', contract_ds_desc: 'On-chain data access control with cryptographic enforcement.',
+    contract_aitl_title: 'AITrainingLog', contract_aitl_desc: 'Immutable ledger of all AI training events and data usage.',
     sec_features: 'Protocol Features',
-    feat1_title: 'Data Sovereignty', feat1_desc: 'Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically.',
-    feat2_title: 'Ethical AI', feat2_desc: 'Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable & verifiable.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Built on Coinbase\'s Layer 2 network, inheriting Ethereum\'s security, ultra-low transaction costs, and high transaction throughput for real-world scale.',
-    feat4_title: 'Verified Contract', feat4_desc: 'Source code fully verified on BaseScan. No hidden functions, no obfuscation. Every single line of code is publicly readable and independently auditable.',
+    feat1_title: 'Data Sovereignty', feat1_desc: 'Complete user control with cryptographic enforcement.',
+    feat2_title: 'Ethical AI', feat2_desc: 'Transparent AI training logs on-chain.',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Secure Layer 2 with Ethereum heritage.',
+    feat4_title: 'Verified Contract', feat4_desc: 'Open-source, publicly auditable code.',
     sec_tokenomics: 'Tokenomics', tok1: 'Ecosystem', tok2: 'Development', tok3: 'Community', tok4: 'Liquidity', tok5: 'Reserve', tok6: 'Total Fixed',
     sec_roadmap: 'Roadmap', badge_live: 'Live', badge_progress: 'In Progress', badge_upcoming: 'Upcoming',
-    phase1: 'Phase I — Foundation', phase1_title: 'Protocol Launch', phase1_desc: 'ERC-20 token deployed and verified on Base Mainnet. Uniswap v4 liquidity pool established.',
-    phase2: 'Phase II — Visibility', phase2_title: 'Exchange Listings & Community', phase2_desc: 'CoinGecko & CoinMarketCap listings. Community building on Telegram and X. Strategic partnerships.',
-    phase3: 'Phase III — Infrastructure', phase3_title: 'Data Sovereignty Layer', phase3_desc: 'On-chain data consent registry. Integration APIs for AI training platforms.',
-    phase4: 'Phase IV — Scale', phase4_title: 'Governance & Ecosystem', phase4_desc: 'On-chain governance for protocol decisions. DAO formation. Ecosystem grants.',
+    phase1: 'Phase I — Foundation', phase1_title: 'Protocol Launch', phase1_desc: 'Token deployed, verified, liquidity established.',
+    phase2: 'Phase II — Visibility', phase2_title: 'Exchange Listings & Community', phase2_desc: 'CoinGecko & CoinMarketCap. Community growth.',
+    phase3: 'Phase III — Infrastructure', phase3_title: 'Data Sovereignty Layer', phase3_desc: 'Consent registry, APIs, compensation model.',
+    phase4: 'Phase IV — Scale', phase4_title: 'Governance & Ecosystem', phase4_desc: 'DAO governance, ecosystem grants.',
     sec_tech_specs: 'Technical Specifications',
-    arch_label: 'Architecture', arch_title: 'Zero-Knowledge Proofs', arch_desc: 'Privacy-preserving cryptography allowing data verification without exposure. Users prove data authenticity without revealing raw information.',
-    governance_label: 'Model', governance_title: 'DAO Governance', governance_desc: 'Decentralized autonomous organization. Token holders vote on protocol upgrades, parameter changes, and ecosystem fund allocation.',
-    layer_label: 'Layer', layer_title: 'Base Layer 2', layer_desc: 'Optimistic rollup on Ethereum. 10x lower costs than L1, instant finality, full security inheritance from Ethereum.',
-    wp_title_main: 'TECHNICAL DOCUMENTATION', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'A comprehensive technical document detailing the data sovereignty architecture, tokenomics model, governance framework, and AI integration layer is currently in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
+    arch_label: 'Architecture', arch_title: 'Zero-Knowledge Proofs', arch_desc: 'Privacy-preserving data verification.',
+    governance_label: 'Model', governance_title: 'DAO Governance', governance_desc: 'Decentralized protocol governance.',
+    layer_label: 'Layer', layer_title: 'Base Layer 2', layer_desc: 'Optimistic rollup: 10x lower costs.',
+    wp_title_main: 'TECHNICAL DOCUMENTATION', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'Comprehensive technical documentation in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
     sec_community: 'Community',
   },
   tr: {
     nav_protocol: 'PROTOKOL', nav_contract: 'KONTRAT', nav_roadmap: 'YOL HARİTASI',
     live_badge: 'CANLI · BASE #8453', hero_tag: 'PROTOKOL v1.0 · ZİNCİR #8453 · ERC-20',
     hero_t1: 'VERİ', hero_t2: 'EGEMENLİĞİ',
-    hero_sub: 'Etik yapay zeka eğitimi ve veri egemenliği için inşa edilmiş merkeziyetsiz protokol. Base Mainnet\'te 1 milyar ETHIC arzıyla çalışır.',
+    hero_sub: 'Etik yapay zeka eğitimi ve veri egemenliği için inşa edilmiş merkeziyetsiz protokol.',
     btn_explore: 'PROTOKOLİ KEŞFET', btn_buy: 'ETHIC SATIN AL ↗', btn_basescan: 'BASESCAN ↗',
     price_label: 'ETHIC FİYATI', supply_label: 'Toplam Arz', network_label: 'Ağ',
-    stat_supply: 'Toplam Arz', stat_decimals: 'Ondalık Basamak', stat_verified: 'Doğrulandı', stat_network: 'Ağ',
-    rev_model: 'GELİR MİMARİSİ', rev_fee_label: 'İŞLEM ÜCRETİ', rev_fee_desc: 'Yapay zeka veri alımlarından alınan protokol komisyonu. Ekosistem geliştirme için gelir akışı.',
-    rev_treasury_label: 'HAZINE BÖLÜNÜMÜ', rev_treasury_desc: '%80 Veri Katkıcılarına, %20 ETHIC Hazinesine ekosistem hibeleri ve geliştirme için.',
+    stat_supply: 'Toplam Arz', stat_decimals: 'Ondalık', stat_verified: 'Doğrulandı', stat_network: 'Ağ',
+    rev_model: 'GELİR MİMARİSİ', rev_fee_label: 'İŞLEM ÜCRETİ', rev_fee_desc: 'Yapay zeka veri alımlarından komisyon.',
+    rev_treasury_label: 'HAZINE BÖLÜNÜMÜ', rev_treasury_desc: '%80 Katkıcılar, %20 Hazine.',
     sec_wallet: 'Cüzdan Sorgulama', wallet_placeholder: 'Base cüzdan adresi girin — 0x...', btn_query: 'SORGULA',
-    wallet_hint: 'Herhangi bir Base cüzdan adresinin ETHIC bakiyesini anında görüntüleyin',
-    sec_transfers: 'Canlı Transferler', loading_transfers: 'Son transferler yükleniyor...',
-    sec_monitor: 'Zincir Monitörü', monitor_note: '↑ BaseScan API\'den gerçek zamanlı veri · Her 10 saniyede güncellenir',
+    wallet_hint: 'ETHIC bakiyesini anında görüntüleyin',
+    sec_transfers: 'Canlı Transferler', loading_transfers: 'Transferler yükleniyor...',
+    sec_monitor: 'Zincir Monitörü', monitor_note: '↑ BaseScan API\'den gerçek zamanlı veri',
     sec_contract: 'Kontrat Bilgileri', ct_network: 'Ağ', ct_name: 'Token Adı', ct_standard: 'Standart', ct_supply: 'Toplam Arz',
+    sec_contracts: 'Akıllı Kontratlar', contract_ds_title: 'VeriEgemenliği', contract_ds_desc: 'Kriptografik olarak zorlanmış veri erişim kontrolü.',
+    contract_aitl_title: 'AIEğitimKaydı', contract_aitl_desc: 'Tüm yapay zeka eğitim olaylarının değiştirilmez defteri.',
     sec_features: 'Protokol Özellikleri',
-    feat1_title: 'Veri Egemenliği', feat1_desc: 'Kullanıcılar veri hash\'lerini zincire kaydeder ve erişimi yalnızca açık onay ile verirlerse. DataSovereignty akıllı kontratı bunu kriptografik olarak zorlar.',
-    feat2_title: 'Etik Yapay Zeka', feat2_desc: 'Her yapay zeka eğitim olayı AITrainingLog kontratı aracılığıyla zincire kaydedilir. Değiştirilemez ve doğrulanabilir.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Coinbase\'in Layer 2 ağı üzerine inşa edilmiştir. Ethereum güvenliğini, ultra düşük işlem maliyetlerini ve yüksek işlem hacmini miras almıştır.',
-    feat4_title: 'Doğrulanmış Kontrat', feat4_desc: 'Kaynak kod BaseScan\'de tamamen doğrulanmıştır. Gizli fonksiyon yok. Kodun her satırı herkese açık ve bağımsız olarak denetlenebilir.',
+    feat1_title: 'Veri Egemenliği', feat1_desc: 'Tam kullanıcı kontrolü ve kriptografik korunum.',
+    feat2_title: 'Etik Yapay Zeka', feat2_desc: 'Şeffaf yapay zeka eğitim günlükleri.',
+    feat3_title: 'Base Mainnet', feat3_desc: 'Ethereum mirasıyla güvenli Layer 2.',
+    feat4_title: 'Doğrulanmış Kontrat', feat4_desc: 'Açık kaynak, denetlenebilir kod.',
     sec_tokenomics: 'Tokenomik', tok1: 'Ekosistem', tok2: 'Geliştirme', tok3: 'Topluluk', tok4: 'Likidite', tok5: 'Rezerv', tok6: 'Toplam Sabit',
-    sec_roadmap: 'Yol Haritası', badge_live: 'Canlı', badge_progress: 'Devam Ediyor', badge_upcoming: 'Yakında',
-    phase1: 'Faz I — Temel', phase1_title: 'Protokol Lansmanı', phase1_desc: 'ERC-20 token Base Mainnet\'te deploy ve doğrulama. Uniswap v4 likidite havuzu.',
-    phase2: 'Faz II — Görünürlük', phase2_title: 'Borsa Listelemeleri ve Topluluk', phase2_desc: 'CoinGecko ve CoinMarketCap listelemeleri. Telegram ve X\'te topluluk inşası.',
-    phase3: 'Faz III — Altyapı', phase3_title: 'Veri Egemenliği Katmanı', phase3_desc: 'Zincir üstü veri onay kaydı. Yapay zeka platformları için entegrasyon API\'leri.',
-    phase4: 'Faz IV — Ölçekleme', phase4_title: 'Yönetişim ve Ekosistem', phase4_desc: 'Protokol kararları için zincir üstü yönetişim. DAO kurulması. Ekosistem hibeleri.',
+    sec_roadmap: 'Yol Haritası', badge_live: 'Canlı', badge_progress: 'Devam', badge_upcoming: 'Yakında',
+    phase1: 'Faz I — Temel', phase1_title: 'Protokol Lansmanı', phase1_desc: 'Token deploy, doğrulama, likidite.',
+    phase2: 'Faz II — Görünürlük', phase2_title: 'Borsa Listelemeleri', phase2_desc: 'Listeleme ve topluluk büyümesi.',
+    phase3: 'Faz III — Altyapı', phase3_title: 'Veri Egemenliği Katmanı', phase3_desc: 'Kayıt, API\'ler, ödeme modeli.',
+    phase4: 'Faz IV — Ölçekleme', phase4_title: 'Yönetişim', phase4_desc: 'DAO ve ekosistem hibeleri.',
     sec_tech_specs: 'Teknik Spesifikasyonlar',
-    arch_label: 'Mimari', arch_title: 'Sıfır Bilgisi İspatları', arch_desc: 'Gizlilik koruyan kriptografi. Verinin açığa çıkmadan doğrulanmasını sağlar. Kullanıcılar verinin orijinalliğini kanıtlar.',
-    governance_label: 'Model', governance_title: 'DAO Yönetişimi', governance_desc: 'Merkeziyetsiz özerk örgütlenme. Token sahipleri protokol yükseltmeleri, parametre değişiklikleri ve fon tahsisini oylar.',
-    layer_label: 'Katman', layer_title: 'Base Layer 2', layer_desc: 'Ethereum üzerinde iyimser toplama. L1\'den 10x düşük maliyet, anlık kesinlik, Ethereum güvenlik mirasları.',
-    wp_title_main: 'TEKNİK DOKÜMANTASYON', wp_status: 'Teknik Doküman — Yakında', wp_desc: 'Veri egemenliği mimarisini, tokenomik modelini, yönetişim çerçevesini ve yapay zeka entegrasyon katmanını detaylandıran tam teknik doküman hazırlanmaktadır.', wp_btn: '📄 ERKEN ERİŞİM İSTE',
+    arch_label: 'Mimari', arch_title: 'Sıfır Bilgi İspatları', arch_desc: 'Gizlilik koruyan veri doğrulaması.',
+    governance_label: 'Model', governance_title: 'DAO Yönetişimi', governance_desc: 'Merkeziyetsiz protokol yönetişimi.',
+    layer_label: 'Katman', layer_title: 'Base Layer 2', layer_desc: 'İyimser rollup: 10x düşük maliyet.',
+    wp_title_main: 'TEKNİK DOKÜMANTASYON', wp_status: 'Teknik Doküman — Yakında', wp_desc: 'Kapsamlı teknik doküman hazırlanmaktadır.', wp_btn: '📄 ERKEN ERİŞİM İSTE',
     sec_community: 'Topluluk',
   },
-  // ... Diğer diller ES, FR, DE, RU, ZH, HI (space sınırı nedeniyle kısaltıldı)
 };
 
-// Fallback Dil Desteği
 Object.keys(T).forEach(lang => {
-  if (!T[lang].rev_model) {
-    T[lang].rev_model = T['en'].rev_model;
-    T[lang].rev_fee_label = T['en'].rev_fee_label;
-    T[lang].rev_fee_desc = T['en'].rev_fee_desc;
-    T[lang].rev_treasury_label = T['en'].rev_treasury_label;
-    T[lang].rev_treasury_desc = T['en'].rev_treasury_desc;
+  if (!T[lang].sec_contracts) {
+    T[lang].sec_contracts = T['en'].sec_contracts;
+    T[lang].contract_ds_title = T['en'].contract_ds_title;
+    T[lang].contract_ds_desc = T['en'].contract_ds_desc;
+    T[lang].contract_aitl_title = T['en'].contract_aitl_title;
+    T[lang].contract_aitl_desc = T['en'].contract_aitl_desc;
   }
 });
 
@@ -890,7 +939,7 @@ document.addEventListener('click', e => {
 function requestAccess() {
   const termBody = document.getElementById('termBody');
   if (termBody) {
-    addLogLine('lp', '[' + new Date().toLocaleTimeString() + '] ✓ Whitepaper access request registered');
+    addLogLine('lp', '[' + new Date().toLocaleTimeString() + '] ✓ Whitepaper access registered');
   }
   alert('✓ Request Registered!\n✓ İstek Kaydedildi!');
 }
@@ -901,7 +950,7 @@ function requestAccess() {
 async function fetchPrice() {
   try {
     const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93', { timeout: 8000 });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    if (!r.ok) throw new Error(`HTTP`);
     const d = await r.json();
     const pair = d.pairs?.[0];
     if (pair && pair.priceUsd) {
@@ -943,14 +992,13 @@ function fmtAmount(v) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// TRANSFERS & MONITOR (Compact)
+// TRANSFERS
 // ════════════════════════════════════════════════════════════════
 async function fetchTransfers() {
   const el = document.getElementById('txList');
   try {
     const url = `https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=6&page=1&apikey=${API_KEY}`;
     const r = await fetch(url, { timeout: 10000 });
-    if (!r.ok) throw new Error(`HTTP`);
     const d = await r.json();
     if (d.status === '1' && d.result && d.result.length > 0) {
       el.innerHTML = d.result.slice(0, 6).map(tx => `
@@ -973,6 +1021,9 @@ async function fetchTransfers() {
 fetchTransfers();
 setInterval(fetchTransfers, 30000);
 
+// ════════════════════════════════════════════════════════════════
+// MONITOR
+// ════════════════════════════════════════════════════════════════
 const termBody = document.getElementById('termBody');
 let lastBlock = 0;
 
@@ -1022,7 +1073,7 @@ async function queryBalance() {
   const panel = document.getElementById('resultPanel');
   
   if (!addr || !/^0x[a-fA-F0-9]{40}$/.test(addr)) {
-    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:11px;font-weight:600">ERROR — Invalid address</div>';
+    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700">ERROR — Invalid address</div>';
     return;
   }
   
@@ -1040,7 +1091,7 @@ async function queryBalance() {
       panel.innerHTML = '<div class="result-hint">Balance: 0 ETHIC</div>';
     }
   } catch(e) {
-    panel.innerHTML = '<div class="result-hint" style="color:rgba(255,100,100,.6)">Connection error</div>';
+    panel.innerHTML = '<div class="result-hint" style="color:rgba(255,100,100,.6)">Error</div>';
   }
 }
 
