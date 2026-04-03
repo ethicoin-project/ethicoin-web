@@ -22,27 +22,21 @@
   --text3: #9ab8d4;
   --border: rgba(0,212,232,0.08);
   --border-h: rgba(0,212,232,0.22);
+  --red: #ff4d6d;
 }
-
 [data-theme="light"] {
-  --bg: #f5f7fa;
-  --bg2: #eff2f7;
-  --text: #1a1f2e;
-  --text2: #4a5568;
-  --text3: #6b7d99;
-  --border: rgba(100,120,150,0.12);
-  --border-h: rgba(100,120,150,0.25);
+  --bg: #f5f7fa; --bg2: #eff2f7; --text: #1a1f2e; --text2: #4a5568;
+  --text3: #6b7d99; --border: rgba(100,120,150,0.12); --border-h: rgba(100,120,150,0.25);
 }
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased;transition:background 0.3s,color 0.3s}
+body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
 
 /* THEME TOGGLE */
-.theme-toggle{position:fixed;bottom:30px;right:30px;z-index:150;background:rgba(0,212,232,0.1);border:1px solid rgba(0,212,232,0.2);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.3s;font-size:22px}
+.theme-toggle{position:fixed;bottom:30px;right:30px;z-index:150;background:rgba(0,212,232,0.1);border:1px solid rgba(0,212,232,0.2);width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;font-size:22px}
 .theme-toggle:hover{background:rgba(0,212,232,0.2);border-color:rgba(0,212,232,0.4);transform:scale(1.1)}
 
-/* BG SWEEPS */
+/* BG */
 .bg-sweep{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .bg-sweep::before{content:'';position:absolute;width:200%;height:200%;top:-50%;left:-150%;background:linear-gradient(105deg,transparent 35%,rgba(0,212,232,0.022) 40%,rgba(0,240,255,0.042) 44%,rgba(107,79,255,0.028) 47%,rgba(0,212,232,0.016) 51%,transparent 56%);animation:sweep1 9s ease-in-out infinite}
 .bg-sweep::after{content:'';position:absolute;width:200%;height:200%;top:-50%;left:-150%;background:linear-gradient(75deg,transparent 40%,rgba(107,79,255,0.016) 45%,rgba(0,200,150,0.022) 49%,rgba(107,79,255,0.013) 53%,transparent 58%);animation:sweep2 14s ease-in-out infinite 3s}
@@ -57,7 +51,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 [data-theme="light"] nav{background:rgba(245,247,250,0.85)}
 .nav-logo{font-size:1.15rem;font-weight:900;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
 @keyframes logoS{0%{background-position:0% center}100%{background-position:250% center}}
-.nav-right{display:flex;align-items:center;gap:14px}
+.nav-right{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
 .nav-link{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--text2);text-decoration:none;transition:color .2s;display:none;font-weight:700}
 .nav-link:hover{color:var(--cyan)}
 .lang-btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--text2);background:rgba(0,212,232,0.04);border:1px solid rgba(0,212,232,0.1);padding:6px 12px;border-radius:6px;cursor:pointer;transition:all .2s;position:relative;font-weight:700}
@@ -72,6 +66,43 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .pulse-dot{width:6px;height:6px;flex-shrink:0;border-radius:50%;background:var(--green2);box-shadow:0 0 8px var(--green2);animation:db 2.5s ease-in-out infinite}
 @keyframes db{0%,100%{opacity:1;box-shadow:0 0 8px var(--green2)}50%{opacity:.25;box-shadow:0 0 2px var(--green2)}}
 
+/* ══════════════════════════════════════════════════
+   ⭐ WALLET CONNECT BUTTON — YENİ!
+══════════════════════════════════════════════════ */
+.btn-wallet-connect{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(107,79,255,0.18),rgba(0,212,232,0.1));border:1px solid rgba(107,79,255,0.4);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;padding:8px 16px;border-radius:8px;cursor:pointer;transition:all .3s;white-space:nowrap;font-weight:700;position:relative;overflow:hidden}
+.btn-wallet-connect::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,79,255,0.1),transparent);opacity:0;transition:opacity .3s}
+.btn-wallet-connect:hover::before{opacity:1}
+.btn-wallet-connect:hover{border-color:var(--purple2);transform:translateY(-1px);box-shadow:0 4px 20px rgba(107,79,255,0.25)}
+.btn-wallet-connect.connected{background:linear-gradient(135deg,rgba(0,200,150,0.12),rgba(0,230,118,0.06));border-color:rgba(0,200,150,0.35);color:var(--green2)}
+.btn-wallet-connect.connected:hover{box-shadow:0 4px 20px rgba(0,200,150,0.2)}
+.wallet-icon{font-size:14px}
+.wallet-short{max-width:80px;overflow:hidden;text-overflow:ellipsis}
+
+/* WALLET MODAL */
+.wallet-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.wallet-modal-overlay.open{opacity:1;pointer-events:all}
+.wallet-modal{background:#070b17;border:1px solid rgba(107,79,255,0.25);border-radius:20px;padding:36px;width:90%;max-width:420px;position:relative;transform:translateY(20px) scale(0.97);transition:transform .3s;box-shadow:0 32px 80px rgba(0,0,0,0.8)}
+[data-theme="light"] .wallet-modal{background:#f5f7fa;border-color:rgba(107,79,255,0.2)}
+.wallet-modal-overlay.open .wallet-modal{transform:translateY(0) scale(1)}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.modal-close:hover{color:var(--text);background:rgba(255,255,255,0.1)}
+.modal-title{font-size:1.4rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;color:var(--text)}
+.modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:28px;letter-spacing:1px}
+.wallet-option{display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(0,0,0,0.3);border:1px solid rgba(107,79,255,0.15);border-radius:12px;cursor:pointer;transition:all .2s;margin-bottom:10px}
+[data-theme="light"] .wallet-option{background:rgba(245,247,250,0.5)}
+.wallet-option:hover{border-color:rgba(107,79,255,0.4);background:rgba(107,79,255,0.08);transform:translateX(4px)}
+.wallet-option:last-child{margin-bottom:0}
+.wallet-opt-icon{font-size:28px;flex-shrink:0}
+.wallet-opt-name{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:3px}
+.wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:1px}
+.wallet-status-panel{margin-top:20px;padding:16px 20px;border-radius:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.1);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);display:none}
+.wallet-status-panel.show{display:block}
+.wallet-status-panel .ws-addr{color:var(--cyan);word-break:break-all;margin-bottom:8px;font-weight:700}
+.wallet-status-panel .ws-bal{font-size:1.4rem;font-weight:900;color:var(--green2);font-family:'Syne',sans-serif}
+.wallet-status-panel .ws-net{color:var(--text2);margin-top:6px}
+.modal-disconnect{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,77,109,.6);cursor:pointer;border:none;background:none;transition:color .2s;letter-spacing:1px;font-weight:700}
+.modal-disconnect:hover{color:var(--red)}
+
 /* WRAPPER */
 .wrapper{position:relative;z-index:10;max-width:1000px;margin:0 auto;padding:68px 5% 80px}
 
@@ -80,13 +111,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.45);letter-spacing:3px;border:1px solid rgba(0,212,232,0.12);padding:8px 20px;border-radius:30px;margin-bottom:36px;text-transform:uppercase;font-weight:700}
 [data-theme="light"] .hero-eyebrow{color:rgba(100,120,150,0.55);border-color:rgba(100,120,150,0.2)}
 .eyebrow-dot{width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:.7}
-
 .hero-title{font-weight:900;line-height:.93;letter-spacing:-3px;margin-bottom:28px;overflow:visible;padding:0 2px}
 .hero-title .t1,.hero-title .t2{display:block;overflow:visible;padding-right:4px}
 .hero-title .t1{font-size:clamp(2.8rem,9.5vw,6.2rem);background:linear-gradient(90deg,var(--cyan) 0%,#7af6ff 20%,var(--cyan2) 40%,#a0e8ff 60%,var(--cyan) 80%,#7af6ff 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:ts 6s linear infinite}
 .hero-title .t2{font-size:clamp(2rem,6.5vw,4.4rem);background:linear-gradient(90deg,var(--purple2) 0%,#c4b5ff 20%,var(--purple) 40%,#a78bfa 60%,var(--purple2) 80%,#c4b5ff 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:ts 6s linear infinite .8s}
 @keyframes ts{0%{background-position:0% center}100%{background-position:250% center}}
-
 .hero-sub{font-size:1.05rem;max-width:500px;color:var(--text2);margin:0 auto 44px;line-height:1.8;font-weight:500}
 .hero-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(0,212,232,0.12),rgba(107,79,255,0.12));border:1px solid rgba(0,212,232,0.28);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2.5px;padding:15px 30px;border-radius:8px;cursor:pointer;transition:all .3s;text-decoration:none;white-space:nowrap;text-align:center;font-weight:700}
@@ -134,12 +163,77 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 [data-theme="light"] .card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
 .card:hover{border-color:var(--border-h);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
 
-/* ⭐ REVENUE ARCHITECTURE CARD ⭐ */
+/* ══════════════════════════════════════════════════
+   ⭐ LIVE NETWORK PULSE — YENİ!
+══════════════════════════════════════════════════ */
+.pulse-section{margin-bottom:56px}
+.pulse-card{background:rgba(3,5,14,0.98);border:1px solid rgba(0,212,232,0.12);border-radius:16px;overflow:hidden;position:relative}
+[data-theme="light"] .pulse-card{background:rgba(240,245,255,0.98);border-color:rgba(0,212,232,0.2)}
+.pulse-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--green2),var(--cyan));background-size:300% auto;animation:borderRun 3s linear infinite}
+@keyframes borderRun{0%{background-position:0% center}100%{background-position:300% center}}
+
+.pulse-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px 14px;border-bottom:1px solid rgba(0,212,232,0.06)}
+.pulse-title{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--cyan);font-weight:800;display:flex;align-items:center;gap:8px}
+.pulse-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green2);box-shadow:0 0 10px var(--green2);animation:pulseAnim 1.5s ease-in-out infinite}
+@keyframes pulseAnim{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.pulse-stats-bar{display:flex;gap:20px;flex-wrap:wrap}
+.pulse-stat{text-align:center}
+.pulse-stat-val{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:800;color:var(--cyan)}
+.pulse-stat-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase}
+
+/* STREAM FEED */
+.stream-feed{height:280px;overflow:hidden;padding:12px 0;position:relative}
+.stream-feed::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(to top,rgba(3,5,14,0.98),transparent);pointer-events:none;z-index:2}
+[data-theme="light"] .stream-feed::after{background:linear-gradient(to top,rgba(240,245,255,0.98),transparent)}
+
+.stream-inner{display:flex;flex-direction:column;gap:0}
+.stream-tx{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px 16px;align-items:center;padding:10px 24px;border-bottom:1px solid rgba(0,212,232,0.04);transition:background .15s;animation:slideIn .4s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+.stream-tx:hover{background:rgba(0,212,232,0.03)}
+.stream-tx-time{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);white-space:nowrap;font-weight:700}
+.stream-tx-addrs{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);font-weight:600}
+.stream-tx-addrs .from-addr{color:var(--purple2)}
+.stream-tx-addrs .to-addr{color:var(--cyan)}
+.stream-tx-amount{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:800;color:var(--green2);white-space:nowrap;text-align:right}
+.stream-tx-hash{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.25);text-align:right}
+.stream-tx-hash a{color:inherit;text-decoration:none;transition:color .2s}
+.stream-tx-hash a:hover{color:var(--cyan)}
+
+/* METRIC STRIP */
+.metric-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(0,212,232,0.05);border-top:1px solid rgba(0,212,232,0.06)}
+.metric-cell{background:rgba(3,5,14,.98);padding:14px 18px;text-align:center}
+[data-theme="light"] .metric-cell{background:rgba(240,245,255,.98)}
+.metric-cell-val{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:800;margin-bottom:4px}
+.metric-cell-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text2);letter-spacing:1.5px;text-transform:uppercase}
+
+/* ══════════════════════════════════════════════════
+   ⭐ API DEBUG PANEL — YENİ!
+══════════════════════════════════════════════════ */
+.debug-panel{border:1px solid rgba(200,168,75,0.2);border-radius:14px;background:rgba(200,168,75,0.02);overflow:hidden;margin-bottom:56px}
+.debug-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(200,168,75,0.05);border-bottom:1px solid rgba(200,168,75,0.1);cursor:pointer;user-select:none}
+.debug-title{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(200,168,75,0.8);font-weight:800;display:flex;align-items:center;gap:8px}
+.debug-toggle-icon{font-size:14px;transition:transform .3s;color:rgba(200,168,75,0.6)}
+.debug-body{display:none;padding:20px}
+.debug-body.open{display:block}
+
+.api-tests{display:grid;gap:10px}
+.api-test-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:rgba(0,0,0,0.3);border-radius:10px;border:1px solid rgba(200,168,75,0.08);flex-wrap:wrap}
+[data-theme="light"] .api-test-row{background:rgba(245,247,250,0.5)}
+.api-test-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);font-weight:700;flex:1;min-width:120px}
+.api-test-status{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 12px;border-radius:20px;font-weight:800;white-space:nowrap}
+.status-ok{background:rgba(0,200,150,0.12);border:1px solid rgba(0,200,150,0.25);color:var(--green2)}
+.status-err{background:rgba(255,77,109,0.12);border:1px solid rgba(255,77,109,0.25);color:var(--red)}
+.status-pending{background:rgba(200,168,75,0.12);border:1px solid rgba(200,168,75,0.25);color:var(--gold)}
+.api-test-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.debug-run-btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;padding:8px 18px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);color:var(--gold);border-radius:8px;cursor:pointer;transition:all .2s;font-weight:800;width:100%;margin-top:12px}
+.debug-run-btn:hover{background:rgba(200,168,75,0.2);border-color:var(--gold)}
+
+/* REVENUE ARCHITECTURE */
 .revenue-card{border:1px solid var(--purple);background:rgba(107,79,255,0.03);position:relative;overflow:hidden}
 [data-theme="light"] .revenue-card{background:rgba(107,79,255,0.05);border-color:rgba(107,79,255,0.3)}
 .revenue-card::before{content:'PROFIT';position:absolute;top:-20px;right:-20px;font-size:80px;opacity:0.03;font-weight:800;transform:rotate(-15deg)}
 .revenue-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:24px;padding:28px}
-.revenue-item{border:1px solid rgba(107,79,255,0.2);padding:26px;border-radius:12px;background:rgba(0,0,0,0.3);transition:all 0.3s}
+.revenue-item{border:1px solid rgba(107,79,255,0.2);padding:26px;border-radius:12px;background:rgba(0,0,0,0.3);transition:all .3s}
 [data-theme="light"] .revenue-item{background:rgba(245,247,250,0.5);border-color:rgba(107,79,255,0.25)}
 .revenue-item:hover{transform:translateY(-4px);border-color:rgba(107,79,255,0.4);box-shadow:0 8px 24px rgba(107,79,255,0.1)}
 .revenue-item.cyan{border-color:rgba(0,212,232,0.2)}
@@ -148,10 +242,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .revenue-label-purple{color:var(--purple2)}
 .revenue-label-cyan{color:var(--cyan)}
 .revenue-value{font-size:2.8rem;font-weight:900;color:#fff;line-height:1;margin-bottom:16px;letter-spacing:-2px}
-.revenue-desc{font-size:13px;color:var(--text3);line-height:1.75;margin-bottom:0;font-weight:600}
-.revenue-note{margin-top:0;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(157,135,255,0.5);text-align:center;border-top:1px solid rgba(157,135,255,0.1);padding:16px 28px;font-weight:700}
+.revenue-desc{font-size:13px;color:var(--text3);line-height:1.75;font-weight:600}
+.revenue-note{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(157,135,255,0.5);text-align:center;border-top:1px solid rgba(157,135,255,0.1);padding:16px 28px;font-weight:700}
 
-/* ⭐ SMART CONTRACTS SECTION ⭐ */
+/* SMART CONTRACTS */
 .contracts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .contract-card{background:rgba(7,11,23,0.92);border:1px solid var(--border);border-radius:16px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
 [data-theme="light"] .contract-card{background:rgba(245,247,250,0.92);border-color:rgba(100,120,150,0.15)}
@@ -168,11 +262,15 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .query-wrap{padding:30px}
 .query-row{display:flex;gap:11px;margin-bottom:16px}
 .query-input{flex:1;min-width:0;background:rgba(0,212,232,0.03);border:1px solid rgba(0,212,232,0.1);border-radius:10px;padding:14px 18px;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;transition:border-color .2s,background .2s;width:100%;font-weight:600}
-[data-theme="light"] .query-input{background:rgba(100,120,150,0.05);color:var(--text-dark);border-color:rgba(100,120,150,0.15)}
+[data-theme="light"] .query-input{background:rgba(100,120,150,0.05);color:var(--text);border-color:rgba(100,120,150,0.15)}
 .query-input::placeholder{color:rgba(0,212,232,0.2)}
 .query-input:focus{border-color:rgba(0,212,232,0.3);background:rgba(0,212,232,0.06)}
 .btn-query{background:rgba(107,79,255,0.1);border:1px solid rgba(107,79,255,0.28);color:var(--purple2);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;padding:14px 24px;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;font-weight:700}
 .btn-query:hover{background:rgba(107,79,255,0.2);border-color:var(--purple2);color:#fff}
+/* connected wallet auto-fill button */
+.btn-autofill{background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);color:var(--green2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;padding:14px 18px;border-radius:10px;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0;font-weight:700;display:none}
+.btn-autofill.show{display:block}
+.btn-autofill:hover{background:rgba(0,200,150,0.15);border-color:var(--green2)}
 .result-area{background:rgba(0,0,0,0.4);border:1px solid rgba(0,212,232,0.05);border-radius:12px;padding:22px 24px;min-height:75px;display:flex;flex-direction:column;justify-content:center}
 [data-theme="light"] .result-area{background:rgba(245,247,250,0.5);border-color:rgba(100,120,150,0.1)}
 .result-hint{font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.3);font-weight:600}
@@ -198,8 +296,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 [data-theme="light"] .term-bar{background:rgba(100,120,150,0.05)}
 .term-dot{width:10px;height:10px;border-radius:50%}
 .term-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);margin-left:6px;letter-spacing:2px;font-weight:700}
-.term-body{padding:22px 24px;height:220px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;background:#000;border-radius:0 0 16px 16px}
-[data-theme="light"] .term-body{background:#f9fafc;color:var(--text-dark)}
+.term-body{padding:22px 24px;height:220px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.9;background:#000;border-radius:0 0 0 0}
+[data-theme="light"] .term-body{background:#f9fafc;color:var(--text)}
 .log-line{animation:logS .3s ease}
 @keyframes logS{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:translateX(0)}}
 .lc{color:rgba(0,212,232,.8)}.lg{color:#00f084}.lp{color:#c4a9ff}.lw{color:#ffd700}
@@ -256,10 +354,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .tech-spec-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(0,212,232,0.1),transparent 70%);pointer-events:none}
 .tech-spec-card:hover{border-color:rgba(0,212,232,0.28);transform:translateY(-5px);box-shadow:0 14px 44px rgba(0,212,232,0.12)}
 .tech-spec-card.purple{background:linear-gradient(135deg,rgba(107,79,255,0.08),rgba(157,135,255,0.04));border-color:rgba(107,79,255,0.15)}
-[data-theme="light"] .tech-spec-card.purple{background:linear-gradient(135deg,rgba(107,79,255,0.12),rgba(157,135,255,0.06));border-color:rgba(107,79,255,0.25)}
 .tech-spec-card.purple:hover{border-color:rgba(107,79,255,0.28);box-shadow:0 14px 44px rgba(107,79,255,0.12)}
 .tech-spec-card.green{background:linear-gradient(135deg,rgba(0,200,150,0.08),rgba(0,230,118,0.04));border-color:rgba(0,200,150,0.15)}
-[data-theme="light"] .tech-spec-card.green{background:linear-gradient(135deg,rgba(0,200,150,0.12),rgba(0,230,118,0.06));border-color:rgba(0,200,150,0.25)}
 .tech-spec-card.green:hover{border-color:rgba(0,200,150,0.28);box-shadow:0 14px 44px rgba(0,200,150,0.12)}
 .tech-spec-icon{font-size:40px;margin-bottom:18px;display:block;animation:float 3s ease-in-out infinite}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
@@ -278,9 +374,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .wp-tag{font-family:'JetBrains Mono',monospace;font-size:11px;padding:10px 20px;background:rgba(0,212,232,0.14);border:1px solid rgba(0,212,232,0.28);color:var(--cyan);border-radius:6px;text-transform:uppercase;letter-spacing:1.5px;font-weight:800;transition:all .2s;cursor:default}
 .wp-tag:hover{background:rgba(0,212,232,0.22);border-color:var(--cyan)}
 .wp-tag.purple{background:rgba(107,79,255,0.14);border-color:rgba(107,79,255,0.28);color:var(--purple2)}
-.wp-tag.purple:hover{background:rgba(107,79,255,0.22);border-color:var(--purple2)}
 .wp-tag.green{background:rgba(0,200,150,0.14);border-color:rgba(0,200,150,0.28);color:var(--green2)}
-.wp-tag.green:hover{background:rgba(0,200,150,0.22);border-color:var(--green2)}
 
 /* SOCIAL */
 .social-row{display:flex;gap:12px;flex-wrap:wrap}
@@ -307,10 +401,9 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .tech-specs-grid{grid-template-columns:1fr}
   .contracts-grid{grid-template-columns:1fr}
   .price-meta{display:none}
-  .hero-title .t1{font-size:clamp(2.2rem,8vw,4.5rem)}
-  .hero-title .t2{font-size:clamp(1.4rem,5vw,3rem)}
-  .wp-section-card{padding:28px}
-  .theme-toggle{bottom:20px;right:20px}
+  .metric-strip{grid-template-columns:repeat(2,1fr)}
+  .stream-tx{grid-template-columns:auto 1fr auto}
+  .stream-tx-hash{display:none}
 }
 @media(max-width:520px){
   nav{padding:0 4%}
@@ -323,25 +416,14 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .footer-inner{flex-direction:column;align-items:flex-start;gap:14px}
   .hero-title{letter-spacing:-1.5px}
   .tokenomics-grid{grid-template-columns:1fr 1fr}
-  .hero-eyebrow{font-size:8px;padding:5px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:90vw}
+  .hero-eyebrow{font-size:8px;padding:5px 14px}
   .wp-section-card{padding:20px}
   .wp-title{font-size:1.4rem}
-  .tech-specs-grid{gap:10px}
-  .tech-spec-card{padding:20px 16px}
-  .tech-spec-icon{font-size:32px}
-  .tech-spec-title{font-size:1.1rem}
   .revenue-grid{grid-template-columns:1fr}
   .revenue-value{font-size:2.2rem}
   .revenue-item{padding:20px}
-  .revenue-label{font-size:10px}
-  .revenue-desc{font-size:12px}
-  .contracts-grid{gap:12px}
-  .contract-card{padding:20px}
-  .contract-title{font-size:1.1rem}
-  .price-label{font-size:10px}
-  .price-value{font-size:1.9rem}
-  .stat-num{font-size:clamp(1.4rem,3vw,2rem)}
-  .stat-label{font-size:10px}
+  .metric-strip{grid-template-columns:1fr 1fr}
+  .btn-wallet-connect .wallet-short{display:none}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 </style>
@@ -352,16 +434,71 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
 <div class="glow-tl"></div>
 <div class="glow-br"></div>
 
-<!-- THEME TOGGLE BUTTON -->
+<!-- THEME TOGGLE -->
 <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch Theme">🌙</div>
+
+<!-- ══════════════════════════════════════════════════
+     WALLET MODAL
+══════════════════════════════════════════════════ -->
+<div class="wallet-modal-overlay" id="walletModal">
+  <div class="wallet-modal">
+    <button class="modal-close" onclick="closeWalletModal()">✕</button>
+    <div id="walletModalContent">
+      <!-- Default: connect options -->
+      <div id="walletConnectOptions">
+        <div class="modal-title">Connect Wallet</div>
+        <div class="modal-sub">ETHICOIN · BASE MAINNET · CHAIN #8453</div>
+        <div class="wallet-option" onclick="connectMetaMask()">
+          <div class="wallet-opt-icon">🦊</div>
+          <div>
+            <div class="wallet-opt-name">MetaMask</div>
+            <div class="wallet-opt-desc">BROWSER EXTENSION · MOST POPULAR</div>
+          </div>
+        </div>
+        <div class="wallet-option" onclick="connectWalletConnect()">
+          <div class="wallet-opt-icon">🔗</div>
+          <div>
+            <div class="wallet-opt-name">WalletConnect</div>
+            <div class="wallet-opt-desc">QR CODE · MOBILE WALLETS</div>
+          </div>
+        </div>
+        <div class="wallet-option" onclick="connectCoinbase()">
+          <div class="wallet-opt-icon">🔵</div>
+          <div>
+            <div class="wallet-opt-name">Coinbase Wallet</div>
+            <div class="wallet-opt-desc">COINBASE · BASE NATIVE</div>
+          </div>
+        </div>
+      </div>
+      <!-- Connected state -->
+      <div id="walletConnectedView" style="display:none">
+        <div class="modal-title">Wallet Connected ✓</div>
+        <div class="modal-sub" id="walletTypeLabel">METAMASK · BASE MAINNET</div>
+        <div class="wallet-status-panel show">
+          <div class="ws-addr" id="modalWalletAddr">—</div>
+          <div class="ws-bal" id="modalWalletBal">— <span style="font-size:1rem;color:var(--text2)">ETHIC</span></div>
+          <div class="ws-net">✓ Base Mainnet · Chain #8453</div>
+        </div>
+        <button class="modal-disconnect" onclick="disconnectWallet()">⊗ DISCONNECT WALLET</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
   <div class="nav-logo">ETHICOIN</div>
   <div class="nav-right">
-    <a class="nav-link" href="#protocol" data-i18n="nav_protocol">PROTOCOL</a>
-    <a class="nav-link" href="#contract" data-i18n="nav_contract">CONTRACT</a>
-    <a class="nav-link" href="#roadmap" data-i18n="nav_roadmap">ROADMAP</a>
+    <a class="nav-link" href="#protocol">PROTOCOL</a>
+    <a class="nav-link" href="#contract">CONTRACT</a>
+    <a class="nav-link" href="#roadmap">ROADMAP</a>
+
+    <!-- ⭐ WALLET CONNECT BUTTON -->
+    <button class="btn-wallet-connect" id="walletConnectBtn" onclick="openWalletModal()">
+      <span class="wallet-icon">🦊</span>
+      <span class="wallet-short" id="walletBtnLabel">CONNECT</span>
+    </button>
+
     <div style="position:relative">
       <button class="lang-btn" onclick="toggleLang()" id="langBtn">🌐 EN</button>
       <div class="lang-dropdown" id="langDropdown">
@@ -375,7 +512,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
         <button class="lang-option" onclick="setLang('hi')">🇮🇳 हिंदी</button>
       </div>
     </div>
-    <div class="nav-badge"><span class="pulse-dot"></span><span data-i18n="live_badge">LIVE · BASE #8453</span></div>
+    <div class="nav-badge"><span class="pulse-dot"></span>LIVE · BASE #8453</div>
   </div>
 </nav>
 
@@ -385,36 +522,36 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="hero">
     <div class="hero-eyebrow">
       <span class="eyebrow-dot"></span>
-      <span data-i18n="hero_tag">PROTOCOL v1.0 · CHAIN #8453 · ERC-20</span>
+      <span>PROTOCOL v1.0 · CHAIN #8453 · ERC-20</span>
     </div>
     <h1 class="hero-title">
-      <span class="t1" data-i18n="hero_t1">DATA</span>
-      <span class="t2" data-i18n="hero_t2">SOVEREIGNTY</span>
+      <span class="t1">DATA</span>
+      <span class="t2">SOVEREIGNTY</span>
     </h1>
-    <p class="hero-sub" data-i18n="hero_sub">A decentralized protocol built for ethical AI training and data sovereignty. Deployed on Base Mainnet with 1 billion ETHIC tokens.</p>
+    <p class="hero-sub">A decentralized protocol built for ethical AI training and data sovereignty. Deployed on Base Mainnet with 1 billion ETHIC tokens.</p>
     <div class="hero-actions">
-      <a href="#query" class="btn-primary" id="btn_explore_el">EXPLORE PROTOCOL <span class="arrow">→</span></a>
-      <a href="https://app.uniswap.org/swap?outputCurrency=0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93&chain=base" target="_blank" class="btn-buy" data-i18n="btn_buy">BUY ETHIC ↗</a>
-      <a href="https://basescan.org/token/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93" target="_blank" class="btn-secondary" data-i18n="btn_basescan">BASESCAN ↗</a>
+      <a href="#query" class="btn-primary">EXPLORE PROTOCOL <span class="arrow">→</span></a>
+      <a href="https://app.uniswap.org/swap?outputCurrency=0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93&chain=base" target="_blank" class="btn-buy">BUY ETHIC ↗</a>
+      <a href="https://basescan.org/token/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93" target="_blank" class="btn-secondary">BASESCAN ↗</a>
     </div>
   </section>
 
   <!-- LIVE PRICE -->
-  <div class="price-ticker" id="priceTicker">
+  <div class="price-ticker">
     <div class="price-main">
       <div>
-        <div class="price-label" data-i18n="price_label">ETHIC PRICE</div>
+        <div class="price-label">ETHIC PRICE</div>
         <div class="price-value" id="priceVal">—</div>
         <div class="price-sub" id="priceSub">Loading from Uniswap...</div>
       </div>
     </div>
     <div class="price-meta">
       <div class="price-stat">
-        <div class="price-stat-label" data-i18n="supply_label">Total Supply</div>
+        <div class="price-stat-label">Total Supply</div>
         <div class="price-stat-val">1,000,000,000 ETHIC</div>
       </div>
       <div class="price-stat">
-        <div class="price-stat-label" data-i18n="network_label">Network</div>
+        <div class="price-stat-label">Network</div>
         <div class="price-stat-val" style="color:var(--cyan)">Base Mainnet</div>
       </div>
       <div class="price-stat">
@@ -427,94 +564,116 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
 
   <!-- STATS -->
   <div class="stats-row">
-    <div class="stat-item">
-      <div class="stat-num">1B</div>
-      <div class="stat-label" data-i18n="stat_supply">Total Supply</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">18</div>
-      <div class="stat-label" data-i18n="stat_decimals">Decimals</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" style="color:var(--green2);font-size:1.5rem">✓</div>
-      <div class="stat-label" data-i18n="stat_verified">Verified</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" style="font-size:1.3rem">Base</div>
-      <div class="stat-label" data-i18n="stat_network">Network</div>
-    </div>
+    <div class="stat-item"><div class="stat-num">1B</div><div class="stat-label">Total Supply</div></div>
+    <div class="stat-item"><div class="stat-num">18</div><div class="stat-label">Decimals</div></div>
+    <div class="stat-item"><div class="stat-num" style="color:var(--green2);font-size:1.5rem">✓</div><div class="stat-label">Verified</div></div>
+    <div class="stat-item"><div class="stat-num" style="font-size:1.3rem">Base</div><div class="stat-label">Network</div></div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- ⭐ REVENUE ARCHITECTURE ⭐ -->
+  <!-- ══════════════════════════════════════════════════
+       ⭐ LIVE NETWORK PULSE — YENİ MODÜL!
+  ══════════════════════════════════════════════════ -->
+  <section class="pulse-section" id="live-pulse">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--green2)"></div>
+      <div class="sec-label" style="color:rgba(0,230,118,.6)">LIVE NETWORK PULSE</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,230,118,.2),transparent)"></div>
+    </div>
+
+    <div class="pulse-card">
+      <div class="pulse-header">
+        <div class="pulse-title">
+          <span class="pulse-live-dot"></span>
+          ETHIC TOKEN — REAL-TIME STREAM
+        </div>
+        <div class="pulse-stats-bar">
+          <div class="pulse-stat">
+            <div class="pulse-stat-val" id="pulseBlock">—</div>
+            <div class="pulse-stat-lbl">Block</div>
+          </div>
+          <div class="pulse-stat">
+            <div class="pulse-stat-val" id="pulseTxCount">—</div>
+            <div class="pulse-stat-lbl">TX Count</div>
+          </div>
+          <div class="pulse-stat">
+            <div class="pulse-stat-val" id="pulseVolume">—</div>
+            <div class="pulse-stat-lbl">Volume</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STREAM FEED -->
+      <div class="stream-feed">
+        <div class="stream-inner" id="streamInner">
+          <div style="padding:60px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.25)">Connecting to Base Mainnet feed...</div>
+        </div>
+      </div>
+
+      <!-- METRIC STRIP -->
+      <div class="metric-strip">
+        <div class="metric-cell">
+          <div class="metric-cell-val" id="metricHolders" style="color:var(--cyan)">—</div>
+          <div class="metric-cell-lbl">Unique Senders</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-cell-val" id="metricMaxTx" style="color:var(--purple2)">—</div>
+          <div class="metric-cell-lbl">Largest TX</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-cell-val" id="metricLastBlock" style="color:var(--green2)">—</div>
+          <div class="metric-cell-lbl">Last Block</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-cell-val" id="metricRefresh" style="color:var(--gold)">—</div>
+          <div class="metric-cell-lbl">Updated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVENUE ARCHITECTURE -->
   <section class="section" id="revenue">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple)"></div>
-      <div class="sec-label" style="color:var(--purple2)" data-i18n="rev_model">REVENUE ARCHITECTURE</div>
+      <div class="sec-label" style="color:var(--purple2)">REVENUE ARCHITECTURE</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
-    
     <div class="card revenue-card">
       <div class="revenue-grid">
-        <!-- TRANSACTION FEE -->
         <div class="revenue-item">
-          <div class="revenue-label revenue-label-purple">
-            <span>💰</span>
-            <span data-i18n="rev_fee_label">TRANSACTION FEE</span>
-          </div>
+          <div class="revenue-label revenue-label-purple"><span>💰</span><span>TRANSACTION FEE</span></div>
           <div class="revenue-value">20%</div>
-          <p class="revenue-desc" data-i18n="rev_fee_desc">Protocol commission from AI data purchases. Revenue stream for ecosystem development.</p>
+          <p class="revenue-desc">Protocol commission from AI data purchases. Revenue stream for ecosystem development.</p>
         </div>
-
-        <!-- TREASURY ACCUMULATION -->
         <div class="revenue-item cyan">
-          <div class="revenue-label revenue-label-cyan">
-            <span>📊</span>
-            <span data-i18n="rev_treasury_label">TREASURY SPLIT</span>
-          </div>
+          <div class="revenue-label revenue-label-cyan"><span>📊</span><span>TREASURY SPLIT</span></div>
           <div class="revenue-value">80/20</div>
-          <p class="revenue-desc" data-i18n="rev_treasury_desc">80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants & development.</p>
+          <p class="revenue-desc">80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants & development.</p>
         </div>
       </div>
-      
       <div class="revenue-note">[ Smart Contract Distribution on Base L2 — Automated & Transparent ]</div>
     </div>
   </section>
 
-  <!-- ⭐ SMART CONTRACTS ⭐ -->
+  <!-- SMART CONTRACTS -->
   <section class="section" id="contracts">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.55)" data-i18n="sec_contracts">Smart Contracts</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.55)">Smart Contracts</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
-
     <div class="contracts-grid">
-      <!-- DataSovereignty Contract -->
       <div class="contract-card">
-        <div class="contract-header">
-          <span class="contract-icon">🔐</span>
-          <div class="contract-title" data-i18n="contract_ds_title">DataSovereignty</div>
-        </div>
-        <p class="contract-desc" data-i18n="contract_ds_desc">Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically — no party can access data without a recorded on-chain permission.</p>
-        <a href="https://sepolia.etherscan.io/address/0x58d48d5A23AB7e272721d623d138dfDc17Cb7632" target="_blank" class="contract-link">
-          <span>📋</span>
-          <span>0x58d48d5...Cb7632 ↗</span>
-        </a>
+        <div class="contract-header"><span class="contract-icon">🔐</span><div class="contract-title">DataSovereignty</div></div>
+        <p class="contract-desc">Users register their data hash on-chain and grant access only with explicit consent. The DataSovereignty smart contract enforces this cryptographically.</p>
+        <a href="https://sepolia.etherscan.io/address/0x58d48d5A23AB7e272721d623d138dfDc17Cb7632" target="_blank" class="contract-link"><span>📋</span><span>0x58d48d5...Cb7632 ↗</span></a>
       </div>
-
-      <!-- AITrainingLog Contract -->
       <div class="contract-card">
-        <div class="contract-header">
-          <span class="contract-icon">⚡</span>
-          <div class="contract-title" data-i18n="contract_aitl_title">AITrainingLog</div>
-        </div>
-        <p class="contract-desc" data-i18n="contract_aitl_desc">Every AI training event is logged on-chain via the AITrainingLog contract — who used which data, when, and for what purpose. Immutable, public, verifiable by anyone on Sepolia Etherscan.</p>
-        <a href="https://sepolia.etherscan.io/address/0x77A74aF0879c713209DB35A713f1736021F497a3" target="_blank" class="contract-link">
-          <span>📋</span>
-          <span>0x77A74aF...497a3 ↗</span>
-        </a>
+        <div class="contract-header"><span class="contract-icon">⚡</span><div class="contract-title">AITrainingLog</div></div>
+        <p class="contract-desc">Every AI training event is logged on-chain — who used which data, when, and for what purpose. Immutable, public, verifiable by anyone on Sepolia.</p>
+        <a href="https://sepolia.etherscan.io/address/0x77A74aF0879c713209DB35A713f1736021F497a3" target="_blank" class="contract-link"><span>📋</span><span>0x77A74aF...497a3 ↗</span></a>
       </div>
     </div>
   </section>
@@ -523,17 +682,19 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="query">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="sec_wallet">Wallet Query</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)">Wallet Query</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="card">
       <div class="query-wrap">
         <div class="query-row">
-          <input class="query-input" id="walletAddr" data-i18n-placeholder="wallet_placeholder" placeholder="Enter Base wallet address — 0x..."/>
-          <button class="btn-query" onclick="queryBalance()" data-i18n="btn_query">QUERY</button>
+          <input class="query-input" id="walletAddr" placeholder="Enter Base wallet address — 0x..."/>
+          <!-- ⭐ Auto-fill from connected wallet -->
+          <button class="btn-autofill" id="autofillBtn" onclick="autofillWallet()" title="Use connected wallet">⚡ MY WALLET</button>
+          <button class="btn-query" onclick="queryBalance()">QUERY</button>
         </div>
         <div class="result-area" id="resultPanel">
-          <div class="result-hint" data-i18n="wallet_hint">View the ETHIC balance of any Base wallet address instantly</div>
+          <div class="result-hint">View the ETHIC balance of any Base wallet address instantly</div>
         </div>
       </div>
     </div>
@@ -543,12 +704,12 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--green2)"></div>
-      <div class="sec-label" style="color:rgba(0,200,150,.55)" data-i18n="sec_transfers">Live Transfers</div>
+      <div class="sec-label" style="color:rgba(0,200,150,.55)">Live Transfers</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,200,150,.2),transparent)"></div>
     </div>
     <div class="card">
       <div class="tx-list" id="txList">
-        <div class="tx-loading" data-i18n="loading_transfers">Loading recent transfers...</div>
+        <div class="tx-loading">Loading recent transfers...</div>
       </div>
     </div>
   </section>
@@ -557,7 +718,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.5)" data-i18n="sec_monitor">Chain Monitor</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.5)">Chain Monitor</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="card">
@@ -568,7 +729,52 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
         <span class="term-title">BASE MAINNET — CHAIN #8453 — ETHICOIN LIVE FEED</span>
       </div>
       <div class="term-body" id="termBody"></div>
-      <div class="term-note" data-i18n="monitor_note">↑ Real-time data from BaseScan API · Updates every 10 seconds</div>
+      <div class="term-note">↑ Real-time data from BaseScan API · Updates every 10 seconds</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       ⭐ API DEBUG PANEL — YENİ!
+  ══════════════════════════════════════════════════ -->
+  <section class="section">
+    <div class="debug-panel">
+      <div class="debug-header" onclick="toggleDebug()">
+        <div class="debug-title">
+          🔧 API CONNECTION DIAGNOSTICS
+          <span style="font-size:9px;color:rgba(200,168,75,0.5);letter-spacing:1px">· CLICK TO EXPAND</span>
+        </div>
+        <span class="debug-toggle-icon" id="debugIcon">▼</span>
+      </div>
+      <div class="debug-body" id="debugBody">
+        <div class="api-tests" id="apiTests">
+          <div class="api-test-row">
+            <div class="api-test-name">BaseScan API</div>
+            <div class="api-test-status status-pending" id="test-basescan">PENDING</div>
+            <div class="api-test-val" id="testval-basescan">—</div>
+          </div>
+          <div class="api-test-row">
+            <div class="api-test-name">Token Supply</div>
+            <div class="api-test-status status-pending" id="test-supply">PENDING</div>
+            <div class="api-test-val" id="testval-supply">—</div>
+          </div>
+          <div class="api-test-row">
+            <div class="api-test-name">Transfer Events</div>
+            <div class="api-test-status status-pending" id="test-transfers">PENDING</div>
+            <div class="api-test-val" id="testval-transfers">—</div>
+          </div>
+          <div class="api-test-row">
+            <div class="api-test-name">DexScreener Price</div>
+            <div class="api-test-status status-pending" id="test-price">PENDING</div>
+            <div class="api-test-val" id="testval-price">—</div>
+          </div>
+          <div class="api-test-row">
+            <div class="api-test-name">Block Number</div>
+            <div class="api-test-status status-pending" id="test-block">PENDING</div>
+            <div class="api-test-val" id="testval-block">—</div>
+          </div>
+        </div>
+        <button class="debug-run-btn" onclick="runDiagnostics()">⚡ RUN ALL DIAGNOSTICS</button>
+      </div>
     </div>
   </section>
 
@@ -576,17 +782,17 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="contract">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.5)" data-i18n="sec_contract">Contract Information</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.5)">Contract Information</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="card">
       <div class="ct-table">
         <div class="ct-row"><span class="ct-key">Contract</span><span class="ct-val c">0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93</span></div>
-        <div class="ct-row"><span class="ct-key" data-i18n="ct_network">Network</span><span class="ct-val c">Base Mainnet · Chain ID 8453</span></div>
-        <div class="ct-row"><span class="ct-key" data-i18n="ct_name">Token Name</span><span class="ct-val c">Ethicoin Protocol</span></div>
+        <div class="ct-row"><span class="ct-key">Network</span><span class="ct-val c">Base Mainnet · Chain ID 8453</span></div>
+        <div class="ct-row"><span class="ct-key">Token Name</span><span class="ct-val c">Ethicoin Protocol</span></div>
         <div class="ct-row"><span class="ct-key">Symbol</span><span class="ct-val c">ETHIC</span></div>
-        <div class="ct-row"><span class="ct-key" data-i18n="ct_standard">Standard</span><span class="ct-val g">ERC-20 · Source Verified ✓</span></div>
-        <div class="ct-row"><span class="ct-key" data-i18n="ct_supply">Total Supply</span><span class="ct-val c">1,000,000,000 ETHIC</span></div>
+        <div class="ct-row"><span class="ct-key">Standard</span><span class="ct-val g">ERC-20 · Source Verified ✓</span></div>
+        <div class="ct-row"><span class="ct-key">Total Supply</span><span class="ct-val c">1,000,000,000 ETHIC</span></div>
         <div class="ct-row"><span class="ct-key">Decimals</span><span class="ct-val c">18</span></div>
         <div class="ct-row"><span class="ct-key">DEX</span><span class="ct-val c">Uniswap v4 · Base</span></div>
       </div>
@@ -597,30 +803,14 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="protocol">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple2)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="sec_features">Protocol Features</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)">Protocol Features</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="feature-grid">
-      <div class="feature-card">
-        <span class="feat-icon">🧠</span>
-        <div class="feat-title" data-i18n="feat1_title">Data Sovereignty</div>
-        <p class="feat-desc" data-i18n="feat1_desc">Users maintain complete control over their data with cryptographic enforcement. No unauthorized access possible.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feat-icon">⚡</span>
-        <div class="feat-title" data-i18n="feat2_title">Ethical AI</div>
-        <p class="feat-desc" data-i18n="feat2_desc">Transparent AI training logs immutably recorded on-chain. Full auditability and accountability.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feat-icon">🔗</span>
-        <div class="feat-title" data-i18n="feat3_title">Base Mainnet</div>
-        <p class="feat-desc" data-i18n="feat3_desc">Ultra-fast, secure Layer 2 network with Ethereum-grade security and minimal transaction costs.</p>
-      </div>
-      <div class="feature-card">
-        <span class="feat-icon">🛡️</span>
-        <div class="feat-title" data-i18n="feat4_title">Verified Contract</div>
-        <p class="feat-desc" data-i18n="feat4_desc">100% open-source, publicly verified, independently auditable code. Complete transparency.</p>
-      </div>
+      <div class="feature-card"><span class="feat-icon">🧠</span><div class="feat-title">Data Sovereignty</div><p class="feat-desc">Users maintain complete control over their data with cryptographic enforcement. No unauthorized access possible.</p></div>
+      <div class="feature-card"><span class="feat-icon">⚡</span><div class="feat-title">Ethical AI</div><p class="feat-desc">Transparent AI training logs immutably recorded on-chain. Full auditability and accountability.</p></div>
+      <div class="feature-card"><span class="feat-icon">🔗</span><div class="feat-title">Base Mainnet</div><p class="feat-desc">Ultra-fast, secure Layer 2 network with Ethereum-grade security and minimal transaction costs.</p></div>
+      <div class="feature-card"><span class="feat-icon">🛡️</span><div class="feat-title">Verified Contract</div><p class="feat-desc">100% open-source, publicly verified, independently auditable code. Complete transparency.</p></div>
     </div>
   </section>
 
@@ -628,16 +818,16 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--gold)"></div>
-      <div class="sec-label" style="color:rgba(200,168,75,.55)" data-i18n="sec_tokenomics">Tokenomics</div>
+      <div class="sec-label" style="color:rgba(200,168,75,.55)">Tokenomics</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(200,168,75,.2),transparent)"></div>
     </div>
     <div class="tokenomics-grid">
-      <div class="token-card"><div class="token-pct">50%</div><div class="token-name" data-i18n="tok1">Ecosystem</div><div class="token-amount">500M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--purple2)">20%</div><div class="token-name" data-i18n="tok2">Development</div><div class="token-amount">200M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--green2)">15%</div><div class="token-name" data-i18n="tok3">Community</div><div class="token-amount">150M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--gold)">10%</div><div class="token-name" data-i18n="tok4">Liquidity</div><div class="token-amount">100M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--text2)">5%</div><div class="token-name" data-i18n="tok5">Reserve</div><div class="token-amount">50M</div></div>
-      <div class="token-card" style="border-color:rgba(0,212,232,.15)"><div class="token-pct" style="font-size:1.1rem">1B</div><div class="token-name" data-i18n="tok6">Total Fixed</div><div class="token-amount">No Mint</div></div>
+      <div class="token-card"><div class="token-pct">50%</div><div class="token-name">Ecosystem</div><div class="token-amount">500M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--purple2)">20%</div><div class="token-name">Development</div><div class="token-amount">200M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--green2)">15%</div><div class="token-name">Community</div><div class="token-amount">150M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--gold)">10%</div><div class="token-name">Liquidity</div><div class="token-amount">100M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--text2)">5%</div><div class="token-name">Reserve</div><div class="token-amount">50M</div></div>
+      <div class="token-card" style="border-color:rgba(0,212,232,.15)"><div class="token-pct" style="font-size:1.1rem">1B</div><div class="token-name">Total Fixed</div><div class="token-amount">No Mint</div></div>
     </div>
   </section>
 
@@ -645,78 +835,28 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="roadmap">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple2)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="sec_roadmap">Roadmap</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)">Roadmap</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="roadmap">
-      <div class="road-item">
-        <div class="road-num">01</div>
-        <div>
-          <div class="badge badge-live">● <span data-i18n="badge_live">Live</span></div>
-          <div class="road-phase" style="color:var(--green2)" data-i18n="phase1">Phase I — Foundation</div>
-          <div class="road-title" data-i18n="phase1_title">Protocol Launch</div>
-          <div class="road-desc" data-i18n="phase1_desc">ERC-20 token deployed on Base Mainnet. Liquidity established. Contracts verified.</div>
-        </div>
-      </div>
-      <div class="road-item">
-        <div class="road-num">02</div>
-        <div>
-          <div class="badge badge-soon">◈ <span data-i18n="badge_progress">In Progress</span></div>
-          <div class="road-phase" style="color:var(--cyan)" data-i18n="phase2">Phase II — Visibility</div>
-          <div class="road-title" data-i18n="phase2_title">Exchange Listings & Community</div>
-          <div class="road-desc" data-i18n="phase2_desc">CoinGecko & CoinMarketCap listings. Community growth on Telegram & X.</div>
-        </div>
-      </div>
-      <div class="road-item">
-        <div class="road-num">03</div>
-        <div>
-          <div class="badge badge-future">◇ <span data-i18n="badge_upcoming">Upcoming</span></div>
-          <div class="road-phase" style="color:var(--purple2)" data-i18n="phase3">Phase III — Infrastructure</div>
-          <div class="road-title" data-i18n="phase3_title">Data Sovereignty Layer</div>
-          <div class="road-desc" data-i18n="phase3_desc">Consent registry, API integrations, compensation model for contributors.</div>
-        </div>
-      </div>
-      <div class="road-item">
-        <div class="road-num">04</div>
-        <div>
-          <div class="badge badge-future">◇ <span data-i18n="badge_upcoming">Upcoming</span></div>
-          <div class="road-phase" style="color:var(--purple2)" data-i18n="phase4">Phase IV — Scale</div>
-          <div class="road-title" data-i18n="phase4_title">Governance & Ecosystem</div>
-          <div class="road-desc" data-i18n="phase4_desc">DAO governance, ecosystem grants for ethical AI projects.</div>
-        </div>
-      </div>
+      <div class="road-item"><div class="road-num">01</div><div><div class="badge badge-live">● Live</div><div class="road-phase" style="color:var(--green2)">Phase I — Foundation</div><div class="road-title">Protocol Launch</div><div class="road-desc">ERC-20 token deployed on Base Mainnet. Liquidity established. Contracts verified.</div></div></div>
+      <div class="road-item"><div class="road-num">02</div><div><div class="badge badge-soon">◈ In Progress</div><div class="road-phase" style="color:var(--cyan)">Phase II — Visibility</div><div class="road-title">Exchange Listings & Community</div><div class="road-desc">CoinGecko & CoinMarketCap listings. Community growth on Telegram & X.</div></div></div>
+      <div class="road-item"><div class="road-num">03</div><div><div class="badge badge-future">◇ Upcoming</div><div class="road-phase" style="color:var(--purple2)">Phase III — Infrastructure</div><div class="road-title">Data Sovereignty Layer</div><div class="road-desc">Consent registry, API integrations, compensation model for contributors.</div></div></div>
+      <div class="road-item"><div class="road-num">04</div><div><div class="badge badge-future">◇ Upcoming</div><div class="road-phase" style="color:var(--purple2)">Phase IV — Scale</div><div class="road-title">Governance & Ecosystem</div><div class="road-desc">DAO governance, ecosystem grants for ethical AI projects.</div></div></div>
     </div>
   </section>
 
-  <!-- TECHNICAL SPECIFICATIONS -->
+  <!-- TECHNICAL SPECS -->
   <section class="section" id="tech-specs">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.55)" data-i18n="sec_tech_specs">Technical Specifications</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.55)">Technical Specifications</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
-
     <div class="tech-specs-grid">
-      <div class="tech-spec-card">
-        <span class="tech-spec-icon">🔐</span>
-        <div class="tech-spec-label" data-i18n="arch_label">Architecture</div>
-        <div class="tech-spec-title" data-i18n="arch_title">Zero-Knowledge Proofs</div>
-        <p class="tech-spec-desc" data-i18n="arch_desc">Privacy-preserving cryptography for data verification without exposure.</p>
-      </div>
-
-      <div class="tech-spec-card purple">
-        <span class="tech-spec-icon">🏛️</span>
-        <div class="tech-spec-label" data-i18n="governance_label">Model</div>
-        <div class="tech-spec-title" data-i18n="governance_title">DAO Governance</div>
-        <p class="tech-spec-desc" data-i18n="governance_desc">Decentralized voting on protocol upgrades and ecosystem decisions.</p>
-      </div>
-
-      <div class="tech-spec-card green">
-        <span class="tech-spec-icon">⚡</span>
-        <div class="tech-spec-label" data-i18n="layer_label">Layer</div>
-        <div class="tech-spec-title" data-i18n="layer_title">Base Layer 2</div>
-        <p class="tech-spec-desc" data-i18n="layer_desc">Optimistic rollup: 10x lower costs, instant finality, Ethereum security.</p>
-      </div>
+      <div class="tech-spec-card"><span class="tech-spec-icon">🔐</span><div class="tech-spec-label">Architecture</div><div class="tech-spec-title">Zero-Knowledge Proofs</div><p class="tech-spec-desc">Privacy-preserving cryptography for data verification without exposure.</p></div>
+      <div class="tech-spec-card purple"><span class="tech-spec-icon">🏛️</span><div class="tech-spec-label">Model</div><div class="tech-spec-title">DAO Governance</div><p class="tech-spec-desc">Decentralized voting on protocol upgrades and ecosystem decisions.</p></div>
+      <div class="tech-spec-card green"><span class="tech-spec-icon">⚡</span><div class="tech-spec-label">Layer</div><div class="tech-spec-title">Base Layer 2</div><p class="tech-spec-desc">Optimistic rollup: 10x lower costs, instant finality, Ethereum security.</p></div>
     </div>
   </section>
 
@@ -724,22 +864,19 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="whitepaper">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple2)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="wp_title_main">Technical Documentation</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)">Technical Documentation</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
-
     <div class="card wp-section-card">
       <div class="wp-content">
-        <h3 class="wp-title" data-i18n="wp_status">Whitepaper — Coming Soon</h3>
-        <p class="wp-description" data-i18n="wp_desc">Comprehensive technical documentation including architecture, tokenomics, governance, and AI integration is in preparation.</p>
-        
+        <h3 class="wp-title">Whitepaper — Coming Soon</h3>
+        <p class="wp-description">Comprehensive technical documentation including architecture, tokenomics, governance, and AI integration is in preparation.</p>
         <div class="wp-tags">
           <span class="wp-tag">ARCH: ZK-PROOF</span>
           <span class="wp-tag purple">MODEL: DAO GOVERNANCE</span>
           <span class="wp-tag green">LAYER: BASE L2</span>
         </div>
-
-        <button class="btn-primary" onclick="requestAccess()" data-i18n="wp_btn">📄 REQUEST EARLY ACCESS</button>
+        <button class="btn-primary" onclick="requestAccess()">📄 REQUEST EARLY ACCESS</button>
       </div>
     </div>
   </section>
@@ -748,7 +885,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.5)" data-i18n="sec_community">Community</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.5)">Community</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="social-row">
@@ -777,198 +914,186 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
 
 <script>
 // ════════════════════════════════════════════════════════════════
-// ETHICOIN — FINAL COMPLETE VERSION WITH ALL FEATURES
+// ETHICOIN v2 — COMPLETE ENHANCED VERSION
 // ════════════════════════════════════════════════════════════════
 
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
-const API_KEY = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';
+const API_KEY  = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';
+const BASE_CHAIN_ID = '0x2105'; // 8453 decimal
 
 // ════════════════════════════════════════════════════════════════
-// THEME MANAGEMENT
+// THEME
 // ════════════════════════════════════════════════════════════════
 function toggleTheme() {
-  const html = document.documentElement;
-  const current = html.getAttribute('data-theme');
+  const current = document.documentElement.getAttribute('data-theme');
   const theme = current === 'light' ? 'dark' : 'light';
-  html.setAttribute('data-theme', theme);
+  document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
-  updateThemeIcon(theme);
+  document.getElementById('themeToggle').textContent = theme === 'light' ? '☀️' : '🌙';
 }
-
-function updateThemeIcon(theme) {
-  const toggle = document.getElementById('themeToggle');
-  toggle.textContent = theme === 'light' ? '☀️' : '🌙';
-}
-
 const saved = localStorage.getItem('theme') || 'dark';
 document.documentElement.setAttribute('data-theme', saved);
-updateThemeIcon(saved);
+document.getElementById('themeToggle').textContent = saved === 'light' ? '☀️' : '🌙';
 
 // ════════════════════════════════════════════════════════════════
-// I18N — ALL LANGUAGES
+// LANGUAGE
 // ════════════════════════════════════════════════════════════════
-const T = {
-  en: {
-    nav_protocol: 'PROTOCOL', nav_contract: 'CONTRACT', nav_roadmap: 'ROADMAP',
-    live_badge: 'LIVE · BASE #8453', hero_tag: 'PROTOCOL v1.0 · CHAIN #8453 · ERC-20',
-    hero_t1: 'DATA', hero_t2: 'SOVEREIGNTY',
-    hero_sub: 'A decentralized protocol built for ethical AI training and data sovereignty. Deployed on Base Mainnet with 1 billion ETHIC tokens.',
-    btn_explore: 'EXPLORE PROTOCOL', btn_buy: 'BUY ETHIC ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'ETHIC PRICE', supply_label: 'Total Supply', network_label: 'Network',
-    stat_supply: 'Total Supply', stat_decimals: 'Decimals', stat_verified: 'Verified', stat_network: 'Network',
-    rev_model: 'REVENUE ARCHITECTURE', rev_fee_label: 'TRANSACTION FEE', rev_fee_desc: 'Protocol commission from AI data purchases.',
-    rev_treasury_label: 'TREASURY SPLIT', rev_treasury_desc: '80% to Data Contributors, 20% to ETHIC Treasury.',
-    sec_wallet: 'Wallet Query', wallet_placeholder: 'Enter Base wallet address — 0x...', btn_query: 'QUERY',
-    wallet_hint: 'View ETHIC balance instantly',
-    sec_transfers: 'Live Transfers', loading_transfers: 'Loading transfers...',
-    sec_monitor: 'Chain Monitor', monitor_note: '↑ Real-time data from BaseScan API',
-    sec_contract: 'Contract Information', ct_network: 'Network', ct_name: 'Token Name', ct_standard: 'Standard', ct_supply: 'Total Supply',
-    sec_contracts: 'Smart Contracts', contract_ds_title: 'DataSovereignty', contract_ds_desc: 'On-chain data access control with cryptographic enforcement.',
-    contract_aitl_title: 'AITrainingLog', contract_aitl_desc: 'Immutable ledger of all AI training events and data usage.',
-    sec_features: 'Protocol Features',
-    feat1_title: 'Data Sovereignty', feat1_desc: 'Complete user control with cryptographic enforcement.',
-    feat2_title: 'Ethical AI', feat2_desc: 'Transparent AI training logs on-chain.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Secure Layer 2 with Ethereum heritage.',
-    feat4_title: 'Verified Contract', feat4_desc: 'Open-source, publicly auditable code.',
-    sec_tokenomics: 'Tokenomics', tok1: 'Ecosystem', tok2: 'Development', tok3: 'Community', tok4: 'Liquidity', tok5: 'Reserve', tok6: 'Total Fixed',
-    sec_roadmap: 'Roadmap', badge_live: 'Live', badge_progress: 'In Progress', badge_upcoming: 'Upcoming',
-    phase1: 'Phase I — Foundation', phase1_title: 'Protocol Launch', phase1_desc: 'Token deployed, verified, liquidity established.',
-    phase2: 'Phase II — Visibility', phase2_title: 'Exchange Listings & Community', phase2_desc: 'CoinGecko & CoinMarketCap. Community growth.',
-    phase3: 'Phase III — Infrastructure', phase3_title: 'Data Sovereignty Layer', phase3_desc: 'Consent registry, APIs, compensation model.',
-    phase4: 'Phase IV — Scale', phase4_title: 'Governance & Ecosystem', phase4_desc: 'DAO governance, ecosystem grants.',
-    sec_tech_specs: 'Technical Specifications',
-    arch_label: 'Architecture', arch_title: 'Zero-Knowledge Proofs', arch_desc: 'Privacy-preserving data verification.',
-    governance_label: 'Model', governance_title: 'DAO Governance', governance_desc: 'Decentralized protocol governance.',
-    layer_label: 'Layer', layer_title: 'Base Layer 2', layer_desc: 'Optimistic rollup: 10x lower costs.',
-    wp_title_main: 'TECHNICAL DOCUMENTATION', wp_status: 'Whitepaper — Coming Soon', wp_desc: 'Comprehensive technical documentation in preparation.', wp_btn: '📄 REQUEST EARLY ACCESS',
-    sec_community: 'Community',
-  },
-  tr: {
-    nav_protocol: 'PROTOKOL', nav_contract: 'KONTRAT', nav_roadmap: 'YOL HARİTASI',
-    live_badge: 'CANLI · BASE #8453', hero_tag: 'PROTOKOL v1.0 · ZİNCİR #8453 · ERC-20',
-    hero_t1: 'VERİ', hero_t2: 'EGEMENLİĞİ',
-    hero_sub: 'Etik yapay zeka eğitimi ve veri egemenliği için inşa edilmiş merkeziyetsiz protokol.',
-    btn_explore: 'PROTOKOLİ KEŞFET', btn_buy: 'ETHIC SATIN AL ↗', btn_basescan: 'BASESCAN ↗',
-    price_label: 'ETHIC FİYATI', supply_label: 'Toplam Arz', network_label: 'Ağ',
-    stat_supply: 'Toplam Arz', stat_decimals: 'Ondalık', stat_verified: 'Doğrulandı', stat_network: 'Ağ',
-    rev_model: 'GELİR MİMARİSİ', rev_fee_label: 'İŞLEM ÜCRETİ', rev_fee_desc: 'Yapay zeka veri alımlarından komisyon.',
-    rev_treasury_label: 'HAZINE BÖLÜNÜMÜ', rev_treasury_desc: '%80 Katkıcılar, %20 Hazine.',
-    sec_wallet: 'Cüzdan Sorgulama', wallet_placeholder: 'Base cüzdan adresi girin — 0x...', btn_query: 'SORGULA',
-    wallet_hint: 'ETHIC bakiyesini anında görüntüleyin',
-    sec_transfers: 'Canlı Transferler', loading_transfers: 'Transferler yükleniyor...',
-    sec_monitor: 'Zincir Monitörü', monitor_note: '↑ BaseScan API\'den gerçek zamanlı veri',
-    sec_contract: 'Kontrat Bilgileri', ct_network: 'Ağ', ct_name: 'Token Adı', ct_standard: 'Standart', ct_supply: 'Toplam Arz',
-    sec_contracts: 'Akıllı Kontratlar', contract_ds_title: 'VeriEgemenliği', contract_ds_desc: 'Kriptografik olarak zorlanmış veri erişim kontrolü.',
-    contract_aitl_title: 'AIEğitimKaydı', contract_aitl_desc: 'Tüm yapay zeka eğitim olaylarının değiştirilmez defteri.',
-    sec_features: 'Protokol Özellikleri',
-    feat1_title: 'Veri Egemenliği', feat1_desc: 'Tam kullanıcı kontrolü ve kriptografik korunum.',
-    feat2_title: 'Etik Yapay Zeka', feat2_desc: 'Şeffaf yapay zeka eğitim günlükleri.',
-    feat3_title: 'Base Mainnet', feat3_desc: 'Ethereum mirasıyla güvenli Layer 2.',
-    feat4_title: 'Doğrulanmış Kontrat', feat4_desc: 'Açık kaynak, denetlenebilir kod.',
-    sec_tokenomics: 'Tokenomik', tok1: 'Ekosistem', tok2: 'Geliştirme', tok3: 'Topluluk', tok4: 'Likidite', tok5: 'Rezerv', tok6: 'Toplam Sabit',
-    sec_roadmap: 'Yol Haritası', badge_live: 'Canlı', badge_progress: 'Devam', badge_upcoming: 'Yakında',
-    phase1: 'Faz I — Temel', phase1_title: 'Protokol Lansmanı', phase1_desc: 'Token deploy, doğrulama, likidite.',
-    phase2: 'Faz II — Görünürlük', phase2_title: 'Borsa Listelemeleri', phase2_desc: 'Listeleme ve topluluk büyümesi.',
-    phase3: 'Faz III — Altyapı', phase3_title: 'Veri Egemenliği Katmanı', phase3_desc: 'Kayıt, API\'ler, ödeme modeli.',
-    phase4: 'Faz IV — Ölçekleme', phase4_title: 'Yönetişim', phase4_desc: 'DAO ve ekosistem hibeleri.',
-    sec_tech_specs: 'Teknik Spesifikasyonlar',
-    arch_label: 'Mimari', arch_title: 'Sıfır Bilgi İspatları', arch_desc: 'Gizlilik koruyan veri doğrulaması.',
-    governance_label: 'Model', governance_title: 'DAO Yönetişimi', governance_desc: 'Merkeziyetsiz protokol yönetişimi.',
-    layer_label: 'Katman', layer_title: 'Base Layer 2', layer_desc: 'İyimser rollup: 10x düşük maliyet.',
-    wp_title_main: 'TEKNİK DOKÜMANTASYON', wp_status: 'Teknik Doküman — Yakında', wp_desc: 'Kapsamlı teknik doküman hazırlanmaktadır.', wp_btn: '📄 ERKEN ERİŞİM İSTE',
-    sec_community: 'Topluluk',
-  },
-};
-
-Object.keys(T).forEach(lang => {
-  if (!T[lang].sec_contracts) {
-    T[lang].sec_contracts = T['en'].sec_contracts;
-    T[lang].contract_ds_title = T['en'].contract_ds_title;
-    T[lang].contract_ds_desc = T['en'].contract_ds_desc;
-    T[lang].contract_aitl_title = T['en'].contract_aitl_title;
-    T[lang].contract_aitl_desc = T['en'].contract_aitl_desc;
-  }
-});
-
-const FLAGS = { en: '🇬🇧 EN', tr: '🇹🇷 TR', es: '🇪🇸 ES', fr: '🇫🇷 FR', de: '🇩🇪 DE', ru: '🇷🇺 RU', zh: '🇨🇳 ZH', hi: '🇮🇳 HI' };
-let currentLang = 'en';
-
-function applyLang(lang) {
-  try {
-    const t = { ...T.en, ...(T[lang] || {}) };
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const k = el.getAttribute('data-i18n');
-      if (t[k]) el.innerHTML = t[k];
-    });
-    const exploreBtn = document.getElementById('btn_explore_el');
-    if (exploreBtn && t['btn_explore']) {
-      exploreBtn.innerHTML = t['btn_explore'] + ' <span class="arrow">→</span>';
-    }
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const k = el.getAttribute('data-i18n-placeholder');
-      if (t[k]) el.placeholder = t[k];
-    });
-    document.getElementById('langBtn').innerHTML = '🌐 ' + FLAGS[lang].split(' ')[1];
-    document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
-    const langIndex = ['en','tr','es','fr','de','ru','zh','hi'].indexOf(lang);
-    if (langIndex >= 0) document.querySelectorAll('.lang-option')[langIndex]?.classList.add('active');
-    currentLang = lang;
-  } catch(e) {
-    console.error('Language error:', e);
-  }
-}
-
+const FLAGS = {en:'🇬🇧 EN',tr:'🇹🇷 TR',es:'🇪🇸 ES',fr:'🇫🇷 FR',de:'🇩🇪 DE',ru:'🇷🇺 RU',zh:'🇨🇳 ZH',hi:'🇮🇳 HI'};
+function toggleLang() { document.getElementById('langDropdown').classList.toggle('open'); }
 function setLang(lang) {
-  applyLang(lang);
+  document.getElementById('langBtn').innerHTML = '🌐 ' + FLAGS[lang].split(' ')[1];
   document.getElementById('langDropdown').classList.remove('open');
+  document.querySelectorAll('.lang-option').forEach((o, i) => {
+    o.classList.toggle('active', ['en','tr','es','fr','de','ru','zh','hi'][i] === lang);
+  });
 }
-
-function toggleLang() {
-  document.getElementById('langDropdown').classList.toggle('open');
-}
-
 document.addEventListener('click', e => {
-  if (!e.target.closest('.lang-btn') && !e.target.closest('.lang-dropdown')) {
+  if (!e.target.closest('.lang-btn') && !e.target.closest('.lang-dropdown'))
     document.getElementById('langDropdown').classList.remove('open');
-  }
 });
 
 // ════════════════════════════════════════════════════════════════
-// REQUEST ACCESS
+// ⭐ METAMASK WALLET CONNECT
 // ════════════════════════════════════════════════════════════════
-function requestAccess() {
-  const termBody = document.getElementById('termBody');
-  if (termBody) {
-    addLogLine('lp', '[' + new Date().toLocaleTimeString() + '] ✓ Whitepaper access registered');
+let connectedAddress = null;
+let connectedWalletType = null;
+
+function openWalletModal() {
+  const modal = document.getElementById('walletModal');
+  if (connectedAddress) {
+    showConnectedView();
+  } else {
+    document.getElementById('walletConnectOptions').style.display = 'block';
+    document.getElementById('walletConnectedView').style.display = 'none';
   }
-  alert('✓ Request Registered!\n✓ İstek Kaydedildi!');
+  modal.classList.add('open');
 }
 
-// ════════════════════════════════════════════════════════════════
-// LIVE PRICE
-// ════════════════════════════════════════════════════════════════
-async function fetchPrice() {
+function closeWalletModal() {
+  document.getElementById('walletModal').classList.remove('open');
+}
+
+document.getElementById('walletModal').addEventListener('click', function(e) {
+  if (e.target === this) closeWalletModal();
+});
+
+async function connectMetaMask() {
+  if (!window.ethereum) {
+    alert('MetaMask not detected!\n\nPlease install MetaMask browser extension from metamask.io and refresh the page.');
+    return;
+  }
   try {
-    const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93', { timeout: 8000 });
-    if (!r.ok) throw new Error(`HTTP`);
-    const d = await r.json();
-    const pair = d.pairs?.[0];
-    if (pair && pair.priceUsd) {
-      const price = parseFloat(pair.priceUsd);
-      document.getElementById('priceVal').textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
-      document.getElementById('priceSub').textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'DEX'}`;
-      document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
-    } else {
-      document.getElementById('priceVal').textContent = 'Active';
-      document.getElementById('priceSub').textContent = 'Pool initialized';
+    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+    if (!accounts || !accounts[0]) throw new Error('No accounts returned');
+
+    // Switch to Base Mainnet if needed
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: BASE_CHAIN_ID }]
+      });
+    } catch (switchErr) {
+      if (switchErr.code === 4902) {
+        // Add Base Mainnet
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: BASE_CHAIN_ID,
+            chainName: 'Base',
+            nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+            rpcUrls: ['https://mainnet.base.org'],
+            blockExplorerUrls: ['https://basescan.org']
+          }]
+        });
+      }
     }
-  } catch(e) {
-    document.getElementById('priceVal').textContent = '—';
-    document.getElementById('priceSub').textContent = 'Price feed connecting...';
+
+    connectedAddress = accounts[0];
+    connectedWalletType = 'MetaMask';
+    onWalletConnected();
+
+    // Listen for account/chain changes
+    window.ethereum.on('accountsChanged', (accs) => {
+      if (accs.length === 0) disconnectWallet();
+      else { connectedAddress = accs[0]; onWalletConnected(); }
+    });
+  } catch (err) {
+    console.error('MetaMask connect error:', err);
+    alert('Connection failed: ' + (err.message || 'Unknown error'));
   }
 }
-fetchPrice();
-setInterval(fetchPrice, 30000);
+
+async function connectWalletConnect() {
+  alert('WalletConnect integration coming in v1.1!\n\nFor now, please use MetaMask or Coinbase Wallet.');
+}
+
+async function connectCoinbase() {
+  // Coinbase Wallet also injects window.ethereum
+  if (!window.ethereum) {
+    alert('Coinbase Wallet not detected!\n\nPlease install Coinbase Wallet extension or open this site in the Coinbase Wallet browser.');
+    return;
+  }
+  await connectMetaMask(); // Same flow, ethereum provider handles it
+  connectedWalletType = 'Coinbase Wallet';
+  document.getElementById('walletTypeLabel').textContent = 'COINBASE WALLET · BASE MAINNET';
+}
+
+async function onWalletConnected() {
+  // Update nav button
+  const btn = document.getElementById('walletConnectBtn');
+  btn.classList.add('connected');
+  btn.querySelector('.wallet-icon').textContent = '✓';
+  btn.querySelector('.wallet-short').textContent = shortAddr(connectedAddress);
+
+  // Show autofill button in query section
+  document.getElementById('autofillBtn').classList.add('show');
+
+  // Fetch ETHIC balance for modal
+  await updateModalBalance();
+  showConnectedView();
+
+  // Add to terminal
+  addLogLine('lg', `[${new Date().toLocaleTimeString()}] ✓ Wallet connected: ${shortAddr(connectedAddress)}`);
+}
+
+async function updateModalBalance() {
+  try {
+    const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${connectedAddress}&tag=latest&apikey=${API_KEY}`;
+    const r = await fetch(url);
+    const d = await r.json();
+    const bal = (d.status === '1' && d.result) ? fmtAmount(d.result) : '0';
+    document.getElementById('modalWalletBal').innerHTML = bal + ' <span style="font-size:1rem;color:var(--text2)">ETHIC</span>';
+  } catch(e) {
+    document.getElementById('modalWalletBal').innerHTML = '— <span style="font-size:1rem;color:var(--text2)">ETHIC</span>';
+  }
+}
+
+function showConnectedView() {
+  document.getElementById('walletConnectOptions').style.display = 'none';
+  document.getElementById('walletConnectedView').style.display = 'block';
+  document.getElementById('modalWalletAddr').textContent = connectedAddress;
+  document.getElementById('walletTypeLabel').textContent = (connectedWalletType || 'WALLET') + ' · BASE MAINNET';
+}
+
+function disconnectWallet() {
+  connectedAddress = null;
+  connectedWalletType = null;
+  const btn = document.getElementById('walletConnectBtn');
+  btn.classList.remove('connected');
+  btn.querySelector('.wallet-icon').textContent = '🦊';
+  btn.querySelector('.wallet-short').textContent = 'CONNECT';
+  document.getElementById('autofillBtn').classList.remove('show');
+  closeWalletModal();
+  document.getElementById('walletConnectOptions').style.display = 'block';
+  document.getElementById('walletConnectedView').style.display = 'none';
+}
+
+function autofillWallet() {
+  if (connectedAddress) {
+    document.getElementById('walletAddr').value = connectedAddress;
+    queryBalance();
+  }
+}
 
 // ════════════════════════════════════════════════════════════════
 // HELPERS
@@ -986,10 +1111,127 @@ function fmtAmount(v) {
     if (n >= 1000000) return (n / 1000000).toFixed(2) + 'M';
     if (n >= 1000) return (n / 1000).toFixed(2) + 'K';
     return n.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  } catch(e) { return '—'; }
+}
+
+// ════════════════════════════════════════════════════════════════
+// LIVE PRICE
+// ════════════════════════════════════════════════════════════════
+async function fetchPrice() {
+  try {
+    const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
+    const d = await r.json();
+    const pair = d.pairs?.[0];
+    if (pair && pair.priceUsd) {
+      const price = parseFloat(pair.priceUsd);
+      document.getElementById('priceVal').textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
+      document.getElementById('priceSub').textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'DEX'}`;
+    } else {
+      document.getElementById('priceVal').textContent = 'Active';
+      document.getElementById('priceSub').textContent = 'Pool initialized';
+    }
+    document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
   } catch(e) {
-    return '—';
+    document.getElementById('priceVal').textContent = '—';
+    document.getElementById('priceSub').textContent = 'Feed connecting...';
   }
 }
+fetchPrice();
+setInterval(fetchPrice, 30000);
+
+// ════════════════════════════════════════════════════════════════
+// ⭐ LIVE NETWORK PULSE MODULE
+// ════════════════════════════════════════════════════════════════
+let pulseTransactions = [];
+let pulseTotalVolume = 0;
+let pulseUniqueSenders = new Set();
+let pulseMaxTx = 0;
+let pulseTxCount = 0;
+let pulseLastBlock = 0;
+
+async function fetchPulseData() {
+  try {
+    const url = `https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=20&page=1&apikey=${API_KEY}`;
+    const r = await fetch(url);
+    const d = await r.json();
+
+    if (d.status === '1' && d.result && d.result.length > 0) {
+      const txs = d.result;
+      pulseTxCount = txs.length;
+
+      // Compute metrics
+      pulseTotalVolume = 0;
+      pulseUniqueSenders = new Set();
+      pulseMaxTx = 0;
+
+      txs.forEach(tx => {
+        try {
+          const val = Number(BigInt(tx.value) / BigInt('1000000000000000000'));
+          pulseTotalVolume += val;
+          if (val > pulseMaxTx) pulseMaxTx = val;
+          pulseUniqueSenders.add(tx.from.toLowerCase());
+        } catch(e){}
+      });
+
+      // Update header stats
+      document.getElementById('pulseTxCount').textContent = pulseTxCount;
+      document.getElementById('pulseVolume').textContent = fmtAmount(String(Math.round(pulseTotalVolume)) + '000000000000000000');
+
+      // Update metric strip
+      document.getElementById('metricHolders').textContent = pulseUniqueSenders.size;
+      document.getElementById('metricMaxTx').textContent = fmtAmount(String(Math.round(pulseMaxTx)) + '000000000000000000');
+      document.getElementById('metricRefresh').textContent = new Date().toLocaleTimeString();
+
+      // Render stream feed (latest 8)
+      const feed = document.getElementById('streamInner');
+      feed.innerHTML = txs.slice(0, 8).map(tx => {
+        const val = formatPulseAmount(tx.value);
+        const ts = new Date(parseInt(tx.timeStamp) * 1000).toLocaleTimeString();
+        return `<div class="stream-tx">
+          <div class="stream-tx-time">${ts}</div>
+          <div class="stream-tx-addrs">
+            <span class="from-addr">${shortAddr(tx.from)}</span>
+            <span style="color:rgba(0,212,232,0.3);font-size:10px"> → </span>
+            <span class="to-addr">${shortAddr(tx.to)}</span>
+          </div>
+          <div class="stream-tx-amount">+${val} ETHIC</div>
+          <div class="stream-tx-hash"><a href="https://basescan.org/tx/${tx.hash}" target="_blank">${tx.hash.slice(0,8)}...↗</a></div>
+        </div>`;
+      }).join('');
+    }
+  } catch(e) {
+    console.warn('Pulse fetch error:', e);
+  }
+}
+
+function formatPulseAmount(v) {
+  try {
+    const bn = BigInt(v);
+    const n = Number(bn / BigInt('1000000000000000000'));
+    if (n >= 1000000) return (n/1000000).toFixed(1) + 'M';
+    if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+    return n.toFixed(n < 1 ? 4 : 0);
+  } catch(e) { return '?'; }
+}
+
+// Block number for pulse header
+async function fetchPulseBlock() {
+  try {
+    const r = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
+    const d = await r.json();
+    const bn = parseInt(d.result || '0', 16);
+    if (bn) {
+      document.getElementById('pulseBlock').textContent = '#' + bn.toLocaleString('en-US');
+      document.getElementById('metricLastBlock').textContent = '#' + bn.toLocaleString('en-US');
+      pulseLastBlock = bn;
+    }
+  } catch(e) {}
+}
+
+fetchPulseData();
+fetchPulseBlock();
+setInterval(fetchPulseData, 15000);
+setInterval(fetchPulseBlock, 12000);
 
 // ════════════════════════════════════════════════════════════════
 // TRANSFERS
@@ -998,21 +1240,19 @@ async function fetchTransfers() {
   const el = document.getElementById('txList');
   try {
     const url = `https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=6&page=1&apikey=${API_KEY}`;
-    const r = await fetch(url, { timeout: 10000 });
+    const r = await fetch(url);
     const d = await r.json();
     if (d.status === '1' && d.result && d.result.length > 0) {
       el.innerHTML = d.result.slice(0, 6).map(tx => `
         <div class="tx-item">
-          <div>
-            <div class="tx-from"><span>${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>${new Date(parseInt(tx.timeStamp) * 1000).toLocaleTimeString()}</div>
-          </div>
+          <div><div class="tx-from"><span>${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>${new Date(parseInt(tx.timeStamp)*1000).toLocaleTimeString()}</div></div>
           <div>
             <div class="tx-amount">${fmtAmount(tx.value)} ETHIC</div>
-            <div class="tx-hash"><a href="https://basescan.org/tx/${tx.hash}" target="_blank">${tx.hash.slice(0, 10)}...↗</a></div>
+            <div class="tx-hash"><a href="https://basescan.org/tx/${tx.hash}" target="_blank">${tx.hash.slice(0,10)}...↗</a></div>
           </div>
         </div>`).join('');
     } else {
-      el.innerHTML = `<div class="tx-loading">No transfers</div>`;
+      el.innerHTML = `<div class="tx-loading">No transfers found</div>`;
     }
   } catch(e) {
     el.innerHTML = `<div class="tx-loading">Feed connecting...</div>`;
@@ -1022,7 +1262,7 @@ fetchTransfers();
 setInterval(fetchTransfers, 30000);
 
 // ════════════════════════════════════════════════════════════════
-// MONITOR
+// CHAIN MONITOR TERMINAL
 // ════════════════════════════════════════════════════════════════
 const termBody = document.getElementById('termBody');
 let lastBlock = 0;
@@ -1039,15 +1279,15 @@ function addLogLine(cls, text) {
 
 async function fetchChainData() {
   try {
-    const blockRes = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`, { timeout: 8000 });
+    const blockRes = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
     const blockData = await blockRes.json();
     const blockNum = parseInt(blockData.result || '0', 16);
 
-    const supplyRes = await fetch(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`, { timeout: 8000 });
+    const supplyRes = await fetch(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`);
     const supplyData = await supplyRes.json();
 
     const now = new Date();
-    const ts = `[${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}]`;
+    const ts = `[${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}]`;
 
     if (blockNum && blockNum !== lastBlock) {
       addLogLine('lg', `${ts} › Block #${blockNum.toLocaleString('en-US')}`);
@@ -1057,11 +1297,9 @@ async function fetchChainData() {
       addLogLine('lc', `${ts} › Supply: ${fmtAmount(supplyData.result)} ✓`);
     }
   } catch(e) {
-    const ts = `[${new Date().toLocaleTimeString()}]`;
-    addLogLine('lw', `${ts} › BaseScan Active`);
+    addLogLine('lw', `[${new Date().toLocaleTimeString()}] › BaseScan Active`);
   }
 }
-
 fetchChainData();
 setInterval(fetchChainData, 10000);
 
@@ -1071,40 +1309,127 @@ setInterval(fetchChainData, 10000);
 async function queryBalance() {
   const addr = document.getElementById('walletAddr').value.trim();
   const panel = document.getElementById('resultPanel');
-  
   if (!addr || !/^0x[a-fA-F0-9]{40}$/.test(addr)) {
-    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700">ERROR — Invalid address</div>';
+    panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700">ERROR — Invalid Base address format</div>';
     return;
   }
-  
-  panel.innerHTML = '<div class="result-hint" style="color:rgba(0,212,232,.4)">Querying...</div>';
-  
+  panel.innerHTML = '<div class="result-hint" style="color:rgba(0,212,232,.4)">⏳ Querying BaseScan API...</div>';
   try {
     const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${addr}&tag=latest&apikey=${API_KEY}`;
-    const r = await fetch(url, { timeout: 10000 });
+    const r = await fetch(url);
     const d = await r.json();
-    
     if (d.status === '1' && d.result) {
       const bal = fmtAmount(d.result);
-      panel.innerHTML = `<div class="result-addr">${addr}</div><div class="result-bal">${bal}<span class="result-unit">ETHIC</span></div>`;
+      const isConnected = connectedAddress && addr.toLowerCase() === connectedAddress.toLowerCase();
+      panel.innerHTML = `
+        <div class="result-addr">${addr}${isConnected ? ' <span style="color:var(--green2);font-size:10px">● YOUR WALLET</span>' : ''}</div>
+        <div class="result-bal">${bal}<span class="result-unit">ETHIC</span></div>
+      `;
     } else {
-      panel.innerHTML = '<div class="result-hint">Balance: 0 ETHIC</div>';
+      panel.innerHTML = '<div class="result-hint">Balance: 0 ETHIC — Address has no ETHIC tokens</div>';
     }
   } catch(e) {
-    panel.innerHTML = '<div class="result-hint" style="color:rgba(255,100,100,.6)">Error</div>';
+    panel.innerHTML = '<div class="result-hint" style="color:rgba(255,100,100,.6)">API Error — Please try again</div>';
+  }
+}
+document.getElementById('walletAddr').addEventListener('keydown', e => { if (e.key === 'Enter') queryBalance(); });
+
+// ════════════════════════════════════════════════════════════════
+// ⭐ DEBUG PANEL
+// ════════════════════════════════════════════════════════════════
+let debugOpen = false;
+
+function toggleDebug() {
+  debugOpen = !debugOpen;
+  document.getElementById('debugBody').classList.toggle('open', debugOpen);
+  document.getElementById('debugIcon').style.transform = debugOpen ? 'rotate(180deg)' : '';
+  if (debugOpen) runDiagnostics();
+}
+
+function setTestResult(id, status, value) {
+  const statusEl = document.getElementById('test-' + id);
+  const valEl = document.getElementById('testval-' + id);
+  if (statusEl) {
+    statusEl.className = 'api-test-status status-' + (status === 'ok' ? 'ok' : status === 'err' ? 'err' : 'pending');
+    statusEl.textContent = status === 'ok' ? '✓ OK' : status === 'err' ? '✗ ERROR' : '⏳';
+  }
+  if (valEl && value !== undefined) valEl.textContent = value;
+}
+
+async function runDiagnostics() {
+  // Reset all
+  ['basescan','supply','transfers','price','block'].forEach(id => {
+    setTestResult(id, 'pending', 'Testing...');
+  });
+
+  // Test 1: BaseScan API reachability (block number)
+  try {
+    const r = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
+    const d = await r.json();
+    const bn = parseInt(d.result || '0', 16);
+    if (bn > 0) {
+      setTestResult('basescan', 'ok', 'Reachable');
+      setTestResult('block', 'ok', '#' + bn.toLocaleString('en-US'));
+    } else {
+      setTestResult('basescan', 'err', d.message || 'Invalid response');
+      setTestResult('block', 'err', 'No block data');
+    }
+  } catch(e) {
+    setTestResult('basescan', 'err', e.message || 'Network error');
+    setTestResult('block', 'err', 'Failed');
+  }
+
+  // Test 2: Token Supply
+  try {
+    const r = await fetch(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`);
+    const d = await r.json();
+    if (d.status === '1' && d.result) {
+      setTestResult('supply', 'ok', fmtAmount(d.result) + ' ETHIC');
+    } else {
+      setTestResult('supply', 'err', d.message || 'No data');
+    }
+  } catch(e) {
+    setTestResult('supply', 'err', 'Failed');
+  }
+
+  // Test 3: Transfer Events
+  try {
+    const r = await fetch(`https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=3&page=1&apikey=${API_KEY}`);
+    const d = await r.json();
+    if (d.status === '1' && d.result && d.result.length > 0) {
+      setTestResult('transfers', 'ok', d.result.length + ' transfers found');
+    } else if (d.status === '0' && d.message === 'No transactions found') {
+      setTestResult('transfers', 'ok', 'Contract active, 0 transfers yet');
+    } else {
+      setTestResult('transfers', 'err', d.message || 'No transfers');
+    }
+  } catch(e) {
+    setTestResult('transfers', 'err', 'Failed');
+  }
+
+  // Test 4: DexScreener Price
+  try {
+    const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
+    const d = await r.json();
+    const pair = d.pairs?.[0];
+    if (pair && pair.priceUsd) {
+      setTestResult('price', 'ok', '$' + parseFloat(pair.priceUsd).toFixed(8));
+    } else {
+      setTestResult('price', 'pending', 'Pool active, price forming');
+    }
+  } catch(e) {
+    setTestResult('price', 'err', 'Failed');
   }
 }
 
-document.getElementById('walletAddr').addEventListener('keydown', e => {
-  if (e.key === 'Enter') queryBalance();
-});
+// ════════════════════════════════════════════════════════════════
+// WHITEPAPER ACCESS
+// ════════════════════════════════════════════════════════════════
+function requestAccess() {
+  addLogLine('lp', `[${new Date().toLocaleTimeString()}] ✓ Whitepaper access registered`);
+  alert('✓ Request Registered!\n✓ İstek Kaydedildi!\n\nWe will notify you when the whitepaper is ready.');
+}
 
-// ════════════════════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════════════════════
-document.addEventListener('DOMContentLoaded', () => {
-  applyLang('en');
-});
 </script>
 </body>
 </html>
