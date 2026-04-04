@@ -94,7 +94,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .wallet-option:last-child{margin-bottom:0}
 .wallet-opt-icon{font-size:28px;flex-shrink:0}
 .wallet-opt-name{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:3px}
-.wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--text2);letter-spacing:1px}
+.wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2);letter-spacing:1px}
 .wallet-status-panel{margin-top:20px;padding:16px 20px;border-radius:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.1);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);display:none}
 .wallet-status-panel.show{display:block}
 .wallet-status-panel .ws-addr{color:var(--cyan);word-break:break-all;margin-bottom:8px;font-weight:700}
@@ -1120,86 +1120,37 @@ async function connectOKX() {
     alert('OKX Wallet not detected!\n\nPlease install OKX Wallet extension from okx.com/web3 and refresh the page.');
     return;
   }
-  try {
-    const accounts = await provider.request({ method: 'eth_requestAccounts' });
-    if (!accounts || !accounts[0]) throw new Error('No accounts returned');
-    try {
-      await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID }] });
-    } catch(switchErr) {
-      if (switchErr.code === 4902) {
-        await provider.request({ method: 'wallet_addEthereumChain', params: [{ chainId: BASE_CHAIN_ID, chainName: 'Base', nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }, rpcUrls: ['https://mainnet.base.org'], blockExplorerUrls: ['https://basescan.org'] }] });
-      }
-    }
-    connectedAddress = accounts[0];
-    connectedWalletType = 'OKX Wallet';
-    onWalletConnected();
-  } catch(err) {
-    console.error('OKX connect error:', err);
-    alert('Connection failed: ' + (err.message || 'Unknown error'));
-  }
+  await connectWithProvider(provider, 'OKX Wallet', 'OKX WALLET · BASE MAINNET');
 }
 
 async function connectRainbow() {
-  // Rainbow browser extension injects window.ethereum; mobile uses WalletConnect
   const provider = window.ethereum;
   if (!provider) {
     alert('Rainbow Wallet not detected!\n\nInstall Rainbow from rainbow.me or open in the Rainbow mobile app.\n\nNote: Rainbow browser extension also works on desktop.');
     return;
   }
-  try {
-    const accounts = await provider.request({ method: 'eth_requestAccounts' });
-    if (!accounts || !accounts[0]) throw new Error('No accounts returned');
-    try {
-      await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID }] });
-    } catch(switchErr) {
-      if (switchErr.code === 4902) {
-        await provider.request({ method: 'wallet_addEthereumChain', params: [{ chainId: BASE_CHAIN_ID, chainName: 'Base', nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }, rpcUrls: ['https://mainnet.base.org'], blockExplorerUrls: ['https://basescan.org'] }] });
-      }
-    }
-    connectedAddress = accounts[0];
-    connectedWalletType = 'Rainbow Wallet';
-    onWalletConnected();
-    document.getElementById('walletTypeLabel').textContent = 'RAINBOW WALLET · BASE MAINNET';
-  } catch(err) {
-    console.error('Rainbow connect error:', err);
-    alert('Connection failed: ' + (err.message || 'Unknown error'));
-  }
+  await connectWithProvider(provider, 'Rainbow Wallet', 'RAINBOW WALLET · BASE MAINNET');
 }
 
 async function connectRabby() {
-  // Rabby injects window.ethereum (replaces MetaMask)
   const provider = window.ethereum;
   if (!provider) {
     alert('Rabby Wallet not detected!\n\nPlease install Rabby Wallet extension from rabby.io and refresh the page.');
     return;
   }
-  try {
-    const accounts = await provider.request({ method: 'eth_requestAccounts' });
-    if (!accounts || !accounts[0]) throw new Error('No accounts returned');
-    try {
-      await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID }] });
-    } catch(switchErr) {
-      if (switchErr.code === 4902) {
-        await provider.request({ method: 'wallet_addEthereumChain', params: [{ chainId: BASE_CHAIN_ID, chainName: 'Base', nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }, rpcUrls: ['https://mainnet.base.org'], blockExplorerUrls: ['https://basescan.org'] }] });
-      }
-    }
-    connectedAddress = accounts[0];
-    connectedWalletType = 'Rabby Wallet';
-    onWalletConnected();
-    document.getElementById('walletTypeLabel').textContent = 'RABBY WALLET · BASE MAINNET';
-  } catch(err) {
-    console.error('Rabby connect error:', err);
-    alert('Connection failed: ' + (err.message || 'Unknown error'));
-  }
+  await connectWithProvider(provider, 'Rabby Wallet', 'RABBY WALLET · BASE MAINNET');
 }
 
 async function connectTrust() {
-  // Trust Wallet injects window.trustwallet or window.ethereum
   const provider = (window.trustwallet && window.trustwallet.ethereum) || window.ethereum;
   if (!provider) {
     alert('Trust Wallet not detected!\n\nPlease open this site in the Trust Wallet mobile browser, or install the Trust Wallet extension.');
     return;
   }
+  await connectWithProvider(provider, 'Trust Wallet', 'TRUST WALLET · BASE MAINNET');
+}
+
+async function connectWithProvider(provider, walletName, labelText) {
   try {
     const accounts = await provider.request({ method: 'eth_requestAccounts' });
     if (!accounts || !accounts[0]) throw new Error('No accounts returned');
@@ -1207,15 +1158,21 @@ async function connectTrust() {
       await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID }] });
     } catch(switchErr) {
       if (switchErr.code === 4902) {
-        await provider.request({ method: 'wallet_addEthereumChain', params: [{ chainId: BASE_CHAIN_ID, chainName: 'Base', nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 }, rpcUrls: ['https://mainnet.base.org'], blockExplorerUrls: ['https://basescan.org'] }] });
+        await provider.request({ method: 'wallet_addEthereumChain', params: [{
+          chainId: BASE_CHAIN_ID,
+          chainName: 'Base',
+          nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+          rpcUrls: ['https://mainnet.base.org'],
+          blockExplorerUrls: ['https://basescan.org']
+        }] });
       }
     }
     connectedAddress = accounts[0];
-    connectedWalletType = 'Trust Wallet';
+    connectedWalletType = walletName;
     onWalletConnected();
-    document.getElementById('walletTypeLabel').textContent = 'TRUST WALLET · BASE MAINNET';
+    document.getElementById('walletTypeLabel').textContent = labelText;
   } catch(err) {
-    console.error('Trust connect error:', err);
+    console.error(walletName + ' connect error:', err);
     alert('Connection failed: ' + (err.message || 'Unknown error'));
   }
 }
@@ -1575,14 +1532,14 @@ async function runDiagnostics() {
         const rpcData = await rpc.json();
         const rpcBn = parseInt(rpcData.result || '0', 16);
         if (rpcBn > 0) {
-          setTestResult('basescan', 'pending', 'API key rate limited');
+          setTestResult('basescan', 'pending', 'BaseScan unavailable, using RPC');
           setTestResult('block', 'ok', '#' + rpcBn.toLocaleString('en-US') + ' (RPC)');
         } else {
-          setTestResult('basescan', 'err', d.message || 'NOTOK — Check API key');
+          setTestResult('basescan', 'err', 'NOTOK — Check API key');
           setTestResult('block', 'err', 'No block data');
         }
       } catch(rpcErr) {
-        setTestResult('basescan', 'err', d.message || 'NOTOK — Check API key');
+        setTestResult('basescan', 'err', 'NOTOK — BaseScan & RPC both failed');
         setTestResult('block', 'err', 'No block data');
       }
     }
