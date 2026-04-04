@@ -55,6 +55,8 @@
 
 <!-- ═══════════════════════════════════════════════════════════
      GOOGLE ANALYTICS GA4
+     TODO: Replace G-XXXXXXXXXX with your actual GA4 Measurement ID
+           from https://analytics.google.com before deployment.
 ═══════════════════════════════════════════════════════════ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
@@ -69,12 +71,14 @@
 
 <!-- ═══════════════════════════════════════════════════════════
      SENTRY ERROR MONITORING
+     TODO: Replace the DSN placeholder below with your actual Sentry
+           project DSN from https://sentry.io before deployment.
 ═══════════════════════════════════════════════════════════ -->
 <script src="https://browser.sentry-cdn.com/7.91.0/bundle.min.js" crossorigin="anonymous"></script>
 <script>
   if (window.Sentry) {
     Sentry.init({
-      dsn: "https://YOUR_DSN@sentry.io/PROJECT_ID",
+      dsn: "https://YOUR_DSN@sentry.io/PROJECT_ID", // TODO: replace with real DSN
       environment: "production",
       tracesSampleRate: 0.1,
       replaysSessionSampleRate: 0.1,
