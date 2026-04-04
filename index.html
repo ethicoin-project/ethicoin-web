@@ -49,7 +49,7 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overfl
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(3,5,14,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,212,232,0.07)}
 [data-theme="light"] nav{background:rgba(245,247,250,0.85)}
-.nav-logo{font-size:1.35rem;font-weight:900;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
+.nav-logo{font-size:clamp(1.1rem,2.5vw,1.5rem);font-weight:900;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
 @keyframes logoS{0%{background-position:0% center}100%{background-position:250% center}}
 .nav-right{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
 .nav-link{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--text2);text-decoration:none;transition:color .2s;display:none;font-weight:700}
@@ -86,14 +86,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .wallet-modal-overlay.open .wallet-modal{transform:translateY(0) scale(1)}
 .modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .modal-close:hover{color:var(--text);background:rgba(255,255,255,0.1)}
-.modal-title{font-size:1.4rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;color:var(--text)}
+.modal-title{font-size:clamp(1.1rem,3vw,1.4rem);font-weight:900;letter-spacing:-.5px;margin-bottom:8px;color:var(--text)}
 .modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:28px;letter-spacing:1px}
 .wallet-option{display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(0,0,0,0.3);border:1px solid rgba(107,79,255,0.15);border-radius:12px;cursor:pointer;transition:all .2s;margin-bottom:10px}
 [data-theme="light"] .wallet-option{background:rgba(245,247,250,0.5)}
 .wallet-option:hover{border-color:rgba(107,79,255,0.4);background:rgba(107,79,255,0.08);transform:translateX(4px)}
 .wallet-option:last-child{margin-bottom:0}
 .wallet-opt-icon{font-size:28px;flex-shrink:0}
-.wallet-opt-name{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:3px}
+.wallet-opt-name{font-size:clamp(0.95rem,2.5vw,1.1rem);font-weight:800;color:var(--text);margin-bottom:3px}
 .wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2);letter-spacing:1px}
 .wallet-status-panel{margin-top:20px;padding:16px 20px;border-radius:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.1);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);display:none}
 .wallet-status-panel.show{display:block}
@@ -994,7 +994,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
 // ════════════════════════════════════════════════════════════════
 
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
-const API_KEY  = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';
+const API_KEY  = 'MRM7PSVQKPX2HAZTJS1KF3IMZF14HTDMFR';
 const BASE_CHAIN_ID = '0x2105'; // 8453 decimal
 
 // ════════════════════════════════════════════════════════════════
@@ -1258,7 +1258,7 @@ function fmtAmount(v) {
 // ════════════════════════════════════════════════════════════════
 async function fetchPrice() {
   try {
-    const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
+    const r = await fetch(`https://api.dexscreener.com/latest/dex/tokens/base_${CONTRACT}`);
     const d = await r.json();
     const pair = d.pairs?.[0];
     if (pair && pair.priceUsd) {
@@ -1498,9 +1498,15 @@ function setTestResult(id, status, value) {
 async function fetchWithRetry(url, retries = 2, delayMs = 800) {
   for (let i = 0; i <= retries; i++) {
     try {
-      const r = await fetch(url);
-      const d = await r.json();
-      return d;
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      try {
+        const r = await fetch(url, { signal: controller.signal });
+        const d = await r.json();
+        return d;
+      } finally {
+        clearTimeout(timeoutId);
+      }
     } catch(e) {
       if (i === retries) throw e;
       await new Promise(res => setTimeout(res, delayMs * (i + 1)));
@@ -1576,7 +1582,7 @@ async function runDiagnostics() {
 
   // Test 4: DexScreener Price
   try {
-    const d = await fetchWithRetry('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
+    const d = await fetchWithRetry(`https://api.dexscreener.com/latest/dex/tokens/base_${CONTRACT}`);
     const pair = d.pairs?.[0];
     if (pair && pair.priceUsd) {
       setTestResult('price', 'ok', '$' + parseFloat(pair.priceUsd).toFixed(8));
