@@ -824,9 +824,9 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       <div class="debug-body" id="debugBody">
         <div class="api-tests" id="apiTests">
           <div class="api-test-row">
-            <div class="api-test-name">BaseScan API</div>
-            <div class="api-test-status status-pending" id="test-basescan">PENDING</div>
-            <div class="api-test-val" id="testval-basescan">—</div>
+            <div class="api-test-name">Base RPC</div>
+            <div class="api-test-status status-pending" id="test-rpc">PENDING</div>
+            <div class="api-test-val" id="testval-rpc">—</div>
           </div>
           <div class="api-test-row">
             <div class="api-test-name">Token Supply</div>
@@ -994,7 +994,8 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
 // ════════════════════════════════════════════════════════════════
 
 const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
-const API_KEY  = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';
+const BLOCKSCOUT_BASE = 'https://base.blockscout.com/api/v2';
+const BASE_RPC = 'https://mainnet.base.org';
 const BASE_CHAIN_ID = '0x2105'; // 8453 decimal
 
 // ════════════════════════════════════════════════════════════════
@@ -1197,10 +1198,14 @@ async function onWalletConnected() {
 
 async function updateModalBalance() {
   try {
-    const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${connectedAddress}&tag=latest&apikey=${API_KEY}`;
-    const r = await fetch(url);
-    const d = await r.json();
-    const bal = (d.status === '1' && d.result) ? fmtAmount(d.result) : '0';
+    const paddedAddr = connectedAddress.slice(2).padStart(64, '0');
+    const rpc = await fetch(BASE_RPC, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:CONTRACT,data:'0x70a08231'+paddedAddr},'latest'],id:1})
+    });
+    const d = await rpc.json();
+    const bal = (d.result && d.result !== '0x' && d.result !== '0x0') ? fmtAmount(BigInt(d.result).toString()) : '0';
     document.getElementById('modalWalletBal').innerHTML = bal + ' <span style="font-size:1rem;color:var(--text2)">ETHIC</span>';
   } catch(e) {
     document.getElementById('modalWalletBal').innerHTML = '— <span style="font-size:1rem;color:var(--text2)">ETHIC</span>';
@@ -1290,12 +1295,12 @@ let pulseLastBlock = 0;
 
 async function fetchPulseData() {
   try {
-    const url = `https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=20&page=1&apikey=${API_KEY}`;
+    const url = `${BLOCKSCOUT_BASE}/tokens/${CONTRACT}/transfers`;
     const r = await fetch(url);
     const d = await r.json();
 
-    if (d.status === '1' && d.result && d.result.length > 0) {
-      const txs = d.result;
+    if (d.items && d.items.length > 0) {
+      const txs = d.items;
       pulseTxCount = txs.length;
 
       // Compute metrics
@@ -1305,10 +1310,10 @@ async function fetchPulseData() {
 
       txs.forEach(tx => {
         try {
-          const val = Number(BigInt(tx.value) / BigInt('1000000000000000000'));
+          const val = Number(BigInt(tx.total?.value || '0') / BigInt('1000000000000000000'));
           pulseTotalVolume += val;
           if (val > pulseMaxTx) pulseMaxTx = val;
-          pulseUniqueSenders.add(tx.from.toLowerCase());
+          pulseUniqueSenders.add((tx.from?.hash || '').toLowerCase());
         } catch(e){}
       });
 
@@ -1324,17 +1329,20 @@ async function fetchPulseData() {
       // Render stream feed (latest 8)
       const feed = document.getElementById('streamInner');
       feed.innerHTML = txs.slice(0, 8).map(tx => {
-        const val = formatPulseAmount(tx.value);
-        const ts = new Date(parseInt(tx.timeStamp) * 1000).toLocaleTimeString();
+        const val = formatPulseAmount(tx.total?.value || '0');
+        const ts = tx.timestamp ? new Date(tx.timestamp).toLocaleTimeString() : '';
+        const from = tx.from?.hash || '';
+        const to = tx.to?.hash || '';
+        const hash = tx.tx_hash || '';
         return `<div class="stream-tx">
           <div class="stream-tx-time">${ts}</div>
           <div class="stream-tx-addrs">
-            <span class="from-addr">${shortAddr(tx.from)}</span>
+            <span class="from-addr">${shortAddr(from)}</span>
             <span style="color:rgba(0,212,232,0.3);font-size:10px"> → </span>
-            <span class="to-addr">${shortAddr(tx.to)}</span>
+            <span class="to-addr">${shortAddr(to)}</span>
           </div>
           <div class="stream-tx-amount">+${val} ETHIC</div>
-          <div class="stream-tx-hash"><a href="https://basescan.org/tx/${tx.hash}" target="_blank">${tx.hash.slice(0,8)}...↗</a></div>
+          <div class="stream-tx-hash"><a href="https://basescan.org/tx/${hash}" target="_blank">${hash.slice(0,8)}...↗</a></div>
         </div>`;
       }).join('');
     }
@@ -1356,8 +1364,12 @@ function formatPulseAmount(v) {
 // Block number for pulse header
 async function fetchPulseBlock() {
   try {
-    const r = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
-    const d = await r.json();
+    const rpc = await fetch(BASE_RPC, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_blockNumber',params:[],id:1})
+    });
+    const d = await rpc.json();
     const bn = parseInt(d.result || '0', 16);
     if (bn) {
       document.getElementById('pulseBlock').textContent = '#' + bn.toLocaleString('en-US');
@@ -1378,18 +1390,24 @@ setInterval(fetchPulseBlock, 12000);
 async function fetchTransfers() {
   const el = document.getElementById('txList');
   try {
-    const url = `https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=6&page=1&apikey=${API_KEY}`;
+    const url = `${BLOCKSCOUT_BASE}/tokens/${CONTRACT}/transfers`;
     const r = await fetch(url);
     const d = await r.json();
-    if (d.status === '1' && d.result && d.result.length > 0) {
-      el.innerHTML = d.result.slice(0, 6).map(tx => `
+    if (d.items && d.items.length > 0) {
+      el.innerHTML = d.items.slice(0, 6).map(tx => {
+        const from = tx.from?.hash || '';
+        const to = tx.to?.hash || '';
+        const hash = tx.tx_hash || '';
+        const ts = tx.timestamp ? new Date(tx.timestamp).toLocaleTimeString() : '';
+        return `
         <div class="tx-item">
-          <div><div class="tx-from"><span>${shortAddr(tx.from)} → ${shortAddr(tx.to)}</span>${new Date(parseInt(tx.timeStamp)*1000).toLocaleTimeString()}</div></div>
+          <div><div class="tx-from"><span>${shortAddr(from)} → ${shortAddr(to)}</span>${ts}</div></div>
           <div>
-            <div class="tx-amount">${fmtAmount(tx.value)} ETHIC</div>
-            <div class="tx-hash"><a href="https://basescan.org/tx/${tx.hash}" target="_blank">${tx.hash.slice(0,10)}...↗</a></div>
+            <div class="tx-amount">${fmtAmount(tx.total?.value || '0')} ETHIC</div>
+            <div class="tx-hash"><a href="https://basescan.org/tx/${hash}" target="_blank">${hash.slice(0,10)}...↗</a></div>
           </div>
-        </div>`).join('');
+        </div>`;
+      }).join('');
     } else {
       el.innerHTML = `<div class="tx-loading">No transfers found</div>`;
     }
@@ -1418,11 +1436,15 @@ function addLogLine(cls, text) {
 
 async function fetchChainData() {
   try {
-    const blockRes = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
-    const blockData = await blockRes.json();
+    const rpc = await fetch(BASE_RPC, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_blockNumber',params:[],id:1})
+    });
+    const blockData = await rpc.json();
     const blockNum = parseInt(blockData.result || '0', 16);
 
-    const supplyRes = await fetch(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`);
+    const supplyRes = await fetch(`${BLOCKSCOUT_BASE}/tokens/${CONTRACT}`);
     const supplyData = await supplyRes.json();
 
     const now = new Date();
@@ -1432,11 +1454,11 @@ async function fetchChainData() {
       addLogLine('lg', `${ts} › Block #${blockNum.toLocaleString('en-US')}`);
       lastBlock = blockNum;
     }
-    if (supplyData.status === '1') {
-      addLogLine('lc', `${ts} › Supply: ${fmtAmount(supplyData.result)} ✓`);
+    if (supplyData.total_supply) {
+      addLogLine('lc', `${ts} › Supply: ${fmtAmount(supplyData.total_supply)} ✓`);
     }
   } catch(e) {
-    addLogLine('lw', `[${new Date().toLocaleTimeString()}] › BaseScan Active`);
+    addLogLine('lw', `[${new Date().toLocaleTimeString()}] › Chain Active`);
   }
 }
 fetchChainData();
@@ -1452,13 +1474,17 @@ async function queryBalance() {
     panel.innerHTML = '<div style="color:rgba(255,100,100,.7);font-family:JetBrains Mono,monospace;font-size:11px;font-weight:700">ERROR — Invalid Base address format</div>';
     return;
   }
-  panel.innerHTML = '<div class="result-hint" style="color:rgba(0,212,232,.4)">⏳ Querying BaseScan API...</div>';
+  panel.innerHTML = '<div class="result-hint" style="color:rgba(0,212,232,.4)">⏳ Querying balance...</div>';
   try {
-    const url = `https://api.basescan.org/api?module=account&action=tokenbalance&contractaddress=${CONTRACT}&address=${addr}&tag=latest&apikey=${API_KEY}`;
-    const r = await fetch(url);
-    const d = await r.json();
-    if (d.status === '1' && d.result) {
-      const bal = fmtAmount(d.result);
+    const paddedAddr = addr.slice(2).padStart(64, '0');
+    const rpc = await fetch(BASE_RPC, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:CONTRACT,data:'0x70a08231'+paddedAddr},'latest'],id:1})
+    });
+    const d = await rpc.json();
+    if (d.result && d.result !== '0x' && d.result !== '0x0') {
+      const bal = fmtAmount(BigInt(d.result).toString());
       const isConnected = connectedAddress && addr.toLowerCase() === connectedAddress.toLowerCase();
       panel.innerHTML = `
         <div class="result-addr">${addr}${isConnected ? ' <span style="color:var(--green2);font-size:10px">● YOUR WALLET</span>' : ''}</div>
@@ -1510,65 +1536,52 @@ async function fetchWithRetry(url, retries = 2, delayMs = 800) {
 
 async function runDiagnostics() {
   // Reset all
-  ['basescan','supply','transfers','price','block'].forEach(id => {
+  ['rpc','supply','transfers','price','block'].forEach(id => {
     setTestResult(id, 'pending', 'Testing...');
   });
 
-  // Test 1: BaseScan API reachability (block number via proxy)
+  // Test 1: Block Number (Base RPC)
   try {
-    const d = await fetchWithRetry(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
+    const rpc = await fetch(BASE_RPC, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_blockNumber',params:[],id:1})
+    });
+    const d = await rpc.json();
     const bn = parseInt(d.result || '0', 16);
     if (bn > 0) {
-      setTestResult('basescan', 'ok', 'Reachable');
-      setTestResult('block', 'ok', '#' + bn.toLocaleString('en-US'));
+      setTestResult('rpc', 'ok', 'RPC Connected');
+      setTestResult('block', 'ok', '#' + bn.toLocaleString('en-US') + ' (RPC)');
     } else {
-      // Fallback: try Base JSON-RPC directly
-      try {
-        const rpc = await fetch('https://mainnet.base.org', {
-          method: 'POST',
-          headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({jsonrpc:'2.0',method:'eth_blockNumber',params:[],id:1})
-        });
-        const rpcData = await rpc.json();
-        const rpcBn = parseInt(rpcData.result || '0', 16);
-        if (rpcBn > 0) {
-          setTestResult('basescan', 'pending', 'BaseScan unavailable, using RPC');
-          setTestResult('block', 'ok', '#' + rpcBn.toLocaleString('en-US') + ' (RPC)');
-        } else {
-          setTestResult('basescan', 'err', 'NOTOK — Check API key');
-          setTestResult('block', 'err', 'No block data');
-        }
-      } catch(rpcErr) {
-        setTestResult('basescan', 'err', 'NOTOK — BaseScan & RPC both failed');
-        setTestResult('block', 'err', 'No block data');
-      }
+      setTestResult('rpc', 'err', 'RPC error');
+      setTestResult('block', 'err', 'No block data');
     }
   } catch(e) {
-    setTestResult('basescan', 'err', e.message || 'Network error');
+    setTestResult('rpc', 'err', e.message || 'Network error');
     setTestResult('block', 'err', 'Failed');
   }
 
-  // Test 2: Token Supply
+  // Test 2: Token Supply (BlockScout)
   try {
-    const d = await fetchWithRetry(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`);
-    if (d.status === '1' && d.result) {
-      setTestResult('supply', 'ok', fmtAmount(d.result) + ' ETHIC');
+    const d = await fetchWithRetry(`${BLOCKSCOUT_BASE}/tokens/${CONTRACT}`);
+    if (d.total_supply) {
+      setTestResult('supply', 'ok', fmtAmount(d.total_supply) + ' ETHIC');
     } else {
-      setTestResult('supply', 'err', d.message || 'NOTOK — Check API key');
+      setTestResult('supply', 'err', 'No supply data');
     }
   } catch(e) {
     setTestResult('supply', 'err', 'Network error');
   }
 
-  // Test 3: Transfer Events
+  // Test 3: Transfer Events (BlockScout)
   try {
-    const d = await fetchWithRetry(`https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=3&page=1&apikey=${API_KEY}`);
-    if (d.status === '1' && d.result && d.result.length > 0) {
-      setTestResult('transfers', 'ok', d.result.length + ' transfers found');
-    } else if (d.status === '0' && d.message === 'No transactions found') {
+    const d = await fetchWithRetry(`${BLOCKSCOUT_BASE}/tokens/${CONTRACT}/transfers`);
+    if (d.items && d.items.length > 0) {
+      setTestResult('transfers', 'ok', d.items.length + ' transfers found');
+    } else if (d.items && d.items.length === 0) {
       setTestResult('transfers', 'ok', 'Contract active, 0 transfers yet');
     } else {
-      setTestResult('transfers', 'err', d.message || 'NOTOK — Check API key');
+      setTestResult('transfers', 'err', 'No transfer data');
     }
   } catch(e) {
     setTestResult('transfers', 'err', 'Network error');
