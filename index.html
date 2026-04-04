@@ -824,9 +824,9 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       <div class="debug-body" id="debugBody">
         <div class="api-tests" id="apiTests">
           <div class="api-test-row">
-            <div class="api-test-name">BlockScout API</div>
-            <div class="api-test-status status-pending" id="test-basescan">PENDING</div>
-            <div class="api-test-val" id="testval-basescan">—</div>
+            <div class="api-test-name">Base RPC</div>
+            <div class="api-test-status status-pending" id="test-rpc">PENDING</div>
+            <div class="api-test-val" id="testval-rpc">—</div>
           </div>
           <div class="api-test-row">
             <div class="api-test-name">Token Supply</div>
@@ -1536,7 +1536,7 @@ async function fetchWithRetry(url, retries = 2, delayMs = 800) {
 
 async function runDiagnostics() {
   // Reset all
-  ['basescan','supply','transfers','price','block'].forEach(id => {
+  ['rpc','supply','transfers','price','block'].forEach(id => {
     setTestResult(id, 'pending', 'Testing...');
   });
 
@@ -1550,14 +1550,14 @@ async function runDiagnostics() {
     const d = await rpc.json();
     const bn = parseInt(d.result || '0', 16);
     if (bn > 0) {
-      setTestResult('basescan', 'ok', 'BlockScout Connected');
+      setTestResult('rpc', 'ok', 'RPC Connected');
       setTestResult('block', 'ok', '#' + bn.toLocaleString('en-US') + ' (RPC)');
     } else {
-      setTestResult('basescan', 'err', 'RPC error');
+      setTestResult('rpc', 'err', 'RPC error');
       setTestResult('block', 'err', 'No block data');
     }
   } catch(e) {
-    setTestResult('basescan', 'err', e.message || 'Network error');
+    setTestResult('rpc', 'err', e.message || 'Network error');
     setTestResult('block', 'err', 'Failed');
   }
 
