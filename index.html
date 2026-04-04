@@ -49,7 +49,7 @@ body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overfl
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(3,5,14,0.85);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(0,212,232,0.07)}
 [data-theme="light"] nav{background:rgba(245,247,250,0.85)}
-.nav-logo{font-size:1.15rem;font-weight:900;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
+.nav-logo{font-size:1.35rem;font-weight:900;letter-spacing:5px;background:linear-gradient(90deg,var(--cyan) 0%,#a0f8ff 20%,var(--purple2) 45%,var(--cyan2) 65%,#a0f8ff 85%,var(--cyan) 100%);background-size:250% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:logoS 5s linear infinite}
 @keyframes logoS{0%{background-position:0% center}100%{background-position:250% center}}
 .nav-right{display:flex;align-items:center;gap:10px;flex-wrap:nowrap}
 .nav-link{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--text2);text-decoration:none;transition:color .2s;display:none;font-weight:700}
@@ -81,7 +81,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 /* WALLET MODAL */
 .wallet-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
 .wallet-modal-overlay.open{opacity:1;pointer-events:all}
-.wallet-modal{background:#070b17;border:1px solid rgba(107,79,255,0.25);border-radius:20px;padding:36px;width:90%;max-width:420px;position:relative;transform:translateY(20px) scale(0.97);transition:transform .3s;box-shadow:0 32px 80px rgba(0,0,0,0.8)}
+.wallet-modal{background:#070b17;border:1px solid rgba(107,79,255,0.25);border-radius:20px;padding:36px;width:90%;max-width:420px;position:relative;transform:translateY(20px) scale(0.97);transition:transform .3s;box-shadow:0 32px 80px rgba(0,0,0,0.8);max-height:90vh;overflow-y:auto}
 [data-theme="light"] .wallet-modal{background:#f5f7fa;border-color:rgba(107,79,255,0.2)}
 .wallet-modal-overlay.open .wallet-modal{transform:translateY(0) scale(1)}
 .modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
@@ -93,8 +93,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .wallet-option:hover{border-color:rgba(107,79,255,0.4);background:rgba(107,79,255,0.08);transform:translateX(4px)}
 .wallet-option:last-child{margin-bottom:0}
 .wallet-opt-icon{font-size:28px;flex-shrink:0}
-.wallet-opt-name{font-size:1rem;font-weight:800;color:var(--text);margin-bottom:3px}
-.wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);letter-spacing:1px}
+.wallet-opt-name{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:3px}
+.wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2);letter-spacing:1px}
 .wallet-status-panel{margin-top:20px;padding:16px 20px;border-radius:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.1);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);display:none}
 .wallet-status-panel.show{display:block}
 .wallet-status-panel .ws-addr{color:var(--cyan);word-break:break-all;margin-bottom:8px;font-weight:700}
@@ -383,11 +383,25 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .social-btn:hover{border-color:var(--border-h);color:var(--cyan);transform:translateY(-2px)}
 .social-icon{font-size:16px}
 
+/* WHITEPAPER ACCESS MODAL */
+.wp-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(8px);z-index:600;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;padding:20px}
+.wp-modal-overlay.open{opacity:1;pointer-events:all}
+.wp-modal-box{background:#070b17;border:1px solid rgba(107,79,255,0.35);border-radius:20px;padding:40px;width:90%;max-width:520px;position:relative;transform:translateY(20px) scale(0.97);transition:transform .3s;box-shadow:0 32px 80px rgba(0,0,0,0.9);max-height:90vh;overflow-y:auto}
+[data-theme="light"] .wp-modal-box{background:#f5f7fa;border-color:rgba(107,79,255,0.3)}
+.wp-modal-overlay.open .wp-modal-box{transform:translateY(0) scale(1)}
+.wp-modal-title{font-size:1.6rem;font-weight:900;color:var(--text);margin-bottom:12px;letter-spacing:-.4px}
+.wp-modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--purple2);margin-bottom:20px;letter-spacing:1.5px}
+.wp-modal-desc{font-size:1rem;color:var(--text2);line-height:1.9;font-weight:600;margin-bottom:24px}
+.wp-modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.wp-modal-close:hover{color:var(--text);background:rgba(255,255,255,0.1)}
+.wp-modal-confirm{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--green2);background:rgba(0,200,150,0.1);border:1px solid rgba(0,200,150,0.25);padding:10px 18px;border-radius:8px;letter-spacing:1px;font-weight:700;margin-top:8px;display:none}
+.wp-modal-confirm.show{display:block}
+
 /* FOOTER */
 footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relative;z-index:10}
 [data-theme="light"] footer{border-top-color:rgba(100,120,150,0.15)}
 .footer-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
-.footer-brand{font-size:1rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--cyan),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.footer-brand{font-size:1.2rem;font-weight:900;letter-spacing:4px;background:linear-gradient(90deg,var(--cyan),var(--purple2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .footer-links{display:flex;gap:28px;flex-wrap:wrap}
 .footer-link{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);text-decoration:none;letter-spacing:1.5px;transition:color .2s;font-weight:700}
 .footer-link:hover{color:var(--cyan)}
@@ -404,6 +418,8 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .metric-strip{grid-template-columns:repeat(2,1fr)}
   .stream-tx{grid-template-columns:auto 1fr auto}
   .stream-tx-hash{display:none}
+  .lang-dropdown{min-width:130px}
+  .wallet-modal{padding:24px}
 }
 @media(max-width:520px){
   nav{padding:0 4%}
@@ -424,6 +440,11 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .revenue-item{padding:20px}
   .metric-strip{grid-template-columns:1fr 1fr}
   .btn-wallet-connect .wallet-short{display:none}
+  .nav-badge{display:none}
+  .lang-dropdown{min-width:120px;right:0}
+  .lang-option{font-size:10px;padding:9px 12px}
+  .wallet-modal{padding:20px;max-height:85vh}
+  .wallet-opt-icon{font-size:24px}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 </style>
@@ -436,6 +457,33 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
 
 <!-- THEME TOGGLE -->
 <div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Switch Theme">🌙</div>
+
+<!-- ══════════════════════════════════════════════════
+     WHITEPAPER ACCESS MODAL
+══════════════════════════════════════════════════ -->
+<div class="wp-modal-overlay" id="wpAccessModal">
+  <div class="wp-modal-box">
+    <button class="wp-modal-close" onclick="closeWpModal()">✕</button>
+    <div class="wp-modal-title">📄 Whitepaper — Coming Soon</div>
+    <div class="wp-modal-sub">EARLY ACCESS REQUEST</div>
+    <p class="wp-modal-desc">
+      Comprehensive technical documentation including architecture, tokenomics, governance, and AI integration is in preparation.<br><br>
+      The ETHICOIN whitepaper covers:<br>
+      • Zero-Knowledge Proof architecture for data privacy<br>
+      • DAO governance model and voting mechanisms<br>
+      • Tokenomics and revenue distribution (20% protocol fee)<br>
+      • AI training transparency and on-chain logging<br>
+      • Base L2 integration and gas optimization strategies
+    </p>
+    <div class="wp-tags" style="margin-bottom:20px">
+      <span class="wp-tag">ARCH: ZK-PROOF</span>
+      <span class="wp-tag purple">MODEL: DAO GOVERNANCE</span>
+      <span class="wp-tag green">LAYER: BASE L2</span>
+    </div>
+    <button class="btn-primary" onclick="submitWpAccess()" style="width:100%">✉ SUBMIT REQUEST</button>
+    <div class="wp-modal-confirm" id="wpConfirm">✓ Request registered — You will be notified when the whitepaper is ready.</div>
+  </div>
+</div>
 
 <!-- ══════════════════════════════════════════════════
      WALLET MODAL
@@ -467,6 +515,34 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
           <div>
             <div class="wallet-opt-name">Coinbase Wallet</div>
             <div class="wallet-opt-desc">COINBASE · BASE NATIVE</div>
+          </div>
+        </div>
+        <div class="wallet-option" onclick="connectOKX()">
+          <div class="wallet-opt-icon">⬛</div>
+          <div>
+            <div class="wallet-opt-name">OKX Wallet</div>
+            <div class="wallet-opt-desc">MULTICHAIN · WEB3 HUB</div>
+          </div>
+        </div>
+        <div class="wallet-option" onclick="connectRainbow()">
+          <div class="wallet-opt-icon">🌈</div>
+          <div>
+            <div class="wallet-opt-name">Rainbow Wallet</div>
+            <div class="wallet-opt-desc">MOBILE OPTIMIZED · STYLISH UX</div>
+          </div>
+        </div>
+        <div class="wallet-option" onclick="connectRabby()">
+          <div class="wallet-opt-icon">🛡️</div>
+          <div>
+            <div class="wallet-opt-name">Rabby Wallet</div>
+            <div class="wallet-opt-desc">SECURITY FIRST · TRANSACTION SIMULATOR</div>
+          </div>
+        </div>
+        <div class="wallet-option" onclick="connectTrust()">
+          <div class="wallet-opt-icon">🔒</div>
+          <div>
+            <div class="wallet-opt-name">Trust Wallet</div>
+            <div class="wallet-opt-desc">BINANCE ECOSYSTEM · MOBILE TRUST</div>
           </div>
         </div>
       </div>
@@ -1038,6 +1114,69 @@ async function connectCoinbase() {
   document.getElementById('walletTypeLabel').textContent = 'COINBASE WALLET · BASE MAINNET';
 }
 
+async function connectOKX() {
+  const provider = window.okxwallet || window.ethereum;
+  if (!provider) {
+    alert('OKX Wallet not detected!\n\nPlease install OKX Wallet extension from okx.com/web3 and refresh the page.');
+    return;
+  }
+  await connectWithProvider(provider, 'OKX Wallet', 'OKX WALLET · BASE MAINNET');
+}
+
+async function connectRainbow() {
+  const provider = window.ethereum;
+  if (!provider) {
+    alert('Rainbow Wallet not detected!\n\nInstall Rainbow from rainbow.me or open in the Rainbow mobile app.\n\nNote: Rainbow browser extension also works on desktop.');
+    return;
+  }
+  await connectWithProvider(provider, 'Rainbow Wallet', 'RAINBOW WALLET · BASE MAINNET');
+}
+
+async function connectRabby() {
+  const provider = window.ethereum;
+  if (!provider) {
+    alert('Rabby Wallet not detected!\n\nPlease install Rabby Wallet extension from rabby.io and refresh the page.');
+    return;
+  }
+  await connectWithProvider(provider, 'Rabby Wallet', 'RABBY WALLET · BASE MAINNET');
+}
+
+async function connectTrust() {
+  const provider = (window.trustwallet && window.trustwallet.ethereum) || window.ethereum;
+  if (!provider) {
+    alert('Trust Wallet not detected!\n\nPlease open this site in the Trust Wallet mobile browser, or install the Trust Wallet extension.');
+    return;
+  }
+  await connectWithProvider(provider, 'Trust Wallet', 'TRUST WALLET · BASE MAINNET');
+}
+
+async function connectWithProvider(provider, walletName, labelText) {
+  try {
+    const accounts = await provider.request({ method: 'eth_requestAccounts' });
+    if (!accounts || !accounts[0]) throw new Error('No accounts returned');
+    try {
+      await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: BASE_CHAIN_ID }] });
+    } catch(switchErr) {
+      if (switchErr.code === 4902) {
+        await provider.request({ method: 'wallet_addEthereumChain', params: [{
+          chainId: BASE_CHAIN_ID,
+          chainName: 'Base',
+          nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+          rpcUrls: ['https://mainnet.base.org'],
+          blockExplorerUrls: ['https://basescan.org']
+        }] });
+      }
+    }
+    connectedAddress = accounts[0];
+    connectedWalletType = walletName;
+    onWalletConnected();
+    document.getElementById('walletTypeLabel').textContent = labelText;
+  } catch(err) {
+    console.error(walletName + ' connect error:', err);
+    alert('Connection failed: ' + (err.message || 'Unknown error'));
+  }
+}
+
 async function onWalletConnected() {
   // Update nav button
   const btn = document.getElementById('walletConnectBtn');
@@ -1356,23 +1495,53 @@ function setTestResult(id, status, value) {
   if (valEl && value !== undefined) valEl.textContent = value;
 }
 
+async function fetchWithRetry(url, retries = 2, delayMs = 800) {
+  for (let i = 0; i <= retries; i++) {
+    try {
+      const r = await fetch(url);
+      const d = await r.json();
+      return d;
+    } catch(e) {
+      if (i === retries) throw e;
+      await new Promise(res => setTimeout(res, delayMs * (i + 1)));
+    }
+  }
+}
+
 async function runDiagnostics() {
   // Reset all
   ['basescan','supply','transfers','price','block'].forEach(id => {
     setTestResult(id, 'pending', 'Testing...');
   });
 
-  // Test 1: BaseScan API reachability (block number)
+  // Test 1: BaseScan API reachability (block number via proxy)
   try {
-    const r = await fetch(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
-    const d = await r.json();
+    const d = await fetchWithRetry(`https://api.basescan.org/api?module=proxy&action=eth_blockNumber&apikey=${API_KEY}`);
     const bn = parseInt(d.result || '0', 16);
     if (bn > 0) {
       setTestResult('basescan', 'ok', 'Reachable');
       setTestResult('block', 'ok', '#' + bn.toLocaleString('en-US'));
     } else {
-      setTestResult('basescan', 'err', d.message || 'Invalid response');
-      setTestResult('block', 'err', 'No block data');
+      // Fallback: try Base JSON-RPC directly
+      try {
+        const rpc = await fetch('https://mainnet.base.org', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({jsonrpc:'2.0',method:'eth_blockNumber',params:[],id:1})
+        });
+        const rpcData = await rpc.json();
+        const rpcBn = parseInt(rpcData.result || '0', 16);
+        if (rpcBn > 0) {
+          setTestResult('basescan', 'pending', 'BaseScan unavailable, using RPC');
+          setTestResult('block', 'ok', '#' + rpcBn.toLocaleString('en-US') + ' (RPC)');
+        } else {
+          setTestResult('basescan', 'err', 'NOTOK — Check API key');
+          setTestResult('block', 'err', 'No block data');
+        }
+      } catch(rpcErr) {
+        setTestResult('basescan', 'err', 'NOTOK — BaseScan & RPC both failed');
+        setTestResult('block', 'err', 'No block data');
+      }
     }
   } catch(e) {
     setTestResult('basescan', 'err', e.message || 'Network error');
@@ -1381,36 +1550,33 @@ async function runDiagnostics() {
 
   // Test 2: Token Supply
   try {
-    const r = await fetch(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`);
-    const d = await r.json();
+    const d = await fetchWithRetry(`https://api.basescan.org/api?module=stats&action=tokensupply&contractaddress=${CONTRACT}&apikey=${API_KEY}`);
     if (d.status === '1' && d.result) {
       setTestResult('supply', 'ok', fmtAmount(d.result) + ' ETHIC');
     } else {
-      setTestResult('supply', 'err', d.message || 'No data');
+      setTestResult('supply', 'err', d.message || 'NOTOK — Check API key');
     }
   } catch(e) {
-    setTestResult('supply', 'err', 'Failed');
+    setTestResult('supply', 'err', 'Network error');
   }
 
   // Test 3: Transfer Events
   try {
-    const r = await fetch(`https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=3&page=1&apikey=${API_KEY}`);
-    const d = await r.json();
+    const d = await fetchWithRetry(`https://api.basescan.org/api?module=account&action=tokentx&contractaddress=${CONTRACT}&sort=desc&offset=3&page=1&apikey=${API_KEY}`);
     if (d.status === '1' && d.result && d.result.length > 0) {
       setTestResult('transfers', 'ok', d.result.length + ' transfers found');
     } else if (d.status === '0' && d.message === 'No transactions found') {
       setTestResult('transfers', 'ok', 'Contract active, 0 transfers yet');
     } else {
-      setTestResult('transfers', 'err', d.message || 'No transfers');
+      setTestResult('transfers', 'err', d.message || 'NOTOK — Check API key');
     }
   } catch(e) {
-    setTestResult('transfers', 'err', 'Failed');
+    setTestResult('transfers', 'err', 'Network error');
   }
 
   // Test 4: DexScreener Price
   try {
-    const r = await fetch('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
-    const d = await r.json();
+    const d = await fetchWithRetry('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
     const pair = d.pairs?.[0];
     if (pair && pair.priceUsd) {
       setTestResult('price', 'ok', '$' + parseFloat(pair.priceUsd).toFixed(8));
@@ -1418,7 +1584,7 @@ async function runDiagnostics() {
       setTestResult('price', 'pending', 'Pool active, price forming');
     }
   } catch(e) {
-    setTestResult('price', 'err', 'Failed');
+    setTestResult('price', 'err', 'Network error');
   }
 }
 
@@ -1426,9 +1592,23 @@ async function runDiagnostics() {
 // WHITEPAPER ACCESS
 // ════════════════════════════════════════════════════════════════
 function requestAccess() {
-  addLogLine('lp', `[${new Date().toLocaleTimeString()}] ✓ Whitepaper access registered`);
-  alert('✓ Request Registered!\n✓ İstek Kaydedildi!\n\nWe will notify you when the whitepaper is ready.');
+  const overlay = document.getElementById('wpAccessModal');
+  overlay.classList.add('open');
+  document.getElementById('wpConfirm').classList.remove('show');
 }
+
+function closeWpModal() {
+  document.getElementById('wpAccessModal').classList.remove('open');
+}
+
+function submitWpAccess() {
+  addLogLine('lp', `[${new Date().toLocaleTimeString()}] ✓ Whitepaper access registered`);
+  document.getElementById('wpConfirm').classList.add('show');
+}
+
+document.getElementById('wpAccessModal').addEventListener('click', function(e) {
+  if (e.target === this) closeWpModal();
+});
 
 </script>
 </body>
