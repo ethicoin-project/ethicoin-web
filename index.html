@@ -1017,7 +1017,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
           </div>
           <div class="flow-destination flow-dest-master">
             <div class="flow-dest-pct">10%</div>
-            <div class="flow-dest-name">Usta</div>
+            <div class="flow-dest-name" title="Domain Expert / Master Contributor">Usta (Expert)</div>
             <div class="flow-dest-desc">Domain Expert — curators &amp; validators of expertise nodes</div>
           </div>
           <div class="flow-destination flow-dest-treasury">
@@ -2703,13 +2703,16 @@ function toggleTreeBranch(headerEl) {
 // ════════════════════════════════════════════════════════════════
 // ⭐ MAGNETIC BUTTON EFFECT
 // ════════════════════════════════════════════════════════════════
+const MAGNETIC_X_FACTOR = 0.18;
+const MAGNETIC_Y_FACTOR = 0.22;
+
 document.querySelectorAll('.btn-primary,.btn-secondary,.btn-buy,.btn-wallet-connect,.btn-query').forEach(btn => {
   btn.classList.add('mag-btn');
   btn.addEventListener('mousemove', function(e) {
     const rect = this.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    this.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+    this.style.transform = `translate(${x * MAGNETIC_X_FACTOR}px, ${y * MAGNETIC_Y_FACTOR}px)`;
   });
   btn.addEventListener('mouseleave', function() {
     this.style.transform = '';
@@ -2719,6 +2722,9 @@ document.querySelectorAll('.btn-primary,.btn-secondary,.btn-buy,.btn-wallet-conn
 // ════════════════════════════════════════════════════════════════
 // ⭐ SYSTEM STATUS LIGHTS — CONTRACT HEALTH
 // ════════════════════════════════════════════════════════════════
+const TOTAL_SUPPLY_SELECTOR = '0x18160ddd'; // keccak256('totalSupply()') selector
+const SYSTEM_STATUS_CHECK_INTERVAL = 30000; // ms
+
 function updateSystemStatus(lightId, status) {
   const el = document.getElementById(lightId);
   if (!el) return;
@@ -2731,7 +2737,7 @@ async function checkSystemStatus() {
     const rpc = await fetch(BASE_RPC, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:CONTRACT,data:'0x18160ddd'},'latest'],id:99})
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:CONTRACT,data:TOTAL_SUPPLY_SELECTOR},'latest'],id:99})
     });
     const d = await rpc.json();
     if (d.result && d.result !== '0x' && d.result !== '0x0') {
@@ -2765,7 +2771,7 @@ async function checkSystemStatus() {
 }
 
 checkSystemStatus();
-setInterval(checkSystemStatus, 30000);
+setInterval(checkSystemStatus, SYSTEM_STATUS_CHECK_INTERVAL);
 
 // ════════════════════════════════════════════════════════════════
 // ⭐ GLOBAL ERROR HANDLING &amp; UTILITY FUNCTIONS
