@@ -516,6 +516,136 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .wallet-status-panel .ws-bal{font-size:1.5rem}
 }
 @media(min-width:900px){.nav-link{display:inline}}
+
+/* ══════════════════════════════════════════════════
+   ⭐ DATA TREE — CYBERPUNK FILE EXPLORER
+══════════════════════════════════════════════════ */
+.data-tree-wrap{background:rgba(7,11,23,0.96);border:1px solid rgba(0,212,232,0.12);border-radius:16px;overflow:hidden;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+[data-theme="light"] .data-tree-wrap{background:rgba(245,247,250,0.96);border-color:rgba(0,212,232,0.2)}
+.data-tree-header{background:rgba(0,212,232,0.03);border-bottom:1px solid rgba(0,212,232,0.07);padding:12px 18px;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.4);letter-spacing:2px;font-weight:700}
+[data-theme="light"] .data-tree-header{background:rgba(0,212,232,0.06);color:rgba(0,130,150,0.55)}
+.dt-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.tree-body{padding:22px 24px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.tree-root-label{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.tree-root-label::before{content:'>';color:rgba(0,212,232,0.4)}
+.tree-branch{margin-bottom:6px}
+.tree-branch-header{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;cursor:pointer;transition:background .2s;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);font-weight:700;user-select:none}
+.tree-branch-header:hover{background:rgba(0,212,232,0.05);color:var(--cyan)}
+.tree-branch-header.open{background:rgba(0,212,232,0.06);color:var(--cyan)}
+.tree-branch-icon{font-size:16px;flex-shrink:0}
+.tree-expand-arrow{font-size:10px;color:rgba(0,212,232,0.3);transition:transform .25s;margin-right:2px;flex-shrink:0}
+.tree-branch-header.open .tree-expand-arrow{transform:rotate(90deg);color:var(--cyan)}
+.tree-branch-label{flex:1}
+.tree-branch-count{font-size:9px;color:rgba(0,212,232,0.25);background:rgba(0,212,232,0.06);border:1px solid rgba(0,212,232,0.1);padding:2px 8px;border-radius:10px;letter-spacing:1px;font-weight:700}
+.tree-leaves{display:none;padding-left:26px;margin-top:4px;border-left:1px solid rgba(0,212,232,0.1);margin-left:16px}
+.tree-leaves.open{display:block}
+.tree-leaf{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);transition:all .2s;cursor:default}
+.tree-leaf:hover{background:rgba(107,79,255,0.06);color:var(--purple2)}
+.tree-leaf-icon{font-size:13px;opacity:.7}
+.tree-leaf-name{flex:1}
+.tree-leaf-tag{font-size:9px;color:rgba(107,79,255,0.4);background:rgba(107,79,255,0.06);padding:2px 7px;border-radius:8px;letter-spacing:.5px;font-weight:700}
+
+/* ══════════════════════════════════════════════════
+   ⭐ NFT DATA PASSPORT CARDS
+══════════════════════════════════════════════════ */
+.passport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.passport-card{background:rgba(7,11,23,0.95);border:1px solid rgba(0,212,232,0.15);border-radius:16px;overflow:hidden;position:relative;transition:all .35s;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+[data-theme="light"] .passport-card{background:rgba(245,247,250,0.95);border-color:rgba(0,212,232,0.25)}
+.passport-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,212,232,0.03) 0%,rgba(107,79,255,0.03) 100%);pointer-events:none}
+.passport-card:hover{border-color:rgba(0,212,232,0.35);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,212,232,0.12)}
+.passport-card-top{background:linear-gradient(135deg,rgba(0,212,232,0.08),rgba(107,79,255,0.05));padding:18px 20px 14px;border-bottom:1px solid rgba(0,212,232,0.07)}
+.passport-nft-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.5);letter-spacing:3px;margin-bottom:6px;font-weight:800;text-transform:uppercase}
+.passport-title{font-size:1rem;font-weight:900;color:var(--text);letter-spacing:-.2px;margin-bottom:6px}
+.passport-badge{display:inline-flex;align-items:center;gap:5px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green2);background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);padding:3px 9px;border-radius:20px;letter-spacing:1px;font-weight:700}
+.passport-body{padding:18px 20px}
+.passport-field{margin-bottom:14px}
+.passport-field:last-child{margin-bottom:0}
+.passport-field-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.4);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;font-weight:800}
+.passport-field-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);font-weight:700;word-break:break-all;animation:valGlow 3s ease-in-out infinite}
+.passport-field-val.owner{color:var(--purple2);animation:ownerGlow 3s ease-in-out infinite 1s}
+.passport-field-val.enc{color:var(--green2);animation:encGlow 3s ease-in-out infinite 2s}
+@keyframes valGlow{0%,100%{text-shadow:0 0 6px rgba(0,212,232,0.3)}50%{text-shadow:0 0 16px rgba(0,212,232,0.6),0 0 30px rgba(0,212,232,0.2)}}
+@keyframes ownerGlow{0%,100%{text-shadow:0 0 6px rgba(157,135,255,0.3)}50%{text-shadow:0 0 16px rgba(157,135,255,0.6),0 0 30px rgba(157,135,255,0.2)}}
+@keyframes encGlow{0%,100%{text-shadow:0 0 6px rgba(0,200,150,0.3)}50%{text-shadow:0 0 16px rgba(0,200,150,0.6),0 0 30px rgba(0,200,150,0.2)}}
+.passport-footer{background:rgba(0,0,0,0.25);border-top:1px solid rgba(0,212,232,0.05);padding:10px 20px;display:flex;align-items:center;justify-content:space-between}
+[data-theme="light"] .passport-footer{background:rgba(0,0,0,0.05)}
+.passport-chain{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.35);font-weight:700;letter-spacing:1px}
+.passport-verified{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green2);font-weight:700;letter-spacing:1px}
+
+/* ══════════════════════════════════════════════════
+   ⭐ REVENUE FLOW DIAGRAM (ANIMATED)
+══════════════════════════════════════════════════ */
+.flow-diagram{padding:28px 30px;display:flex;flex-direction:column;align-items:center}
+.flow-source{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 32px;background:rgba(107,79,255,0.1);border:1px solid rgba(107,79,255,0.3);border-radius:12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--purple2);font-weight:800;letter-spacing:2px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);width:100%;max-width:340px;text-align:center}
+.flow-arrow-container{display:flex;flex-direction:column;align-items:center;margin:4px 0}
+.flow-arrow-line{width:2px;height:36px;background:linear-gradient(to bottom,var(--purple),var(--cyan));animation:flowPulse 1.5s ease-in-out infinite}
+.flow-arrow-tip{color:var(--cyan);font-size:14px;line-height:1;animation:flowPulse 1.5s ease-in-out infinite}
+@keyframes flowPulse{0%,100%{opacity:.5}50%{opacity:1}}
+.flow-split-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;margin-top:4px}
+.flow-destination{padding:22px 16px;border-radius:12px;text-align:center;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.flow-destination:hover{transform:translateY(-5px)}
+.flow-dest-user{background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.25)}
+.flow-dest-user:hover{box-shadow:0 10px 28px rgba(0,200,150,0.18)}
+.flow-dest-master{background:rgba(0,212,232,0.08);border:1px solid rgba(0,212,232,0.25)}
+.flow-dest-master:hover{box-shadow:0 10px 28px rgba(0,212,232,0.18)}
+.flow-dest-treasury{background:rgba(107,79,255,0.08);border:1px solid rgba(107,79,255,0.25)}
+.flow-dest-treasury:hover{box-shadow:0 10px 28px rgba(107,79,255,0.18)}
+.flow-dest-pct{font-size:2.4rem;font-weight:900;line-height:1;margin-bottom:8px;letter-spacing:-1px}
+.flow-dest-user .flow-dest-pct{color:var(--green2)}
+.flow-dest-master .flow-dest-pct{color:var(--cyan)}
+.flow-dest-treasury .flow-dest-pct{color:var(--purple2)}
+.flow-dest-name{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
+.flow-dest-user .flow-dest-name{color:var(--green2)}
+.flow-dest-master .flow-dest-name{color:var(--cyan)}
+.flow-dest-treasury .flow-dest-name{color:var(--purple2)}
+.flow-dest-desc{font-size:0.84rem;color:var(--text2);line-height:1.65;font-weight:600}
+.flow-note{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);text-align:center;padding:14px 20px 0;letter-spacing:1.5px;font-weight:700;width:100%}
+.flow-wallet-connected-msg{display:none;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--green2);background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);border-radius:8px;padding:10px 16px;text-align:center;margin-top:16px;letter-spacing:1px;font-weight:700;width:100%;animation:slideIn .4s ease}
+.flow-wallet-connected-msg.show{display:block}
+
+/* ══════════════════════════════════════════════════
+   ⭐ SYSTEM STATUS LIGHTS
+══════════════════════════════════════════════════ */
+.sys-status-bar{display:flex;align-items:center;gap:20px;padding:12px 24px;background:rgba(0,0,0,0.3);border-bottom:1px solid rgba(0,212,232,0.06);flex-wrap:wrap}
+[data-theme="light"] .sys-status-bar{background:rgba(0,0,0,0.05)}
+.sys-status-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(0,212,232,0.4);letter-spacing:2.5px;text-transform:uppercase;font-weight:800;margin-right:4px;white-space:nowrap}
+.sys-status-item{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text2);font-weight:700;letter-spacing:.5px}
+.sys-light{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sys-light.online{background:var(--green2);box-shadow:0 0 8px var(--green2);animation:sysOnline 2.5s ease-in-out infinite}
+.sys-light.pending{background:var(--gold);box-shadow:0 0 8px var(--gold);animation:sysOnline 1.2s ease-in-out infinite}
+.sys-light.offline{background:var(--red);box-shadow:0 0 8px var(--red);animation:sysOnline 0.8s ease-in-out infinite}
+@keyframes sysOnline{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ══════════════════════════════════════════════════
+   ⭐ TRANSPARENCY TABLE
+══════════════════════════════════════════════════ */
+.transparency-wrap{overflow-x:auto;padding:4px}
+.transparency-table{width:100%;border-collapse:collapse}
+.transparency-table th{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(0,212,232,0.55);padding:14px 20px;text-align:left;border-bottom:1px solid rgba(0,212,232,0.1);font-weight:800}
+.transparency-table td{padding:16px 20px;font-size:13px;border-bottom:1px solid rgba(0,212,232,0.04);vertical-align:middle}
+.transparency-table tr:last-child td{border-bottom:none}
+.transparency-table tbody tr:hover td{background:rgba(0,212,232,0.02)}
+.tr-layer{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.5px;white-space:nowrap}
+.tr-function{color:var(--text);font-weight:600;line-height:1.6}
+.tr-security{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;background:rgba(107,79,255,0.08);border:1px solid rgba(107,79,255,0.18);padding:5px 12px;border-radius:20px;display:inline-block;white-space:nowrap;color:var(--purple2)}
+.tr-security.green{color:var(--green2);background:rgba(0,200,150,0.08);border-color:rgba(0,200,150,0.18)}
+.tr-security.cyan{color:var(--cyan);background:rgba(0,212,232,0.08);border-color:rgba(0,212,232,0.18)}
+
+/* ══════════════════════════════════════════════════
+   ⭐ MAGNETIC BUTTON EFFECT
+══════════════════════════════════════════════════ */
+.mag-btn{transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s,border-color .25s}
+
+/* Responsive additions */
+@media(max-width:900px){
+  .passport-grid{grid-template-columns:1fr 1fr}
+  .tree-body{grid-template-columns:1fr}
+  .flow-split-row{grid-template-columns:1fr;max-width:340px;margin-left:auto;margin-right:auto}
+}
+@media(max-width:600px){
+  .passport-grid{grid-template-columns:1fr}
+  .transparency-table th,.transparency-table td{padding:10px 14px}
+}
 </style>
 </head>
 <body>
@@ -718,6 +848,87 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <div class="divider"></div>
 
   <!-- ══════════════════════════════════════════════════
+       ⭐ DATA TREE — CYBERPUNK FILE EXPLORER
+  ══════════════════════════════════════════════════ -->
+  <section class="section" id="data-tree">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--cyan)"></div>
+      <div class="sec-label" style="color:rgba(0,212,232,.55)">THE DATA TREE — EXPERTISE &amp; ROYALTY EXCHANGE</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
+    </div>
+    <div class="data-tree-wrap">
+      <div class="data-tree-header">
+        <div class="dt-dot" style="background:#ff5f57"></div>
+        <div class="dt-dot" style="background:#febc2e"></div>
+        <div class="dt-dot" style="background:#28c840"></div>
+        <span style="margin-left:8px">ETHICOIN://sovereign-data-tree/root — Universal Data Archive</span>
+      </div>
+      <div class="tree-body">
+        <!-- Left Column -->
+        <div>
+          <div class="tree-root-label">📁 UNIVERSAL DATA TREE</div>
+          <div class="tree-branch">
+            <div class="tree-branch-header" onclick="toggleTreeBranch(this)">
+              <span class="tree-expand-arrow">▶</span>
+              <span class="tree-branch-icon">⚙️</span>
+              <span class="tree-branch-label">Engineering</span>
+              <span class="tree-branch-count">3 nodes</span>
+            </div>
+            <div class="tree-leaves">
+              <div class="tree-leaf"><span class="tree-leaf-icon">📐</span><span class="tree-leaf-name">Mechanical Design</span><span class="tree-leaf-tag">ERC-721</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">💻</span><span class="tree-leaf-name">Software Architecture</span><span class="tree-leaf-tag">NFT</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">🔬</span><span class="tree-leaf-name">Data Science Models</span><span class="tree-leaf-tag">ZK</span></div>
+            </div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-branch-header" onclick="toggleTreeBranch(this)">
+              <span class="tree-expand-arrow">▶</span>
+              <span class="tree-branch-icon">🏥</span>
+              <span class="tree-branch-label">Health</span>
+              <span class="tree-branch-count">3 nodes</span>
+            </div>
+            <div class="tree-leaves">
+              <div class="tree-leaf"><span class="tree-leaf-icon">🧬</span><span class="tree-leaf-name">Medical Research</span><span class="tree-leaf-tag">IPFS</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">💊</span><span class="tree-leaf-name">Pharmaceutical Data</span><span class="tree-leaf-tag">ZK</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">🧠</span><span class="tree-leaf-name">Neural Datasets</span><span class="tree-leaf-tag">NFT</span></div>
+            </div>
+          </div>
+        </div>
+        <!-- Right Column -->
+        <div>
+          <div class="tree-root-label" style="visibility:hidden">·</div>
+          <div class="tree-branch">
+            <div class="tree-branch-header" onclick="toggleTreeBranch(this)">
+              <span class="tree-expand-arrow">▶</span>
+              <span class="tree-branch-icon">⚖️</span>
+              <span class="tree-branch-label">Law</span>
+              <span class="tree-branch-count">3 nodes</span>
+            </div>
+            <div class="tree-leaves">
+              <div class="tree-leaf"><span class="tree-leaf-icon">📜</span><span class="tree-leaf-name">Legal Templates</span><span class="tree-leaf-tag">NFT</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">🔏</span><span class="tree-leaf-name">IP Contracts</span><span class="tree-leaf-tag">ERC-721</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">🏛️</span><span class="tree-leaf-name">Regulatory Docs</span><span class="tree-leaf-tag">ZK</span></div>
+            </div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-branch-header" onclick="toggleTreeBranch(this)">
+              <span class="tree-expand-arrow">▶</span>
+              <span class="tree-branch-icon">🎨</span>
+              <span class="tree-branch-label">Craft</span>
+              <span class="tree-branch-count">3 nodes</span>
+            </div>
+            <div class="tree-leaves">
+              <div class="tree-leaf"><span class="tree-leaf-icon">🖌️</span><span class="tree-leaf-name">Digital Artworks</span><span class="tree-leaf-tag">NFT</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">🎵</span><span class="tree-leaf-name">Audio Compositions</span><span class="tree-leaf-tag">IPFS</span></div>
+              <div class="tree-leaf"><span class="tree-leaf-icon">✍️</span><span class="tree-leaf-name">Literary Works</span><span class="tree-leaf-tag">ERC-721</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
        ⭐ LIVE NETWORK PULSE — YENİ MODÜL!
   ══════════════════════════════════════════════════ -->
   <section class="pulse-section" id="live-pulse">
@@ -785,20 +996,43 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       <div class="sec-label" style="color:var(--purple2)" data-i18n="section-revenue">REVENUE ARCHITECTURE</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
-    <div class="card revenue-card">
-      <div class="revenue-grid">
-        <div class="revenue-item">
-          <div class="revenue-label revenue-label-purple"><span>💰</span><span data-i18n="revenue-tx-label">TRANSACTION FEE</span></div>
-          <div class="revenue-value">20%</div>
-          <p class="revenue-desc" data-i18n="revenue-tx-desc">Protocol commission from AI data purchases. Revenue stream for ecosystem development.</p>
+    <div class="card">
+      <div class="flow-diagram">
+        <!-- Source -->
+        <div class="flow-source">
+          <span>💰</span>
+          <span>DATA PURCHASE / ROYALTY EVENT</span>
         </div>
-        <div class="revenue-item cyan">
-          <div class="revenue-label revenue-label-cyan"><span>📊</span><span data-i18n="revenue-treasury-label">TREASURY SPLIT</span></div>
-          <div class="revenue-value">80/20</div>
-          <p class="revenue-desc" data-i18n="revenue-treasury-desc">80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants &amp; development.</p>
+        <!-- Arrow down -->
+        <div class="flow-arrow-container">
+          <div class="flow-arrow-line"></div>
+          <div class="flow-arrow-tip">▼</div>
+        </div>
+        <!-- Split destinations -->
+        <div class="flow-split-row">
+          <div class="flow-destination flow-dest-user">
+            <div class="flow-dest-pct">80%</div>
+            <div class="flow-dest-name">User</div>
+            <div class="flow-dest-desc">Data Contributor — direct wallet payout via smart contract</div>
+          </div>
+          <div class="flow-destination flow-dest-master">
+            <div class="flow-dest-pct">10%</div>
+            <div class="flow-dest-name">Usta</div>
+            <div class="flow-dest-desc">Domain Expert — curators &amp; validators of expertise nodes</div>
+          </div>
+          <div class="flow-destination flow-dest-treasury">
+            <div class="flow-dest-pct">10%</div>
+            <div class="flow-dest-name">Treasury</div>
+            <div class="flow-dest-desc">ETHIC Protocol — ecosystem grants &amp; development fund</div>
+          </div>
+        </div>
+        <!-- Note -->
+        <div class="flow-note">[ Smart Contract Distribution on Base L2 — Automated &amp; Transparent ]</div>
+        <!-- Connected wallet message -->
+        <div class="flow-wallet-connected-msg" id="flowWalletMsg">
+          ✓ YOUR WALLET IS CONNECTED — You will receive 80% of your data revenue directly
         </div>
       </div>
-      <div class="revenue-note" data-i18n="revenue-note">[ Smart Contract Distribution on Base L2 — Automated &amp; Transparent ]</div>
     </div>
   </section>
 
@@ -819,6 +1053,94 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
         <div class="contract-header"><span class="contract-icon">⚡</span><div class="contract-title">AITrainingLog</div></div>
         <p class="contract-desc">Every AI training event is logged on-chain — who used which data, when, and for what purpose. Immutable, public, verifiable by anyone on Sepolia.</p>
         <a href="https://sepolia.etherscan.io/address/0x77A74aF0879c713209DB35A713f1736021F497a3" target="_blank" class="contract-link"><span>📋</span><span>0x77A74aF...497a3 ↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       ⭐ NFT DATA PASSPORT CARDS — SOVEREIGN IDENTITY
+  ══════════════════════════════════════════════════ -->
+  <section class="section" id="nft-passports">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--purple)"></div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)">NFT DATA PASSPORTS — SOVEREIGN IDENTITY</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
+    </div>
+    <div class="passport-grid">
+      <div class="passport-card">
+        <div class="passport-card-top">
+          <div class="passport-nft-label">NFT DATA PASSPORT · #0001</div>
+          <div class="passport-title">Engineering Node</div>
+          <div class="passport-badge"><span>●</span> VERIFIED</div>
+        </div>
+        <div class="passport-body">
+          <div class="passport-field">
+            <div class="passport-field-label">Hash ID</div>
+            <div class="passport-field-val">0x3f8a9c2e...d7f1e912</div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-field-label">Sovereign Owner</div>
+            <div class="passport-field-val owner">0x7eD8CFf2...Fe93</div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-field-label">Encryption Level</div>
+            <div class="passport-field-val enc">AES-256 + ZK-PROOF</div>
+          </div>
+        </div>
+        <div class="passport-footer">
+          <span class="passport-chain">BASE L2 · #8453</span>
+          <span class="passport-verified">✓ ON-CHAIN</span>
+        </div>
+      </div>
+      <div class="passport-card">
+        <div class="passport-card-top">
+          <div class="passport-nft-label">NFT DATA PASSPORT · #0002</div>
+          <div class="passport-title">Health Record</div>
+          <div class="passport-badge"><span>●</span> SOULBOUND</div>
+        </div>
+        <div class="passport-body">
+          <div class="passport-field">
+            <div class="passport-field-label">Hash ID</div>
+            <div class="passport-field-val">0xa1b2c3d4...e5f6a7b8</div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-field-label">Sovereign Owner</div>
+            <div class="passport-field-val owner">0x4a2B...9C1d</div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-field-label">Encryption Level</div>
+            <div class="passport-field-val enc">HYBRID IPFS + ZK</div>
+          </div>
+        </div>
+        <div class="passport-footer">
+          <span class="passport-chain">BASE L2 · #8453</span>
+          <span class="passport-verified">✓ ERC-721</span>
+        </div>
+      </div>
+      <div class="passport-card">
+        <div class="passport-card-top">
+          <div class="passport-nft-label">NFT DATA PASSPORT · #0003</div>
+          <div class="passport-title">Legal Document</div>
+          <div class="passport-badge"><span>●</span> LOCKED</div>
+        </div>
+        <div class="passport-body">
+          <div class="passport-field">
+            <div class="passport-field-label">Hash ID</div>
+            <div class="passport-field-val">0xf9e8d7c6...b5a4f3e2</div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-field-label">Sovereign Owner</div>
+            <div class="passport-field-val owner">0xB3C4...D5E6</div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-field-label">Encryption Level</div>
+            <div class="passport-field-val enc">ZK-PROOF ONLY</div>
+          </div>
+        </div>
+        <div class="passport-footer">
+          <span class="passport-chain">BASE L2 · #8453</span>
+          <span class="passport-verified">✓ SOULBOUND</span>
+        </div>
       </div>
     </div>
   </section>
@@ -867,6 +1189,22 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="card">
+      <!-- ⭐ SYSTEM STATUS LIGHTS -->
+      <div class="sys-status-bar">
+        <span class="sys-status-label">SYSTEM STATUS</span>
+        <div class="sys-status-item">
+          <span class="sys-light online" id="statusToken"></span>
+          <span>Token Contract</span>
+        </div>
+        <div class="sys-status-item">
+          <span class="sys-light pending" id="statusDist"></span>
+          <span>Distribution</span>
+        </div>
+        <div class="sys-status-item">
+          <span class="sys-light pending" id="statusGov"></span>
+          <span>Governance</span>
+        </div>
+      </div>
       <div class="term-bar">
         <div class="term-dot" style="background:#ff5f57"></div>
         <div class="term-dot" style="background:#febc2e"></div>
@@ -1002,6 +1340,47 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       <div class="tech-spec-card"><span class="tech-spec-icon">🔐</span><div class="tech-spec-label" data-i18n="tech-arch-label">Architecture</div><div class="tech-spec-title" data-i18n="tech-arch-title">Zero-Knowledge Proofs</div><p class="tech-spec-desc" data-i18n="tech-arch-desc">Privacy-preserving cryptography for data verification without exposure.</p></div>
       <div class="tech-spec-card purple"><span class="tech-spec-icon">🏛️</span><div class="tech-spec-label" data-i18n="tech-model-label">Model</div><div class="tech-spec-title" data-i18n="tech-model-title">DAO Governance</div><p class="tech-spec-desc" data-i18n="tech-model-desc">Decentralized voting on protocol upgrades and ecosystem decisions.</p></div>
       <div class="tech-spec-card green"><span class="tech-spec-icon">⚡</span><div class="tech-spec-label" data-i18n="tech-layer-label">Layer</div><div class="tech-spec-title" data-i18n="tech-layer-title">Base Layer 2</div><p class="tech-spec-desc" data-i18n="tech-layer-desc">Optimistic rollup: 10x lower costs, instant finality, Ethereum security.</p></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════
+       ⭐ TRANSPARENCY — PROTOCOL ARCHITECTURE TABLE
+  ══════════════════════════════════════════════════ -->
+  <section class="section" id="transparency">
+    <div class="sec-head">
+      <div class="sec-pip" style="background:var(--green2)"></div>
+      <div class="sec-label" style="color:rgba(0,230,118,.55)">TRANSPARENCY — PROTOCOL LAYER ARCHITECTURE</div>
+      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,230,118,.2),transparent)"></div>
+    </div>
+    <div class="card">
+      <div class="transparency-wrap">
+        <table class="transparency-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Function</th>
+              <th>Security</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="tr-layer">Identity (NFT)</span></td>
+              <td><span class="tr-function">Expertise and Data Identity — Soulbound token permanently linked to contributor</span></td>
+              <td><span class="tr-security">ERC-721 / Soulbound</span></td>
+            </tr>
+            <tr>
+              <td><span class="tr-layer">Settlement</span></td>
+              <td><span class="tr-function">Automatic Royalty Distribution — 80% User / 10% Usta / 10% Treasury on every event</span></td>
+              <td><span class="tr-security cyan">Smart Contract (80% Share)</span></td>
+            </tr>
+            <tr>
+              <td><span class="tr-layer">Storage</span></td>
+              <td><span class="tr-function">Encrypted Data Vault — only fingerprint (hash) stored on-chain; data stays off-chain and KVKK-compliant</span></td>
+              <td><span class="tr-security green">Hybrid IPFS + ZK-Proof</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
@@ -1870,6 +2249,10 @@ async function onWalletConnected() {
   // Show autofill button in query section
   document.getElementById('autofillBtn').classList.add('show');
 
+  // Show revenue flow wallet connected message
+  const flowMsg = document.getElementById('flowWalletMsg');
+  if (flowMsg) flowMsg.classList.add('show');
+
   // Fetch ETHIC balance for modal
   await updateModalBalance();
   showConnectedView();
@@ -1909,6 +2292,8 @@ function disconnectWallet() {
   btn.querySelector('.wallet-icon').textContent = '🦊';
   btn.querySelector('.wallet-short').textContent = 'CONNECT';
   document.getElementById('autofillBtn').classList.remove('show');
+  const flowMsg = document.getElementById('flowWalletMsg');
+  if (flowMsg) flowMsg.classList.remove('show');
   closeWalletModal();
   document.getElementById('walletConnectOptions').style.display = 'block';
   document.getElementById('walletConnectedView').style.display = 'none';
@@ -2306,7 +2691,84 @@ document.getElementById('wpAccessModal').addEventListener('click', function(e) {
 });
 
 // ════════════════════════════════════════════════════════════════
-// GLOBAL ERROR HANDLING & UTILITY FUNCTIONS
+// ⭐ DATA TREE — BRANCH TOGGLE
+// ════════════════════════════════════════════════════════════════
+function toggleTreeBranch(headerEl) {
+  const leaves = headerEl.nextElementSibling;
+  const isOpen = headerEl.classList.contains('open');
+  headerEl.classList.toggle('open', !isOpen);
+  if (leaves) leaves.classList.toggle('open', !isOpen);
+}
+
+// ════════════════════════════════════════════════════════════════
+// ⭐ MAGNETIC BUTTON EFFECT
+// ════════════════════════════════════════════════════════════════
+document.querySelectorAll('.btn-primary,.btn-secondary,.btn-buy,.btn-wallet-connect,.btn-query').forEach(btn => {
+  btn.classList.add('mag-btn');
+  btn.addEventListener('mousemove', function(e) {
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    this.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+  });
+  btn.addEventListener('mouseleave', function() {
+    this.style.transform = '';
+  });
+});
+
+// ════════════════════════════════════════════════════════════════
+// ⭐ SYSTEM STATUS LIGHTS — CONTRACT HEALTH
+// ════════════════════════════════════════════════════════════════
+function updateSystemStatus(lightId, status) {
+  const el = document.getElementById(lightId);
+  if (!el) return;
+  el.className = 'sys-light ' + status;
+}
+
+async function checkSystemStatus() {
+  // Token Contract — check via RPC (eth_call totalSupply)
+  try {
+    const rpc = await fetch(BASE_RPC, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_call',params:[{to:CONTRACT,data:'0x18160ddd'},'latest'],id:99})
+    });
+    const d = await rpc.json();
+    if (d.result && d.result !== '0x' && d.result !== '0x0') {
+      updateSystemStatus('statusToken', 'online');
+    } else {
+      updateSystemStatus('statusToken', 'pending');
+    }
+  } catch(e) {
+    updateSystemStatus('statusToken', 'offline');
+  }
+
+  // Distribution — check block number as proxy for chain liveness
+  try {
+    const rpc = await fetch(BASE_RPC, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({jsonrpc:'2.0',method:'eth_blockNumber',params:[],id:100})
+    });
+    const d = await rpc.json();
+    if (d.result && parseInt(d.result, 16) > 0) {
+      updateSystemStatus('statusDist', 'online');
+    } else {
+      updateSystemStatus('statusDist', 'pending');
+    }
+  } catch(e) {
+    updateSystemStatus('statusDist', 'offline');
+  }
+
+  // Governance — pending (future contract)
+  updateSystemStatus('statusGov', 'pending');
+}
+
+checkSystemStatus();
+setInterval(checkSystemStatus, 30000);
+
+// ════════════════════════════════════════════════════════════════
+// ⭐ GLOBAL ERROR HANDLING &amp; UTILITY FUNCTIONS
 // ════════════════════════════════════════════════════════════════
 
 window.addEventListener('error', (event) => {
