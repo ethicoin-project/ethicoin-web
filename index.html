@@ -50,42 +50,6 @@
 <link rel="preconnect" href="https://base.blockscout.com">
 <link rel="preconnect" href="https://mainnet.base.org">
 <link rel="preconnect" href="https://api.dexscreener.com">
-<link rel="dns-prefetch" href="https://www.googletagmanager.com">
-<link rel="dns-prefetch" href="https://browser.sentry-cdn.com">
-
-<!-- ═══════════════════════════════════════════════════════════
-     GOOGLE ANALYTICS GA4
-     TODO: Replace G-XXXXXXXXXX with your actual GA4 Measurement ID
-           from https://analytics.google.com before deployment.
-═══════════════════════════════════════════════════════════ -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX', {
-    'page_path': window.location.pathname,
-    'anonymize_ip': true
-  });
-</script>
-
-<!-- ═══════════════════════════════════════════════════════════
-     SENTRY ERROR MONITORING
-     TODO: Replace the DSN placeholder below with your actual Sentry
-           project DSN from https://sentry.io before deployment.
-═══════════════════════════════════════════════════════════ -->
-<script src="https://browser.sentry-cdn.com/7.91.0/bundle.min.js" crossorigin="anonymous"></script>
-<script>
-  if (window.Sentry) {
-    Sentry.init({
-      dsn: "https://YOUR_DSN@sentry.io/PROJECT_ID", // TODO: replace with real DSN
-      environment: "production",
-      tracesSampleRate: 0.1,
-      replaysSessionSampleRate: 0.1,
-      replaysOnErrorSampleRate: 1.0
-    });
-  }
-</script>
 
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -1736,12 +1700,10 @@ document.getElementById('wpAccessModal').addEventListener('click', function(e) {
 
 window.addEventListener('error', (event) => {
   console.error('Uncaught Error:', event.error);
-  if (window.Sentry) Sentry.captureException(event.error);
 });
 
 window.addEventListener('unhandledrejection', (event) => {
   console.error('Unhandled Rejection:', event.reason);
-  if (window.Sentry) Sentry.captureException(event.reason);
 });
 
 const fetchWithTimeout = (url, timeout = 5000) => {
