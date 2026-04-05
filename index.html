@@ -703,17 +703,17 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="hero">
     <div class="hero-eyebrow">
       <span class="eyebrow-dot"></span>
-      <span>PROTOCOL v1.0 · CHAIN #8453 · ERC-20</span>
+      <span data-i18n="hero-eyebrow">PROTOCOL v1.0 · CHAIN #8453 · ERC-20</span>
     </div>
     <h1 class="hero-title">
       <span class="t1">DATA</span>
       <span class="t2">SOVEREIGNTY</span>
     </h1>
-    <p class="hero-sub">A decentralized protocol built for ethical AI training and data sovereignty. Deployed on Base Mainnet with 1 billion ETHIC tokens.</p>
+    <p class="hero-sub" data-i18n="hero-sub">A decentralized protocol built for ethical AI training and data sovereignty. Deployed on Base Mainnet with 1 billion ETHIC tokens.</p>
     <div class="hero-actions">
-      <a href="#query" class="btn-primary">EXPLORE PROTOCOL <span class="arrow">→</span></a>
-      <a href="https://app.uniswap.org/swap?outputCurrency=0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93&chain=base" target="_blank" class="btn-buy">BUY ETHIC ↗</a>
-      <a href="https://basescan.org/token/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93" target="_blank" class="btn-secondary">BASESCAN ↗</a>
+      <a href="#query" class="btn-primary"><span data-i18n="btn-explore">EXPLORE PROTOCOL</span> <span class="arrow">→</span></a>
+      <a href="https://app.uniswap.org/swap?outputCurrency=0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93&chain=base" target="_blank" class="btn-buy" data-i18n="btn-buy">BUY ETHIC ↗</a>
+      <a href="https://basescan.org/token/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93" target="_blank" class="btn-secondary" data-i18n="btn-basescan">BASESCAN ↗</a>
     </div>
   </section>
 
@@ -744,12 +744,12 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   </div>
 
   <!-- STATS -->
-  <div class="stats-row">
-    <div class="stat-item"><div class="stat-num">1B</div><div class="stat-label">Total Supply</div></div>
-    <div class="stat-item"><div class="stat-num">18</div><div class="stat-label">Decimals</div></div>
-    <div class="stat-item"><div class="stat-num" style="color:var(--green2);font-size:1.5rem">✓</div><div class="stat-label">Verified</div></div>
-    <div class="stat-item"><div class="stat-num" style="font-size:1.3rem">Base</div><div class="stat-label">Network</div></div>
-  </div>
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-num">1B</div><div class="stat-label" data-i18n="stat-supply">Total Supply</div></div>
+      <div class="stat-item"><div class="stat-num">18</div><div class="stat-label" data-i18n="stat-decimals">Decimals</div></div>
+      <div class="stat-item"><div class="stat-num" style="color:var(--green2);font-size:1.5rem">✓</div><div class="stat-label" data-i18n="stat-verified">Verified</div></div>
+      <div class="stat-item"><div class="stat-num" style="font-size:1.3rem">Base</div><div class="stat-label" data-i18n="stat-network">Network</div></div>
+    </div>
 
   <div class="divider"></div>
 
@@ -759,7 +759,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="pulse-section" id="live-pulse">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--green2)"></div>
-      <div class="sec-label" style="color:rgba(0,230,118,.6)">LIVE NETWORK PULSE</div>
+      <div class="sec-label" style="color:rgba(0,230,118,.6)" data-i18n="section-pulse">LIVE NETWORK PULSE</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,230,118,.2),transparent)"></div>
     </div>
 
@@ -818,23 +818,23 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="revenue">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple)"></div>
-      <div class="sec-label" style="color:var(--purple2)">REVENUE ARCHITECTURE</div>
+      <div class="sec-label" style="color:var(--purple2)" data-i18n="section-revenue">REVENUE ARCHITECTURE</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="card revenue-card">
       <div class="revenue-grid">
         <div class="revenue-item">
-          <div class="revenue-label revenue-label-purple"><span>💰</span><span>TRANSACTION FEE</span></div>
+          <div class="revenue-label revenue-label-purple"><span>💰</span><span data-i18n="revenue-tx-label">TRANSACTION FEE</span></div>
           <div class="revenue-value">20%</div>
-          <p class="revenue-desc">Protocol commission from AI data purchases. Revenue stream for ecosystem development.</p>
+          <p class="revenue-desc" data-i18n="revenue-tx-desc">Protocol commission from AI data purchases. Revenue stream for ecosystem development.</p>
         </div>
         <div class="revenue-item cyan">
-          <div class="revenue-label revenue-label-cyan"><span>📊</span><span>TREASURY SPLIT</span></div>
+          <div class="revenue-label revenue-label-cyan"><span>📊</span><span data-i18n="revenue-treasury-label">TREASURY SPLIT</span></div>
           <div class="revenue-value">80/20</div>
-          <p class="revenue-desc">80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants & development.</p>
+          <p class="revenue-desc" data-i18n="revenue-treasury-desc">80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants &amp; development.</p>
         </div>
       </div>
-      <div class="revenue-note">[ Smart Contract Distribution on Base L2 — Automated & Transparent ]</div>
+      <div class="revenue-note" data-i18n="revenue-note">[ Smart Contract Distribution on Base L2 — Automated &amp; Transparent ]</div>
     </div>
   </section>
 
@@ -842,7 +842,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="contracts">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.55)">Smart Contracts</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.55)" data-i18n="section-contracts">Smart Contracts</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="contracts-grid">
@@ -863,19 +863,19 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="query">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)">Wallet Query</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="section-query">Wallet Query</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="card">
       <div class="query-wrap">
         <div class="query-row">
-          <input class="query-input" id="walletAddr" placeholder="Enter Base wallet address — 0x..."/>
+          <input class="query-input" id="walletAddr" placeholder="Enter Base wallet address — 0x..." data-i18n-placeholder="query-placeholder"/>
           <!-- ⭐ Auto-fill from connected wallet -->
           <button class="btn-autofill" id="autofillBtn" onclick="autofillWallet()" title="Use connected wallet">⚡ MY WALLET</button>
-          <button class="btn-query" onclick="queryBalance()">QUERY</button>
+          <button class="btn-query" onclick="queryBalance()" data-i18n="query-btn">QUERY</button>
         </div>
         <div class="result-area" id="resultPanel">
-          <div class="result-hint">View the ETHIC balance of any Base wallet address instantly</div>
+          <div class="result-hint" data-i18n="query-hint">View the ETHIC balance of any Base wallet address instantly</div>
         </div>
       </div>
     </div>
@@ -885,7 +885,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--green2)"></div>
-      <div class="sec-label" style="color:rgba(0,200,150,.55)">Live Transfers</div>
+      <div class="sec-label" style="color:rgba(0,200,150,.55)" data-i18n="section-transfers">Live Transfers</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,200,150,.2),transparent)"></div>
     </div>
     <div class="card">
@@ -899,7 +899,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.5)">Chain Monitor</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.5)" data-i18n="section-monitor">Chain Monitor</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="card">
@@ -963,7 +963,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="contract">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.5)">Contract Information</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.5)" data-i18n="section-contract-info">Contract Information</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="card">
@@ -984,14 +984,14 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="protocol">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple2)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)">Protocol Features</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="section-protocol">Protocol Features</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="feature-grid">
-      <div class="feature-card"><span class="feat-icon">🧠</span><div class="feat-title">Data Sovereignty</div><p class="feat-desc">Users maintain complete control over their data with cryptographic enforcement. No unauthorized access possible.</p></div>
-      <div class="feature-card"><span class="feat-icon">⚡</span><div class="feat-title">Ethical AI</div><p class="feat-desc">Transparent AI training logs immutably recorded on-chain. Full auditability and accountability.</p></div>
-      <div class="feature-card"><span class="feat-icon">🔗</span><div class="feat-title">Base Mainnet</div><p class="feat-desc">Ultra-fast, secure Layer 2 network with Ethereum-grade security and minimal transaction costs.</p></div>
-      <div class="feature-card"><span class="feat-icon">🛡️</span><div class="feat-title">Verified Contract</div><p class="feat-desc">100% open-source, publicly verified, independently auditable code. Complete transparency.</p></div>
+      <div class="feature-card"><span class="feat-icon">🧠</span><div class="feat-title" data-i18n="feat-data-title">Data Sovereignty</div><p class="feat-desc" data-i18n="feat-data-desc">Users maintain complete control over their data with cryptographic enforcement. No unauthorized access possible.</p></div>
+      <div class="feature-card"><span class="feat-icon">⚡</span><div class="feat-title" data-i18n="feat-ai-title">Ethical AI</div><p class="feat-desc" data-i18n="feat-ai-desc">Transparent AI training logs immutably recorded on-chain. Full auditability and accountability.</p></div>
+      <div class="feature-card"><span class="feat-icon">🔗</span><div class="feat-title" data-i18n="feat-base-title">Base Mainnet</div><p class="feat-desc" data-i18n="feat-base-desc">Ultra-fast, secure Layer 2 network with Ethereum-grade security and minimal transaction costs.</p></div>
+      <div class="feature-card"><span class="feat-icon">🛡️</span><div class="feat-title" data-i18n="feat-contract-title">Verified Contract</div><p class="feat-desc" data-i18n="feat-contract-desc">100% open-source, publicly verified, independently auditable code. Complete transparency.</p></div>
     </div>
   </section>
 
@@ -999,16 +999,16 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--gold)"></div>
-      <div class="sec-label" style="color:rgba(200,168,75,.55)">Tokenomics</div>
+      <div class="sec-label" style="color:rgba(200,168,75,.55)" data-i18n="section-tokenomics">Tokenomics</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(200,168,75,.2),transparent)"></div>
     </div>
     <div class="tokenomics-grid">
-      <div class="token-card"><div class="token-pct">50%</div><div class="token-name">Ecosystem</div><div class="token-amount">500M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--purple2)">20%</div><div class="token-name">Development</div><div class="token-amount">200M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--green2)">15%</div><div class="token-name">Community</div><div class="token-amount">150M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--gold)">10%</div><div class="token-name">Liquidity</div><div class="token-amount">100M</div></div>
-      <div class="token-card"><div class="token-pct" style="color:var(--text2)">5%</div><div class="token-name">Reserve</div><div class="token-amount">50M</div></div>
-      <div class="token-card" style="border-color:rgba(0,212,232,.15)"><div class="token-pct" style="font-size:1.1rem">1B</div><div class="token-name">Total Fixed</div><div class="token-amount">No Mint</div></div>
+      <div class="token-card"><div class="token-pct">50%</div><div class="token-name" data-i18n="tok-ecosystem">Ecosystem</div><div class="token-amount">500M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--purple2)">20%</div><div class="token-name" data-i18n="tok-development">Development</div><div class="token-amount">200M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--green2)">15%</div><div class="token-name" data-i18n="tok-community">Community</div><div class="token-amount">150M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--gold)">10%</div><div class="token-name" data-i18n="tok-liquidity">Liquidity</div><div class="token-amount">100M</div></div>
+      <div class="token-card"><div class="token-pct" style="color:var(--text2)">5%</div><div class="token-name" data-i18n="tok-reserve">Reserve</div><div class="token-amount">50M</div></div>
+      <div class="token-card" style="border-color:rgba(0,212,232,.15)"><div class="token-pct" style="font-size:1.1rem">1B</div><div class="token-name" data-i18n="tok-total">Total Fixed</div><div class="token-amount" data-i18n="tok-no-mint">No Mint</div></div>
     </div>
   </section>
 
@@ -1016,14 +1016,14 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="roadmap">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple2)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)">Roadmap</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="section-roadmap">Roadmap</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="roadmap">
-      <div class="road-item"><div class="road-num">01</div><div><div class="badge badge-live">● Live</div><div class="road-phase" style="color:var(--green2)">Phase I — Foundation</div><div class="road-title">Protocol Launch</div><div class="road-desc">ERC-20 token deployed on Base Mainnet. Liquidity established. Contracts verified.</div></div></div>
-      <div class="road-item"><div class="road-num">02</div><div><div class="badge badge-soon">◈ In Progress</div><div class="road-phase" style="color:var(--cyan)">Phase II — Visibility</div><div class="road-title">Exchange Listings & Community</div><div class="road-desc">CoinGecko & CoinMarketCap listings. Community growth on Telegram & X.</div></div></div>
-      <div class="road-item"><div class="road-num">03</div><div><div class="badge badge-future">◇ Upcoming</div><div class="road-phase" style="color:var(--purple2)">Phase III — Infrastructure</div><div class="road-title">Data Sovereignty Layer</div><div class="road-desc">Consent registry, API integrations, compensation model for contributors.</div></div></div>
-      <div class="road-item"><div class="road-num">04</div><div><div class="badge badge-future">◇ Upcoming</div><div class="road-phase" style="color:var(--purple2)">Phase IV — Scale</div><div class="road-title">Governance & Ecosystem</div><div class="road-desc">DAO governance, ecosystem grants for ethical AI projects.</div></div></div>
+      <div class="road-item"><div class="road-num">01</div><div><div class="badge badge-live">● Live</div><div class="road-phase" style="color:var(--green2)" data-i18n="road-phase1">Phase I — Foundation</div><div class="road-title" data-i18n="road-title1">Protocol Launch</div><div class="road-desc" data-i18n="road-desc1">ERC-20 token deployed on Base Mainnet. Liquidity established. Contracts verified.</div></div></div>
+      <div class="road-item"><div class="road-num">02</div><div><div class="badge badge-soon">◈ In Progress</div><div class="road-phase" style="color:var(--cyan)" data-i18n="road-phase2">Phase II — Visibility</div><div class="road-title" data-i18n="road-title2">Exchange Listings &amp; Community</div><div class="road-desc" data-i18n="road-desc2">CoinGecko &amp; CoinMarketCap listings. Community growth on Telegram &amp; X.</div></div></div>
+      <div class="road-item"><div class="road-num">03</div><div><div class="badge badge-future">◇ Upcoming</div><div class="road-phase" style="color:var(--purple2)" data-i18n="road-phase3">Phase III — Infrastructure</div><div class="road-title" data-i18n="road-title3">Data Sovereignty Layer</div><div class="road-desc" data-i18n="road-desc3">Consent registry, API integrations, compensation model for contributors.</div></div></div>
+      <div class="road-item"><div class="road-num">04</div><div><div class="badge badge-future">◇ Upcoming</div><div class="road-phase" style="color:var(--purple2)" data-i18n="road-phase4">Phase IV — Scale</div><div class="road-title" data-i18n="road-title4">Governance &amp; Ecosystem</div><div class="road-desc" data-i18n="road-desc4">DAO governance, ecosystem grants for ethical AI projects.</div></div></div>
     </div>
   </section>
 
@@ -1031,13 +1031,13 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="tech-specs">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.55)">Technical Specifications</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.55)" data-i18n="section-tech">Technical Specifications</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="tech-specs-grid">
-      <div class="tech-spec-card"><span class="tech-spec-icon">🔐</span><div class="tech-spec-label">Architecture</div><div class="tech-spec-title">Zero-Knowledge Proofs</div><p class="tech-spec-desc">Privacy-preserving cryptography for data verification without exposure.</p></div>
-      <div class="tech-spec-card purple"><span class="tech-spec-icon">🏛️</span><div class="tech-spec-label">Model</div><div class="tech-spec-title">DAO Governance</div><p class="tech-spec-desc">Decentralized voting on protocol upgrades and ecosystem decisions.</p></div>
-      <div class="tech-spec-card green"><span class="tech-spec-icon">⚡</span><div class="tech-spec-label">Layer</div><div class="tech-spec-title">Base Layer 2</div><p class="tech-spec-desc">Optimistic rollup: 10x lower costs, instant finality, Ethereum security.</p></div>
+      <div class="tech-spec-card"><span class="tech-spec-icon">🔐</span><div class="tech-spec-label" data-i18n="tech-arch-label">Architecture</div><div class="tech-spec-title" data-i18n="tech-arch-title">Zero-Knowledge Proofs</div><p class="tech-spec-desc" data-i18n="tech-arch-desc">Privacy-preserving cryptography for data verification without exposure.</p></div>
+      <div class="tech-spec-card purple"><span class="tech-spec-icon">🏛️</span><div class="tech-spec-label" data-i18n="tech-model-label">Model</div><div class="tech-spec-title" data-i18n="tech-model-title">DAO Governance</div><p class="tech-spec-desc" data-i18n="tech-model-desc">Decentralized voting on protocol upgrades and ecosystem decisions.</p></div>
+      <div class="tech-spec-card green"><span class="tech-spec-icon">⚡</span><div class="tech-spec-label" data-i18n="tech-layer-label">Layer</div><div class="tech-spec-title" data-i18n="tech-layer-title">Base Layer 2</div><p class="tech-spec-desc" data-i18n="tech-layer-desc">Optimistic rollup: 10x lower costs, instant finality, Ethereum security.</p></div>
     </div>
   </section>
 
@@ -1045,19 +1045,19 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section" id="whitepaper">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--purple2)"></div>
-      <div class="sec-label" style="color:rgba(107,79,255,.55)">Technical Documentation</div>
+      <div class="sec-label" style="color:rgba(107,79,255,.55)" data-i18n="section-docs">Technical Documentation</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(107,79,255,.2),transparent)"></div>
     </div>
     <div class="card wp-section-card">
       <div class="wp-content">
-        <h3 class="wp-title">Whitepaper — Coming Soon</h3>
-        <p class="wp-description">Comprehensive technical documentation including architecture, tokenomics, governance, and AI integration is in preparation.</p>
+        <h3 class="wp-title" data-i18n="wp-title">Whitepaper — Coming Soon</h3>
+        <p class="wp-description" data-i18n="wp-desc">Comprehensive technical documentation including architecture, tokenomics, governance, and AI integration is in preparation.</p>
         <div class="wp-tags">
           <span class="wp-tag">ARCH: ZK-PROOF</span>
           <span class="wp-tag purple">MODEL: DAO GOVERNANCE</span>
           <span class="wp-tag green">LAYER: BASE L2</span>
         </div>
-        <button class="btn-primary" onclick="requestAccess()">📄 REQUEST EARLY ACCESS</button>
+        <button class="btn-primary" onclick="requestAccess()" data-i18n="btn-early-access">📄 REQUEST EARLY ACCESS</button>
       </div>
     </div>
   </section>
@@ -1066,7 +1066,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   <section class="section">
     <div class="sec-head">
       <div class="sec-pip" style="background:var(--cyan)"></div>
-      <div class="sec-label" style="color:rgba(0,212,232,.5)">Community</div>
+      <div class="sec-label" style="color:rgba(0,212,232,.5)" data-i18n="section-community">Community</div>
       <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,212,232,.2),transparent)"></div>
     </div>
     <div class="social-row">
@@ -1088,6 +1088,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       <a class="footer-link" href="https://basescan.org/token/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93" target="_blank">BASESCAN</a>
       <a class="footer-link" href="https://app.uniswap.org/swap?outputCurrency=0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93&chain=base" target="_blank">UNISWAP</a>
       <a class="footer-link" href="mailto:team@ethicoin.io">CONTACT</a>
+      <a class="footer-link" href="mailto:ethiccoin@hotmail.com">📧 ethiccoin@hotmail.com</a>
       <a class="footer-link" href="/privacy.html">PRIVACY</a>
       <a class="footer-link" href="/terms.html">TERMS</a>
     </div>
@@ -1123,14 +1124,624 @@ document.getElementById('themeToggle').textContent = saved === 'light' ? '☀️
 // LANGUAGE
 // ════════════════════════════════════════════════════════════════
 const FLAGS = {en:'🇬🇧 EN',tr:'🇹🇷 TR',es:'🇪🇸 ES',fr:'🇫🇷 FR',de:'🇩🇪 DE',ru:'🇷🇺 RU',zh:'🇨🇳 ZH',hi:'🇮🇳 HI'};
+
+const translations = {
+  en: {
+    "hero-eyebrow": "PROTOCOL v1.0 · CHAIN #8453 · ERC-20",
+    "hero-sub": "A decentralized protocol built for ethical AI training and data sovereignty. Deployed on Base Mainnet with 1 billion ETHIC tokens.",
+    "btn-explore": "EXPLORE PROTOCOL",
+    "btn-buy": "BUY ETHIC ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "CONNECT",
+    "stat-supply": "Total Supply",
+    "stat-decimals": "Decimals",
+    "stat-verified": "Verified",
+    "stat-network": "Network",
+    "section-pulse": "LIVE NETWORK PULSE",
+    "section-revenue": "REVENUE ARCHITECTURE",
+    "section-contracts": "Smart Contracts",
+    "section-query": "Wallet Query",
+    "section-transfers": "Live Transfers",
+    "section-monitor": "Chain Monitor",
+    "section-contract-info": "Contract Information",
+    "section-protocol": "Protocol Features",
+    "section-tokenomics": "Tokenomics",
+    "section-roadmap": "Roadmap",
+    "section-tech": "Technical Specifications",
+    "section-docs": "Technical Documentation",
+    "section-community": "Community",
+    "feat-data-title": "Data Sovereignty",
+    "feat-data-desc": "Users maintain complete control over their data with cryptographic enforcement. No unauthorized access possible.",
+    "feat-ai-title": "Ethical AI",
+    "feat-ai-desc": "Transparent AI training logs immutably recorded on-chain. Full auditability and accountability.",
+    "feat-base-title": "Base Mainnet",
+    "feat-base-desc": "Ultra-fast, secure Layer 2 network with Ethereum-grade security and minimal transaction costs.",
+    "feat-contract-title": "Verified Contract",
+    "feat-contract-desc": "100% open-source, publicly verified, independently auditable code. Complete transparency.",
+    "tok-ecosystem": "Ecosystem",
+    "tok-development": "Development",
+    "tok-community": "Community",
+    "tok-liquidity": "Liquidity",
+    "tok-reserve": "Reserve",
+    "tok-total": "Total Fixed",
+    "tok-no-mint": "No Mint",
+    "road-phase1": "Phase I — Foundation",
+    "road-title1": "Protocol Launch",
+    "road-desc1": "ERC-20 token deployed on Base Mainnet. Liquidity established. Contracts verified.",
+    "road-phase2": "Phase II — Visibility",
+    "road-title2": "Exchange Listings & Community",
+    "road-desc2": "CoinGecko & CoinMarketCap listings. Community growth on Telegram & X.",
+    "road-phase3": "Phase III — Infrastructure",
+    "road-title3": "Data Sovereignty Layer",
+    "road-desc3": "Consent registry, API integrations, compensation model for contributors.",
+    "road-phase4": "Phase IV — Scale",
+    "road-title4": "Governance & Ecosystem",
+    "road-desc4": "DAO governance, ecosystem grants for ethical AI projects.",
+    "tech-arch-label": "Architecture",
+    "tech-arch-title": "Zero-Knowledge Proofs",
+    "tech-arch-desc": "Privacy-preserving cryptography for data verification without exposure.",
+    "tech-model-label": "Model",
+    "tech-model-title": "DAO Governance",
+    "tech-model-desc": "Decentralized voting on protocol upgrades and ecosystem decisions.",
+    "tech-layer-label": "Layer",
+    "tech-layer-title": "Base Layer 2",
+    "tech-layer-desc": "Optimistic rollup: 10x lower costs, instant finality, Ethereum security.",
+    "wp-title": "Whitepaper — Coming Soon",
+    "wp-desc": "Comprehensive technical documentation including architecture, tokenomics, governance, and AI integration is in preparation.",
+    "btn-early-access": "📄 REQUEST EARLY ACCESS",
+    "query-placeholder": "Enter Base wallet address — 0x...",
+    "query-btn": "QUERY",
+    "query-hint": "View the ETHIC balance of any Base wallet address instantly",
+    "revenue-tx-label": "TRANSACTION FEE",
+    "revenue-tx-desc": "Protocol commission from AI data purchases. Revenue stream for ecosystem development.",
+    "revenue-treasury-label": "TREASURY SPLIT",
+    "revenue-treasury-desc": "80% to Data Contributors, 20% to ETHIC Treasury for ecosystem grants & development.",
+    "revenue-note": "[ Smart Contract Distribution on Base L2 — Automated & Transparent ]"
+  },
+  tr: {
+    "hero-eyebrow": "PROTOKOL v1.0 · ZİNCİR #8453 · ERC-20",
+    "hero-sub": "Etik yapay zeka eğitimi ve veri egemenliği için inşa edilmiş merkezi olmayan bir protokol. Base Mainnet üzerinde 1 milyar ETHIC token ile dağıtıldı.",
+    "btn-explore": "PROTOKOLü KEŞFET",
+    "btn-buy": "ETHIC SATIN AL ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "BAĞLAN",
+    "stat-supply": "Toplam Arz",
+    "stat-decimals": "Ondalık",
+    "stat-verified": "Doğrulandı",
+    "stat-network": "Ağ",
+    "section-pulse": "CANLI AĞ NABZI",
+    "section-revenue": "GELİR MİMARİSİ",
+    "section-contracts": "Akıllı Sözleşmeler",
+    "section-query": "Cüzdan Sorgusu",
+    "section-transfers": "Canlı Transferler",
+    "section-monitor": "Zincir Monitörü",
+    "section-contract-info": "Sözleşme Bilgileri",
+    "section-protocol": "Protokol Özellikleri",
+    "section-tokenomics": "Token Ekonomisi",
+    "section-roadmap": "Yol Haritası",
+    "section-tech": "Teknik Özellikler",
+    "section-docs": "Teknik Belgeleme",
+    "section-community": "Topluluk",
+    "feat-data-title": "Veri Egemenliği",
+    "feat-data-desc": "Kullanıcılar, kriptografik uygulama ile verilerini tam olarak kontrol eder. İzinsiz erişim mümkün değildir.",
+    "feat-ai-title": "Etik Yapay Zeka",
+    "feat-ai-desc": "Şeffaf yapay zeka eğitim günlükleri zincirde değiştirilemez şekilde kaydedilir. Tam denetlenebilirlik.",
+    "feat-base-title": "Base Mainnet",
+    "feat-base-desc": "Ethereum düzeyinde güvenlik ve minimum işlem maliyetiyle ultra hızlı, güvenli Katman 2 ağı.",
+    "feat-contract-title": "Doğrulanmış Sözleşme",
+    "feat-contract-desc": "Tamamen açık kaynaklı, kamuya açık doğrulanmış, bağımsız olarak denetlenebilir kod. Tam şeffaflık.",
+    "tok-ecosystem": "Ekosistem",
+    "tok-development": "Geliştirme",
+    "tok-community": "Topluluk",
+    "tok-liquidity": "Likidite",
+    "tok-reserve": "Rezerv",
+    "tok-total": "Toplam Sabit",
+    "tok-no-mint": "Mint Yok",
+    "road-phase1": "Aşama I — Temel",
+    "road-title1": "Protokol Lansmanı",
+    "road-desc1": "ERC-20 token Base Mainnet'te dağıtıldı. Likidite sağlandı. Sözleşmeler doğrulandı.",
+    "road-phase2": "Aşama II — Görünürlük",
+    "road-title2": "Borsa Listelenmeleri & Topluluk",
+    "road-desc2": "CoinGecko & CoinMarketCap listelenmeleri. Telegram & X'te topluluk büyümesi.",
+    "road-phase3": "Aşama III — Altyapı",
+    "road-title3": "Veri Egemenliği Katmanı",
+    "road-desc3": "Onay kaydı, API entegrasyonları, katkıda bulunanlar için ödeme modeli.",
+    "road-phase4": "Aşama IV — Ölçek",
+    "road-title4": "Yönetişim & Ekosistem",
+    "road-desc4": "DAO yönetişimi, etik yapay zeka projeleri için ekosistem hibeleri.",
+    "tech-arch-label": "Mimari",
+    "tech-arch-title": "Sıfır Bilgi İspatları",
+    "tech-arch-desc": "Veriyi açığa çıkarmadan doğrulama için gizliliği koruyan kriptografi.",
+    "tech-model-label": "Model",
+    "tech-model-title": "DAO Yönetişimi",
+    "tech-model-desc": "Protokol yükseltmeleri ve ekosistem kararları üzerinde merkezi olmayan oylama.",
+    "tech-layer-label": "Katman",
+    "tech-layer-title": "Base Katman 2",
+    "tech-layer-desc": "İyimser toplama: 10x daha düşük maliyet, anında kesinlik, Ethereum güvenliği.",
+    "wp-title": "Whitepaper — Yakında",
+    "wp-desc": "Mimari, token ekonomisi, yönetişim ve yapay zeka entegrasyonunu içeren kapsamlı teknik dokümantasyon hazırlanmaktadır.",
+    "btn-early-access": "📄 ERKEN ERİŞİM TALEBİ",
+    "query-placeholder": "Base cüzdan adresi girin — 0x...",
+    "query-btn": "SORGULA",
+    "query-hint": "Herhangi bir Base cüzdan adresinin ETHIC bakiyesini anında görüntüleyin",
+    "revenue-tx-label": "İŞLEM ÜCRETİ",
+    "revenue-tx-desc": "Yapay zeka veri satın alımlarından protokol komisyonu. Ekosistem geliştirme için gelir akışı.",
+    "revenue-treasury-label": "HAZİNE PAYLAŞIMI",
+    "revenue-treasury-desc": "Veri katkıda bulunanlara %80, ekosistem hibeleri ve geliştirme için ETHIC Hazinesi'ne %20.",
+    "revenue-note": "[ Base L2'de Akıllı Sözleşme Dağıtımı — Otomatik & Şeffaf ]"
+  },
+  es: {
+    "hero-eyebrow": "PROTOCOLO v1.0 · CADENA #8453 · ERC-20",
+    "hero-sub": "Un protocolo descentralizado para el entrenamiento ético de IA y la soberanía de datos. Desplegado en Base Mainnet con 1 mil millones de tokens ETHIC.",
+    "btn-explore": "EXPLORAR PROTOCOLO",
+    "btn-buy": "COMPRAR ETHIC ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "CONECTAR",
+    "stat-supply": "Suministro Total",
+    "stat-decimals": "Decimales",
+    "stat-verified": "Verificado",
+    "stat-network": "Red",
+    "section-pulse": "PULSO DE RED EN VIVO",
+    "section-revenue": "ARQUITECTURA DE INGRESOS",
+    "section-contracts": "Contratos Inteligentes",
+    "section-query": "Consulta de Billetera",
+    "section-transfers": "Transferencias en Vivo",
+    "section-monitor": "Monitor de Cadena",
+    "section-contract-info": "Información del Contrato",
+    "section-protocol": "Características del Protocolo",
+    "section-tokenomics": "Tokenómica",
+    "section-roadmap": "Hoja de Ruta",
+    "section-tech": "Especificaciones Técnicas",
+    "section-docs": "Documentación Técnica",
+    "section-community": "Comunidad",
+    "feat-data-title": "Soberanía de Datos",
+    "feat-data-desc": "Los usuarios mantienen control total sobre sus datos con aplicación criptográfica. Sin acceso no autorizado.",
+    "feat-ai-title": "IA Ética",
+    "feat-ai-desc": "Registros de entrenamiento de IA transparentes e inmutables en la cadena. Total auditabilidad.",
+    "feat-base-title": "Base Mainnet",
+    "feat-base-desc": "Red Layer 2 ultra rápida y segura con seguridad de nivel Ethereum y costos mínimos.",
+    "feat-contract-title": "Contrato Verificado",
+    "feat-contract-desc": "Código 100% de código abierto, verificado públicamente y auditable de forma independiente.",
+    "tok-ecosystem": "Ecosistema",
+    "tok-development": "Desarrollo",
+    "tok-community": "Comunidad",
+    "tok-liquidity": "Liquidez",
+    "tok-reserve": "Reserva",
+    "tok-total": "Total Fijo",
+    "tok-no-mint": "Sin Mint",
+    "road-phase1": "Fase I — Fundación",
+    "road-title1": "Lanzamiento del Protocolo",
+    "road-desc1": "Token ERC-20 desplegado en Base Mainnet. Liquidez establecida. Contratos verificados.",
+    "road-phase2": "Fase II — Visibilidad",
+    "road-title2": "Listados de Intercambio & Comunidad",
+    "road-desc2": "Listados en CoinGecko & CoinMarketCap. Crecimiento de la comunidad en Telegram & X.",
+    "road-phase3": "Fase III — Infraestructura",
+    "road-title3": "Capa de Soberanía de Datos",
+    "road-desc3": "Registro de consentimiento, integraciones API, modelo de compensación para contribuidores.",
+    "road-phase4": "Fase IV — Escala",
+    "road-title4": "Gobernanza & Ecosistema",
+    "road-desc4": "Gobernanza DAO, subvenciones del ecosistema para proyectos de IA ética.",
+    "tech-arch-label": "Arquitectura",
+    "tech-arch-title": "Pruebas de Conocimiento Cero",
+    "tech-arch-desc": "Criptografía que preserva la privacidad para verificación de datos sin exposición.",
+    "tech-model-label": "Modelo",
+    "tech-model-title": "Gobernanza DAO",
+    "tech-model-desc": "Votación descentralizada sobre actualizaciones de protocolo y decisiones del ecosistema.",
+    "tech-layer-label": "Capa",
+    "tech-layer-title": "Base Layer 2",
+    "tech-layer-desc": "Rollup optimista: costos 10x menores, finalidad instantánea, seguridad Ethereum.",
+    "wp-title": "Libro Blanco — Próximamente",
+    "wp-desc": "Documentación técnica completa incluyendo arquitectura, tokenómica, gobernanza e integración de IA en preparación.",
+    "btn-early-access": "📄 SOLICITAR ACCESO ANTICIPADO",
+    "query-placeholder": "Ingrese dirección de billetera Base — 0x...",
+    "query-btn": "CONSULTAR",
+    "query-hint": "Ver el saldo de ETHIC de cualquier dirección de billetera Base al instante",
+    "revenue-tx-label": "TARIFA DE TRANSACCIÓN",
+    "revenue-tx-desc": "Comisión de protocolo de compras de datos de IA. Flujo de ingresos para el desarrollo del ecosistema.",
+    "revenue-treasury-label": "DIVISIÓN DEL TESORO",
+    "revenue-treasury-desc": "80% para contribuidores de datos, 20% para la Tesorería ETHIC para subvenciones y desarrollo.",
+    "revenue-note": "[ Distribución de Contratos Inteligentes en Base L2 — Automatizado & Transparente ]"
+  },
+  fr: {
+    "hero-eyebrow": "PROTOCOLE v1.0 · CHAÎNE #8453 · ERC-20",
+    "hero-sub": "Un protocole décentralisé pour la formation éthique en IA et la souveraineté des données. Déployé sur Base Mainnet avec 1 milliard de tokens ETHIC.",
+    "btn-explore": "EXPLORER LE PROTOCOLE",
+    "btn-buy": "ACHETER ETHIC ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "CONNECTER",
+    "stat-supply": "Offre Totale",
+    "stat-decimals": "Décimales",
+    "stat-verified": "Vérifié",
+    "stat-network": "Réseau",
+    "section-pulse": "POULS RÉSEAU EN DIRECT",
+    "section-revenue": "ARCHITECTURE DE REVENUS",
+    "section-contracts": "Contrats Intelligents",
+    "section-query": "Requête de Portefeuille",
+    "section-transfers": "Transferts en Direct",
+    "section-monitor": "Moniteur de Chaîne",
+    "section-contract-info": "Informations du Contrat",
+    "section-protocol": "Fonctionnalités du Protocole",
+    "section-tokenomics": "Tokenomique",
+    "section-roadmap": "Feuille de Route",
+    "section-tech": "Spécifications Techniques",
+    "section-docs": "Documentation Technique",
+    "section-community": "Communauté",
+    "feat-data-title": "Souveraineté des Données",
+    "feat-data-desc": "Les utilisateurs gardent un contrôle total sur leurs données avec application cryptographique. Aucun accès non autorisé possible.",
+    "feat-ai-title": "IA Éthique",
+    "feat-ai-desc": "Journaux de formation IA transparents enregistrés de manière immuable sur la chaîne. Auditabilité complète.",
+    "feat-base-title": "Base Mainnet",
+    "feat-base-desc": "Réseau Layer 2 ultra-rapide et sécurisé avec sécurité de niveau Ethereum et coûts minimaux.",
+    "feat-contract-title": "Contrat Vérifié",
+    "feat-contract-desc": "Code 100% open-source, vérifié publiquement, auditable indépendamment. Transparence totale.",
+    "tok-ecosystem": "Écosystème",
+    "tok-development": "Développement",
+    "tok-community": "Communauté",
+    "tok-liquidity": "Liquidité",
+    "tok-reserve": "Réserve",
+    "tok-total": "Total Fixe",
+    "tok-no-mint": "Sans Mint",
+    "road-phase1": "Phase I — Fondation",
+    "road-title1": "Lancement du Protocole",
+    "road-desc1": "Token ERC-20 déployé sur Base Mainnet. Liquidité établie. Contrats vérifiés.",
+    "road-phase2": "Phase II — Visibilité",
+    "road-title2": "Listings d'Échange & Communauté",
+    "road-desc2": "Listings CoinGecko & CoinMarketCap. Croissance de la communauté sur Telegram & X.",
+    "road-phase3": "Phase III — Infrastructure",
+    "road-title3": "Couche de Souveraineté des Données",
+    "road-desc3": "Registre de consentement, intégrations API, modèle de compensation pour contributeurs.",
+    "road-phase4": "Phase IV — Échelle",
+    "road-title4": "Gouvernance & Écosystème",
+    "road-desc4": "Gouvernance DAO, subventions de l'écosystème pour les projets d'IA éthique.",
+    "tech-arch-label": "Architecture",
+    "tech-arch-title": "Preuves à Connaissance Nulle",
+    "tech-arch-desc": "Cryptographie préservant la vie privée pour la vérification des données sans exposition.",
+    "tech-model-label": "Modèle",
+    "tech-model-title": "Gouvernance DAO",
+    "tech-model-desc": "Vote décentralisé sur les mises à niveau du protocole et les décisions de l'écosystème.",
+    "tech-layer-label": "Couche",
+    "tech-layer-title": "Base Layer 2",
+    "tech-layer-desc": "Rollup optimiste : coûts 10x inférieurs, finalité instantanée, sécurité Ethereum.",
+    "wp-title": "Livre Blanc — Bientôt Disponible",
+    "wp-desc": "Documentation technique complète incluant l'architecture, la tokenomique, la gouvernance et l'intégration IA en préparation.",
+    "btn-early-access": "📄 DEMANDER UN ACCÈS ANTICIPÉ",
+    "query-placeholder": "Entrez l'adresse du portefeuille Base — 0x...",
+    "query-btn": "RECHERCHER",
+    "query-hint": "Voir le solde ETHIC de n'importe quelle adresse de portefeuille Base instantanément",
+    "revenue-tx-label": "FRAIS DE TRANSACTION",
+    "revenue-tx-desc": "Commission de protocole sur les achats de données IA. Flux de revenus pour le développement de l'écosystème.",
+    "revenue-treasury-label": "PARTAGE DU TRÉSOR",
+    "revenue-treasury-desc": "80% aux contributeurs de données, 20% au Trésor ETHIC pour les subventions et développements.",
+    "revenue-note": "[ Distribution par Contrat Intelligent sur Base L2 — Automatisée & Transparente ]"
+  },
+  de: {
+    "hero-eyebrow": "PROTOKOLL v1.0 · KETTE #8453 · ERC-20",
+    "hero-sub": "Ein dezentralisiertes Protokoll für ethisches KI-Training und Datensouveränität. Auf Base Mainnet mit 1 Milliarde ETHIC-Token eingesetzt.",
+    "btn-explore": "PROTOKOLL ERKUNDEN",
+    "btn-buy": "ETHIC KAUFEN ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "VERBINDEN",
+    "stat-supply": "Gesamtangebot",
+    "stat-decimals": "Dezimalstellen",
+    "stat-verified": "Verifiziert",
+    "stat-network": "Netzwerk",
+    "section-pulse": "LIVE NETZWERKPULS",
+    "section-revenue": "ERTRAGSARCHITEKTUR",
+    "section-contracts": "Smart Contracts",
+    "section-query": "Wallet-Abfrage",
+    "section-transfers": "Live-Transfers",
+    "section-monitor": "Ketten-Monitor",
+    "section-contract-info": "Vertragsinformationen",
+    "section-protocol": "Protokollfunktionen",
+    "section-tokenomics": "Tokenomik",
+    "section-roadmap": "Fahrplan",
+    "section-tech": "Technische Spezifikationen",
+    "section-docs": "Technische Dokumentation",
+    "section-community": "Gemeinschaft",
+    "feat-data-title": "Datensouveränität",
+    "feat-data-desc": "Benutzer behalten die vollständige Kontrolle über ihre Daten durch kryptografische Durchsetzung. Kein unbefugter Zugriff möglich.",
+    "feat-ai-title": "Ethische KI",
+    "feat-ai-desc": "Transparente KI-Trainings-Logs unveränderlich auf der Kette aufgezeichnet. Vollständige Überprüfbarkeit.",
+    "feat-base-title": "Base Mainnet",
+    "feat-base-desc": "Ultraschnelles, sicheres Layer-2-Netzwerk mit Ethereum-Sicherheit und minimalen Transaktionskosten.",
+    "feat-contract-title": "Verifizierter Vertrag",
+    "feat-contract-desc": "100% Open-Source, öffentlich verifiziert, unabhängig prüfbarer Code. Vollständige Transparenz.",
+    "tok-ecosystem": "Ökosystem",
+    "tok-development": "Entwicklung",
+    "tok-community": "Gemeinschaft",
+    "tok-liquidity": "Liquidität",
+    "tok-reserve": "Reserve",
+    "tok-total": "Gesamt Fix",
+    "tok-no-mint": "Kein Mint",
+    "road-phase1": "Phase I — Grundlage",
+    "road-title1": "Protokoll-Start",
+    "road-desc1": "ERC-20-Token auf Base Mainnet eingesetzt. Liquidität eingerichtet. Verträge verifiziert.",
+    "road-phase2": "Phase II — Sichtbarkeit",
+    "road-title2": "Börsenlisting & Gemeinschaft",
+    "road-desc2": "CoinGecko & CoinMarketCap-Listungen. Gemeinschaftswachstum auf Telegram & X.",
+    "road-phase3": "Phase III — Infrastruktur",
+    "road-title3": "Datensouveränitätsschicht",
+    "road-desc3": "Einwilligungsregister, API-Integrationen, Vergütungsmodell für Mitwirkende.",
+    "road-phase4": "Phase IV — Skalierung",
+    "road-title4": "Governance & Ökosystem",
+    "road-desc4": "DAO-Governance, Ökosystem-Zuschüsse für ethische KI-Projekte.",
+    "tech-arch-label": "Architektur",
+    "tech-arch-title": "Zero-Knowledge-Beweise",
+    "tech-arch-desc": "Datenschutzwahrende Kryptographie zur Datenverifizierung ohne Offenlegung.",
+    "tech-model-label": "Modell",
+    "tech-model-title": "DAO-Governance",
+    "tech-model-desc": "Dezentrale Abstimmung über Protokoll-Upgrades und Ökosystem-Entscheidungen.",
+    "tech-layer-label": "Schicht",
+    "tech-layer-title": "Base Layer 2",
+    "tech-layer-desc": "Optimistisches Rollup: 10x geringere Kosten, sofortige Finalität, Ethereum-Sicherheit.",
+    "wp-title": "Whitepaper — Demnächst",
+    "wp-desc": "Umfassende technische Dokumentation einschließlich Architektur, Tokenomik, Governance und KI-Integration in Vorbereitung.",
+    "btn-early-access": "📄 FRÜHEN ZUGANG ANFORDERN",
+    "query-placeholder": "Base-Wallet-Adresse eingeben — 0x...",
+    "query-btn": "ABFRAGEN",
+    "query-hint": "ETHIC-Guthaben einer beliebigen Base-Wallet-Adresse sofort anzeigen",
+    "revenue-tx-label": "TRANSAKTIONSGEBÜHR",
+    "revenue-tx-desc": "Protokollprovision aus KI-Datenkäufen. Einnahmequelle für die Ökosystementwicklung.",
+    "revenue-treasury-label": "TREASURY-AUFTEILUNG",
+    "revenue-treasury-desc": "80% an Daten-Mitwirkende, 20% an ETHIC-Treasury für Ökosystem-Zuschüsse & Entwicklung.",
+    "revenue-note": "[ Smart Contract Verteilung auf Base L2 — Automatisiert & Transparent ]"
+  },
+  ru: {
+    "hero-eyebrow": "ПРОТОКОЛ v1.0 · СЕТЬ #8453 · ERC-20",
+    "hero-sub": "Децентрализованный протокол для этичного обучения ИИ и суверенитета данных. Развёрнут в Base Mainnet с 1 миллиардом токенов ETHIC.",
+    "btn-explore": "ИССЛЕДОВАТЬ ПРОТОКОЛ",
+    "btn-buy": "КУПИТЬ ETHIC ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "ПОДКЛЮЧИТЬ",
+    "stat-supply": "Общее предложение",
+    "stat-decimals": "Десятичные",
+    "stat-verified": "Проверено",
+    "stat-network": "Сеть",
+    "section-pulse": "ПУЛЬС СЕТИ В РЕАЛЬНОМ ВРЕМЕНИ",
+    "section-revenue": "АРХИТЕКТУРА ДОХОДОВ",
+    "section-contracts": "Умные контракты",
+    "section-query": "Запрос кошелька",
+    "section-transfers": "Переводы в реальном времени",
+    "section-monitor": "Мониторинг сети",
+    "section-contract-info": "Информация о контракте",
+    "section-protocol": "Функции протокола",
+    "section-tokenomics": "Токеномика",
+    "section-roadmap": "Дорожная карта",
+    "section-tech": "Технические характеристики",
+    "section-docs": "Техническая документация",
+    "section-community": "Сообщество",
+    "feat-data-title": "Суверенитет данных",
+    "feat-data-desc": "Пользователи сохраняют полный контроль над своими данными с криптографической защитой. Несанкционированный доступ невозможен.",
+    "feat-ai-title": "Этичный ИИ",
+    "feat-ai-desc": "Прозрачные журналы обучения ИИ неизменно записываются в блокчейн. Полная проверяемость.",
+    "feat-base-title": "Base Mainnet",
+    "feat-base-desc": "Ультрабыстрая, безопасная сеть Layer 2 с безопасностью уровня Ethereum и минимальными затратами.",
+    "feat-contract-title": "Верифицированный контракт",
+    "feat-contract-desc": "100% с открытым исходным кодом, публично верифицированный, независимо проверяемый код.",
+    "tok-ecosystem": "Экосистема",
+    "tok-development": "Разработка",
+    "tok-community": "Сообщество",
+    "tok-liquidity": "Ликвидность",
+    "tok-reserve": "Резерв",
+    "tok-total": "Фиксированный итог",
+    "tok-no-mint": "Нет Минтинга",
+    "road-phase1": "Фаза I — Основание",
+    "road-title1": "Запуск протокола",
+    "road-desc1": "Токен ERC-20 развёрнут в Base Mainnet. Ликвидность установлена. Контракты верифицированы.",
+    "road-phase2": "Фаза II — Видимость",
+    "road-title2": "Листинги на биржах & Сообщество",
+    "road-desc2": "Листинги на CoinGecko & CoinMarketCap. Рост сообщества в Telegram & X.",
+    "road-phase3": "Фаза III — Инфраструктура",
+    "road-title3": "Уровень суверенитета данных",
+    "road-desc3": "Реестр согласия, API-интеграции, модель вознаграждения для участников.",
+    "road-phase4": "Фаза IV — Масштаб",
+    "road-title4": "Управление & Экосистема",
+    "road-desc4": "DAO управление, гранты экосистемы для этичных проектов ИИ.",
+    "tech-arch-label": "Архитектура",
+    "tech-arch-title": "Доказательства с нулевым разглашением",
+    "tech-arch-desc": "Криптография, сохраняющая конфиденциальность, для верификации данных без раскрытия.",
+    "tech-model-label": "Модель",
+    "tech-model-title": "DAO Управление",
+    "tech-model-desc": "Децентрализованное голосование по обновлениям протокола и решениям экосистемы.",
+    "tech-layer-label": "Уровень",
+    "tech-layer-title": "Base Layer 2",
+    "tech-layer-desc": "Оптимистичный роллап: расходы в 10x меньше, мгновенная финализация, безопасность Ethereum.",
+    "wp-title": "Белая книга — Скоро",
+    "wp-desc": "Комплексная техническая документация, включающая архитектуру, токеномику, управление и интеграцию ИИ, готовится.",
+    "btn-early-access": "📄 ЗАПРОСИТЬ РАННИЙ ДОСТУП",
+    "query-placeholder": "Введите адрес кошелька Base — 0x...",
+    "query-btn": "ЗАПРОС",
+    "query-hint": "Мгновенно просматривайте баланс ETHIC любого адреса кошелька Base",
+    "revenue-tx-label": "КОМИССИЯ ЗА ТРАНЗАКЦИЮ",
+    "revenue-tx-desc": "Протокольная комиссия от покупок данных ИИ. Поток дохода для развития экосистемы.",
+    "revenue-treasury-label": "РАЗДЕЛЕНИЕ КАЗНЫ",
+    "revenue-treasury-desc": "80% поставщикам данных, 20% казне ETHIC для грантов экосистемы и разработки.",
+    "revenue-note": "[ Распределение Smart Contract на Base L2 — Автоматизировано & Прозрачно ]"
+  },
+  zh: {
+    "hero-eyebrow": "协议 v1.0 · 链 #8453 · ERC-20",
+    "hero-sub": "为道德AI训练和数据主权构建的去中心化协议。在Base主网上部署，拥有10亿ETHIC代币。",
+    "btn-explore": "探索协议",
+    "btn-buy": "购买ETHIC ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "连接",
+    "stat-supply": "总供应量",
+    "stat-decimals": "小数位",
+    "stat-verified": "已验证",
+    "stat-network": "网络",
+    "section-pulse": "实时网络脉冲",
+    "section-revenue": "收益架构",
+    "section-contracts": "智能合约",
+    "section-query": "钱包查询",
+    "section-transfers": "实时转账",
+    "section-monitor": "链监控",
+    "section-contract-info": "合约信息",
+    "section-protocol": "协议功能",
+    "section-tokenomics": "代币经济学",
+    "section-roadmap": "路线图",
+    "section-tech": "技术规格",
+    "section-docs": "技术文档",
+    "section-community": "社区",
+    "feat-data-title": "数据主权",
+    "feat-data-desc": "用户通过加密执行对其数据保持完全控制。不可能进行未授权访问。",
+    "feat-ai-title": "道德AI",
+    "feat-ai-desc": "透明的AI训练日志不可变地记录在链上。完整的可审计性和问责制。",
+    "feat-base-title": "Base主网",
+    "feat-base-desc": "超快速、安全的Layer 2网络，具有以太坊级别的安全性和最低交易成本。",
+    "feat-contract-title": "已验证合约",
+    "feat-contract-desc": "100%开源，公开验证，独立可审计的代码。完全透明。",
+    "tok-ecosystem": "生态系统",
+    "tok-development": "开发",
+    "tok-community": "社区",
+    "tok-liquidity": "流动性",
+    "tok-reserve": "储备",
+    "tok-total": "总计固定",
+    "tok-no-mint": "不可增发",
+    "road-phase1": "第一阶段 — 基础",
+    "road-title1": "协议启动",
+    "road-desc1": "ERC-20代币部署在Base主网。流动性已建立。合约已验证。",
+    "road-phase2": "第二阶段 — 可见性",
+    "road-title2": "交易所上市 & 社区",
+    "road-desc2": "CoinGecko & CoinMarketCap上市。在Telegram & X上的社区增长。",
+    "road-phase3": "第三阶段 — 基础设施",
+    "road-title3": "数据主权层",
+    "road-desc3": "同意注册表、API集成、贡献者补偿模型。",
+    "road-phase4": "第四阶段 — 规模",
+    "road-title4": "治理 & 生态系统",
+    "road-desc4": "DAO治理，为道德AI项目提供生态系统资助。",
+    "tech-arch-label": "架构",
+    "tech-arch-title": "零知识证明",
+    "tech-arch-desc": "保护隐私的密码学，用于无需暴露的数据验证。",
+    "tech-model-label": "模型",
+    "tech-model-title": "DAO治理",
+    "tech-model-desc": "关于协议升级和生态系统决策的去中心化投票。",
+    "tech-layer-label": "层",
+    "tech-layer-title": "Base Layer 2",
+    "tech-layer-desc": "乐观汇总：成本降低10倍，即时终结，以太坊安全性。",
+    "wp-title": "白皮书 — 即将推出",
+    "wp-desc": "包括架构、代币经济学、治理和AI集成的综合技术文档正在准备中。",
+    "btn-early-access": "📄 申请早期访问",
+    "query-placeholder": "输入Base钱包地址 — 0x...",
+    "query-btn": "查询",
+    "query-hint": "即时查看任何Base钱包地址的ETHIC余额",
+    "revenue-tx-label": "交易费",
+    "revenue-tx-desc": "AI数据购买的协议佣金。生态系统开发的收入来源。",
+    "revenue-treasury-label": "国库分配",
+    "revenue-treasury-desc": "80%给数据贡献者，20%给ETHIC国库用于生态系统资助和开发。",
+    "revenue-note": "[ Base L2上的智能合约分配 — 自动化 & 透明 ]"
+  },
+  hi: {
+    "hero-eyebrow": "प्रोटोकॉल v1.0 · चेन #8453 · ERC-20",
+    "hero-sub": "नैतिक AI प्रशिक्षण और डेटा संप्रभुता के लिए निर्मित एक विकेंद्रीकृत प्रोटोकॉल। 1 अरब ETHIC टोकन के साथ Base Mainnet पर तैनात।",
+    "btn-explore": "प्रोटोकॉल खोजें",
+    "btn-buy": "ETHIC खरीदें ↗",
+    "btn-basescan": "BASESCAN ↗",
+    "connect": "कनेक्ट करें",
+    "stat-supply": "कुल आपूर्ति",
+    "stat-decimals": "दशमलव",
+    "stat-verified": "सत्यापित",
+    "stat-network": "नेटवर्क",
+    "section-pulse": "लाइव नेटवर्क पल्स",
+    "section-revenue": "राजस्व आर्किटेक्चर",
+    "section-contracts": "स्मार्ट कॉन्ट्रैक्ट",
+    "section-query": "वॉलेट क्वेरी",
+    "section-transfers": "लाइव ट्रांसफर",
+    "section-monitor": "चेन मॉनिटर",
+    "section-contract-info": "अनुबंध जानकारी",
+    "section-protocol": "प्रोटोकॉल विशेषताएं",
+    "section-tokenomics": "टोकनोमिक्स",
+    "section-roadmap": "रोडमैप",
+    "section-tech": "तकनीकी विशिष्टताएं",
+    "section-docs": "तकनीकी दस्तावेज़ीकरण",
+    "section-community": "समुदाय",
+    "feat-data-title": "डेटा संप्रभुता",
+    "feat-data-desc": "उपयोगकर्ता क्रिप्टोग्राफिक प्रवर्तन के साथ अपने डेटा पर पूर्ण नियंत्रण बनाए रखते हैं। अनधिकृत पहुंच संभव नहीं है।",
+    "feat-ai-title": "नैतिक AI",
+    "feat-ai-desc": "पारदर्शी AI प्रशिक्षण लॉग अपरिवर्तनीय रूप से ऑन-चेन दर्ज किए जाते हैं। पूर्ण ऑडिटेबिलिटी।",
+    "feat-base-title": "Base Mainnet",
+    "feat-base-desc": "Ethereum-ग्रेड सुरक्षा और न्यूनतम लेनदेन लागत के साथ अल्ट्रा-फास्ट, सुरक्षित Layer 2 नेटवर्क।",
+    "feat-contract-title": "सत्यापित अनुबंध",
+    "feat-contract-desc": "100% ओपन-सोर्स, सार्वजनिक रूप से सत्यापित, स्वतंत्र रूप से ऑडिट करने योग्य कोड। पूर्ण पारदर्शिता।",
+    "tok-ecosystem": "इकोसिस्टम",
+    "tok-development": "विकास",
+    "tok-community": "समुदाय",
+    "tok-liquidity": "तरलता",
+    "tok-reserve": "रिजर्व",
+    "tok-total": "कुल निश्चित",
+    "tok-no-mint": "मिंट नहीं",
+    "road-phase1": "चरण I — नींव",
+    "road-title1": "प्रोटोकॉल लॉन्च",
+    "road-desc1": "ERC-20 टोकन Base Mainnet पर तैनात। तरलता स्थापित। अनुबंध सत्यापित।",
+    "road-phase2": "चरण II — दृश्यता",
+    "road-title2": "एक्सचेंज लिस्टिंग & समुदाय",
+    "road-desc2": "CoinGecko & CoinMarketCap लिस्टिंग। Telegram & X पर समुदाय वृद्धि।",
+    "road-phase3": "चरण III — अवसंरचना",
+    "road-title3": "डेटा संप्रभुता परत",
+    "road-desc3": "सहमति रजिस्ट्री, API एकीकरण, योगदानकर्ताओं के लिए मुआवजा मॉडल।",
+    "road-phase4": "चरण IV — पैमाना",
+    "road-title4": "प्रशासन & इकोसिस्टम",
+    "road-desc4": "DAO प्रशासन, नैतिक AI परियोजनाओं के लिए इकोसिस्टम अनुदान।",
+    "tech-arch-label": "आर्किटेक्चर",
+    "tech-arch-title": "शून्य-ज्ञान प्रमाण",
+    "tech-arch-desc": "एक्सपोज़र के बिना डेटा सत्यापन के लिए गोपनीयता-संरक्षण क्रिप्टोग्राफी।",
+    "tech-model-label": "मॉडल",
+    "tech-model-title": "DAO प्रशासन",
+    "tech-model-desc": "प्रोटोकॉल अपग्रेड और इकोसिस्टम निर्णयों पर विकेंद्रीकृत मतदान।",
+    "tech-layer-label": "परत",
+    "tech-layer-title": "Base Layer 2",
+    "tech-layer-desc": "ऑप्टिमिस्टिक रोलअप: 10x कम लागत, तत्काल अंतिमता, Ethereum सुरक्षा।",
+    "wp-title": "व्हाइटपेपर — जल्द आ रहा है",
+    "wp-desc": "आर्किटेक्चर, टोकनोमिक्स, प्रशासन और AI एकीकरण सहित व्यापक तकनीकी दस्तावेज़ीकरण तैयारी में है।",
+    "btn-early-access": "📄 शीघ्र पहुंच का अनुरोध करें",
+    "query-placeholder": "Base वॉलेट पता दर्ज करें — 0x...",
+    "query-btn": "क्वेरी",
+    "query-hint": "किसी भी Base वॉलेट पते का ETHIC बैलेंस तुरंत देखें",
+    "revenue-tx-label": "लेनदेन शुल्क",
+    "revenue-tx-desc": "AI डेटा खरीद से प्रोटोकॉल कमीशन। इकोसिस्टम विकास के लिए राजस्व स्ट्रीम।",
+    "revenue-treasury-label": "ट्रेजरी विभाजन",
+    "revenue-treasury-desc": "डेटा योगदानकर्ताओं को 80%, इकोसिस्टम अनुदान और विकास के लिए ETHIC ट्रेजरी को 20%।",
+    "revenue-note": "[ Base L2 पर Smart Contract वितरण — स्वचालित & पारदर्शी ]"
+  }
+};
+
 function toggleLang() { document.getElementById('langDropdown').classList.toggle('open'); }
+
 function setLang(lang) {
+  if (!translations[lang]) lang = 'en';
+  localStorage.setItem('selectedLang', lang);
   document.getElementById('langBtn').innerHTML = '🌐 ' + FLAGS[lang].split(' ')[1];
   document.getElementById('langDropdown').classList.remove('open');
   document.querySelectorAll('.lang-option').forEach((o, i) => {
     o.classList.toggle('active', ['en','tr','es','fr','de','ru','zh','hi'][i] === lang);
   });
+  updatePageContent(lang);
 }
+
+function updatePageContent(lang) {
+  const t = translations[lang] || translations['en'];
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      el.textContent = t[key];
+    }
+  });
+  // Update input placeholders (data-i18n-placeholder)
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) {
+      el.placeholder = t[key];
+    }
+  });
+  // Update wallet connect button label if not connected
+  if (!connectedAddress) {
+    const label = document.getElementById('walletBtnLabel');
+    if (label && t['connect']) label.textContent = t['connect'];
+  }
+  // Update document language attribute
+  document.documentElement.lang = lang;
+}
+
 document.addEventListener('click', e => {
   if (!e.target.closest('.lang-btn') && !e.target.closest('.lang-dropdown'))
     document.getElementById('langDropdown').classList.remove('open');
@@ -1761,6 +2372,12 @@ const safeJsonParse = (json, fallback = null) => {
     return fallback;
   }
 };
+
+// Restore saved language preference on page load
+(function() {
+  const savedLang = localStorage.getItem('selectedLang') || 'en';
+  setLang(savedLang);
+})();
 
 </script>
 </body>
