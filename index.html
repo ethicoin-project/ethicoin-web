@@ -497,6 +497,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .ct-val{font-size:10px;max-width:55%}
   footer{padding:28px 4%}
   .footer-inner{flex-direction:column;align-items:flex-start;gap:14px}
+  /* Tighter letter-spacing on narrow viewports causes clipping — relax to -1px */
   .hero-title{letter-spacing:-1px;line-height:1.08}
   .tokenomics-grid{grid-template-columns:1fr 1fr}
   .hero-eyebrow{font-size:8px;padding:5px 14px}
@@ -1074,6 +1075,8 @@ const CONTRACT = '0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93';
 const BLOCKSCOUT_BASE = 'https://base.blockscout.com/api/v2';
 const BASE_RPC = 'https://mainnet.base.org';
 const BASE_CHAIN_ID = '0x2105'; // 8453 decimal
+// Set window.ETHICOIN_BASESCAN_API_KEY before this script to supply a BaseScan API key
+// for future on-chain data calls that use the BaseScan REST API.
 const BASESCAN_API_KEY = window.ETHICOIN_BASESCAN_API_KEY || '';
 
 // ════════════════════════════════════════════════════════════════
@@ -1982,12 +1985,12 @@ async function fetchPrice() {
       renderPrice(cached.data);
       return;
     }
-  } catch(e) {}
+  } catch(e) { /* corrupt or missing cache entry — fall through to network fetch */ }
   try {
     const r = await fetchWithTimeout('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
-    try { localStorage.setItem(DEXSCREENER_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: d })); } catch(e) {}
+    try { localStorage.setItem(DEXSCREENER_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: d })); } catch(e) { console.warn('Price cache write failed:', e.message); }
     renderPrice(d);
   } catch(e) {
     document.getElementById('priceVal').textContent = '—';
