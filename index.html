@@ -273,25 +273,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 /* ══════════════════════════════════════════════════
    ⭐ API DEBUG PANEL — YENİ!
 ══════════════════════════════════════════════════ */
-.debug-panel{border:1px solid rgba(200,168,75,0.2);border-radius:14px;background:rgba(200,168,75,0.02);overflow:hidden;margin-bottom:56px}
-.debug-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;background:rgba(200,168,75,0.05);border-bottom:1px solid rgba(200,168,75,0.1);cursor:pointer;user-select:none}
-.debug-title{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(200,168,75,0.8);font-weight:800;display:flex;align-items:center;gap:8px}
-.debug-toggle-icon{font-size:14px;transition:transform .3s;color:rgba(200,168,75,0.6)}
-.debug-body{display:none;padding:20px}
-.debug-body.open{display:block}
-
-.api-tests{display:grid;gap:10px}
-.api-test-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:rgba(0,0,0,0.3);border-radius:10px;border:1px solid rgba(200,168,75,0.08);flex-wrap:wrap}
-[data-theme="light"] .api-test-row{background:rgba(245,247,250,0.5)}
-.api-test-name{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);font-weight:700;flex:1;min-width:120px}
-.api-test-status{font-family:'JetBrains Mono',monospace;font-size:10px;padding:4px 12px;border-radius:20px;font-weight:800;white-space:nowrap}
-.status-ok{background:rgba(0,200,150,0.12);border:1px solid rgba(0,200,150,0.25);color:var(--green2)}
-.status-err{background:rgba(255,77,109,0.12);border:1px solid rgba(255,77,109,0.25);color:var(--red)}
-.status-pending{background:rgba(200,168,75,0.12);border:1px solid rgba(200,168,75,0.25);color:var(--gold)}
-.api-test-val{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.debug-run-btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;padding:8px 18px;background:rgba(200,168,75,0.1);border:1px solid rgba(200,168,75,0.25);color:var(--gold);border-radius:8px;cursor:pointer;transition:all .2s;font-weight:800;width:100%;margin-top:12px}
-.debug-run-btn:hover{background:rgba(200,168,75,0.2);border-color:var(--gold)}
-
 /* REVENUE ARCHITECTURE */
 .revenue-card{border:1px solid var(--purple);background:rgba(107,79,255,0.03);position:relative;overflow:hidden}
 [data-theme="light"] .revenue-card{background:rgba(107,79,255,0.05);border-color:rgba(107,79,255,0.3)}
@@ -341,19 +322,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .result-addr{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(0,212,232,0.25);word-break:break-all;margin-bottom:10px;font-weight:600}
 .result-bal{font-size:2.4rem;font-weight:900;color:var(--cyan);letter-spacing:-1px;line-height:1}
 .result-unit{font-size:0.95rem;color:var(--text2);margin-left:8px;font-weight:700}
-
-/* TRANSFERS */
-.tx-list{display:grid;gap:7px;padding:18px 22px}
-.tx-item{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 16px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.05);border-radius:10px;transition:border-color .2s}
-[data-theme="light"] .tx-item{background:rgba(245,247,250,0.5)}
-.tx-item:hover{border-color:rgba(0,212,232,0.15)}
-.tx-from{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);font-weight:600}
-.tx-from span{color:var(--cyan);display:block;font-size:12px;margin-bottom:2px;font-weight:700}
-.tx-amount{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--green2);font-weight:800;text-align:right;white-space:nowrap}
-.tx-hash{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(0,212,232,0.3);text-align:right;margin-top:3px;font-weight:600}
-.tx-hash a{color:inherit;text-decoration:none;transition:color .2s}
-.tx-hash a:hover{color:var(--cyan)}
-.tx-loading{padding:36px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:rgba(0,212,232,0.25);font-weight:600}
 
 /* TERMINAL */
 .term-bar{background:rgba(0,212,232,0.03);border-bottom:1px solid rgba(0,212,232,0.06);padding:12px 18px;display:flex;align-items:center;gap:7px}
@@ -845,20 +813,6 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
     </div>
   </section>
 
-  <!-- LIVE TRANSFERS -->
-  <section class="section">
-    <div class="sec-head">
-      <div class="sec-pip" style="background:var(--green2)"></div>
-      <div class="sec-label" style="color:rgba(0,200,150,.55)" data-i18n="section-transfers">Live Transfers</div>
-      <div class="sec-rule" style="background:linear-gradient(90deg,rgba(0,200,150,.2),transparent)"></div>
-    </div>
-    <div class="card">
-      <div class="tx-list" id="txList">
-        <div class="tx-loading">Loading recent transfers...</div>
-      </div>
-    </div>
-  </section>
-
   <!-- CHAIN MONITOR -->
   <section class="section">
     <div class="sec-head">
@@ -875,51 +829,6 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       </div>
       <div class="term-body" id="termBody"></div>
       <div class="term-note">↑ Real-time data from BaseScan API · Updates every 10 seconds</div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════════
-       ⭐ API DEBUG PANEL — YENİ!
-  ══════════════════════════════════════════════════ -->
-  <section class="section">
-    <div class="debug-panel">
-      <div class="debug-header" onclick="toggleDebug()">
-        <div class="debug-title">
-          🔧 API CONNECTION DIAGNOSTICS
-          <span style="font-size:9px;color:rgba(200,168,75,0.5);letter-spacing:1px">· CLICK TO EXPAND</span>
-        </div>
-        <span class="debug-toggle-icon" id="debugIcon">▼</span>
-      </div>
-      <div class="debug-body" id="debugBody">
-        <div class="api-tests" id="apiTests">
-          <div class="api-test-row">
-            <div class="api-test-name">Base RPC</div>
-            <div class="api-test-status status-pending" id="test-rpc">PENDING</div>
-            <div class="api-test-val" id="testval-rpc">—</div>
-          </div>
-          <div class="api-test-row">
-            <div class="api-test-name">Token Supply</div>
-            <div class="api-test-status status-pending" id="test-supply">PENDING</div>
-            <div class="api-test-val" id="testval-supply">—</div>
-          </div>
-          <div class="api-test-row">
-            <div class="api-test-name">Transfer Events</div>
-            <div class="api-test-status status-pending" id="test-transfers">PENDING</div>
-            <div class="api-test-val" id="testval-transfers">—</div>
-          </div>
-          <div class="api-test-row">
-            <div class="api-test-name">DexScreener Price</div>
-            <div class="api-test-status status-pending" id="test-price">PENDING</div>
-            <div class="api-test-val" id="testval-price">—</div>
-          </div>
-          <div class="api-test-row">
-            <div class="api-test-name">Block Number</div>
-            <div class="api-test-status status-pending" id="test-block">PENDING</div>
-            <div class="api-test-val" id="testval-block">—</div>
-          </div>
-        </div>
-        <button class="debug-run-btn" onclick="runDiagnostics()">⚡ RUN ALL DIAGNOSTICS</button>
-      </div>
     </div>
   </section>
 
@@ -1105,7 +1014,6 @@ const translations = {
     "section-revenue": "REVENUE ARCHITECTURE",
     "section-contracts": "Smart Contracts",
     "section-query": "Wallet Query",
-    "section-transfers": "Live Transfers",
     "section-monitor": "Chain Monitor",
     "section-contract-info": "Contract Information",
     "section-protocol": "Protocol Features",
@@ -1177,7 +1085,6 @@ const translations = {
     "section-revenue": "GELİR MİMARİSİ",
     "section-contracts": "Akıllı Sözleşmeler",
     "section-query": "Cüzdan Sorgusu",
-    "section-transfers": "Canlı Transferler",
     "section-monitor": "Zincir Monitörü",
     "section-contract-info": "Sözleşme Bilgileri",
     "section-protocol": "Protokol Özellikleri",
@@ -1249,7 +1156,6 @@ const translations = {
     "section-revenue": "ARQUITECTURA DE INGRESOS",
     "section-contracts": "Contratos Inteligentes",
     "section-query": "Consulta de Billetera",
-    "section-transfers": "Transferencias en Vivo",
     "section-monitor": "Monitor de Cadena",
     "section-contract-info": "Información del Contrato",
     "section-protocol": "Características del Protocolo",
@@ -1321,7 +1227,6 @@ const translations = {
     "section-revenue": "ARCHITECTURE DE REVENUS",
     "section-contracts": "Contrats Intelligents",
     "section-query": "Requête de Portefeuille",
-    "section-transfers": "Transferts en Direct",
     "section-monitor": "Moniteur de Chaîne",
     "section-contract-info": "Informations du Contrat",
     "section-protocol": "Fonctionnalités du Protocole",
@@ -1393,7 +1298,6 @@ const translations = {
     "section-revenue": "ERTRAGSARCHITEKTUR",
     "section-contracts": "Smart Contracts",
     "section-query": "Wallet-Abfrage",
-    "section-transfers": "Live-Transfers",
     "section-monitor": "Ketten-Monitor",
     "section-contract-info": "Vertragsinformationen",
     "section-protocol": "Protokollfunktionen",
@@ -1465,7 +1369,6 @@ const translations = {
     "section-revenue": "АРХИТЕКТУРА ДОХОДОВ",
     "section-contracts": "Умные контракты",
     "section-query": "Запрос кошелька",
-    "section-transfers": "Переводы в реальном времени",
     "section-monitor": "Мониторинг сети",
     "section-contract-info": "Информация о контракте",
     "section-protocol": "Функции протокола",
@@ -1537,7 +1440,6 @@ const translations = {
     "section-revenue": "收益架构",
     "section-contracts": "智能合约",
     "section-query": "钱包查询",
-    "section-transfers": "实时转账",
     "section-monitor": "链监控",
     "section-contract-info": "合约信息",
     "section-protocol": "协议功能",
@@ -1609,7 +1511,6 @@ const translations = {
     "section-revenue": "राजस्व आर्किटेक्चर",
     "section-contracts": "स्मार्ट कॉन्ट्रैक्ट",
     "section-query": "वॉलेट क्वेरी",
-    "section-transfers": "लाइव ट्रांसफर",
     "section-monitor": "चेन मॉनिटर",
     "section-contract-info": "अनुबंध जानकारी",
     "section-protocol": "प्रोटोकॉल विशेषताएं",
@@ -2067,40 +1968,6 @@ setInterval(fetchPulseData, 15000);
 setInterval(fetchPulseBlock, 12000);
 
 // ════════════════════════════════════════════════════════════════
-// TRANSFERS
-// ════════════════════════════════════════════════════════════════
-async function fetchTransfers() {
-  const el = document.getElementById('txList');
-  try {
-    const url = `${BLOCKSCOUT_BASE}/tokens/${CONTRACT}/transfers`;
-    const r = await fetch(url);
-    const d = await r.json();
-    if (d.items && d.items.length > 0) {
-      el.innerHTML = d.items.slice(0, 6).map(tx => {
-        const from = tx.from?.hash || '';
-        const to = tx.to?.hash || '';
-        const hash = tx.tx_hash || '';
-        const ts = tx.timestamp ? new Date(tx.timestamp).toLocaleTimeString() : '';
-        return `
-        <div class="tx-item">
-          <div><div class="tx-from"><span>${shortAddr(from)} → ${shortAddr(to)}</span>${ts}</div></div>
-          <div>
-            <div class="tx-amount">${fmtAmount(tx.total?.value || '0')} ETHIC</div>
-            <div class="tx-hash"><a href="https://basescan.org/tx/${hash}" target="_blank">${hash.slice(0,10)}...↗</a></div>
-          </div>
-        </div>`;
-      }).join('');
-    } else {
-      el.innerHTML = `<div class="tx-loading">No transfers found</div>`;
-    }
-  } catch(e) {
-    el.innerHTML = `<div class="tx-loading">Feed connecting...</div>`;
-  }
-}
-fetchTransfers();
-setInterval(fetchTransfers, 30000);
-
-// ════════════════════════════════════════════════════════════════
 // CHAIN MONITOR TERMINAL
 // ════════════════════════════════════════════════════════════════
 const termBody = document.getElementById('termBody');
@@ -2180,108 +2047,6 @@ async function queryBalance() {
   }
 }
 document.getElementById('walletAddr').addEventListener('keydown', e => { if (e.key === 'Enter') queryBalance(); });
-
-// ════════════════════════════════════════════════════════════════
-// ⭐ DEBUG PANEL
-// ════════════════════════════════════════════════════════════════
-let debugOpen = false;
-
-function toggleDebug() {
-  debugOpen = !debugOpen;
-  document.getElementById('debugBody').classList.toggle('open', debugOpen);
-  document.getElementById('debugIcon').style.transform = debugOpen ? 'rotate(180deg)' : '';
-  if (debugOpen) runDiagnostics();
-}
-
-function setTestResult(id, status, value) {
-  const statusEl = document.getElementById('test-' + id);
-  const valEl = document.getElementById('testval-' + id);
-  if (statusEl) {
-    statusEl.className = 'api-test-status status-' + (status === 'ok' ? 'ok' : status === 'err' ? 'err' : 'pending');
-    statusEl.textContent = status === 'ok' ? '✓ OK' : status === 'err' ? '✗ ERROR' : '⏳';
-  }
-  if (valEl && value !== undefined) valEl.textContent = value;
-}
-
-async function fetchWithRetry(url, retries = 2, delayMs = 800) {
-  for (let i = 0; i <= retries; i++) {
-    try {
-      const r = await fetch(url);
-      const d = await r.json();
-      return d;
-    } catch(e) {
-      if (i === retries) throw e;
-      await new Promise(res => setTimeout(res, delayMs * (i + 1)));
-    }
-  }
-}
-
-async function runDiagnostics() {
-  // Reset all
-  ['rpc','supply','transfers','price','block'].forEach(id => {
-    setTestResult(id, 'pending', 'Testing...');
-  });
-
-  // Test 1: Block Number (Base RPC)
-  try {
-    const rpc = await fetch(BASE_RPC, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({jsonrpc:'2.0',method:'eth_blockNumber',params:[],id:1})
-    });
-    const d = await rpc.json();
-    const bn = parseInt(d.result || '0', 16);
-    if (bn > 0) {
-      setTestResult('rpc', 'ok', 'RPC Connected');
-      setTestResult('block', 'ok', '#' + bn.toLocaleString('en-US') + ' (RPC)');
-    } else {
-      setTestResult('rpc', 'err', 'RPC error');
-      setTestResult('block', 'err', 'No block data');
-    }
-  } catch(e) {
-    setTestResult('rpc', 'err', e.message || 'Network error');
-    setTestResult('block', 'err', 'Failed');
-  }
-
-  // Test 2: Token Supply (BlockScout)
-  try {
-    const d = await fetchWithRetry(`${BLOCKSCOUT_BASE}/tokens/${CONTRACT}`);
-    if (d.total_supply) {
-      setTestResult('supply', 'ok', fmtAmount(d.total_supply) + ' ETHIC');
-    } else {
-      setTestResult('supply', 'err', 'No supply data');
-    }
-  } catch(e) {
-    setTestResult('supply', 'err', 'Network error');
-  }
-
-  // Test 3: Transfer Events (BlockScout)
-  try {
-    const d = await fetchWithRetry(`${BLOCKSCOUT_BASE}/tokens/${CONTRACT}/transfers`);
-    if (d.items && d.items.length > 0) {
-      setTestResult('transfers', 'ok', d.items.length + ' transfers found');
-    } else if (d.items && d.items.length === 0) {
-      setTestResult('transfers', 'ok', 'Contract active, 0 transfers yet');
-    } else {
-      setTestResult('transfers', 'err', 'No transfer data');
-    }
-  } catch(e) {
-    setTestResult('transfers', 'err', 'Network error');
-  }
-
-  // Test 4: DexScreener Price
-  try {
-    const d = await fetchWithRetry('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
-    const pair = d.pairs?.[0];
-    if (pair && pair.priceUsd) {
-      setTestResult('price', 'ok', '$' + parseFloat(pair.priceUsd).toFixed(8));
-    } else {
-      setTestResult('price', 'pending', 'Pool active, price forming');
-    }
-  } catch(e) {
-    setTestResult('price', 'err', 'Network error');
-  }
-}
 
 // ════════════════════════════════════════════════════════════════
 // WHITEPAPER ACCESS
