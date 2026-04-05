@@ -516,6 +516,16 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .wallet-option{padding:12px 14px;gap:12px;min-height:48px}
   .wallet-status-panel{padding:16px 18px}
   .wallet-status-panel .ws-bal{font-size:1.5rem}
+  /* Price ticker — stack vertically and scale font on very narrow screens */
+  .price-ticker{flex-direction:column;gap:12px;padding:16px 18px}
+  .price-value{font-size:clamp(1.6rem,7vw,2.3rem);letter-spacing:-0.5px}
+  /* Stats row — keep 2-col but reduce number size to avoid overflow */
+  .stat-num{font-size:clamp(1.3rem,6vw,1.8rem);letter-spacing:-0.5px}
+  .stat-label{font-size:10px;letter-spacing:1px}
+  /* Token cards — tighter padding, constrain percentage text */
+  .token-card{padding:16px 10px}
+  .token-pct{font-size:clamp(1.4rem,5vw,1.7rem);letter-spacing:-0.5px}
+  .token-name{font-size:10px;letter-spacing:1px}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 @media(min-width:1440px){
@@ -923,6 +933,11 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
             <div class="api-test-status status-pending" id="test-block">PENDING</div>
             <div class="api-test-val" id="testval-block">—</div>
           </div>
+          <div class="api-test-row">
+            <div class="api-test-name">API Timeout</div>
+            <div class="api-test-status status-ok" id="test-timeout">✓ OK</div>
+            <div class="api-test-val" id="testval-timeout">—</div>
+          </div>
         </div>
         <button class="debug-run-btn" onclick="runDiagnostics()">⚡ RUN ALL DIAGNOSTICS</button>
       </div>
@@ -1078,11 +1093,19 @@ const BASE_CHAIN_ID = '0x2105'; // 8453 decimal
 // Set window.ETHICOIN_BASESCAN_API_KEY before this script to supply a BaseScan API key
 // for future on-chain data calls that use the BaseScan REST API.
 const BASESCAN_API_KEY = window.ETHICOIN_BASESCAN_API_KEY || '';
+if (!BASESCAN_API_KEY) {
+  console.warn('[ETHICOIN] BaseScan API key not configured. Set window.ETHICOIN_BASESCAN_API_KEY for BaseScan API access. On-chain data will use BlockScout/RPC fallback.');
+}
+
+// DexScreener endpoints — pairs endpoint is preferred; tokens endpoint is used as fallback
+const DEXSCREENER_PAIRS_URL = `https://api.dexscreener.com/latest/dex/pairs/base/${CONTRACT}`;
+const DEXSCREENER_TOKENS_URL = `https://api.dexscreener.com/latest/dex/tokens/${CONTRACT}`;
 
 // ════════════════════════════════════════════════════════════════
 // REQUEST HELPERS
 // ════════════════════════════════════════════════════════════════
-const fetchWithTimeout = (url, options = {}, timeout = 7000) => {
+const API_TIMEOUT = 7000; // ms — applied to all external API calls
+const fetchWithTimeout = (url, options = {}, timeout = API_TIMEOUT) => {
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
   return fetch(url, { ...options, signal: controller.signal })
@@ -1986,15 +2009,33 @@ async function fetchPrice() {
       return;
     }
   } catch(e) { /* corrupt or missing cache entry — fall through to network fetch */ }
+  let fetched = false;
+  // Primary: pairs endpoint (specific to Base network)
   try {
-    const r = await fetchWithTimeout('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
+    const r = await fetchWithTimeout(DEXSCREENER_PAIRS_URL);
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const d = await r.json();
-    try { localStorage.setItem(DEXSCREENER_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: d })); } catch(e) { console.warn('Price cache write failed:', e.message); }
-    renderPrice(d);
+    if (d.pairs && d.pairs.length > 0) {
+      try { localStorage.setItem(DEXSCREENER_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: d })); } catch(e) { console.warn('Price cache write failed:', e.message); }
+      renderPrice(d);
+      fetched = true;
+    }
   } catch(e) {
-    document.getElementById('priceVal').textContent = '—';
-    document.getElementById('priceSub').textContent = e.name === 'AbortError' ? 'Request timed out' : 'Feed connecting...';
+    console.warn('[ETHICOIN] DexScreener pairs endpoint failed, trying tokens fallback:', e.message);
+  }
+  // Fallback: tokens endpoint (all chains)
+  if (!fetched) {
+    try {
+      const r = await fetchWithTimeout(DEXSCREENER_TOKENS_URL);
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const d = await r.json();
+      try { localStorage.setItem(DEXSCREENER_CACHE_KEY, JSON.stringify({ ts: Date.now(), data: d })); } catch(e) { console.warn('Price cache write failed:', e.message); }
+      renderPrice(d);
+      fetched = true;
+    } catch(e) {
+      document.getElementById('priceVal').textContent = '—';
+      document.getElementById('priceSub').textContent = e.name === 'AbortError' ? 'Request timed out' : 'Feed connecting...';
+    }
   }
 }
 fetchPrice();
@@ -2256,6 +2297,7 @@ async function runDiagnostics() {
   ['rpc','supply','transfers','price','block'].forEach(id => {
     setTestResult(id, 'pending', 'Testing...');
   });
+  setTestResult('timeout', 'ok', API_TIMEOUT + 'ms per request');
 
   // Test 1: Block Number (Base RPC)
   try {
@@ -2306,7 +2348,13 @@ async function runDiagnostics() {
 
   // Test 4: DexScreener Price
   try {
-    const d = await fetchWithRetry('https://api.dexscreener.com/latest/dex/tokens/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93');
+    let d = null;
+    try {
+      d = await fetchWithRetry(DEXSCREENER_PAIRS_URL);
+    } catch(e) {
+      // fallback to tokens endpoint
+      d = await fetchWithRetry(DEXSCREENER_TOKENS_URL);
+    }
     const pair = d.pairs?.[0];
     if (pair && pair.priceUsd) {
       setTestResult('price', 'ok', '$' + parseFloat(pair.priceUsd).toFixed(8));
@@ -2314,7 +2362,7 @@ async function runDiagnostics() {
       setTestResult('price', 'pending', 'Pool active, price forming');
     }
   } catch(e) {
-    setTestResult('price', 'err', 'Network error');
+    setTestResult('price', 'err', e.name === 'AbortError' ? 'Timed out (' + API_TIMEOUT + 'ms)' : 'Network error');
   }
 }
 
