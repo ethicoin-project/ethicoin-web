@@ -161,29 +161,47 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 .wallet-short{max-width:80px;overflow:hidden;text-overflow:ellipsis}
 
 /* WALLET MODAL */
-.wallet-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
-.wallet-modal-overlay.open{opacity:1;pointer-events:all}
-.wallet-modal{background:#070b17;border:1px solid rgba(107,79,255,0.25);border-radius:20px;padding:36px;width:90%;max-width:420px;position:relative;transform:translateY(20px) scale(0.97);transition:transform .3s;box-shadow:0 32px 80px rgba(0,0,0,0.8);max-height:90vh;overflow-y:auto}
-[data-theme="light"] .wallet-modal{background:#f5f7fa;border-color:rgba(107,79,255,0.2)}
-.wallet-modal-overlay.open .wallet-modal{transform:translateY(0) scale(1)}
-.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--text2);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.modal-close:hover{color:var(--text);background:rgba(255,255,255,0.1)}
-.modal-title{font-size:1.4rem;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;color:var(--text)}
-.modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:28px;letter-spacing:1px}
-.wallet-option{display:flex;align-items:center;gap:14px;padding:16px 20px;background:rgba(0,0,0,0.3);border:1px solid rgba(107,79,255,0.15);border-radius:12px;cursor:pointer;transition:all .2s;margin-bottom:10px}
-[data-theme="light"] .wallet-option{background:rgba(245,247,250,0.5)}
-.wallet-option:hover{border-color:rgba(107,79,255,0.4);background:rgba(107,79,255,0.08);transform:translateX(4px)}
+@keyframes walletGlitch{0%,100%{transform:translateX(0) skewX(0deg)}25%{transform:translateX(-1px) skewX(-.5deg)}50%{transform:translateX(1px) skewX(.5deg)}75%{transform:translateX(-.5px) skewX(-.2deg)}}
+@keyframes balancePulse{0%,100%{box-shadow:0 0 0 0 rgba(0,230,118,.4),0 0 20px 4px rgba(0,230,118,.15)}50%{box-shadow:0 0 0 12px rgba(0,230,118,0),0 0 40px 8px rgba(0,230,118,.25)}}
+@keyframes slideInStatus{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.wallet-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(15px) brightness(.92);-webkit-backdrop-filter:blur(15px) brightness(.92);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .35s cubic-bezier(.34,1.56,.64,1),backdrop-filter .35s ease}
+.wallet-modal-overlay.open{opacity:1;pointer-events:all;backdrop-filter:blur(15px) brightness(1);-webkit-backdrop-filter:blur(15px) brightness(1)}
+.wallet-modal-overlay *::-webkit-scrollbar{width:2px}
+.wallet-modal-overlay *::-webkit-scrollbar-track{background:transparent}
+.wallet-modal-overlay *::-webkit-scrollbar-thumb{background:rgba(0,240,255,0);border-radius:1px;transition:background .3s ease}
+.wallet-modal-overlay *:hover::-webkit-scrollbar-thumb{background:rgba(0,240,255,.8);box-shadow:0 0 8px rgba(0,240,255,.3)}
+.wallet-modal-overlay *{scrollbar-color:transparent transparent;scrollbar-width:thin}
+.wallet-modal-overlay *:hover{scrollbar-color:rgba(0,240,255,.8) transparent}
+.wallet-modal{background:#070b17;border:1.5px solid rgba(107,79,255,.3);border-radius:20px;padding:36px;width:90%;max-width:420px;position:relative;transform:translateY(20px) scale(0.96);transition:transform .35s cubic-bezier(.34,1.56,.64,1),border-color .3s ease,box-shadow .3s ease;box-shadow:0 20px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.1);max-height:90vh;overflow-y:auto}
+[data-theme="light"] .wallet-modal{background:#f5f7fa;border-color:rgba(107,79,255,.25)}
+.wallet-modal-overlay.open .wallet-modal{transform:translateY(0) scale(1);border-color:rgba(107,79,255,.45)}
+.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--text2);width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .3s cubic-bezier(.34,1.56,.64,1);font-weight:600}
+.modal-close:hover{color:var(--text);background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);transform:rotate(90deg) scale(1.1);box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.modal-close:active{transform:rotate(90deg) scale(.95)}
+.modal-title{font-size:clamp(1.3rem,3vw,1.5rem);font-weight:900;letter-spacing:-.5px;margin-bottom:8px;color:var(--text)}
+.modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text2);margin-bottom:28px;letter-spacing:2px;font-weight:700;text-transform:uppercase}
+.wallet-option{display:flex;align-items:center;gap:16px;padding:16px 20px;background:rgba(0,0,0,.3);border:1px solid rgba(107,79,255,.15);border-radius:14px;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1),background .2s ease;margin-bottom:14px;min-height:56px;position:relative;overflow:hidden}
+.wallet-option::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(107,79,255,0) 0%,rgba(107,79,255,.08) 50%,rgba(0,212,232,0) 100%);opacity:0;transition:opacity .3s ease;pointer-events:none}
+[data-theme="light"] .wallet-option{background:rgba(245,247,250,.6);border-color:rgba(107,79,255,.12)}
+.wallet-option:hover{border-color:rgba(107,79,255,.4);background:rgba(107,79,255,.12);transform:translateX(6px);box-shadow:0 8px 28px rgba(107,79,255,.15),inset 0 0 8px rgba(107,79,255,.05)}
+.wallet-option:hover::before{opacity:1}
+.wallet-option:active{animation:walletGlitch .4s ease;transform:translateX(4px) scale(.98)}
 .wallet-option:last-child{margin-bottom:0}
-.wallet-opt-icon{font-size:28px;flex-shrink:0}
-.wallet-opt-name{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:3px}
-.wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2);letter-spacing:1px}
-.wallet-status-panel{margin-top:20px;padding:16px 20px;border-radius:12px;background:rgba(0,0,0,0.3);border:1px solid rgba(0,212,232,0.1);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);display:none}
-.wallet-status-panel.show{display:block}
-.wallet-status-panel .ws-addr{color:var(--cyan);word-break:break-all;margin-bottom:8px;font-weight:700}
-.wallet-status-panel .ws-bal{font-size:1.4rem;font-weight:900;color:var(--green2);font-family:'Syne',sans-serif}
-.wallet-status-panel .ws-net{color:var(--text2);margin-top:6px}
-.modal-disconnect{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,77,109,.6);cursor:pointer;border:none;background:none;transition:color .2s;letter-spacing:1px;font-weight:700}
-.modal-disconnect:hover{color:var(--red)}
+.wallet-opt-icon{font-size:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:transform .3s cubic-bezier(.34,1.56,.64,1),filter .3s ease}
+.wallet-option:hover .wallet-opt-icon{animation:walletGlitch .6s ease infinite;filter:drop-shadow(0 0 8px rgba(107,79,255,.3))}
+.wallet-opt-name{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:4px;letter-spacing:-.3px;transition:color .2s ease}
+.wallet-option:hover .wallet-opt-name{color:rgba(157,135,255,1)}
+.wallet-opt-desc{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text2);letter-spacing:1px;font-weight:600;transition:color .2s ease}
+.wallet-option:hover .wallet-opt-desc{color:rgba(157,135,255,.8)}
+.wallet-status-panel{margin-top:20px;padding:20px 24px;border-radius:14px;background:linear-gradient(135deg,rgba(0,230,118,.06) 0%,rgba(0,200,150,.03) 100%);border:1.5px solid rgba(0,230,118,.2);font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text2);display:none;transition:all .3s ease;box-shadow:0 4px 16px rgba(0,230,118,.08),inset 0 1px 0 rgba(255,255,255,.05)}
+[data-theme="light"] .wallet-status-panel{background:linear-gradient(135deg,rgba(0,230,118,.08) 0%,rgba(0,200,150,.04) 100%);border-color:rgba(0,230,118,.3)}
+.wallet-status-panel.show{display:block;animation:slideInStatus .4s cubic-bezier(.34,1.56,.64,1)}
+.wallet-status-panel .ws-addr{color:var(--cyan);word-break:break-all;margin-bottom:12px;font-weight:700}
+.wallet-status-panel .ws-bal{font-size:1.8rem;font-weight:900;color:var(--green2);font-family:'Syne',sans-serif;letter-spacing:-1px;padding:12px 16px;border-radius:10px;background:rgba(0,230,118,.08);display:inline-flex;align-items:baseline;gap:8px;animation:balancePulse 3s ease-in-out infinite;box-shadow:0 0 40px rgba(0,230,118,.2);margin:8px 0}
+.wallet-status-panel .ws-net{color:var(--text2);margin-top:10px;font-size:11px;letter-spacing:.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.modal-disconnect{display:inline-flex;align-items:center;gap:8px;margin-top:16px;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,77,109,.7);cursor:pointer;border:1px solid rgba(255,77,109,.15);background:rgba(255,77,109,.04);padding:10px 16px;border-radius:8px;letter-spacing:1.5px;font-weight:700;transition:all .3s cubic-bezier(.34,1.56,.64,1);text-transform:uppercase}
+.modal-disconnect:hover{color:var(--red);border-color:rgba(255,77,109,.35);background:rgba(255,77,109,.1);transform:translateY(-2px);box-shadow:0 4px 16px rgba(255,77,109,.15)}
+.modal-disconnect:active{transform:translateY(0) scale(.98)}
 
 /* WRAPPER */
 .wrapper{position:relative;z-index:10;max-width:1000px;margin:0 auto;padding:68px 5% 80px}
@@ -502,6 +520,8 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .stream-tx-hash{display:none}
   .lang-dropdown{min-width:130px}
   .wallet-modal{padding:24px}
+  .wallet-opt-icon{font-size:26px}
+  .wallet-option{padding:14px 18px;gap:14px;min-height:52px}
 }
 @media(max-width:520px){
   nav{padding:0 4%}
@@ -527,6 +547,9 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   .lang-option{font-size:10px;padding:9px 12px}
   .wallet-modal{padding:20px;max-height:85vh}
   .wallet-opt-icon{font-size:24px}
+  .wallet-option{padding:12px 14px;gap:12px;min-height:48px}
+  .wallet-status-panel{padding:16px 18px}
+  .wallet-status-panel .ws-bal{font-size:1.5rem}
 }
 @media(min-width:900px){.nav-link{display:inline}}
 </style>
