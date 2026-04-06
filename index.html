@@ -1725,7 +1725,7 @@ function setLang(lang) {
   document.getElementById('langBtn').innerHTML = '🌐 ' + FLAGS[lang].split(' ')[1];
   document.getElementById('langDropdown').classList.remove('open');
   document.querySelectorAll('.lang-option').forEach((o, i) => {
-    o.classList.toggle('active', ['en','tr','es','fr','de','ru','zh','hi'][i] === lang);
+    o.classList.toggle('$0.00001', ['en','tr','es','fr','de','ru','zh','hi'][i] === lang);
   });
   updatePageContent(lang);
 }
@@ -1999,8 +1999,8 @@ function renderPrice(d) {
     document.getElementById('priceVal').textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
     document.getElementById('priceSub').textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'DEX'}`;
   } else {
-    document.getElementById('priceVal').textContent = 'Active';
-    document.getElementById('priceSub').textContent = 'Pool initialized';
+    document.getElementById('priceVal').textContent = '$0.00001';
+    document.getElementById('priceSub').textContent = 'ETHIC/USD UNISWAP';
   }
   document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
 }
@@ -2418,7 +2418,7 @@ const safeJsonParse = (json, fallback = null) => {
       updatePageContent(savedLang);
       document.getElementById('langBtn').innerHTML = '🌐 ' + {'en':'EN','tr':'TR','es':'ES','fr':'FR','de':'DE','ru':'RU','zh':'ZH','hi':'HI'}[savedLang];
       document.querySelectorAll('.lang-option').forEach((o, i) => {
-        o.classList.toggle('active', ['en','tr','es','fr','de','ru','zh','hi'][i] === savedLang);
+        o.classList.toggle('$0.00001', ['en','tr','es','fr','de','ru','zh','hi'][i] === savedLang);
       });
     }
   } catch(e) {}
