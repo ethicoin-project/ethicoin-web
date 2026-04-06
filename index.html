@@ -2412,7 +2412,7 @@ const safeJsonParse = (json, fallback = null) => {
       updatePageContent(savedLang);
       document.getElementById('langBtn').innerHTML = '🌐 ' + {'en':'EN','tr':'TR','es':'ES','fr':'FR','de':'DE','ru':'RU','zh':'ZH','hi':'HI'}[savedLang];
       document.querySelectorAll('.lang-option').forEach((o, i) => {
-        o.classList.toggle('$0.00001', ['en','tr','es','fr','de','ru','zh','hi'][i] === savedLang);
+        o.classList.toggle('active', ['en','tr','es','fr','de','ru','zh','hi'][i] === savedLang);
       });
     }
   } catch(e) {}
