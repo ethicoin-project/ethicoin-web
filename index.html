@@ -1986,19 +1986,35 @@ function fmtAmount(v) {
 }
 
 // ════════════════════════════════════════════════════════════════
-// LIVE PRICE
+// LIVE PRICE - SMART FILTERED VERSION
 // ════════════════════════════════════════════════════════════════
 function renderPrice(d) {
   const pair = d.pairs?.[0];
+  const priceVal = document.getElementById('priceVal');
+  const priceSub = document.getElementById('priceSub');
+  const priceRefresh = document.getElementById('priceRefresh');
+
   if (pair && pair.priceUsd) {
     const price = parseFloat(pair.priceUsd);
-    document.getElementById('priceVal').textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
-    document.getElementById('priceSub').textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'DEX'}`;
+
+    // MÜHENDİS FİLTRESİ: Eğer fiyat uçuksa (milyar dolarlar gibi)
+    if (price > 1000000) {
+      priceVal.textContent = 'Establishing Value';
+      priceVal.style.fontSize = '1.8rem'; // Uzun yazı sığsın diye
+      priceSub.textContent = 'Initial Price Discovery in Progress';
+    } else {
+      // Normal fiyat gösterimi
+      priceVal.textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
+      priceSub.textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'UNISWAP'}`;
+      priceVal.style.fontSize = ''; // Normal boyuta dön
+    }
   } else {
-    document.getElementById('priceVal').textContent = 'Active';
-    document.getElementById('priceSub').textContent = 'Pool initialized';
+    // Veri gelmiyorsa veya havuz boşsa
+    priceVal.textContent = 'Active';
+    priceSub.textContent = 'Pool initialized on Base';
   }
-  document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
+
+  priceRefresh.textContent = 'Updated ' + new Date().toLocaleTimeString();
 }
 
 async function fetchPrice() {
