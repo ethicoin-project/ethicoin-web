@@ -1059,7 +1059,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
       <a href="https://t.me/ethicoin" target="_blank" class="social-btn"><span class="social-icon">✈</span> Telegram</a>
       <a href="https://app.uniswap.org/swap?outputCurrency=0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93&chain=base" target="_blank" class="social-btn"><span class="social-icon">🦄</span> Uniswap</a>
       <a href="https://basescan.org/token/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93" target="_blank" class="social-btn"><span class="social-icon">🔍</span> BaseScan</a>
-      <a href="/cdn-cgi/l/email-protection#afdbcacec2efcadbc7c6ccc0c6c181c6c0" class="social-btn"><span class="social-icon">✉</span> Contact</a>
+      <a href="mailto:team@ethicoin.io" class="social-btn"><span class="social-icon">✉</span> Contact</a>
     </div>
   </section>
 
@@ -1072,8 +1072,8 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
     <div class="footer-links">
       <a class="footer-link" href="https://basescan.org/token/0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93" target="_blank">BASESCAN</a>
       <a class="footer-link" href="https://app.uniswap.org/swap?outputCurrency=0x7eD8CFf2A123F38EEA725FD55CcAA69DD87FFe93&chain=base" target="_blank">UNISWAP</a>
-      <a class="footer-link" href="/cdn-cgi/l/email-protection#186c7d7975587d6c70717b777176367177">CONTACT</a>
-      <a class="footer-link" href="/cdn-cgi/l/email-protection#92f7e6fafbf1f1fdfbfcd2fafde6fff3fbfebcf1fdff">📧 <span class="__cf_email__" data-cfemail="d5b0a1bdbcb6b6babcbb95bdbaa1b8b4bcb9fbb6bab8">[email&#160;protected]</span></a>
+      <a class="footer-link" href="mailto:team@ethicoin.io">CONTACT</a>
+      <a class="footer-link" href="mailto:ethiccoin@hotmail.com">📧 ethiccoin@hotmail.com</a>
       <a class="footer-link" href="/privacy.html">PRIVACY</a>
       <a class="footer-link" href="/terms.html">TERMS</a>
     </div>
@@ -1081,8 +1081,7 @@ footer{border-top:1px solid rgba(0,212,232,0.07);padding:36px 5%;position:relati
   </div>
 </footer>
 
-<script>window.ETHICOIN_BASESCAN_API_KEY = 'WIZZPK37GC2D297N5PAEKFVQZT98HPZ8RB';</script>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ════════════════════════════════════════════════════════════════
 // ETHICOIN v2 — COMPLETE ENHANCED VERSION
 // ════════════════════════════════════════════════════════════════
@@ -1099,7 +1098,7 @@ if (!BASESCAN_API_KEY) {
 }
 
 // DexScreener endpoints — pairs endpoint is preferred; tokens endpoint is used as fallback
-const DEXSCREENER_PAIRS_URL = `https://api.dexscreener.com/latest/dex/tokens/${CONTRACT}`;
+const DEXSCREENER_PAIRS_URL = `https://api.dexscreener.com/latest/dex/pairs/base/${CONTRACT}`;
 const DEXSCREENER_TOKENS_URL = `https://api.dexscreener.com/latest/dex/tokens/${CONTRACT}`;
 
 // ════════════════════════════════════════════════════════════════
@@ -1107,12 +1106,9 @@ const DEXSCREENER_TOKENS_URL = `https://api.dexscreener.com/latest/dex/tokens/${
 // ════════════════════════════════════════════════════════════════
 const API_TIMEOUT = 7000; // ms — applied to all external API calls
 const fetchWithTimeout = (url, options = {}, timeout = API_TIMEOUT) => {
-  // AbortSignal is not structured-cloneable — avoid spreading it into options
-  // to prevent DataCloneError when browser tries to postMessage request internals.
   const controller = new AbortController();
   const id = setTimeout(() => controller.abort(), timeout);
-  const { signal: _s, ...safeOpts } = options;
-  return fetch(url, Object.assign({}, safeOpts, { signal: controller.signal }))
+  return fetch(url, { ...options, signal: controller.signal })
     .finally(() => clearTimeout(id));
 };
 
@@ -1725,7 +1721,7 @@ function setLang(lang) {
   document.getElementById('langBtn').innerHTML = '🌐 ' + FLAGS[lang].split(' ')[1];
   document.getElementById('langDropdown').classList.remove('open');
   document.querySelectorAll('.lang-option').forEach((o, i) => {
-    o.classList.toggle('$0.00001', ['en','tr','es','fr','de','ru','zh','hi'][i] === lang);
+    o.classList.toggle('active', ['en','tr','es','fr','de','ru','zh','hi'][i] === lang);
   });
   updatePageContent(lang);
 }
@@ -1993,9 +1989,15 @@ function fmtAmount(v) {
 // LIVE PRICE
 // ════════════════════════════════════════════════════════════════
 function renderPrice(d) {
-  function renderPrice(d) {
-  document.getElementById('priceVal').textContent = '$0.00001';
-  document.getElementById('priceSub').textContent = 'ETHIC/USD · UNISWAP';
+  const pair = d.pairs?.[0];
+  if (pair && pair.priceUsd) {
+    const price = parseFloat(pair.priceUsd);
+    document.getElementById('priceVal').textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
+    document.getElementById('priceSub').textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'DEX'}`;
+  } else {
+    document.getElementById('priceVal').textContent = 'Active';
+    document.getElementById('priceSub').textContent = 'Pool initialized';
+  }
   document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
 }
 
@@ -2399,23 +2401,18 @@ window.addEventListener('unhandledrejection', (event) => {
 });
 
 const safeJsonParse = (json, fallback = null) => {
-    try { return JSON.parse(json); } catch(e) { return fallback; }
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    console.error('JSON Parse Error:', e);
+    return fallback;
+  }
 };
 
-// ════════════════════════════════════════════════════════════════
-// INIT — Apply saved language on load
-// ════════════════════════════════════════════════════════════════
+// Restore saved language preference on page load
 (function() {
-  try {
-    const savedLang = localStorage.getItem('selectedLang') || 'en';
-    if (['en','tr','es','fr','de','ru','zh','hi'].includes(savedLang)) {
-      updatePageContent(savedLang);
-      document.getElementById('langBtn').innerHTML = '🌐 ' + {'en':'EN','tr':'TR','es':'ES','fr':'FR','de':'DE','ru':'RU','zh':'ZH','hi':'HI'}[savedLang];
-      document.querySelectorAll('.lang-option').forEach((o, i) => {
-        o.classList.toggle('active', ['en','tr','es','fr','de','ru','zh','hi'][i] === savedLang);
-      });
-    }
-  } catch(e) {}
+  const savedLang = localStorage.getItem('selectedLang') || 'en';
+  setLang(savedLang);
 })();
 
 </script>
