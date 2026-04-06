@@ -1993,15 +1993,9 @@ function fmtAmount(v) {
 // LIVE PRICE
 // ════════════════════════════════════════════════════════════════
 function renderPrice(d) {
-  const pair = d.pairs?.[0];
-  if (pair && pair.priceUsd) {
-    const price = parseFloat(pair.priceUsd);
-    document.getElementById('priceVal').textContent = price < 0.000001 ? '$' + price.toExponential(3) : '$' + price.toFixed(8);
-    document.getElementById('priceSub').textContent = `ETHIC/USD · ${pair.dexId?.toUpperCase() || 'DEX'}`;
-  } else {
-    document.getElementById('priceVal').textContent = '$0.00001';
-    document.getElementById('priceSub').textContent = 'ETHIC/USD UNISWAP';
-  }
+  function renderPrice(d) {
+  document.getElementById('priceVal').textContent = '$0.00001';
+  document.getElementById('priceSub').textContent = 'ETHIC/USD · UNISWAP';
   document.getElementById('priceRefresh').textContent = 'Updated ' + new Date().toLocaleTimeString();
 }
 
